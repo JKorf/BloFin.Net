@@ -1,0 +1,1480 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BloFin.Net</name>
+    </assembly>
+    <members>
+        <member name="T:BloFin.Net.BloFinEnvironment">
+            <summary>
+            BloFin environments
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.BloFinEnvironment.RestClientAddress">
+            <summary>
+            Rest API address
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.BloFinEnvironment.SocketClientAddress">
+            <summary>
+            Socket API address
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.BloFinEnvironment.#ctor">
+            <summary>
+            ctor for DI, use <see cref="M:BloFin.Net.BloFinEnvironment.CreateCustom(System.String,System.String,System.String)"/> for creating a custom environment
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.BloFinEnvironment.GetEnvironmentByName(System.String)">
+            <summary>
+            Get the BloFin environment by name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.BloFinEnvironment.All">
+            <summary>
+            Available environment names
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:BloFin.Net.BloFinEnvironment.Live">
+            <summary>
+            Live environment
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.BloFinEnvironment.Test">
+            <summary>
+            Test environment
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.BloFinEnvironment.CreateCustom(System.String,System.String,System.String)">
+            <summary>
+            Create a custom environment
+            </summary>
+            <param name="name"></param>
+            <param name="spotRestAddress"></param>
+            <param name="spotSocketStreamsAddress"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BloFin.Net.BloFinExchange">
+            <summary>
+            BloFin exchange information and configuration
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.BloFinExchange.ExchangeName">
+            <summary>
+            Exchange name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.BloFinExchange.DisplayName">
+            <summary>
+            Display name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.BloFinExchange.ImageUrl">
+            <summary>
+            Url to exchange image
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.BloFinExchange.Url">
+            <summary>
+            Url to the main website
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.BloFinExchange.ApiDocsUrl">
+            <summary>
+            Urls to the API documentation
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.BloFinExchange.Type">
+            <summary>
+            Type of exchange
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.BloFinExchange.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <summary>
+            Format a base and quote asset to an BloFin recognized symbol 
+            </summary>
+            <param name="baseAsset">Base asset</param>
+            <param name="quoteAsset">Quote asset</param>
+            <param name="tradingMode">Trading mode</param>
+            <param name="deliverTime">Delivery time for delivery futures</param>
+            <returns></returns>
+        </member>
+        <member name="P:BloFin.Net.BloFinExchange.RateLimiter">
+            <summary>
+            Rate limiter configuration for the BloFin API
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.BloFinRateLimiters">
+            <summary>
+            Rate limiter configuration for the BloFin API
+            </summary>
+        </member>
+        <member name="E:BloFin.Net.BloFinRateLimiters.RateLimitTriggered">
+            <summary>
+            Event for when a rate limit is triggered
+            </summary>
+        </member>
+        <member name="E:BloFin.Net.BloFinRateLimiters.RateLimitUpdated">
+            <summary>
+            Event when the rate limit is updated. Note that it's only updated when a request is send, so there are no specific updates when the current usage is decaying.
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.BloFinTrackerFactory">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.BloFinTrackerFactory.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.BloFinTrackerFactory.#ctor(System.IServiceProvider)">
+            <summary>
+            ctor
+            </summary>
+            <param name="serviceProvider">Service provider for resolving logging and clients</param>
+        </member>
+        <member name="M:BloFin.Net.BloFinTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.BloFinTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <inheritdoc />
+        </member>
+        <member name="T:BloFin.Net.Clients.BloFinRestClient">
+            <inheritdoc cref="T:BloFin.Net.Interfaces.Clients.IBloFinRestClient" />
+        </member>
+        <member name="P:BloFin.Net.Clients.BloFinRestClient.ExchangeApi">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinRestClient.#ctor(System.Action{BloFin.Net.Objects.Options.BloFinRestOptions})">
+            <summary>
+            Create a new instance of the BloFinRestClient using provided options
+            </summary>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptions{BloFin.Net.Objects.Options.BloFinRestOptions})">
+            <summary>
+            Create a new instance of the BloFinRestClient using provided options
+            </summary>
+            <param name="options">Option configuration</param>
+            <param name="loggerFactory">The logger factory</param>
+            <param name="httpClient">Http client for this client</param>
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinRestClient.SetDefaultOptions(System.Action{BloFin.Net.Objects.Options.BloFinRestOptions})">
+            <summary>
+            Set the default options to be used when creating new clients
+            </summary>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="T:BloFin.Net.Clients.BloFinSocketClient">
+            <inheritdoc cref="T:BloFin.Net.Interfaces.Clients.IBloFinSocketClient" />
+        </member>
+        <member name="P:BloFin.Net.Clients.BloFinSocketClient.ExchangeApi">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinSocketClient.#ctor(System.Action{BloFin.Net.Objects.Options.BloFinSocketOptions})">
+            <summary>
+            Create a new instance of BloFinSocketClient
+            </summary>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinSocketClient.#ctor(Microsoft.Extensions.Options.IOptions{BloFin.Net.Objects.Options.BloFinSocketOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Create a new instance of BloFinSocketClient
+            </summary>
+            <param name="loggerFactory">The logger factory</param>
+            <param name="options">Option configuration</param>
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinSocketClient.SetDefaultOptions(System.Action{BloFin.Net.Objects.Options.BloFinSocketOptions})">
+            <summary>
+            Set the default options to be used when creating new clients
+            </summary>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="T:BloFin.Net.Clients.BloFinUserClientProvider">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinUserClientProvider.#ctor(System.Action{BloFin.Net.Objects.Options.BloFinOptions})">
+            <summary>
+            ctor
+            </summary>
+            <param name="optionsDelegate">Options to use for created clients</param>
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinUserClientProvider.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptions{BloFin.Net.Objects.Options.BloFinRestOptions},Microsoft.Extensions.Options.IOptions{BloFin.Net.Objects.Options.BloFinSocketOptions})">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinUserClientProvider.ClearUserClients(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinUserClientProvider.GetSocketClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="T:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi">
+            <inheritdoc cref="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApi" />
+        </member>
+        <member name="P:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.Account">
+            <inheritdoc />
+        </member>
+        <member name="P:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.ExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="P:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.Trading">
+            <inheritdoc />
+        </member>
+        <member name="P:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.ExchangeName">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.CreateAccessor">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.CreateSerializer">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.GetServerTimestampAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.GetTimeSyncInfo">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.GetTimeOffset">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <inheritdoc />
+        </member>
+        <member name="P:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.SharedClient">
+            <inheritdoc />
+        </member>
+        <member name="T:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiAccount">
+            <inheritdoc />
+        </member>
+        <member name="T:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetSymbolsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetTickersAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetRecentTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetIndexMarkPriceAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetFundingRateAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetFundingRateHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiTrading">
+            <inheritdoc />
+        </member>
+        <member name="T:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi">
+            <summary>
+            Client providing access to the BloFin Exchange websocket Api
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.#ctor(Microsoft.Extensions.Logging.ILogger,BloFin.Net.Objects.Options.BloFinSocketOptions)">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.CreateAccessor(System.Net.WebSockets.WebSocketMessageType)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.CreateSerializer">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.SubscribeToXXXUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinModel}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="P:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.SharedClient">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <inheritdoc />
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.Boolean">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.Decimal">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.NullableDecimal">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.ContractType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.OrderSide">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.SymbolStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.SymbolType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponse">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinFundingRateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinKlineArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinMarkIndexPriceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinOrderBookArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinSymbolArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinTickerArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinFundingRate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinFundingRateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinKline">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinKlineArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinMarkIndexPrice">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinMarkIndexPriceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinOrderBook">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinOrderBookArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinOrderBookEntry">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinOrderBookEntryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSymbol">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSymbolArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTicker">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTickerArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTrade">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.DateTime">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.NullableDateTime">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.Int32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.NullableInt32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.Int64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.NullableInt64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.String">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.Default">
+            <summary>
+            The default <see cref="T:System.Text.Json.Serialization.JsonSerializerContext"/> associated with a default <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.GeneratedSerializerOptions">
+            <summary>
+            The source-generated options associated with this context.
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.Converters.BloFinSourceGenerationContext.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:BloFin.Net.Converters.BloFinSourceGenerationContext.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:BloFin.Net.Converters.BloFinSourceGenerationContext.GetTypeInfo(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="T:BloFin.Net.Enums.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.ContractType.Linear">
+            <summary>
+            Linear contract
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.ContractType.Inverse">
+            <summary>
+            Inverse contract
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.KlineInterval">
+            <summary>
+            Kline interval
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.OneMinute">
+            <summary>
+            One minute
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.ThreeMinutes">
+            <summary>
+            Three minutes
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.FiveMinutes">
+            <summary>
+            Five minutes
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.FifteenMinutes">
+            <summary>
+            Fifteen minutes
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.ThirtyMinutes">
+            <summary>
+            Thirty minutes
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.OneHour">
+            <summary>
+            One hour
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.TwoHours">
+            <summary>
+            Two hours
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.FourHours">
+            <summary>
+            Four hours
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.SixHours">
+            <summary>
+            Six hours
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.EightHours">
+            <summary>
+            Eight hours
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.TwelveHours">
+            <summary>
+            Twelve hours
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.OneDay">
+            <summary>
+            One day
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.ThreeDay">
+            <summary>
+            Three days
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.OneWeek">
+            <summary>
+            One week
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.KlineInterval.OneMonth">
+            <summary>
+            One month
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.OrderSide">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderSide.Buy">
+            <summary>
+            Buy
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderSide.Sell">
+            <summary>
+            Sell
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.SymbolStatus">
+            <summary>
+            Symbol status
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.SymbolStatus.Live">
+            <summary>
+            Live
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.SymbolStatus.Suspended">
+            <summary>
+            Live
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.SymbolType">
+            <summary>
+            Symbol type
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.SymbolType.Swap">
+            <summary>
+            Swap
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.ExtensionMethods.BloFinExtensionMethods">
+            <summary>
+            Extension methods specific to using the BloFin API
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApi">
+            <summary>
+            BloFin Exchange API endpoints
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApi.Account">
+            <summary>
+            Endpoints related to account settings, info or actions
+            </summary>
+            <see cref="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiAccount" />
+        </member>
+        <member name="P:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApi.ExchangeData">
+            <summary>
+            Endpoints related to retrieving market and system data
+            </summary>
+            <see cref="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData" />
+        </member>
+        <member name="P:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApi.Trading">
+            <summary>
+            Endpoints related to orders and trades
+            </summary>
+            <see cref="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiTrading" />
+        </member>
+        <member name="P:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApi.SharedClient">
+            <summary>
+            Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiAccount">
+            <summary>
+            BloFin Exchange account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData">
+            <summary>
+            BloFin Exchange exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetSymbolsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get list of supported symbols
+            <para><a href="https://docs.blofin.com/index.html#get-instruments" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol, for example `BTC-USDT`</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetTickersAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get price ticker info
+            <para><a href="https://docs.blofin.com/index.html#get-tickers" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get the order book for a symbol
+            <para><a href="https://docs.blofin.com/index.html#get-order-book" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="depth">The depth of the book, max 100</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetRecentTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get recent trades
+            <para><a href="https://docs.blofin.com/index.html#get-trades" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="limit">Number of results, max 100</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetIndexMarkPriceAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get index and mark price for a symbol
+            <para><a href="https://docs.blofin.com/index.html#get-mark-price" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetFundingRateAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get funding rate info
+            <para><a href="https://docs.blofin.com/index.html#get-funding-rate" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetFundingRateHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get funding rate history
+            <para><a href="https://docs.blofin.com/index.html#get-funding-rate-history" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results, max 100</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get Kline data for a symbol
+            <para><a href="https://docs.blofin.com/index.html#get-candlesticks" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="interval">Kline interval</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results, max 1440</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiShared">
+            <summary>
+            Shared interface for Exchange rest API usage
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiTrading">
+            <summary>
+            BloFin Exchange trading endpoints, placing and managing orders.
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinSocketClientExchangeApi">
+            <summary>
+            BloFin Exchange streams
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinSocketClientExchangeApi.SubscribeToXXXUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinModel}},System.Threading.CancellationToken)">
+            <summary>
+            
+            <para><a href="XXX" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="P:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinSocketClientExchangeApi.SharedClient">
+            <summary>
+            Get the shared socket requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinSocketClientExchangeApiShared">
+            <summary>
+            Shared interface for Exchange socket API usage
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Interfaces.Clients.IBloFinRestClient">
+            <summary>
+            Client for accessing the BloFin Rest API. 
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Interfaces.Clients.IBloFinRestClient.ExchangeApi">
+            <summary>
+            Exchange API endpoints
+            </summary>
+            <see cref="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApi"/>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.IBloFinRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <summary>
+            Update specific options
+            </summary>
+            <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.IBloFinRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <summary>
+            Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
+            </summary>
+            <param name="credentials">The credentials to set</param>
+        </member>
+        <member name="T:BloFin.Net.Interfaces.Clients.IBloFinSocketClient">
+            <summary>
+            Client for accessing the BloFin websocket API
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Interfaces.Clients.IBloFinSocketClient.ExchangeApi">
+            <summary>
+            Exchange API endpoints
+            </summary>
+            <see cref="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinSocketClientExchangeApi"/>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.IBloFinSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <summary>
+            Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
+            </summary>
+            <param name="credentials">The credentials to set</param>
+        </member>
+        <member name="T:BloFin.Net.Interfaces.Clients.IBloFinUserClientProvider">
+            <summary>
+            Provider for clients with credentials for specific users
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.IBloFinUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)">
+            <summary>
+            Initialize a client for the specified user identifier. This can be used so to initialize a client for a user so ApiCredentials do not need to be passed later.
+            </summary>
+            <param name="userIdentifier">The identifier for the user</param>
+            <param name="credentials">The credentials for the user</param>
+            <param name="environment">The environment to use</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.IBloFinUserClientProvider.ClearUserClients(System.String)">
+            <summary>
+            Reset the cached clients for a user. This can be useful when a user changes API credentials.
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.IBloFinUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)">
+            <summary>
+            Get the Rest client for a specific user. In case the client does not exist yet it will be created and the <paramref name="credentials"/> should be provided, unless <see cref="M:BloFin.Net.Interfaces.Clients.IBloFinUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)" /> has been called prior for this user.
+            </summary>
+            <param name="userIdentifier">The identifier for user</param>
+            <param name="credentials">The credentials for the user. Required the first time a client is requested for this user unless <see cref="M:BloFin.Net.Interfaces.Clients.IBloFinUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)" /> has been called prior for this user.</param>
+            <param name="environment">The environment to use</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.IBloFinUserClientProvider.GetSocketClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)">
+            <summary>
+            Get the Socket client for a specific user. In case the client does not exist yet it will be created and the <paramref name="credentials"/> should be provided, unless <see cref="M:BloFin.Net.Interfaces.Clients.IBloFinUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)" /> has been called prior for this user.
+            </summary>
+            <param name="userIdentifier">The identifier for user</param>
+            <param name="credentials">The credentials for the user. Required the first time a client is requested for this user unless <see cref="M:BloFin.Net.Interfaces.Clients.IBloFinUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)" /> has been called prior for this user.</param>
+            <param name="environment">The environment to use</param>
+        </member>
+        <member name="T:BloFin.Net.Interfaces.IBloFinOrderBookFactory">
+            <summary>
+            BloFin local order book factory
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Interfaces.IBloFinOrderBookFactory.Exchange">
+            <summary>
+            Exchange order book factory methods
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.IBloFinOrderBookFactory.Create(CryptoExchange.Net.SharedApis.SharedSymbol,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions})">
+            <summary>
+            Create a SymbolOrderBook for the symbol
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="options">Book options</param>
+            <returns></returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.IBloFinOrderBookFactory.Create(System.String,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions})">
+            <summary>
+            Create a new local order book instance
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Interfaces.IBloFinTrackerFactory">
+            <summary>
+            Tracker factory
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.IBloFinTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <summary>
+            Create a new kline tracker
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="interval">Kline interval</param>
+            <param name="limit">The max amount of klines to retain</param>
+            <param name="period">The max period the data should be retained</param>
+            <returns></returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.IBloFinTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <summary>
+            Create a new trade tracker for a symbol
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="limit">The max amount of klines to retain</param>
+            <param name="period">The max period the data should be retained</param>
+            <returns></returns>
+        </member>
+        <member name="T:BloFin.Net.Objects.BloFinApiAddresses">
+            <summary>
+            Api addresses
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.BloFinApiAddresses.RestClientAddress">
+            <summary>
+            The address used by the BloFinRestClient for the API
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.BloFinApiAddresses.SocketClientAddress">
+            <summary>
+            The address used by the BloFinSocketClient for the websocket API
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Objects.BloFinApiAddresses.Default">
+            <summary>
+            The default addresses to connect to the BloFin API
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Objects.BloFinApiAddresses.Test">
+            <summary>
+            The default addresses to connect to the BloFin API
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinFundingRate">
+            <summary>
+            Funding rate info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFundingRate.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFundingRate.FundingRate">
+            <summary>
+            Funding rate
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFundingRate.FundingTime">
+            <summary>
+            Funding time
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinKline">
+            <summary>
+            Kline info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinKline.OpenTime">
+            <summary>
+            Open timestamp
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinKline.OpenPrice">
+            <summary>
+            Open price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinKline.HighPrice">
+            <summary>
+            High price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinKline.LowPrice">
+            <summary>
+            Low price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinKline.ClosePrice">
+            <summary>
+            Close price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinKline.Volume">
+            <summary>
+            Volume in contracts
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinKline.BaseVolume">
+            <summary>
+            Volume in base asset
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinKline.QuoteVolume">
+            <summary>
+            Volume in quote asset
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinKline.Finished">
+            <summary>
+            Whether the kline is finished
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinMarkIndexPrice">
+            <summary>
+            Mark/Index price info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinMarkIndexPrice.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinMarkIndexPrice.IndexPrice">
+            <summary>
+            Index price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinMarkIndexPrice.MarkPrice">
+            <summary>
+            Mark price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinMarkIndexPrice.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinOrderBook">
+            <summary>
+            Order book info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderBook.Asks">
+            <summary>
+            Asks
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderBook.Bids">
+            <summary>
+            Bids
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinOrderBookEntry">
+            <summary>
+            Order book entry
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderBookEntry.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderBookEntry.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinSymbol">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.BaseAsset">
+            <summary>
+            Base asset
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.QuoteAsset">
+            <summary>
+            Quote asset
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.ContractSize">
+            <summary>
+            Contract size
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.ListTime">
+            <summary>
+            List time
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.ExpireTime">
+            <summary>
+            Expire time
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.MaxLeverage">
+            <summary>
+            Max leverage
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.MinQuantity">
+            <summary>
+            Min order quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.LotQuantity">
+            <summary>
+            Lot quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.TickQuantity">
+            <summary>
+            Tick quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.SymbolType">
+            <summary>
+            Symbol type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.MaxLimitQuantity">
+            <summary>
+            Max limit order quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.MaxMarketQuantity">
+            <summary>
+            Max market order quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.SettleAsset">
+            <summary>
+            Settle asset
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinTicker">
+            <summary>
+            Ticker info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTicker.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTicker.LastPrice">
+            <summary>
+            Last trade price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTicker.LastQuantity">
+            <summary>
+            Last trade quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTicker.BestAskPrice">
+            <summary>
+            Best ask price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTicker.BestAskQuantity">
+            <summary>
+            Best ask quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTicker.BestBidPrice">
+            <summary>
+            Best bid price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTicker.BestBidQuantity">
+            <summary>
+            Best bid quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTicker.High24h">
+            <summary>
+            Highest price in last 24h
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTicker.Open24h">
+            <summary>
+            Open price 24h ago
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTicker.Low24h">
+            <summary>
+            Lowest price in last 24h
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTicker.BaseVolume24h">
+            <summary>
+            Volume in the last 24h in base asset
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTicker.ContractVolume24h">
+            <summary>
+            Volume in the last 24h in contracts
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTicker.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinTrade">
+            <summary>
+            Trade info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTrade.TradeId">
+            <summary>
+            Trade id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTrade.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTrade.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTrade.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTrade.Side">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTrade.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Options.BloFinOptions">
+            <summary>
+            BloFin options
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Options.BloFinOrderBookOptions">
+            <summary>
+            Options for the BloFin SymbolOrderBook
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Options.BloFinOrderBookOptions.Default">
+            <summary>
+            Default options for new clients
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Options.BloFinOrderBookOptions.Limit">
+            <summary>
+            The top amount of results to keep in sync. If for example limit=10 is used, the order book will contain the 10 best bids and 10 best asks. Leaving this null will sync the full order book
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Options.BloFinOrderBookOptions.InitialDataTimeout">
+            <summary>
+            After how much time we should consider the connection dropped if no data is received for this time after the initial subscriptions
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Options.BloFinRestOptions">
+            <summary>
+            Options for the BloFinRestClient
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Options.BloFinRestOptions.Default">
+            <summary>
+            Default options for new clients
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.Objects.Options.BloFinRestOptions.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Options.BloFinRestOptions.ExchangeOptions">
+            <summary>
+            Exchange API options
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Options.BloFinSocketOptions">
+            <summary>
+            Options for the BloFinSocketClient
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Options.BloFinSocketOptions.Default">
+            <summary>
+            Default options for new clients
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.Objects.Options.BloFinSocketOptions.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Options.BloFinSocketOptions.ExchangeOptions">
+            <summary>
+            Exchange API options
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+            <summary>
+            ctor
+            </summary>
+            <param name="logger"></param>
+            <param name="topics"></param>
+            <param name="handler"></param>
+            <param name="auth"></param>
+        </member>
+        <member name="M:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{`0})">
+            <inheritdoc />
+        </member>
+        <member name="T:BloFin.Net.SymbolOrderBooks.BloFinExchangeSymbolOrderBook">
+            <summary>
+            Implementation for a synchronized order book. After calling Start the order book will sync itself and keep up to date with new data. It will automatically try to reconnect and resync in case of a lost/interrupted connection.
+            Make sure to check the State property to see if the order book is synced.
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinExchangeSymbolOrderBook.#ctor(System.String,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions})">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinExchangeSymbolOrderBook.#ctor(System.String,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions},Microsoft.Extensions.Logging.ILoggerFactory,BloFin.Net.Interfaces.Clients.IBloFinRestClient,BloFin.Net.Interfaces.Clients.IBloFinSocketClient)">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="logger">Logger</param>
+            <param name="restClient">Rest client instance</param>
+            <param name="socketClient">Socket client instance</param>
+        </member>
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinExchangeSymbolOrderBook.DoStartAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinExchangeSymbolOrderBook.DoReset">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinExchangeSymbolOrderBook.DoResyncAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinExchangeSymbolOrderBook.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:BloFin.Net.SymbolOrderBooks.BloFinOrderBookFactory">
+            <summary>
+            BloFin order book factory
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinOrderBookFactory.#ctor(System.IServiceProvider)">
+            <summary>
+            ctor
+            </summary>
+            <param name="serviceProvider">Service provider for resolving logging and clients</param>
+        </member>
+        <member name="P:BloFin.Net.SymbolOrderBooks.BloFinOrderBookFactory.Exchange">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinOrderBookFactory.Create(CryptoExchange.Net.SharedApis.SharedSymbol,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions})">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinOrderBookFactory.Create(System.String,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions})">
+            <inheritdoc />
+        </member>
+        <member name="T:CryptoExchange.Net.Interfaces.CryptoClientExtensions">
+            <summary>
+            Extensions for the ICryptoRestClient and ICryptoSocketClient interfaces
+            </summary>
+        </member>
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.BloFin(CryptoExchange.Net.Interfaces.ICryptoRestClient)">
+            <summary>
+            Get the BloFin REST Api client
+            </summary>
+            <param name="baseClient"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.BloFin(CryptoExchange.Net.Interfaces.ICryptoSocketClient)">
+            <summary>
+            Get the BloFin Websocket Api client
+            </summary>
+            <param name="baseClient"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions">
+            <summary>
+            Extensions for DI
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBloFin(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Add services such as the IBloFinRestClient and IBloFinSocketClient. Configures the services based on the provided configuration.
+            </summary>
+            <param name="services">The service collection</param>
+            <param name="configuration">The configuration(section) containing the options</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBloFin(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BloFin.Net.Objects.Options.BloFinOptions})">
+            <summary>
+            Add services such as the IBloFinRestClient and IBloFinSocketClient. Services will be configured based on the provided options.
+            </summary>
+            <param name="services">The service collection</param>
+            <param name="optionsDelegate">Set options for the BloFin services</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.Bind_BloFinOptions(Microsoft.Extensions.Configuration.IConfiguration,System.Object)">
+            <summary>Attempts to bind the given object instance to configuration values by matching property names against configuration keys recursively.</summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.ValidateConfigurationKeys(System.Type,System.Lazy{System.Collections.Generic.HashSet{System.String}},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Configuration.BinderOptions)">
+            <summary>If required by the binder options, validates that there are no unknown keys in the input configuration object.</summary>
+        </member>
+    </members>
+</doc>

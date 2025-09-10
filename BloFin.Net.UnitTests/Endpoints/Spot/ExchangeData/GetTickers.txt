@@ -1,0 +1,24 @@
+GET
+/api/v1/market/tickers
+false
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "instId": "BTC-USDT",
+            "last": "27187",
+            "lastSize": "1",
+            "askPrice": "27187.5",
+            "askSize": "20",
+            "bidPrice": "27187",
+            "bidSize": "2",
+            "high24h": "27463.5",
+            "open24h": "27186.5",
+            "low24h": "26647.5",
+            "volCurrency24h": "3224.82",
+            "vol24h": "3224820",
+            "ts": "1695261862487"
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+GET
+/api/v1/market/funding-rate-history
+false
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "instId": "BTC-USDT",
+            "fundingRate": "0.000330372404346635",
+            "fundingTime": "1703462400000"
+        }
+    ]
+}

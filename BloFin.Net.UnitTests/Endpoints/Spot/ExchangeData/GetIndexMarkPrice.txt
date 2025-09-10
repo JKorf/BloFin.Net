@@ -1,0 +1,15 @@
+GET
+/api/v1/market/mark-price
+false
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "instId": "ETH-USDT",
+            "indexPrice": "1620.78",
+            "markPrice": "1620.58",
+            "ts": "1695262570838"
+        }
+    ]
+}
