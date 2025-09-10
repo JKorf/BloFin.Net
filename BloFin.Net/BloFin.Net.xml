@@ -297,6 +297,12 @@
         <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetIndexPriceKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetMarkPriceKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiTrading">
             <inheritdoc />
         </member>
@@ -379,6 +385,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinIndexMarkKlineArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinKlineArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -415,6 +426,16 @@
             </summary>
         </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinFundingRateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinIndexMarkKline">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinIndexMarkKlineArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -794,6 +815,30 @@
             <param name="limit">Max number of results, max 1440</param>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetIndexPriceKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get index price Kline data for a symbol
+            <para><a href="https://docs.blofin.com/index.html#get-index-candlesticks" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="interval">Kline interval</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results, max 1440</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetMarkPriceKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get mark price Kline data for a symbol
+            <para><a href="https://docs.blofin.com/index.html#get-mark-price-candlesticks" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="interval">Kline interval</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results, max 1440</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiShared">
             <summary>
             Shared interface for Exchange rest API usage
@@ -992,6 +1037,41 @@
         <member name="P:BloFin.Net.Objects.Models.BloFinFundingRate.FundingTime">
             <summary>
             Funding time
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinIndexMarkKline">
+            <summary>
+            Kline info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinIndexMarkKline.OpenTime">
+            <summary>
+            Open timestamp
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinIndexMarkKline.OpenPrice">
+            <summary>
+            Open price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinIndexMarkKline.HighPrice">
+            <summary>
+            High price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinIndexMarkKline.LowPrice">
+            <summary>
+            Low price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinIndexMarkKline.ClosePrice">
+            <summary>
+            Close price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinIndexMarkKline.Finished">
+            <summary>
+            Whether the kline is finished
             </summary>
         </member>
         <member name="T:BloFin.Net.Objects.Models.BloFinKline">

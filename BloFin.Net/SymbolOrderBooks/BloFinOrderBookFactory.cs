@@ -37,9 +37,6 @@ namespace BloFin.Net.SymbolOrderBooks
         public ISymbolOrderBook Create(SharedSymbol symbol, Action<BloFinOrderBookOptions>? options = null)
         {
             var symbolName = symbol.GetSymbol(BloFinExchange.FormatSymbol);
-#warning TODO
-            //if (symbol.TradingMode == TradingMode.Spot)
-            //    return CreateSpot(symbolName, options);
 
             return Create(symbolName, options);
         }

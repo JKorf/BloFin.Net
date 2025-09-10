@@ -15,6 +15,7 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Objects.Errors;
 using BloFin.Net.Objects.Internal;
+using CryptoExchange.Net.Converters.MessageParsing;
 
 namespace BloFin.Net.Clients.ExchangeApi
 {
@@ -81,8 +82,11 @@ namespace BloFin.Net.Clients.ExchangeApi
         }
 
         protected override Error? TryParseError(RequestDefinition definition, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor) {
-#warning TODO if API returns errors on HttpStatus 200 this should return it for correct logging
-            return null;
+            var responseCode = accessor.GetValue<int>(MessagePath.Get().Property("code"));
+            if (responseCode == 0)
+                return null;
+
+            return new ServerError(responseCode, GetErrorInfo(responseCode, accessor.GetValue<string>(MessagePath.Get().Property("msg"))));
         }
 
         protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception) {

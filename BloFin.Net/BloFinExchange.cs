@@ -64,8 +64,7 @@ namespace BloFin.Net
         /// <returns></returns>
         public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
         {
-#warning todo
-            throw new NotImplementedException();
+            return baseAsset.ToUpperInvariant() + "-" + quoteAsset.ToUpperInvariant();
         }
 
         /// <summary>

@@ -15,7 +15,7 @@ namespace BloFin.Net.UnitTests
         public void CheckSignatureExample1()
         {
             var authProvider = new BloFinAuthenticationProvider(new ApiCredentials("XXX", "XXX"));
-            var client = (RestApiClient)new BloFinRestClient().SpotApi;
+            var client = (RestApiClient)new BloFinRestClient().ExchangeApi;
 
             CryptoExchange.Net.Testing.TestHelpers.CheckSignature(
                 client,
