@@ -33,7 +33,7 @@ namespace BloFin.Net
         /// <summary>
         /// Url to exchange image
         /// </summary>
-        public static string ImageUrl { get; } = "TODO";
+        public static string ImageUrl { get; } = "https://raw.githubusercontent.com/JKorf/BloFin.Net/main/BloFin.Net/Icon/icon.png";
 
         /// <summary>
         /// Url to the main website
@@ -96,13 +96,22 @@ namespace BloFin.Net
 
         private void Initialize()
         {
-            BloFin = new RateLimitGate("BloFin");
-            BloFin.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
-            BloFin.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+            BloFinRest = new RateLimitGate("BloFin")
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, [], 500, TimeSpan.FromMinutes(1), RateLimitWindowType.Sliding, connectionWeight: 0)) // 500 requests per IP per minute
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, [], 1500, TimeSpan.FromMinutes(5), RateLimitWindowType.Sliding, connectionWeight: 0)) // 1500 requests per IP per 5 minutes
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerApiKey, new AuthenticatedEndpointFilter(true), 30, TimeSpan.FromSeconds(10), RateLimitWindowType.Sliding)); // 30 requests per user per 10 seconds
+            BloFinRest.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            BloFinRest.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+
+            BloFinSocket = new RateLimitGate("BloFin")
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, [new LimitItemTypeFilter(RateLimitItemType.Connection)], 1, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding)); // 1 connection per seconds per ip
+            BloFinSocket.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            BloFinSocket.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
         }
 
 
-        internal IRateLimitGate BloFin { get; private set; }
+        internal IRateLimitGate BloFinRest { get; private set; }
+        internal IRateLimitGate BloFinSocket { get; private set; }
 
     }
 }

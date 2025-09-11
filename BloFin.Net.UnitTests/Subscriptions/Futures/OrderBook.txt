@@ -1,0 +1,35 @@
+> { "op":"subscribe", "args":[{ "channel":"books5", "instId":"ETH-USDT" }]}
+< { "event": "subscribe", "arg": { "channel": "books5", "instId": "ETH-USDT" }}
+= 
+{
+    "arg":{
+        "channel":"books5",
+        "instId":"ETH-USDT"
+    },
+    "action":"snapshot",
+    "data":{
+        "asks":[
+            [
+                1639.75,
+                392
+            ],
+            [
+                1639.95,
+                541
+            ]
+        ],
+        "bids":[
+            [
+                1639.7,
+                6817
+            ],
+            [
+                1639.65,
+                4744
+            ]
+        ],
+        "ts":"1696670727520",
+        "prevSeqId":"0",
+        "seqId":"107600747"
+    }
+}

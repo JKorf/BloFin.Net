@@ -7,8 +7,8 @@ using BloFin.Net.Objects.Options;
 using CryptoExchange.Net.Clients;
 using Microsoft.Extensions.Options;
 using CryptoExchange.Net.Objects.Options;
-using BloFin.Net.Interfaces.Clients.ExchangeApi;
-using BloFin.Net.Clients.ExchangeApi;
+using BloFin.Net.Interfaces.Clients.FuturesApi;
+using BloFin.Net.Clients.FuturesApi;
 
 namespace BloFin.Net.Clients
 {
@@ -18,7 +18,7 @@ namespace BloFin.Net.Clients
         #region Api clients
                 
          /// <inheritdoc />
-        public IBloFinRestClientExchangeApi ExchangeApi { get; }
+        public IBloFinRestClientFuturesApi FuturesApi { get; }
 
         #endregion
 
@@ -43,7 +43,7 @@ namespace BloFin.Net.Clients
         {
             Initialize(options.Value);
                         
-            ExchangeApi = AddApiClient(new BloFinRestClientExchangeApi(this, _logger, httpClient, options.Value));
+            FuturesApi = AddApiClient(new BloFinRestClientFuturesApi(this, _logger, httpClient, options.Value));
         }
 
         #endregion
@@ -51,7 +51,7 @@ namespace BloFin.Net.Clients
         /// <inheritdoc />
         public void SetOptions(UpdateOptions options)
         {
-            ExchangeApi.SetOptions(options);
+            FuturesApi.SetOptions(options);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace BloFin.Net.Clients
         /// <inheritdoc />
         public void SetApiCredentials(ApiCredentials credentials)
         {
-            ExchangeApi.SetApiCredentials(credentials);
+            FuturesApi.SetApiCredentials(credentials);
         }
     }
 }

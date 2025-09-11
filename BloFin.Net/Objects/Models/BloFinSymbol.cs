@@ -57,12 +57,12 @@ namespace BloFin.Net.Objects.Models
         /// Lot quantity
         /// </summary>
         [JsonPropertyName("lotSize")]
-        public decimal LotQuantity { get; set; }
+        public decimal LotSize { get; set; }
         /// <summary>
         /// Tick quantity
         /// </summary>
         [JsonPropertyName("tickSize")]
-        public decimal TickQuantity { get; set; }
+        public decimal TickSize { get; set; }
         /// <summary>
         /// Symbol type
         /// </summary>

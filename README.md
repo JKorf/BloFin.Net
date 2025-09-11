@@ -2,7 +2,7 @@
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/BloFin.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/BloFin.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/BloFin.Net?style=for-the-badge)
 
-BloFin.Net is a client library for accessing the [BloFin REST and Websocket API](BloFin). 
+BloFin.Net is a client library for accessing the [BloFin REST and Websocket API](https://docs.blofin.com/index.html). 
 
 ## Features
 * Response data is mapped to descriptive models
@@ -49,14 +49,14 @@ The NuGet package files are added along side the source with the latest GitHub r
 	```csharp
 	// Get the ETH/USDT ticker via rest request
 	var restClient = new BloFinRestClient();
-	var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
-	var lastPrice = tickerResult.Data.LastPrice;
+	var tickerResult = await restClient.FuturesApi.ExchangeData.GetTickersAsync("ETH-USDT");
+	var lastPrice = tickerResult.Data.FirstOrDefault()?.LastPrice;
 	```
 * Websocket streams
 	```csharp
 	// Subscribe to ETH/USDT ticker updates via the websocket API
 	var socketClient = new BloFinSocketClient();
-	var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETHUSDT", (update) => 
+	var tickerSubscriptionResult = socketClient.FuturesApi.SubscribeToTickerUpdatesAsync("ETH-USDT", (update) => 
 	{
 	  var lastPrice = update.Data.LastPrice;
 	});

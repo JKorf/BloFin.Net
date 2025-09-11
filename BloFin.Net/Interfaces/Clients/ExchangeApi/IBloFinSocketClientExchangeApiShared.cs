@@ -3,13 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BloFin.Net.Interfaces.Clients.ExchangeApi
+namespace BloFin.Net.Interfaces.Clients.FuturesApi
 {
     /// <summary>
     /// Shared interface for Exchange socket API usage
     /// </summary>
-    public interface IBloFinSocketClientExchangeApiShared :
-        ISharedClient
+    public interface IBloFinSocketClientFuturesApiShared :
+        IBookTickerSocketClient,
+        IKlineSocketClient,
+        IOrderBookSocketClient,
+        ITickerSocketClient,
+        ITradeSocketClient
     {
     }
 }

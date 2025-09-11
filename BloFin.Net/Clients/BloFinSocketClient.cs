@@ -6,8 +6,8 @@ using Microsoft.Extensions.Options;
 using System;
 using BloFin.Net.Interfaces.Clients;
 using BloFin.Net.Objects.Options;
-using BloFin.Net.Interfaces.Clients.ExchangeApi;
-using BloFin.Net.Clients.ExchangeApi;
+using BloFin.Net.Interfaces.Clients.FuturesApi;
+using BloFin.Net.Clients.FuturesApi;
 
 namespace BloFin.Net.Clients
 {
@@ -21,7 +21,7 @@ namespace BloFin.Net.Clients
 
         
          /// <inheritdoc />
-        public IBloFinSocketClientExchangeApi ExchangeApi { get; }
+        public IBloFinSocketClientFuturesApi FuturesApi { get; }
 
 
         #endregion
@@ -46,14 +46,14 @@ namespace BloFin.Net.Clients
         {
             Initialize(options.Value);
 
-            ExchangeApi = AddApiClient(new BloFinSocketClientExchangeApi(_logger, options.Value));
+            FuturesApi = AddApiClient(new BloFinSocketClientFuturesApi(_logger, options.Value));
         }
         #endregion
 
         /// <inheritdoc />
         public void SetOptions(UpdateOptions options)
         {
-            ExchangeApi.SetOptions(options);
+            FuturesApi.SetOptions(options);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace BloFin.Net.Clients
         /// <inheritdoc />
         public void SetApiCredentials(ApiCredentials credentials)
         {            
-            ExchangeApi.SetApiCredentials(credentials);
+            FuturesApi.SetApiCredentials(credentials);
         }
     }
 }

@@ -142,7 +142,7 @@
         <member name="T:BloFin.Net.Clients.BloFinRestClient">
             <inheritdoc cref="T:BloFin.Net.Interfaces.Clients.IBloFinRestClient" />
         </member>
-        <member name="P:BloFin.Net.Clients.BloFinRestClient.ExchangeApi">
+        <member name="P:BloFin.Net.Clients.BloFinRestClient.FuturesApi">
             <inheritdoc />
         </member>
         <member name="M:BloFin.Net.Clients.BloFinRestClient.#ctor(System.Action{BloFin.Net.Objects.Options.BloFinRestOptions})">
@@ -174,7 +174,7 @@
         <member name="T:BloFin.Net.Clients.BloFinSocketClient">
             <inheritdoc cref="T:BloFin.Net.Interfaces.Clients.IBloFinSocketClient" />
         </member>
-        <member name="P:BloFin.Net.Clients.BloFinSocketClient.ExchangeApi">
+        <member name="P:BloFin.Net.Clients.BloFinSocketClient.FuturesApi">
             <inheritdoc />
         </member>
         <member name="M:BloFin.Net.Clients.BloFinSocketClient.#ctor(System.Action{BloFin.Net.Objects.Options.BloFinSocketOptions})">
@@ -228,116 +228,167 @@
         <member name="M:BloFin.Net.Clients.BloFinUserClientProvider.GetSocketClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)">
             <inheritdoc />
         </member>
-        <member name="T:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi">
-            <inheritdoc cref="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApi" />
+        <member name="T:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi">
+            <inheritdoc cref="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApi" />
         </member>
-        <member name="P:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.Account">
+        <member name="P:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.Account">
             <inheritdoc />
         </member>
-        <member name="P:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.ExchangeData">
+        <member name="P:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.ExchangeData">
             <inheritdoc />
         </member>
-        <member name="P:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.Trading">
+        <member name="P:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.Trading">
             <inheritdoc />
         </member>
-        <member name="P:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.ExchangeName">
+        <member name="P:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.ExchangeName">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.CreateAccessor">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.CreateAccessor">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.CreateSerializer">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.CreateSerializer">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.GetServerTimestampAsync">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.GetServerTimestampAsync">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.GetTimeSyncInfo">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.GetTimeSyncInfo">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.GetTimeOffset">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.GetTimeOffset">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
-        <member name="P:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApi.SharedClient">
+        <member name="P:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.SharedClient">
             <inheritdoc />
         </member>
-        <member name="T:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiAccount">
+        <member name="T:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount">
             <inheritdoc />
         </member>
-        <member name="T:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetBalancesAsync(BloFin.Net.Enums.AccountType,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetSymbolsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.TransferAsync(System.String,BloFin.Net.Enums.AccountType,BloFin.Net.Enums.AccountType,System.Decimal,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetTickersAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetAccountConfigAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetApiKeyInfoAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetRecentTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="T:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiExchangeData">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetIndexMarkPriceAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiExchangeData.GetSymbolsAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetFundingRateAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiExchangeData.GetTickersAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetFundingRateHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiExchangeData.GetRecentTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetIndexPriceKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiExchangeData.GetIndexMarkPriceAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiExchangeData.GetMarkPriceKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiExchangeData.GetFundingRateAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="T:BloFin.Net.Clients.ExchangeApi.BloFinRestClientExchangeApiTrading">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="T:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiExchangeData.GetKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiExchangeData.GetIndexPriceKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiExchangeData.GetMarkPriceKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading">
+            <inheritdoc />
+        </member>
+        <member name="T:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi">
             <summary>
-            Client providing access to the BloFin Exchange websocket Api
+            Client providing access to the BloFin Futures websocket Api
             </summary>
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.#ctor(Microsoft.Extensions.Logging.ILogger,BloFin.Net.Objects.Options.BloFinSocketOptions)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.#ctor(Microsoft.Extensions.Logging.ILogger,BloFin.Net.Objects.Options.BloFinSocketOptions)">
             <summary>
             ctor
             </summary>
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.CreateAccessor(System.Net.WebSockets.WebSocketMessageType)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.CreateAccessor(System.Net.WebSockets.WebSocketMessageType)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.CreateSerializer">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.CreateSerializer">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.SubscribeToXXXUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinModel}},System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinTrade[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinTrade[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToKlineUpdatesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinKline}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="P:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.SharedClient">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BloFin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinKline}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.ExchangeApi.BloFinSocketClientExchangeApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToIndexPriceKlineUpdatesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinIndexMarkKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToIndexPriceKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BloFin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinIndexMarkKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToMarkPriceKlineUpdatesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinIndexMarkKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToMarkPriceKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BloFin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinIndexMarkKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinTicker}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinTicker}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToFundingRateUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinFundingRate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToFundingRateUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinFundingRate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="P:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SharedClient">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.Boolean">
@@ -351,6 +402,11 @@
             </summary>
         </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.NullableDecimal">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.AccountLevel">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -376,6 +432,21 @@
             </summary>
         </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponse">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinAccountConfig">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinApiKey">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinBalanceArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -416,6 +487,71 @@
             </summary>
         </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinTransferResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketRequest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketResponse">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketUpdateBloFinFundingRateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketUpdateBloFinIndexMarkKlineArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketUpdateBloFinKlineArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketUpdateBloFinOrderBookUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketUpdateBloFinTickerArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketUpdateBloFinTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinAccountConfig">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinApiKey">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinBalance">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinBalanceArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -480,6 +616,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinOrderBookUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSymbol">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -506,6 +647,26 @@
             </summary>
         </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTransferResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.DictionaryStringObject">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.DictionaryStringObjectArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.IDictionaryStringObject">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -540,7 +701,17 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.Object">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.String">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.StringArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -563,6 +734,66 @@
         </member>
         <member name="M:BloFin.Net.Converters.BloFinSourceGenerationContext.GetTypeInfo(System.Type)">
             <inheritdoc/>
+        </member>
+        <member name="T:BloFin.Net.Enums.AccountLevel">
+            <summary>
+            Account level
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.AccountLevel.Normal">
+            <summary>
+            Normal account
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.AccountLevel.UnifiedSpot">
+            <summary>
+            Unified spot account
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.AccountLevel.UnifiedSpotFutures">
+            <summary>
+            Unified spot futures account
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.AccountLevel.UnifiedMultiAsset">
+            <summary>
+            Unified multi asset account
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.AccountType">
+            <summary>
+            Account type
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.AccountType.Funding">
+            <summary>
+            Funding account
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.AccountType.Futures">
+            <summary>
+            Futures account
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.AccountType.CopyTrading">
+            <summary>
+            Copy trading account
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.AccountType.Earn">
+            <summary>
+            Earn account
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.AccountType.Spot">
+            <summary>
+            Spot account
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.AccountType.InverseContract">
+            <summary>
+            Inverse contract account
+            </summary>
         </member>
         <member name="T:BloFin.Net.Enums.ContractType">
             <summary>
@@ -704,45 +935,80 @@
             Extension methods specific to using the BloFin API
             </summary>
         </member>
-        <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApi">
+        <member name="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApi">
             <summary>
             BloFin Exchange API endpoints
             </summary>
         </member>
-        <member name="P:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApi.Account">
+        <member name="P:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApi.Account">
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
-            <see cref="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiAccount" />
+            <see cref="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount" />
         </member>
-        <member name="P:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApi.ExchangeData">
+        <member name="P:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
             </summary>
-            <see cref="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData" />
+            <see cref="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiExchangeData" />
         </member>
-        <member name="P:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApi.Trading">
+        <member name="P:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
-            <see cref="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiTrading" />
+            <see cref="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading" />
         </member>
-        <member name="P:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApi.SharedClient">
+        <member name="P:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApi.SharedClient">
             <summary>
             Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
-        <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiAccount">
+        <member name="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount">
             <summary>
             BloFin Exchange account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
             </summary>
         </member>
-        <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData">
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetBalancesAsync(BloFin.Net.Enums.AccountType,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get account balances
+            <para><a href="https://docs.blofin.com/index.html#get-instruments" /></para>
+            </summary>
+            <param name="accountType">Account type</param>
+            <param name="asset">Filter by asset</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.TransferAsync(System.String,BloFin.Net.Enums.AccountType,BloFin.Net.Enums.AccountType,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Transfer asset between account types
+            <para><a href="https://docs.blofin.com/index.html#funds-transfer" /></para>
+            </summary>
+            <param name="asset">The asset</param>
+            <param name="fromAccount">From account</param>
+            <param name="toAccount">To account</param>
+            <param name="quantity">Quantity to transfer</param>
+            <param name="clientId">Client transfer id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetAccountConfigAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get account config
+            <para><a href="https://docs.blofin.com/index.html#get-account-config" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetApiKeyInfoAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get API key info
+            <para><a href="https://docs.blofin.com/index.html#get-api-key-info" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiExchangeData">
             <summary>
             BloFin Exchange exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
             </summary>
         </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetSymbolsAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiExchangeData.GetSymbolsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get list of supported symbols
             <para><a href="https://docs.blofin.com/index.html#get-instruments" /></para>
@@ -750,7 +1016,7 @@
             <param name="symbol">Filter by symbol, for example `BTC-USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetTickersAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiExchangeData.GetTickersAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get price ticker info
             <para><a href="https://docs.blofin.com/index.html#get-tickers" /></para>
@@ -758,7 +1024,7 @@
             <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get the order book for a symbol
             <para><a href="https://docs.blofin.com/index.html#get-order-book" /></para>
@@ -767,7 +1033,7 @@
             <param name="depth">The depth of the book, max 100</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetRecentTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiExchangeData.GetRecentTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get recent trades
             <para><a href="https://docs.blofin.com/index.html#get-trades" /></para>
@@ -776,7 +1042,7 @@
             <param name="limit">Number of results, max 100</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetIndexMarkPriceAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiExchangeData.GetIndexMarkPriceAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get index and mark price for a symbol
             <para><a href="https://docs.blofin.com/index.html#get-mark-price" /></para>
@@ -784,7 +1050,7 @@
             <param name="symbol">The symbol, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetFundingRateAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiExchangeData.GetFundingRateAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get funding rate info
             <para><a href="https://docs.blofin.com/index.html#get-funding-rate" /></para>
@@ -792,7 +1058,7 @@
             <param name="symbol">The symbol, for example `ETH-USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetFundingRateHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get funding rate history
             <para><a href="https://docs.blofin.com/index.html#get-funding-rate-history" /></para>
@@ -803,7 +1069,7 @@
             <param name="limit">Max number of results, max 100</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiExchangeData.GetKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get Kline data for a symbol
             <para><a href="https://docs.blofin.com/index.html#get-candlesticks" /></para>
@@ -815,7 +1081,7 @@
             <param name="limit">Max number of results, max 1440</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetIndexPriceKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiExchangeData.GetIndexPriceKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get index price Kline data for a symbol
             <para><a href="https://docs.blofin.com/index.html#get-index-candlesticks" /></para>
@@ -827,7 +1093,7 @@
             <param name="limit">Max number of results, max 1440</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiExchangeData.GetMarkPriceKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiExchangeData.GetMarkPriceKlinesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get mark price Kline data for a symbol
             <para><a href="https://docs.blofin.com/index.html#get-mark-price-candlesticks" /></para>
@@ -839,36 +1105,175 @@
             <param name="limit">Max number of results, max 1440</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiShared">
+        <member name="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiShared">
             <summary>
             Shared interface for Exchange rest API usage
             </summary>
         </member>
-        <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApiTrading">
+        <member name="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading">
             <summary>
             BloFin Exchange trading endpoints, placing and managing orders.
             </summary>
         </member>
-        <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinSocketClientExchangeApi">
+        <member name="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi">
             <summary>
             BloFin Exchange streams
             </summary>
         </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinSocketClientExchangeApi.SubscribeToXXXUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinModel}},System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinTrade[]}},System.Threading.CancellationToken)">
             <summary>
-            
-            <para><a href="XXX" /></para>
+            Subscribe to live trade updates for a symbol
+            <para><a href="https://docs.blofin.com/index.html#ws-trades-channel" /></para>
             </summary>
+            <param name="symbol">The symbol to subscribe to</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="P:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinSocketClientExchangeApi.SharedClient">
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinTrade[]}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to live trade updates for a symbol
+            <para><a href="https://docs.blofin.com/index.html#ws-trades-channel" /></para>
+            </summary>
+            <param name="symbols">The symbols to subscribe to</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToKlineUpdatesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to kline/candlestick data update
+            <para><a href="https://docs.blofin.com/index.html#ws-candlesticks-channel" /></para>
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="interval">The interval of the klines</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BloFin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to kline/candlestick data update
+            <para><a href="https://docs.blofin.com/index.html#ws-candlesticks-channel" /></para>
+            </summary>
+            <param name="symbols">The symbols to subscribe to</param>
+            <param name="interval">The interval of the klines</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToIndexPriceKlineUpdatesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinIndexMarkKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to kline/candlestick index price data update
+            <para><a href="https://docs.blofin.com/index.html#ws-index-candlesticks-channel" /></para>
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="interval">The interval of the klines</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToIndexPriceKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BloFin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinIndexMarkKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to kline/candlestick index price data update
+            <para><a href="https://docs.blofin.com/index.html#ws-index-candlesticks-channel" /></para>
+            </summary>
+            <param name="symbols">The symbols to subscribe to</param>
+            <param name="interval">The interval of the klines</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToMarkPriceKlineUpdatesAsync(System.String,BloFin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinIndexMarkKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to kline/candlestick mark price data update
+            <para><a href="https://docs.blofin.com/index.html#ws-mark-price-candlesticks-channel" /></para>
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="interval">The interval of the klines</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToMarkPriceKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BloFin.Net.Enums.KlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinIndexMarkKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to kline/candlestick mark price data update
+            <para><a href="https://docs.blofin.com/index.html#ws-mark-price-candlesticks-channel" /></para>
+            </summary>
+            <param name="symbols">The symbols to subscribe to</param>
+            <param name="interval">The interval of the klines</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinOrderBookUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to order book updates
+            <para><a href="https://docs.blofin.com/index.html#ws-order-book-channel" /></para>
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="depth">The depth of the book, 5 or 400</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinOrderBookUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to order book updates
+            <para><a href="https://docs.blofin.com/index.html#ws-order-book-channel" /></para>
+            </summary>
+            <param name="symbols">The symbols to subscribe to</param>
+            <param name="depth">The depth of the book, 5 or 400. When using a depth 5 the full book snapshot will be pushed with each update</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinTicker}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to price ticker updates
+            <para><a href="https://docs.blofin.com/index.html#ws-tickers-channel" /></para>
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinTicker}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to price ticker updates
+            <para><a href="https://docs.blofin.com/index.html#ws-tickers-channel" /></para>
+            </summary>
+            <param name="symbols">The symbols to subscribe to</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToFundingRateUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinFundingRate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to funding rate updates
+            <para><a href="https://docs.blofin.com/index.html#ws-funding-rate-channel" /></para>
+            </summary>
+            <param name="symbol">The symbol to subscribe to</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToFundingRateUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinFundingRate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to funding rate updates
+            <para><a href="https://docs.blofin.com/index.html#ws-funding-rate-channel" /></para>
+            </summary>
+            <param name="symbols">The symbols to subscribe to</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="P:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SharedClient">
             <summary>
             Get the shared socket requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
-        <member name="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinSocketClientExchangeApiShared">
+        <member name="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApiShared">
             <summary>
             Shared interface for Exchange socket API usage
             </summary>
@@ -878,11 +1283,11 @@
             Client for accessing the BloFin Rest API. 
             </summary>
         </member>
-        <member name="P:BloFin.Net.Interfaces.Clients.IBloFinRestClient.ExchangeApi">
+        <member name="P:BloFin.Net.Interfaces.Clients.IBloFinRestClient.FuturesApi">
             <summary>
             Exchange API endpoints
             </summary>
-            <see cref="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinRestClientExchangeApi"/>
+            <see cref="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApi"/>
         </member>
         <member name="M:BloFin.Net.Interfaces.Clients.IBloFinRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
@@ -901,11 +1306,11 @@
             Client for accessing the BloFin websocket API
             </summary>
         </member>
-        <member name="P:BloFin.Net.Interfaces.Clients.IBloFinSocketClient.ExchangeApi">
+        <member name="P:BloFin.Net.Interfaces.Clients.IBloFinSocketClient.FuturesApi">
             <summary>
             Exchange API endpoints
             </summary>
-            <see cref="T:BloFin.Net.Interfaces.Clients.ExchangeApi.IBloFinSocketClientExchangeApi"/>
+            <see cref="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi"/>
         </member>
         <member name="M:BloFin.Net.Interfaces.Clients.IBloFinSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
@@ -952,7 +1357,7 @@
             BloFin local order book factory
             </summary>
         </member>
-        <member name="P:BloFin.Net.Interfaces.IBloFinOrderBookFactory.Exchange">
+        <member name="P:BloFin.Net.Interfaces.IBloFinOrderBookFactory.Futures">
             <summary>
             Exchange order book factory methods
             </summary>
@@ -965,7 +1370,7 @@
             <param name="options">Book options</param>
             <returns></returns>
         </member>
-        <member name="M:BloFin.Net.Interfaces.IBloFinOrderBookFactory.Create(System.String,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions})">
+        <member name="M:BloFin.Net.Interfaces.IBloFinOrderBookFactory.CreateFutures(System.String,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions})">
             <summary>
             Create a new local order book instance
             </summary>
@@ -990,7 +1395,7 @@
             Create a new trade tracker for a symbol
             </summary>
             <param name="symbol">The symbol</param>
-            <param name="limit">The max amount of klines to retain</param>
+            <param name="limit">The max amount of trades to retain</param>
             <param name="period">The max period the data should be retained</param>
             <returns></returns>
         </member>
@@ -1017,6 +1422,101 @@
         <member name="F:BloFin.Net.Objects.BloFinApiAddresses.Test">
             <summary>
             The default addresses to connect to the BloFin API
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinAccountConfig">
+            <summary>
+            Account config
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAccountConfig.AccountLevel">
+            <summary>
+            Account level
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinApiKey">
+            <summary>
+            Api key info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinApiKey.Uid">
+            <summary>
+            User UID
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinApiKey.ApiKeyName">
+            <summary>
+            API key name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinApiKey.ApiKey">
+            <summary>
+            API key
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinApiKey.IsReadOnly">
+            <summary>
+            Is readonly
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinApiKey.Ips">
+            <summary>
+            Bound IP addresses
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinApiKey.KeyType">
+            <summary>
+            Key type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinApiKey.ExpireTime">
+            <summary>
+            Key expire time
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinApiKey.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinApiKey.ReferralCode">
+            <summary>
+            Referral code
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinApiKey.ParentUid">
+            <summary>
+            Parent account UID
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinBalance">
+            <summary>
+            Balance info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinBalance.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinBalance.TotalBalance">
+            <summary>
+            Total balance
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinBalance.AvailableBalance">
+            <summary>
+            Available balance
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinBalance.FrozenBalance">
+            <summary>
+            Frozen balance
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinBalance.Bonus">
+            <summary>
+            Bonus
             </summary>
         </member>
         <member name="T:BloFin.Net.Objects.Models.BloFinFundingRate">
@@ -1179,6 +1679,36 @@
             Quantity
             </summary>
         </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinOrderBookUpdate">
+            <summary>
+            Order book update
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderBookUpdate.Asks">
+            <summary>
+            Asks
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderBookUpdate.Bids">
+            <summary>
+            Bids
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderBookUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderBookUpdate.PrevSequence">
+            <summary>
+            Previous sequence id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderBookUpdate.Sequence">
+            <summary>
+            Sequence id
+            </summary>
+        </member>
         <member name="T:BloFin.Net.Objects.Models.BloFinSymbol">
             <summary>
             
@@ -1224,12 +1754,12 @@
             Min order quantity
             </summary>
         </member>
-        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.LotQuantity">
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.LotSize">
             <summary>
             Lot quantity
             </summary>
         </member>
-        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.TickQuantity">
+        <member name="P:BloFin.Net.Objects.Models.BloFinSymbol.TickSize">
             <summary>
             Tick quantity
             </summary>
@@ -1369,6 +1899,21 @@
             Timestamp
             </summary>
         </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinTransferResult">
+            <summary>
+            Transfer result
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTransferResult.TransferId">
+            <summary>
+            Transfer id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTransferResult.ClientTransferId">
+            <summary>
+            Client transfer id
+            </summary>
+        </member>
         <member name="T:BloFin.Net.Objects.Options.BloFinOptions">
             <summary>
             BloFin options
@@ -1386,7 +1931,7 @@
         </member>
         <member name="P:BloFin.Net.Objects.Options.BloFinOrderBookOptions.Limit">
             <summary>
-            The top amount of results to keep in sync. If for example limit=10 is used, the order book will contain the 10 best bids and 10 best asks. Leaving this null will sync the full order book
+            The top amount of results to keep in sync. 5 or 400
             </summary>
         </member>
         <member name="P:BloFin.Net.Objects.Options.BloFinOrderBookOptions.InitialDataTimeout">
@@ -1437,14 +1982,10 @@
         <member name="T:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+        <member name="M:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
             <summary>
             ctor
             </summary>
-            <param name="logger"></param>
-            <param name="topics"></param>
-            <param name="handler"></param>
-            <param name="auth"></param>
         </member>
         <member name="M:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
@@ -1452,23 +1993,23 @@
         <member name="M:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{`0})">
+        <member name="M:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Internal.BloFinSocketUpdate{`0}})">
             <inheritdoc />
         </member>
-        <member name="T:BloFin.Net.SymbolOrderBooks.BloFinExchangeSymbolOrderBook">
+        <member name="T:BloFin.Net.SymbolOrderBooks.BloFinFuturesSymbolOrderBook">
             <summary>
             Implementation for a synchronized order book. After calling Start the order book will sync itself and keep up to date with new data. It will automatically try to reconnect and resync in case of a lost/interrupted connection.
             Make sure to check the State property to see if the order book is synced.
             </summary>
         </member>
-        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinExchangeSymbolOrderBook.#ctor(System.String,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions})">
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinFuturesSymbolOrderBook.#ctor(System.String,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions})">
             <summary>
             Create a new order book instance
             </summary>
             <param name="symbol">The symbol the order book is for</param>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinExchangeSymbolOrderBook.#ctor(System.String,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions},Microsoft.Extensions.Logging.ILoggerFactory,BloFin.Net.Interfaces.Clients.IBloFinRestClient,BloFin.Net.Interfaces.Clients.IBloFinSocketClient)">
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinFuturesSymbolOrderBook.#ctor(System.String,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions},Microsoft.Extensions.Logging.ILoggerFactory,BloFin.Net.Interfaces.Clients.IBloFinRestClient,BloFin.Net.Interfaces.Clients.IBloFinSocketClient)">
             <summary>
             Create a new order book instance
             </summary>
@@ -1478,16 +2019,16 @@
             <param name="restClient">Rest client instance</param>
             <param name="socketClient">Socket client instance</param>
         </member>
-        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinExchangeSymbolOrderBook.DoStartAsync(System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinFuturesSymbolOrderBook.DoStartAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinExchangeSymbolOrderBook.DoReset">
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinFuturesSymbolOrderBook.DoReset">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinExchangeSymbolOrderBook.DoResyncAsync(System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinFuturesSymbolOrderBook.DoResyncAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinExchangeSymbolOrderBook.Dispose(System.Boolean)">
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinFuturesSymbolOrderBook.Dispose(System.Boolean)">
             <inheritdoc />
         </member>
         <member name="T:BloFin.Net.SymbolOrderBooks.BloFinOrderBookFactory">
@@ -1501,13 +2042,13 @@
             </summary>
             <param name="serviceProvider">Service provider for resolving logging and clients</param>
         </member>
-        <member name="P:BloFin.Net.SymbolOrderBooks.BloFinOrderBookFactory.Exchange">
+        <member name="P:BloFin.Net.SymbolOrderBooks.BloFinOrderBookFactory.Futures">
             <inheritdoc />
         </member>
         <member name="M:BloFin.Net.SymbolOrderBooks.BloFinOrderBookFactory.Create(CryptoExchange.Net.SharedApis.SharedSymbol,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions})">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinOrderBookFactory.Create(System.String,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions})">
+        <member name="M:BloFin.Net.SymbolOrderBooks.BloFinOrderBookFactory.CreateFutures(System.String,System.Action{BloFin.Net.Objects.Options.BloFinOrderBookOptions})">
             <inheritdoc />
         </member>
         <member name="T:CryptoExchange.Net.Interfaces.CryptoClientExtensions">

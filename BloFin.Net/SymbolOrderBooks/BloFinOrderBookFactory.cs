@@ -25,12 +25,12 @@ namespace BloFin.Net.SymbolOrderBooks
         {
             _serviceProvider = serviceProvider;            
             
-            Exchange = new OrderBookFactory<BloFinOrderBookOptions>(Create, Create);
+            Futures = new OrderBookFactory<BloFinOrderBookOptions>(CreateFutures, Create);
         }
 
         
          /// <inheritdoc />
-        public IOrderBookFactory<BloFinOrderBookOptions> Exchange { get; }
+        public IOrderBookFactory<BloFinOrderBookOptions> Futures { get; }
 
 
         /// <inheritdoc />
@@ -38,13 +38,13 @@ namespace BloFin.Net.SymbolOrderBooks
         {
             var symbolName = symbol.GetSymbol(BloFinExchange.FormatSymbol);
 
-            return Create(symbolName, options);
+            return CreateFutures(symbolName, options);
         }
 
         
          /// <inheritdoc />
-        public ISymbolOrderBook Create(string symbol, Action<BloFinOrderBookOptions>? options = null)
-            => new BloFinExchangeSymbolOrderBook(symbol, options, 
+        public ISymbolOrderBook CreateFutures(string symbol, Action<BloFinOrderBookOptions>? options = null)
+            => new BloFinFuturesSymbolOrderBook(symbol, options, 
                                                           _serviceProvider.GetRequiredService<ILoggerFactory>(),
                                                           _serviceProvider.GetRequiredService<IBloFinRestClient>(),
                                                           _serviceProvider.GetRequiredService<IBloFinSocketClient>());

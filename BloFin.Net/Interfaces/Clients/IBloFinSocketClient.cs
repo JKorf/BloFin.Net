@@ -1,4 +1,4 @@
-using BloFin.Net.Interfaces.Clients.ExchangeApi;
+using BloFin.Net.Interfaces.Clients.FuturesApi;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces;
 
@@ -12,8 +12,8 @@ namespace BloFin.Net.Interfaces.Clients
         /// <summary>
         /// Exchange API endpoints
         /// </summary>
-        /// <see cref="IBloFinSocketClientExchangeApi"/>
-        public IBloFinSocketClientExchangeApi ExchangeApi { get; }
+        /// <see cref="IBloFinSocketClientFuturesApi"/>
+        public IBloFinSocketClientFuturesApi FuturesApi { get; }
 
         /// <summary>
         /// Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.

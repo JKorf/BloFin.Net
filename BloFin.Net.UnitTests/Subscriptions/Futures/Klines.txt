@@ -1,0 +1,22 @@
+> { "op":"subscribe", "args":[{ "channel":"candle1D", "instId":"ETH-USDT" }]}
+< { "event": "subscribe", "arg": { "channel": "candle1D", "instId": "ETH-USDT" }}
+= 
+{
+    "arg":{
+        "channel":"candle1D",
+        "instId":"ETH-USDT"
+    },
+    "data":[
+        [
+            "1696636800000",
+            "27491.5",
+            "27495",
+            "27483",
+            "27489.5",
+            "95359",
+            "95.359",
+            "2621407.651",
+            "0"
+        ]
+    ]
+}

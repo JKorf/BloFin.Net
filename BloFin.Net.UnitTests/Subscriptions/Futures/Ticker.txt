@@ -1,0 +1,24 @@
+> { "op":"subscribe", "args":[{ "channel":"tickers", "instId":"ETH-USDT" }]}
+< { "event": "subscribe", "arg": { "channel": "tickers", "instId": "ETH-USDT" }}
+= 
+{
+    "arg":{
+        "channel":"tickers",
+        "instId":"ETH-USDT"
+    },
+    "data": [{
+        "instId": "BTC-USDT",
+        "last": "9999.99",
+        "lastSize": "0.1",
+        "askPrice": "9999.99",
+        "askSize": "11",
+        "bidPrice": "8888.88",
+        "bidSize": "5",
+        "open24h": "9000",
+        "high24h": "10000",
+        "low24h": "8888.88",
+        "volCurrency24h": "2222",
+        "vol24h": "2222",
+        "ts": "1597026383085"
+    }]
+}

@@ -11,7 +11,7 @@ var provider = collection.BuildServiceProvider();
 var bookFactory = provider.GetRequiredService<IBloFinOrderBookFactory>();
 
 // Create and start the order book
-var book = bookFactory.Create(new SharedSymbol(TradingMode.Spot, "ETH", "USDT"));
+var book = bookFactory.Create(new SharedSymbol(TradingMode.PerpetualLinear, "ETH", "USDT"));
 var result = await book.StartAsync();
 if (!result.Success)
 {

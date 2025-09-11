@@ -1,0 +1,11 @@
+POST
+/api/v1/asset/transfer
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": {
+        "transferId": "3743",
+        "clientTransferId": "1211211"
+    }
+}

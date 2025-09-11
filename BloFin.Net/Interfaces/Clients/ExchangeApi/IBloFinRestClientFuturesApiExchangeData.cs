@@ -5,12 +5,12 @@ using BloFin.Net.Enums;
 using BloFin.Net.Objects.Models;
 using CryptoExchange.Net.Objects;
 
-namespace BloFin.Net.Interfaces.Clients.ExchangeApi
+namespace BloFin.Net.Interfaces.Clients.FuturesApi
 {
     /// <summary>
     /// BloFin Exchange exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
     /// </summary>
-    public interface IBloFinRestClientExchangeApiExchangeData
+    public interface IBloFinRestClientFuturesApiExchangeData
     {
         /// <summary>
         /// Get list of supported symbols

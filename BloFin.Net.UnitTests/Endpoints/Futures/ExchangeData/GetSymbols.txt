@@ -1,0 +1,27 @@
+GET
+/api/v1/market/instruments
+false
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "instId": "BTC-USDT",
+            "baseCurrency": "BTC",
+            "quoteCurrency": "USDT",
+            "contractValue": "0.001", 
+            "listTime": "1638333031000",
+            "expireTime": "1704124800000",
+            "maxLeverage": "125",
+            "minSize": "0.1", 
+            "lotSize": "0.1", 
+            "tickSize": "0.5",
+            "instType": "SWAP",
+            "contractType": "linear",
+            "maxLimitSize": "100000000",
+            "maxMarketSize": "1000000",
+            "state": "live",
+            "settleCurrency": "USDT"
+        }
+    ]
+}

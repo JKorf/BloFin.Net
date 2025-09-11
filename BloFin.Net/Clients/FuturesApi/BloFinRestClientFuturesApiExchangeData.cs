@@ -6,20 +6,20 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
-using BloFin.Net.Interfaces.Clients.ExchangeApi;
+using BloFin.Net.Interfaces.Clients.FuturesApi;
 using BloFin.Net.Objects.Models;
 using System.Linq;
 using BloFin.Net.Enums;
 
-namespace BloFin.Net.Clients.ExchangeApi
+namespace BloFin.Net.Clients.FuturesApi
 {
     /// <inheritdoc />
-    internal class BloFinRestClientExchangeApiExchangeData : IBloFinRestClientExchangeApiExchangeData
+    internal class BloFinRestClientFuturesApiExchangeData : IBloFinRestClientFuturesApiExchangeData
     {
-        private readonly BloFinRestClientExchangeApi _baseClient;
+        private readonly BloFinRestClientFuturesApi _baseClient;
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
 
-        internal BloFinRestClientExchangeApiExchangeData(ILogger logger, BloFinRestClientExchangeApi baseClient)
+        internal BloFinRestClientFuturesApiExchangeData(ILogger logger, BloFinRestClientFuturesApi baseClient)
         {
             _baseClient = baseClient;
         }
@@ -31,7 +31,7 @@ namespace BloFin.Net.Clients.ExchangeApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("isntId", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/instruments", BloFinExchange.RateLimiter.BloFin, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/instruments", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             return await _baseClient.SendAsync<BloFinSymbol[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -44,7 +44,7 @@ namespace BloFin.Net.Clients.ExchangeApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("instId", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/tickers", BloFinExchange.RateLimiter.BloFin, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/tickers", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinTicker[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -59,7 +59,7 @@ namespace BloFin.Net.Clients.ExchangeApi
             var parameters = new ParameterCollection();
             parameters.Add("instId", symbol);
             parameters.AddOptional("size", depth);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/books", BloFinExchange.RateLimiter.BloFin, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/books", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinOrderBook[]>(request, parameters, ct).ConfigureAwait(false);
             return result.As<BloFinOrderBook>(result.Data?.Single());
         }
@@ -74,7 +74,7 @@ namespace BloFin.Net.Clients.ExchangeApi
             var parameters = new ParameterCollection();
             parameters.Add("instId", symbol);
             parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/trades", BloFinExchange.RateLimiter.BloFin, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/trades", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinTrade[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -88,7 +88,7 @@ namespace BloFin.Net.Clients.ExchangeApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("instId", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/mark-price", BloFinExchange.RateLimiter.BloFin, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/mark-price", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinMarkIndexPrice[]>(request, parameters, ct).ConfigureAwait(false);
             return result.As<BloFinMarkIndexPrice>(result.Data?.Single());
         }
@@ -102,7 +102,7 @@ namespace BloFin.Net.Clients.ExchangeApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("instId", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/funding-rate", BloFinExchange.RateLimiter.BloFin, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/funding-rate", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinFundingRate[]>(request, parameters, ct).ConfigureAwait(false);
             return result.As<BloFinFundingRate>(result.Data?.Single());
         }
@@ -116,10 +116,11 @@ namespace BloFin.Net.Clients.ExchangeApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("instId", symbol);
-            parameters.AddOptionalMillisecondsString("after", startTime);
-            parameters.AddOptionalMillisecondsString("before", endTime);
+            // NOTE; the before parameter actually acts as startTime
+            parameters.AddOptionalMillisecondsString("before", startTime);
+            parameters.AddOptionalMillisecondsString("after", endTime);
             parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/funding-rate-history", BloFinExchange.RateLimiter.BloFin, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/funding-rate-history", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinFundingRate[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -134,10 +135,11 @@ namespace BloFin.Net.Clients.ExchangeApi
             var parameters = new ParameterCollection();
             parameters.Add("instId", symbol);
             parameters.AddEnum("bar", interval);
-            parameters.AddOptionalMillisecondsString("after", startTime);
-            parameters.AddOptionalMillisecondsString("before", endTime);
+            // NOTE; the before parameter actually acts as startTime
+            parameters.AddOptionalMillisecondsString("before", startTime);
+            parameters.AddOptionalMillisecondsString("after", endTime);
             parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/candles", BloFinExchange.RateLimiter.BloFin, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/candles", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinKline[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -152,10 +154,11 @@ namespace BloFin.Net.Clients.ExchangeApi
             var parameters = new ParameterCollection();
             parameters.Add("instId", symbol);
             parameters.AddEnum("bar", interval);
-            parameters.AddOptionalMillisecondsString("after", startTime);
-            parameters.AddOptionalMillisecondsString("before", endTime);
+            // NOTE; the before parameter actually acts as startTime
+            parameters.AddOptionalMillisecondsString("before", startTime);
+            parameters.AddOptionalMillisecondsString("after", endTime);
             parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/index-candles", BloFinExchange.RateLimiter.BloFin, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/index-candles", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinIndexMarkKline[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -170,10 +173,11 @@ namespace BloFin.Net.Clients.ExchangeApi
             var parameters = new ParameterCollection();
             parameters.Add("instId", symbol);
             parameters.AddEnum("bar", interval);
-            parameters.AddOptionalMillisecondsString("after", startTime);
-            parameters.AddOptionalMillisecondsString("before", endTime);
+            // NOTE; the before parameter actually acts as startTime
+            parameters.AddOptionalMillisecondsString("before", startTime);
+            parameters.AddOptionalMillisecondsString("after", endTime);
             parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/mark-price-candles", BloFinExchange.RateLimiter.BloFin, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/mark-price-candles", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinIndexMarkKline[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

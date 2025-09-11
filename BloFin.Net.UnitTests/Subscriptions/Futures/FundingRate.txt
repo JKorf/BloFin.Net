@@ -1,0 +1,14 @@
+> { "op":"subscribe", "args":[{ "channel":"funding-rate", "instId":"ETH-USDT" }]}
+< { "event": "subscribe", "arg": { "channel": "funding-rate", "instId": "ETH-USDT" }}
+= 
+{
+    "arg":{
+        "channel":"funding-rate",
+        "instId":"ETH-USDT"
+    },
+    "data": [{
+         "fundingRate":"0.0001875391284828",
+         "fundingTime":"1700726400000",
+         "instId":"BTC-USDT"
+      }]
+}

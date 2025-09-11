@@ -1,34 +1,34 @@
 using CryptoExchange.Net.Interfaces;
 using System;
 
-namespace BloFin.Net.Interfaces.Clients.ExchangeApi
+namespace BloFin.Net.Interfaces.Clients.FuturesApi
 {
     /// <summary>
     /// BloFin Exchange API endpoints
     /// </summary>
-    public interface IBloFinRestClientExchangeApi : IRestApiClient, IDisposable
+    public interface IBloFinRestClientFuturesApi : IRestApiClient, IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions
         /// </summary>
-        /// <see cref="IBloFinRestClientExchangeApiAccount" />
-        public IBloFinRestClientExchangeApiAccount Account { get; }
+        /// <see cref="IBloFinRestClientFuturesApiAccount" />
+        public IBloFinRestClientFuturesApiAccount Account { get; }
 
         /// <summary>
         /// Endpoints related to retrieving market and system data
         /// </summary>
-        /// <see cref="IBloFinRestClientExchangeApiExchangeData" />
-        public IBloFinRestClientExchangeApiExchangeData ExchangeData { get; }
+        /// <see cref="IBloFinRestClientFuturesApiExchangeData" />
+        public IBloFinRestClientFuturesApiExchangeData ExchangeData { get; }
 
         /// <summary>
         /// Endpoints related to orders and trades
         /// </summary>
-        /// <see cref="IBloFinRestClientExchangeApiTrading" />
-        public IBloFinRestClientExchangeApiTrading Trading { get; }
+        /// <see cref="IBloFinRestClientFuturesApiTrading" />
+        public IBloFinRestClientFuturesApiTrading Trading { get; }
 
         /// <summary>
         /// Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
         /// </summary>
-        public IBloFinRestClientExchangeApiShared SharedClient { get; }
+        public IBloFinRestClientFuturesApiShared SharedClient { get; }
     }
 }

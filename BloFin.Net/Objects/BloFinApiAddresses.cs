@@ -20,7 +20,7 @@ namespace BloFin.Net.Objects
         public static BloFinApiAddresses Default = new BloFinApiAddresses
         {
             RestClientAddress = "https://openapi.blofin.com",
-            SocketClientAddress = "wss://openapi.blofin.co"
+            SocketClientAddress = "wss://openapi.blofin.com"
         };
 
         /// <summary>

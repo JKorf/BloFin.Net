@@ -14,7 +14,7 @@ namespace BloFin.Net.Interfaces
         /// <summary>
         /// Exchange order book factory methods
         /// </summary>
-        IOrderBookFactory<BloFinOrderBookOptions> Exchange { get; }
+        IOrderBookFactory<BloFinOrderBookOptions> Futures { get; }
 
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BloFin.Net.Interfaces
         /// <summary>
         /// Create a new local order book instance
         /// </summary>
-        ISymbolOrderBook Create(string symbol, Action<BloFinOrderBookOptions>? options = null);
+        ISymbolOrderBook CreateFutures(string symbol, Action<BloFinOrderBookOptions>? options = null);
 
     }
 }

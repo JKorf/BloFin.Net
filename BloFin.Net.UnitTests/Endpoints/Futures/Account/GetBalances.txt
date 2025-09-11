@@ -1,0 +1,16 @@
+GET
+/api/v1/asset/balances
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "currency": "USDT",
+            "balance": "10012514.919418081548717298",
+            "available": "9872132.414278782284622898",
+            "frozen": "138556.471805965930761067",
+            "bonus": "0"
+        }
+    ]
+}

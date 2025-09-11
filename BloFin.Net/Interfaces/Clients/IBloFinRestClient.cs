@@ -1,4 +1,4 @@
-using BloFin.Net.Interfaces.Clients.ExchangeApi;
+using BloFin.Net.Interfaces.Clients.FuturesApi;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects.Options;
@@ -13,8 +13,8 @@ namespace BloFin.Net.Interfaces.Clients
         /// <summary>
         /// Exchange API endpoints
         /// </summary>
-        /// <see cref="IBloFinRestClientExchangeApi"/>
-        public IBloFinRestClientExchangeApi ExchangeApi { get; }
+        /// <see cref="IBloFinRestClientFuturesApi"/>
+        public IBloFinRestClientFuturesApi FuturesApi { get; }
 
         /// <summary>
         /// Update specific options

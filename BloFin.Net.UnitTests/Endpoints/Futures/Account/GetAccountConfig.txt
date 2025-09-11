@@ -1,0 +1,10 @@
+GET
+/api/v1/account/config
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": {
+        "accountLevel": "0"
+    }
+}

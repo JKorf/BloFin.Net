@@ -1,0 +1,19 @@
+> { "op":"subscribe", "args":[{ "channel":"trades", "instId":"ETH-USDT" }]}
+< { "event": "subscribe", "arg": { "channel": "trades", "instId": "ETH-USDT" }}
+= 
+{
+    "arg":{
+        "channel":"trades",
+        "instId":"ETH-USDT"
+    },
+    "data":[
+        {
+            "instId":"ETH-USDT",
+            "tradeId":"106074994",
+            "price":"1640.4",
+            "size":"1",
+            "side":"sell",
+            "ts":"1696646190511"
+        }
+    ]
+}

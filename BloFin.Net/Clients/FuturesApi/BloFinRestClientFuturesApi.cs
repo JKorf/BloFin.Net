@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using BloFin.Net.Interfaces.Clients.ExchangeApi;
 using BloFin.Net.Objects.Options;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.SystemTextJson;
@@ -16,36 +15,35 @@ using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Objects.Errors;
 using BloFin.Net.Objects.Internal;
 using CryptoExchange.Net.Converters.MessageParsing;
+using BloFin.Net.Interfaces.Clients.FuturesApi;
 
-namespace BloFin.Net.Clients.ExchangeApi
+namespace BloFin.Net.Clients.FuturesApi
 {
-    /// <inheritdoc cref="IBloFinRestClientExchangeApi" />
-    internal partial class BloFinRestClientExchangeApi : RestApiClient, IBloFinRestClientExchangeApi
+    /// <inheritdoc cref="IBloFinRestClientFuturesApi" />
+    internal partial class BloFinRestClientFuturesApi : RestApiClient, IBloFinRestClientFuturesApi
     {
         #region fields 
-        internal static TimeSyncState _timeSyncState = new TimeSyncState("Exchange Api");
-
         protected override ErrorMapping ErrorMapping => BloFinErrors.Errors;
         #endregion
 
         #region Api clients
         /// <inheritdoc />
-        public IBloFinRestClientExchangeApiAccount Account { get; }
+        public IBloFinRestClientFuturesApiAccount Account { get; }
         /// <inheritdoc />
-        public IBloFinRestClientExchangeApiExchangeData ExchangeData { get; }
+        public IBloFinRestClientFuturesApiExchangeData ExchangeData { get; }
         /// <inheritdoc />
-        public IBloFinRestClientExchangeApiTrading Trading { get; }
+        public IBloFinRestClientFuturesApiTrading Trading { get; }
         /// <inheritdoc />
         public string ExchangeName => "BloFin";
         #endregion
 
         #region constructor/destructor
-        internal BloFinRestClientExchangeApi(BloFinRestClient client, ILogger logger, HttpClient? httpClient, BloFinRestOptions options)
+        internal BloFinRestClientFuturesApi(BloFinRestClient client, ILogger logger, HttpClient? httpClient, BloFinRestOptions options)
             : base(logger, httpClient, options.Environment.RestClientAddress, options, options.ExchangeOptions)
         {
-            Account = new BloFinRestClientExchangeApiAccount(this);
-            ExchangeData = new BloFinRestClientExchangeApiExchangeData(logger, this);
-            Trading = new BloFinRestClientExchangeApiTrading(logger, this);
+            Account = new BloFinRestClientFuturesApiAccount(this);
+            ExchangeData = new BloFinRestClientFuturesApiExchangeData(logger, this);
+            Trading = new BloFinRestClientFuturesApiTrading(logger, this);
         }
         #endregion
 
@@ -89,29 +87,22 @@ namespace BloFin.Net.Clients.ExchangeApi
             return new ServerError(responseCode, GetErrorInfo(responseCode, accessor.GetValue<string>(MessagePath.Get().Property("msg"))));
         }
 
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception) {
-#warning TODO if API returns errors on HttpStatus != 200 this should parse them
-            return base.ParseErrorResponse(httpStatusCode, responseHeaders, accessor, exception);
-        }
-
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
-            => null;// ExchangeData.GetServerTimeAsync();
+            => throw new NotImplementedException();
 
         /// <inheritdoc />
-        public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_logger, ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp, ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval, _timeSyncState);
+        public override TimeSyncInfo? GetTimeSyncInfo() => null;
 
         /// <inheritdoc />
-        public override TimeSpan? GetTimeOffset()
-            => _timeSyncState.TimeOffset;
+        public override TimeSpan? GetTimeOffset() => null;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverDate = null) 
             => BloFinExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverDate);
 
         /// <inheritdoc />
-        public IBloFinRestClientExchangeApiShared SharedClient => this;
+        public IBloFinRestClientFuturesApiShared SharedClient => this;
 
     }
 }
