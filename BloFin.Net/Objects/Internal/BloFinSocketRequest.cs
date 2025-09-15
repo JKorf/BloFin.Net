@@ -12,6 +12,6 @@ namespace BloFin.Net.Objects.Internal
         [JsonPropertyName("op")]
         public string Operation { get; set; } = string.Empty;
         [JsonPropertyName("args")]
-        public Dictionary<string, object>[] Parameters { get; set; } = [];
+        public Dictionary<string, string>[] Parameters { get; set; } = [];
     }
 }

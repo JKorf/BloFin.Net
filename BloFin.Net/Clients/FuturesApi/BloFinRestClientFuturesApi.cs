@@ -81,7 +81,7 @@ namespace BloFin.Net.Clients.FuturesApi
 
         protected override Error? TryParseError(RequestDefinition definition, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor) {
             var responseCode = accessor.GetValue<int>(MessagePath.Get().Property("code"));
-            if (responseCode == 0)
+            if (responseCode >= 0 && responseCode <= 2) // 0 = success, 1 = failed, 2 = partial success. More details in response so process them further
                 return null;
 
             return new ServerError(responseCode, GetErrorInfo(responseCode, accessor.GetValue<string>(MessagePath.Get().Property("msg"))));

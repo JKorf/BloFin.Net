@@ -1,14 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
+using BloFin.Net.Objects.Internal;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using System;
+using System.Collections.Generic;
+using System.IO.Pipelines;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
 
 namespace BloFin.Net
 {
@@ -31,7 +33,12 @@ namespace BloFin.Net
             var nonce = Guid.NewGuid().ToString();
 
             var query = requestConfig.ParameterPosition == HttpMethodParameterPosition.InUri && requestConfig.QueryParameters.Any() ? "?" + requestConfig.QueryParameters.CreateParamString(true, requestConfig.ArraySerialization) : "";
+            if (requestConfig.ParameterPosition == HttpMethodParameterPosition.InUri)
+                requestConfig.SetQueryString(query);
+
             var body = requestConfig.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, requestConfig.BodyParameters) : "";
+            if (requestConfig.ParameterPosition == HttpMethodParameterPosition.InBody)
+                requestConfig.SetBodyContent(body);
 
             var signStr = $"{requestConfig.Path}{query}{requestConfig.Method}{timestamp}{nonce}{body}";
             var sign = SignHMACSHA256(signStr, SignOutputType.Hex).ToLowerInvariant();
@@ -42,6 +49,25 @@ namespace BloFin.Net
             requestConfig.Headers.Add("ACCESS-TIMESTAMP", timestamp);
             requestConfig.Headers.Add("ACCESS-NONCE", nonce);
             requestConfig.Headers.Add("ACCESS-PASSPHRASE", Pass!);
+        }
+
+        public Dictionary<string, string> GetSocketParameters()
+        {
+            var timestamp = DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString()!;
+            var nonce = Guid.NewGuid().ToString();
+
+            var signStr = $"/users/self/verifyGET{timestamp}{nonce}";
+            var sign = SignHMACSHA256(signStr, SignOutputType.Hex).ToLowerInvariant();
+            sign = Convert.ToBase64String(Encoding.UTF8.GetBytes(sign));
+
+            return new Dictionary<string, string>
+            {
+                { "apiKey", ApiKey },
+                { "passphrase", Pass! },
+                { "nonce", nonce },
+                { "timestamp", timestamp },
+                { "sign", sign }
+            };
         }
     }
 }

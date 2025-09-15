@@ -1,0 +1,35 @@
+GET
+/api/v1/trade/orders-algo-history
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "algoId": "2101",
+            "clientOrderId": "BBBBqqqq",
+            "instId": "ETH-USDT",
+            "marginMode": "cross",
+            "positionSide": "net",
+            "side": "sell",
+            "orderType": "trigger",
+            "size": "1",
+            "actualSize": "1",
+            "leverage": "3",
+            "state": "canceled", 
+            "triggerPrice": "1661.100000000000000000",
+            "triggerPriceType": "last",
+            "brokerId": "",
+            "attachAlgoOrders": [
+                {
+                    "tpTriggerPrice": "1666.000000000000000000",
+                    "tpOrderPrice": "-1",
+                    "tpTriggerPriceType": "last",
+                    "slTriggerPrice": "1222.000000000000000000",
+                    "slOrderPrice": "-1",
+                    "slTriggerPriceType": "last"
+                }
+            ]
+        }
+    ]
+}

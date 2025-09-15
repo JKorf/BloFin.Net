@@ -1,0 +1,18 @@
+GET
+/api/v1/asset/bills
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "transferId": "3743",
+            "currency": "USDT",
+            "fromAccount": "futures",
+            "toAccount": "funding",
+            "amount": "1.000000000000000000",
+            "ts": "1695264049618",
+            "clientId": "cccc12121"
+        }
+    ]
+}

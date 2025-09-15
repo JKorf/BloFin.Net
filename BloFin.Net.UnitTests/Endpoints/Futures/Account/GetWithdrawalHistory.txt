@@ -1,0 +1,41 @@
+GET
+/api/v1/asset/withdrawal-history
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "currency": "USDT",
+            "chain": "TRC20",
+            "address": "THmWeEJKyb976L76MvrTjeYMyNgiS9aKTu",
+            "txId": "f7c47f3911a2f27f3b647c5ef4c09c9e7d3f69ab123456789abcdef0123456789",
+            "type": "0",
+            "amount": "40.011111",
+            "fee": "0.1",
+            "feeCurrency": "USDT",
+            "state": "0",
+            "clientId": null,
+            "ts": "1695262311039",
+            "tag": null,
+            "memo": null,
+            "withdrawId": "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"
+        },
+        {
+            "currency": "USDT",
+            "chain": "TRC20",
+            "address": "THmWeEJKyb976L76MvrTjeYMyNgiS9aKTu",
+            "txId": "g8d58f4022b3f38f4c758d6ef5d10d0f8e4f70bc234567890bcdef1234567890",
+            "type": "0",
+            "amount": "9999.899",
+            "fee": "0.1",
+            "feeCurrency": "USDT",
+            "state": "4",
+            "clientId": null,
+            "ts": "1695262311039",
+            "tag": null,
+            "memo": null,
+            "withdrawId": "b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7"
+        }
+    ]
+}

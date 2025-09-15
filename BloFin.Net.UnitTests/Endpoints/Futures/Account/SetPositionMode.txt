@@ -1,0 +1,10 @@
+POST
+/api/v1/account/set-position-mode
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": {
+        "positionMode": "net_mode"
+    }
+}

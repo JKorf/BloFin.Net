@@ -270,7 +270,7 @@
         <member name="T:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetBalancesAsync(BloFin.Net.Enums.AccountType,System.String,System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetAccountBalancesAsync(BloFin.Net.Enums.AccountType,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.TransferAsync(System.String,BloFin.Net.Enums.AccountType,BloFin.Net.Enums.AccountType,System.Decimal,System.String,System.Threading.CancellationToken)">
@@ -280,6 +280,36 @@
             <inheritdoc />
         </member>
         <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetApiKeyInfoAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetTransferHistoryAsync(System.String,System.Nullable{BloFin.Net.Enums.AccountType},System.Nullable{BloFin.Net.Enums.AccountType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetWithdrawalHistoryAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.WithdrawalStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetDepositHistoryAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.DepositStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetBalancesAsync(System.Nullable{BloFin.Net.Enums.ProductType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetMarginModeAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.SetMarginModeAsync(BloFin.Net.Enums.MarginMode,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetPositionModeAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.SetPositionModeAsync(BloFin.Net.Enums.PositionMode,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetLeverageAsync(System.String,BloFin.Net.Enums.MarginMode,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.SetLeverageAsync(System.String,System.Decimal,BloFin.Net.Enums.MarginMode,System.Nullable{BloFin.Net.Enums.PositionSide},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiExchangeData">
@@ -316,6 +346,60 @@
             <inheritdoc />
         </member>
         <member name="T:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.GetPositionsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.PlaceOrderAsync(System.String,BloFin.Net.Enums.OrderSide,BloFin.Net.Enums.OrderType,System.Decimal,BloFin.Net.Enums.MarginMode,System.Nullable{System.Decimal},System.Nullable{BloFin.Net.Enums.PositionSide},System.Nullable{System.Boolean},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{BloFin.Net.Objects.Models.BloFinOrderRequest},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.PlaceTpSlOrderAsync(System.String,BloFin.Net.Enums.OrderSide,BloFin.Net.Enums.MarginMode,System.Nullable{System.Decimal},System.Nullable{BloFin.Net.Enums.PositionSide},System.Nullable{System.Boolean},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.PlaceTriggerOrderAsync(System.String,BloFin.Net.Enums.OrderSide,BloFin.Net.Enums.MarginMode,System.Decimal,System.Nullable{BloFin.Net.Enums.TriggerPriceType},System.Nullable{BloFin.Net.Enums.PositionSide},System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Collections.Generic.IEnumerable{BloFin.Net.Objects.Models.BloFinTpSlOrderRequest},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.CancelOrdersAsync(System.Collections.Generic.IEnumerable{BloFin.Net.Objects.Models.BloFinCancelRequest},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.CancelTpSlOrdersAsync(System.Collections.Generic.IEnumerable{BloFin.Net.Objects.Models.BloFinCancelTpSlRequest},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.CancelTriggerOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.GetOpenOrdersAsync(System.String,System.Nullable{BloFin.Net.Enums.OrderType},System.Nullable{BloFin.Net.Enums.OrderStatus},System.String,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.GetOpenTpSlOrdersAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.GetOpenTriggerOrdersAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.ClosePositionAsync(System.String,BloFin.Net.Enums.MarginMode,System.Nullable{BloFin.Net.Enums.PositionSide},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.GetClosedOrdersAsync(System.String,System.Nullable{BloFin.Net.Enums.OrderType},System.Nullable{BloFin.Net.Enums.OrderStatus},System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.GetClosedTpSlOrdersAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.TpSlOrderStatus},System.String,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.GetClosedTriggerOrdersAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.TpSlOrderStatus},System.String,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.GetUserTradesAsync(System.String,System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiTrading.GetPriceLimitsAsync(System.String,BloFin.Net.Enums.OrderSide,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi">
@@ -379,6 +463,21 @@
         <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToFundingRateUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinFundingRate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinPosition[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinOrder[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToTriggerOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinFuturesBalances}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToInverseBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinFuturesInverseBalanceUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
@@ -411,12 +510,67 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.AccountType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.AlgoOrderType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.ContractType">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.DepositStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.MarginMode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.OrderCategory">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.NullableOrderCategory">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.OrderSide">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.OrderStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.OrderType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.PositionMode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.PositionSide">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.NullablePositionSide">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -431,12 +585,52 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.NullableSymbolType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.TpSlOrderStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.TriggerPriceType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.NullableTriggerPriceType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.WithdrawalStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.WithdrawDepositType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponse">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinAccountConfig">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinAlgoOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinAlgoOrderId">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -451,7 +645,32 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinCancelResponseArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinClosePositionResultArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinClosePositionResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinDepositArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinFundingRateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinFuturesBalances">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -466,12 +685,57 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinLeverageArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinLeverage">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinMarginMode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinMarkIndexPriceArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinOrderBookArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinOrderIdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinOrderId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinPositionArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinPositionMode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinPriceLimit">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -486,12 +750,42 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinTpSlOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinTpSlOrderIdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinTpSlOrderId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinTradeArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinTransferArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinTransferResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinUserTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinResponseBloFinWithdrawalArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -506,7 +800,22 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketUpdateBloFinAlgoOrderUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketUpdateBloFinFundingRateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketUpdateBloFinFuturesBalances">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketUpdateBloFinFuturesInverseBalanceUpdate">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -521,7 +830,17 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketUpdateBloFinOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketUpdateBloFinOrderBookUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSocketUpdateBloFinPositionArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -541,6 +860,41 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinAlgoAttachedOrder">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinAlgoAttachedOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinAlgoOrder">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinAlgoOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinAlgoOrderId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinAlgoOrderUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinAlgoOrderUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinApiKey">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -556,12 +910,82 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinCancelRequest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinCancelRequestArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinCancelResponse">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinCancelResponseArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinCancelTpSlRequest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinCancelTpSlRequestArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinClosePositionResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinClosePositionResultArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinDeposit">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinDepositArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinFundingRate">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinFundingRateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinFuturesBalance">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinFuturesBalanceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinFuturesBalances">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinFuturesInverseBalanceUpdate">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -586,12 +1010,37 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinLeverage">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinLeverageArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinMarginMode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinMarkIndexPrice">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinMarkIndexPriceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinOrder">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinOrderArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -621,6 +1070,46 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinOrderId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinOrderIdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinOrderRequest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinOrderRequestArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinPosition">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinPositionArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinPositionMode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinPriceLimit">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinSymbol">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -641,6 +1130,36 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTpSlOrder">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTpSlOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTpSlOrderId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTpSlOrderIdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTpSlOrderRequest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTpSlOrderRequestArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTrade">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -651,7 +1170,37 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTransfer">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTransferArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinTransferResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinUserTrade">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinUserTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinWithdrawal">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.BloFinWithdrawalArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -661,7 +1210,12 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
-        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.DictionaryStringObjectArray">
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.DictionaryStringString">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Converters.BloFinSourceGenerationContext.DictionaryStringStringArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -795,6 +1349,21 @@
             Inverse contract account
             </summary>
         </member>
+        <member name="T:BloFin.Net.Enums.AlgoOrderType">
+            <summary>
+            Algo order type
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.AlgoOrderType.Conditional">
+            <summary>
+            Conditional
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.AlgoOrderType.Trigger">
+            <summary>
+            Trigger
+            </summary>
+        </member>
         <member name="T:BloFin.Net.Enums.ContractType">
             <summary>
             Contract type
@@ -808,6 +1377,31 @@
         <member name="F:BloFin.Net.Enums.ContractType.Inverse">
             <summary>
             Inverse contract
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.DepositStatus">
+            <summary>
+            Deposit status
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.DepositStatus.Pending">
+            <summary>
+            Pending
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.DepositStatus.Done">
+            <summary>
+            Done
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.DepositStatus.Failed">
+            <summary>
+            Failed
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.DepositStatus.Kyt">
+            <summary>
+            Kyt
             </summary>
         </member>
         <member name="T:BloFin.Net.Enums.KlineInterval">
@@ -890,6 +1484,61 @@
             One month
             </summary>
         </member>
+        <member name="T:BloFin.Net.Enums.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.MarginMode.Isolated">
+            <summary>
+            Isolated
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.MarginMode.Cross">
+            <summary>
+            Cross
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.OrderCategory">
+            <summary>
+            Order category
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderCategory.Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderCategory.FullLiquidation">
+            <summary>
+            Full liquidation
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderCategory.PartialLiquidation">
+            <summary>
+            Partial liquidation
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderCategory.Adl">
+            <summary>
+            Auto deleveraging
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderCategory.TakeProfit">
+            <summary>
+            Take profit
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderCategory.StopLoss">
+            <summary>
+            Stop loss
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderCategory.PreTpSl">
+            <summary>
+            Pre TP/SL
+            </summary>
+        </member>
         <member name="T:BloFin.Net.Enums.OrderSide">
             <summary>
             Order side
@@ -903,6 +1552,116 @@
         <member name="F:BloFin.Net.Enums.OrderSide.Sell">
             <summary>
             Sell
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.OrderStatus">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderStatus.Open">
+            <summary>
+            Unfilled
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderStatus.PartiallyFilled">
+            <summary>
+            Partially filled
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderStatus.Canceled">
+            <summary>
+            Canceled
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderStatus.Filled">
+            <summary>
+            Filled
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderStatus.PartiallyCanceled">
+            <summary>
+            Partially filled / partially canceled
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderType.Market">
+            <summary>
+            Market
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderType.Limit">
+            <summary>
+            Limit
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderType.PostOnly">
+            <summary>
+            Post only
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderType.FillOrKill">
+            <summary>
+            Fill or kill
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.OrderType.ImmediateOrCancel">
+            <summary>
+            Immediate or cancel
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.PositionMode">
+            <summary>
+            Position mode
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.PositionMode.OneWayMode">
+            <summary>
+            One way / net mode
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.PositionMode.HedgeMode">
+            <summary>
+            Hedge / long-short mode
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.PositionSide.Long">
+            <summary>
+            Long position
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.PositionSide.Short">
+            <summary>
+            Short position
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.PositionSide.Net">
+            <summary>
+            Net position
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.ProductType">
+            <summary>
+            Product type
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.ProductType.UsdtFutures">
+            <summary>
+            USDT futures
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.ProductType.CoinFutures">
+            <summary>
+            Coin futures
             </summary>
         </member>
         <member name="T:BloFin.Net.Enums.SymbolStatus">
@@ -928,6 +1687,101 @@
         <member name="F:BloFin.Net.Enums.SymbolType.Swap">
             <summary>
             Swap
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.TpSlOrderStatus">
+            <summary>
+            TP/SL Order status
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.TpSlOrderStatus.Live">
+            <summary>
+            Live
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.TpSlOrderStatus.Effective">
+            <summary>
+            Effective
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.TpSlOrderStatus.Canceled">
+            <summary>
+            Canceled
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.TpSlOrderStatus.Failed">
+            <summary>
+            Failed to place order
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.TriggerPriceType">
+            <summary>
+            Trigger price type
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.TriggerPriceType.LastPrice">
+            <summary>
+            Last price
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.TriggerPriceType.IndexPrice">
+            <summary>
+            Index price
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.TriggerPriceType.MarkPrice">
+            <summary>
+            Mark price
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.WithdrawalStatus">
+            <summary>
+            Withdrawal status
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.WithdrawalStatus.WaitingReview">
+            <summary>
+            Waiting for review
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.WithdrawalStatus.Failed">
+            <summary>
+            Failed
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.WithdrawalStatus.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.WithdrawalStatus.Canceled">
+            <summary>
+            Canceled
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.WithdrawalStatus.Kyt">
+            <summary>
+            Kyt
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.WithdrawalStatus.Processing">
+            <summary>
+            Processing
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Enums.WithdrawDepositType">
+            <summary>
+            Withdrawal/deposit type
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.WithdrawDepositType.Blockchain">
+            <summary>
+            Blockchain
+            </summary>
+        </member>
+        <member name="F:BloFin.Net.Enums.WithdrawDepositType.Internal">
+            <summary>
+            Internal
             </summary>
         </member>
         <member name="T:BloFin.Net.ExtensionMethods.BloFinExtensionMethods">
@@ -968,7 +1822,7 @@
             BloFin Exchange account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
             </summary>
         </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetBalancesAsync(BloFin.Net.Enums.AccountType,System.String,System.Threading.CancellationToken)">
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetAccountBalancesAsync(BloFin.Net.Enums.AccountType,System.String,System.Threading.CancellationToken)">
             <summary>
             Get account balances
             <para><a href="https://docs.blofin.com/index.html#get-instruments" /></para>
@@ -1001,6 +1855,105 @@
             Get API key info
             <para><a href="https://docs.blofin.com/index.html#get-api-key-info" /></para>
             </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetTransferHistoryAsync(System.String,System.Nullable{BloFin.Net.Enums.AccountType},System.Nullable{BloFin.Net.Enums.AccountType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get transfer history
+            <para><a href="https://docs.blofin.com/index.html#get-funds-transfer-history" /></para>
+            </summary>
+            <param name="asset">Filter by asset, for example `ETH`</param>
+            <param name="fromAccount">Filter by from account</param>
+            <param name="toAccount">Filter by to account</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetWithdrawalHistoryAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.WithdrawalStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get withdrawal history
+            <para><a href="https://docs.blofin.com/index.html#get-withdraw-history" /></para>
+            </summary>
+            <param name="asset">Filter by asset, for example `ETH`</param>
+            <param name="withdrawId">Filter by withdrawal id</param>
+            <param name="transactionId">Filter by transaction id</param>
+            <param name="status">Filter by status</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetDepositHistoryAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.DepositStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get deposit history
+            <para><a href="https://docs.blofin.com/index.html#get-deposit-history" /></para>
+            </summary>
+            <param name="asset">Filter by asset, for example `ETH`</param>
+            <param name="depositId">Filter by deposit id</param>
+            <param name="transactionId">Filter by transaction id</param>
+            <param name="status">Filter by status</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetBalancesAsync(System.Nullable{BloFin.Net.Enums.ProductType},System.Threading.CancellationToken)">
+            <summary>
+            Get balances
+            <para><a href="https://docs.blofin.com/index.html#get-futures-account-balance" /></para>
+            </summary>
+            <param name="productType">Product type</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetMarginModeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get margin mode config
+            <para><a href="https://docs.blofin.com/index.html#get-margin-mode" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.SetMarginModeAsync(BloFin.Net.Enums.MarginMode,System.Threading.CancellationToken)">
+            <summary>
+            Set margin mode
+            <para><a href="https://docs.blofin.com/index.html#set-margin-mode" /></para>
+            </summary>
+            <param name="marginMode">New margin mode</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetPositionModeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get position mode config
+            <para><a href="https://docs.blofin.com/index.html#get-position-mode" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.SetPositionModeAsync(BloFin.Net.Enums.PositionMode,System.Threading.CancellationToken)">
+            <summary>
+            Set position mode
+            <para><a href="https://docs.blofin.com/index.html#set-position-mode" /></para>
+            </summary>
+            <param name="positionMode">Position mode</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetLeverageAsync(System.String,BloFin.Net.Enums.MarginMode,System.Threading.CancellationToken)">
+            <summary>
+            Get leverage settings
+            <para><a href="https://docs.blofin.com/index.html#get-multiple-leverage" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="marginMode">Margin mode</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.SetLeverageAsync(System.String,System.Decimal,BloFin.Net.Enums.MarginMode,System.Nullable{BloFin.Net.Enums.PositionSide},System.Threading.CancellationToken)">
+            <summary>
+            Set leverage
+            <para><a href="https://docs.blofin.com/index.html#set-leverage" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="leverage">Leverage</param>
+            <param name="marginMode">The margin mode</param>
+            <param name="positionSide">Position side</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiExchangeData">
@@ -1114,6 +2067,230 @@
             <summary>
             BloFin Exchange trading endpoints, placing and managing orders.
             </summary>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.GetPositionsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get positions
+            <para><a href="https://docs.blofin.com/index.html#get-positions" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.PlaceOrderAsync(System.String,BloFin.Net.Enums.OrderSide,BloFin.Net.Enums.OrderType,System.Decimal,BloFin.Net.Enums.MarginMode,System.Nullable{System.Decimal},System.Nullable{BloFin.Net.Enums.PositionSide},System.Nullable{System.Boolean},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <summary>
+            Place a new order
+            <para><a href="https://docs.blofin.com/index.html#place-order" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="side">Order side</param>
+            <param name="orderType">Order type</param>
+            <param name="quantity">Quantity in contracts</param>
+            <param name="marginMode">Margin mode</param>
+            <param name="price">Limit price</param>
+            <param name="positionSide">Position side</param>
+            <param name="reduceOnly">Reduce only order</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="takeProfitTriggerPrice">Take profit trigger price</param>
+            <param name="takeProfitOrderPrice">Take profit order price</param>
+            <param name="stopLossTriggerPrice">Stop loss trigger price</param>
+            <param name="stopLossOrderPrice">Stop loss order price</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{BloFin.Net.Objects.Models.BloFinOrderRequest},System.Threading.CancellationToken)">
+            <summary>
+            Place multiple new orders in a single request
+            <para><a href="https://docs.blofin.com/index.html#place-multiple-orders" /></para>
+            </summary>
+            <param name="orders">Orders to place</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.PlaceTpSlOrderAsync(System.String,BloFin.Net.Enums.OrderSide,BloFin.Net.Enums.MarginMode,System.Nullable{System.Decimal},System.Nullable{BloFin.Net.Enums.PositionSide},System.Nullable{System.Boolean},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <summary>
+            Place a new TP/SL order
+            <para><a href="https://docs.blofin.com/index.html#place-tpsl-order" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="orderSide">Order side</param>
+            <param name="marginMode">Margin mode</param>
+            <param name="quantity">Order quantity, if not send uses whole position</param>
+            <param name="positionSide">Position side</param>
+            <param name="reduceOnly">Reduce only</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="takeProfitTriggerPrice">Take profit trigger price</param>
+            <param name="takeProfitOrderPrice">Take profit order price</param>
+            <param name="stopLossTriggerPrice">Stop loss trigger price</param>
+            <param name="stopLossOrderPrice">Stop loss order price</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.PlaceTriggerOrderAsync(System.String,BloFin.Net.Enums.OrderSide,BloFin.Net.Enums.MarginMode,System.Decimal,System.Nullable{BloFin.Net.Enums.TriggerPriceType},System.Nullable{BloFin.Net.Enums.PositionSide},System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{System.Boolean},System.Collections.Generic.IEnumerable{BloFin.Net.Objects.Models.BloFinTpSlOrderRequest},System.Threading.CancellationToken)">
+            <summary>
+            Place new trigger order
+            <para><a href="https://docs.blofin.com/index.html#place-algo-order" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="marginMode">Margin mode</param>
+            <param name="side">Order side</param>
+            <param name="triggerPrice">Trigger price</param>
+            <param name="triggerPriceType">Trigger price type</param>
+            <param name="positionSide">Position side</param>
+            <param name="quantity">Quantity</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="orderPrice">Order price</param>
+            <param name="reduceOnly">Reduce only</param>
+            <param name="slTpOrders">Stop loss / take profit orders</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel an open order
+            <para><a href="https://docs.blofin.com/index.html#cancel-order" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`. Only required when using clientOrderId</param>
+            <param name="orderId">The order id. Either this or `clientOrderId` should be provided</param>
+            <param name="clientOrderId">The client order id. Either this or `orderId` should be provided</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.CancelOrdersAsync(System.Collections.Generic.IEnumerable{BloFin.Net.Objects.Models.BloFinCancelRequest},System.Threading.CancellationToken)">
+            <summary>
+            Cancel multiple orders
+            <para><a href="https://docs.blofin.com/index.html#cancel-multiple-orders" /></para>
+            </summary>
+            <param name="orders">Orders to cancel</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.CancelTpSlOrdersAsync(System.Collections.Generic.IEnumerable{BloFin.Net.Objects.Models.BloFinCancelTpSlRequest},System.Threading.CancellationToken)">
+            <summary>
+            Cancel TpSl orders
+            <para><a href="https://docs.blofin.com/index.html#cancel-tpsl-order" /></para>
+            </summary>
+            <param name="orders">Orders to cancel</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.CancelTriggerOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Cancel a trigger order
+            <para><a href="https://docs.blofin.com/index.html#cancel-algo-order" /></para>
+            </summary>
+            <param name="orderId">Algo order id</param>
+            <param name="symbol">Symbol name, for example `ETH-USDT`</param>
+            <param name="clientOrderId">Client order id, either this or `orderId` should be provided</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.GetOpenOrdersAsync(System.String,System.Nullable{BloFin.Net.Enums.OrderType},System.Nullable{BloFin.Net.Enums.OrderStatus},System.String,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get open orders
+            <para><a href="https://docs.blofin.com/index.html#get-active-orders" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
+            <param name="orderType">Filter by order type</param>
+            <param name="status">Filter by order status</param>
+            <param name="after">Return results after this id</param>
+            <param name="before">Return results before this id</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.GetOpenTpSlOrdersAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get open TP/SL orders
+            <para><a href="https://docs.blofin.com/index.html#get-active-tpsl-orders" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
+            <param name="orderId">Filter by tpsl order id</param>
+            <param name="clientOrderId">Filter by client order id</param>
+            <param name="after">Return results after this id</param>
+            <param name="before">Return results before this id</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.GetOpenTriggerOrdersAsync(System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get open trigger orders
+            <para><a href="https://docs.blofin.com/index.html#get-active-algo-orders" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="orderId">Filter by algo order id</param>
+            <param name="clientOrderId">Filter by client order id</param>
+            <param name="beforeId">Return results before this id</param>
+            <param name="afterId">Return results after this id</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.ClosePositionAsync(System.String,BloFin.Net.Enums.MarginMode,System.Nullable{BloFin.Net.Enums.PositionSide},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Close a position at market price
+            <para><a href="https://docs.blofin.com/index.html#close-positions" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="marginMode">Margin mode</param>
+            <param name="positionSide">Position side</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.GetClosedOrdersAsync(System.String,System.Nullable{BloFin.Net.Enums.OrderType},System.Nullable{BloFin.Net.Enums.OrderStatus},System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get closed order history
+            <para><a href="https://docs.blofin.com/index.html#get-order-history" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
+            <param name="orderType">Filter by order type</param>
+            <param name="orderStatus">Filter by order status</param>
+            <param name="after">Return results after this id</param>
+            <param name="before">Return results before this id</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results, max 100</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.GetClosedTpSlOrdersAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.TpSlOrderStatus},System.String,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get closed tp sl order history
+            <para><a href="https://docs.blofin.com/index.html#get-tpsl-order-history" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
+            <param name="orderId">Filter by tpsl order id</param>
+            <param name="clientOrderId">Filter by client order id</param>
+            <param name="status">Filter by status</param>
+            <param name="after">Return results after this id</param>
+            <param name="before">Return results before this id</param>
+            <param name="limit">Max number of results, max 100</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.GetClosedTriggerOrdersAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.TpSlOrderStatus},System.String,System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get closed trigger order history
+            <para><a href="https://docs.blofin.com/index.html#get-algo-order-history" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
+            <param name="orderId">Filter by algo order id</param>
+            <param name="clientOrderId">Filter by client order id</param>
+            <param name="status">Filter by status</param>
+            <param name="after">Return results after this id</param>
+            <param name="before">Return results before this id</param>
+            <param name="limit">Max number of results, max 100</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.GetUserTradesAsync(System.String,System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get user trade history
+            <para><a href="https://docs.blofin.com/index.html#get-trade-history" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
+            <param name="orderId">Filter by order id</param>
+            <param name="after">Return results after this id</param>
+            <param name="before">Return results before this id</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results, max 100</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiTrading.GetPriceLimitsAsync(System.String,BloFin.Net.Enums.OrderSide,System.Threading.CancellationToken)">
+            <summary>
+            Get order price limits
+            <para><a href="https://docs.blofin.com/index.html#get-trade-order-price-range" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH-USDT`</param>
+            <param name="side">Order side</param>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi">
             <summary>
@@ -1264,6 +2441,51 @@
             <para><a href="https://docs.blofin.com/index.html#ws-funding-rate-channel" /></para>
             </summary>
             <param name="symbols">The symbols to subscribe to</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinPosition[]}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to position updates
+            <para><a href="https://docs.blofin.com/index.html#ws-positions-channel" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinOrder[]}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to order updates
+            <para><a href="https://docs.blofin.com/index.html#ws-order-channel" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToTriggerOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate[]}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to trigger order updates
+            <para><a href="https://docs.blofin.com/index.html#ws-algo-orders-channel" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinFuturesBalances}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to futures balances updates
+            <para><a href="https://docs.blofin.com/index.html#ws-account-channel" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinSocketClientFuturesApi.SubscribeToInverseBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinFuturesInverseBalanceUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to inverse futures balances updates
+            <para><a href="https://docs.blofin.com/index.html#ws-inverse-account-channel" /></para>
+            </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -1434,6 +2656,281 @@
             Account level
             </summary>
         </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinAlgoOrder">
+            <summary>
+            Algo order info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.OrderId">
+            <summary>
+            Algo order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.Side">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.ActualQuantity">
+            <summary>
+            Actual quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.TriggerPrice">
+            <summary>
+            Trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.TriggerPriceType">
+            <summary>
+            Trigger price type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.BrokerId">
+            <summary>
+            Broker id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.AttachAlgoOrders">
+            <summary>
+            Attach algo orders
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinAlgoAttachedOrder">
+            <summary>
+            Attached order info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoAttachedOrder.TakeProfitTriggerPrice">
+            <summary>
+            Take profit trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoAttachedOrder.TakeProfitOrderPrice">
+            <summary>
+            Take profit order price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoAttachedOrder.TakeProfitTriggerPriceType">
+            <summary>
+            Take profit trigger price type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoAttachedOrder.StopLossTriggerPrice">
+            <summary>
+            Stop loss trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoAttachedOrder.StopLossOrderPrice">
+            <summary>
+            Stop loss order price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoAttachedOrder.StopLossTriggerPriceType">
+            <summary>
+            Stop loss trigger price type
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinAlgoOrderId">
+            <summary>
+            Algo order result
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderId.AlgoOrderId">
+            <summary>
+            Algo order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderId.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderId.Code">
+            <summary>
+            Code
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderId.Message">
+            <summary>
+            Message
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate">
+            <summary>
+            Algo order update
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.SymbolType">
+            <summary>
+            Symbol type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.TpslOrderId">
+            <summary>
+            Tpsl order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.AlgoOrderId">
+            <summary>
+            Algo order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.Side">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.TpTriggerPrice">
+            <summary>
+            Tp trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.TpOrderPrice">
+            <summary>
+            Tp order price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.SlTriggerPrice">
+            <summary>
+            Sl trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.SlOrderPrice">
+            <summary>
+            Sl order price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.TriggerPrice">
+            <summary>
+            Trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.TriggerPriceType">
+            <summary>
+            Trigger price type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.OrderPrice">
+            <summary>
+            Order price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.ActualQuantity">
+            <summary>
+            Actual quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.ActualSide">
+            <summary>
+            Actual side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.ReduceOnly">
+            <summary>
+            Reduce only
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.CancelType">
+            <summary>
+            Cancel type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.UpdateTime">
+            <summary>
+            Update time
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.BrokerId">
+            <summary>
+            Broker id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrderUpdate.AttachAlgoOrders">
+            <summary>
+            Attach algo orders
+            </summary>
+        </member>
         <member name="T:BloFin.Net.Objects.Models.BloFinApiKey">
             <summary>
             Api key info
@@ -1519,6 +3016,146 @@
             Bonus
             </summary>
         </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinCancelRequest">
+            <summary>
+            Cancel request
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinCancelRequest.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinCancelRequest.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinCancelRequest.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinCancelResponse">
+            <summary>
+            Cancel response
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinCancelResponse.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinCancelResponse.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinCancelResponse.Code">
+            <summary>
+            Response code
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinCancelResponse.Message">
+            <summary>
+            Response message
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinCancelTpSlRequest">
+            <summary>
+            Cancel request
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinCancelTpSlRequest.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinCancelTpSlRequest.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinCancelTpSlRequest.OrderId">
+            <summary>
+            TPSL Order id
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinClosePositionResult">
+            <summary>
+            Close position result
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinClosePositionResult.InstId">
+            <summary>
+            Inst id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinClosePositionResult.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinClosePositionResult.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinDeposit">
+            <summary>
+            Deposit info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinDeposit.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinDeposit.Network">
+            <summary>
+            Network
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinDeposit.Address">
+            <summary>
+            Address
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinDeposit.TransactionId">
+            <summary>
+            Transaction id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinDeposit.Type">
+            <summary>
+            Type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinDeposit.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinDeposit.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinDeposit.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinDeposit.Confirmations">
+            <summary>
+            Confirmations
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinDeposit.DepositId">
+            <summary>
+            Deposit id
+            </summary>
+        </member>
         <member name="T:BloFin.Net.Objects.Models.BloFinFundingRate">
             <summary>
             Funding rate info
@@ -1537,6 +3174,116 @@
         <member name="P:BloFin.Net.Objects.Models.BloFinFundingRate.FundingTime">
             <summary>
             Funding time
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinFuturesBalances">
+            <summary>
+            Futures account balance
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalances.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalances.TotalEquity">
+            <summary>
+            Total equity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalances.IsolatedEquity">
+            <summary>
+            Isolated equity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalances.Details">
+            <summary>
+            Details
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinFuturesBalance">
+            <summary>
+            Balance update
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalance.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalance.Equity">
+            <summary>
+            Equity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalance.Balance">
+            <summary>
+            Balance
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalance.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalance.IsolatedEquity">
+            <summary>
+            Isolated equity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalance.Available">
+            <summary>
+            Available
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalance.AvailableEquity">
+            <summary>
+            Available equity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalance.Frozen">
+            <summary>
+            Frozen
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalance.OrderFrozen">
+            <summary>
+            Order frozen
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalance.EquityUsd">
+            <summary>
+            Equity usd
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalance.UnrealizedPnl">
+            <summary>
+            Unrealized pnl
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalance.IsolatedUnrealizedPnl">
+            <summary>
+            Isolated unrealized pnl
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesBalance.Bonus">
+            <summary>
+            Bonus
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinFuturesInverseBalanceUpdate">
+            <summary>
+            Futures account balance
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesInverseBalanceUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinFuturesInverseBalanceUpdate.Details">
+            <summary>
+            Details
             </summary>
         </member>
         <member name="T:BloFin.Net.Objects.Models.BloFinIndexMarkKline">
@@ -1624,6 +3371,41 @@
             Whether the kline is finished
             </summary>
         </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinLeverage">
+            <summary>
+            Leverage info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinLeverage.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinLeverage.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinLeverage.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinLeverage.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinMarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinMarginMode.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
         <member name="T:BloFin.Net.Objects.Models.BloFinMarkIndexPrice">
             <summary>
             Mark/Index price info
@@ -1647,6 +3429,171 @@
         <member name="P:BloFin.Net.Objects.Models.BloFinMarkIndexPrice.Timestamp">
             <summary>
             Timestamp
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinOrder">
+            <summary>
+            Order info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.SymbolType">
+            <summary>
+            Symbol type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.Side">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.ReduceOnly">
+            <summary>
+            Reduce only
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.Status">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.QuantityFilled">
+            <summary>
+            Quantity filled
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.QuantityFilled2">
+            <summary>
+            Quantity filled
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.AveragePrice">
+            <summary>
+            Average fill price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.Fee">
+            <summary>
+            Fee
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.Pnl">
+            <summary>
+            Profit and loss
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.UpdateTime">
+            <summary>
+            Update time
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.OrderCategory">
+            <summary>
+            Order category
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.TakeProfitTriggerPrice">
+            <summary>
+            Take profit trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.TakeProfitTriggerPriceType">
+            <summary>
+            Take profit trigger price type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.StopLossTriggerPrice">
+            <summary>
+            Stop loss trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.StopLossOrderPrice">
+            <summary>
+            Stop loss order price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.StopLossTriggerPriceType">
+            <summary>
+            Stop loss trigger price type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.TakeProfitOrderPrice">
+            <summary>
+            Take profit order price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.AlgoClientOrderId">
+            <summary>
+            Algo client order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.CancelSource">
+            <summary>
+            Cancel source
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.CancelSourceReason">
+            <summary>
+            Cancel source reason
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.AlgoId">
+            <summary>
+            Algo id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.BrokerId">
+            <summary>
+            Broker id
             </summary>
         </member>
         <member name="T:BloFin.Net.Objects.Models.BloFinOrderBook">
@@ -1707,6 +3654,236 @@
         <member name="P:BloFin.Net.Objects.Models.BloFinOrderBookUpdate.Sequence">
             <summary>
             Sequence id
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinTpSlOrderId">
+            <summary>
+            TP/SL order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrderId.TpslOrderId">
+            <summary>
+            Tpsl order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrderId.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrderId.Code">
+            <summary>
+            Code
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrderId.Message">
+            <summary>
+            Message
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinOrderRequest">
+            <summary>
+            Order request
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderRequest.Symbol">
+            <summary>
+            Symbol name, for example `ETH-USDT`
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderRequest.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderRequest.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderRequest.OrderSide">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderRequest.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderRequest.Price">
+            <summary>
+            Order price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderRequest.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderRequest.ReduceOnly">
+            <summary>
+            Reduce only
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderRequest.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderRequest.TakeProfitTriggerPrice">
+            <summary>
+            Take profit trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderRequest.TakeProfitOrderPrice">
+            <summary>
+            Take profit order price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderRequest.StopLossTriggerPrice">
+            <summary>
+            Stop loss trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderRequest.StopLossOrderPrice">
+            <summary>
+            Stop loss order price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderRequest.BrokerId">
+            <summary>
+            Broker id
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinPosition">
+            <summary>
+            Position info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.PositionId">
+            <summary>
+            Position id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.SymbolType">
+            <summary>
+            Symbol type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.Adl">
+            <summary>
+            Adl
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.PositionSize">
+            <summary>
+            Position size
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.ClosableSize">
+            <summary>
+            Position size which can be closed
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.AveragePrice">
+            <summary>
+            Average open price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.Margin">
+            <summary>
+            Margin
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.MarkPrice">
+            <summary>
+            Mark price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.MarginRatio">
+            <summary>
+            Margin ratio
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.LiquidationPrice">
+            <summary>
+            Liquidation price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.UnrealizedPnl">
+            <summary>
+            Unrealized profit and loss
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.UnrealizedPnlRatio">
+            <summary>
+            Unrealized profit and loss ratio
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.InitialMargin">
+            <summary>
+            Initial margin
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.MaintenanceMargin">
+            <summary>
+            Maintenance margin
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.UpdateTime">
+            <summary>
+            Update time
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPosition.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinPositionMode">
+            <summary>
+            Position mode
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPositionMode.PositionMode">
+            <summary>
+            Position mode
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinPriceLimit">
+            <summary>
+            Price limits
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPriceLimit.MaxPrice">
+            <summary>
+            Max price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinPriceLimit.MinPrice">
+            <summary>
+            Min price
             </summary>
         </member>
         <member name="T:BloFin.Net.Objects.Models.BloFinSymbol">
@@ -1864,6 +4041,161 @@
             Timestamp
             </summary>
         </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinTpSlOrder">
+            <summary>
+            TP/SL order info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.OrderId">
+            <summary>
+            Tpsl order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.MarginMode">
+            <summary>
+            Margin mode
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.Side">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.TpTriggerPrice">
+            <summary>
+            Tp trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.TpOrderPrice">
+            <summary>
+            Tp order price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.SlTriggerPrice">
+            <summary>
+            Sl trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.SlOrderPrice">
+            <summary>
+            Sl order price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.ReduceOnly">
+            <summary>
+            Reduce only
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.ActualQuantity">
+            <summary>
+            Actual quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.OrderCategory">
+            <summary>
+            Order category
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrder.BrokerId">
+            <summary>
+            Broker id
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinOrderId">
+            <summary>
+            Order result
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderId.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderId.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderId.Message">
+            <summary>
+            Message
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinOrderId.Code">
+            <summary>
+            Code
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinTpSlOrderRequest">
+            <summary>
+            Tp/Sl order request
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrderRequest.TakeProfitTriggerPrice">
+            <summary>
+            Take profit trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrderRequest.TakeProfitOrderPrice">
+            <summary>
+            Take profit order price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrderRequest.TakeProfitTriggerPriceType">
+            <summary>
+            Take profit trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrderRequest.StopLossTriggerPrice">
+            <summary>
+            Stop loss trigger price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrderRequest.StopLossOrderPrice">
+            <summary>
+            Stop loss order price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTpSlOrderRequest.StopLossTriggerPriceType">
+            <summary>
+            Stop loss trigger price
+            </summary>
+        </member>
         <member name="T:BloFin.Net.Objects.Models.BloFinTrade">
             <summary>
             Trade info
@@ -1899,6 +4231,46 @@
             Timestamp
             </summary>
         </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinTransfer">
+            <summary>
+            Transfer info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTransfer.TransferId">
+            <summary>
+            Transfer id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTransfer.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTransfer.FromAccount">
+            <summary>
+            From account
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTransfer.ToAccount">
+            <summary>
+            To account
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTransfer.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTransfer.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinTransfer.ClientId">
+            <summary>
+            Client id
+            </summary>
+        </member>
         <member name="T:BloFin.Net.Objects.Models.BloFinTransferResult">
             <summary>
             Transfer result
@@ -1912,6 +4284,141 @@
         <member name="P:BloFin.Net.Objects.Models.BloFinTransferResult.ClientTransferId">
             <summary>
             Client transfer id
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinUserTrade">
+            <summary>
+            User trade info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinUserTrade.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinUserTrade.TradeId">
+            <summary>
+            Trade id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinUserTrade.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinUserTrade.Price">
+            <summary>
+            Fill price
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinUserTrade.Quantity">
+            <summary>
+            Fill quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinUserTrade.Pnl">
+            <summary>
+            Profit and loss
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinUserTrade.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinUserTrade.Side">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinUserTrade.Fee">
+            <summary>
+            Fee
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinUserTrade.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinUserTrade.BrokerId">
+            <summary>
+            Broker id
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Objects.Models.BloFinWithdrawal">
+            <summary>
+            Withdrawal info
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinWithdrawal.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinWithdrawal.Network">
+            <summary>
+            Network
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinWithdrawal.Address">
+            <summary>
+            Address
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinWithdrawal.TransactionId">
+            <summary>
+            Transaction id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinWithdrawal.Type">
+            <summary>
+            Type
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinWithdrawal.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinWithdrawal.Fee">
+            <summary>
+            Fee
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinWithdrawal.FeeAsset">
+            <summary>
+            Fee asset
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinWithdrawal.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinWithdrawal.ClientId">
+            <summary>
+            Client id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinWithdrawal.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinWithdrawal.Tag">
+            <summary>
+            Tag
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinWithdrawal.Memo">
+            <summary>
+            Memo
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinWithdrawal.WithdrawId">
+            <summary>
+            Withdraw id
             </summary>
         </member>
         <member name="T:BloFin.Net.Objects.Options.BloFinOptions">
@@ -1982,7 +4489,7 @@
         <member name="T:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+        <member name="M:BloFin.Net.Objects.Sockets.Subscriptions.BloFinSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean,System.Boolean)">
             <summary>
             ctor
             </summary>

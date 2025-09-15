@@ -1,0 +1,13 @@
+POST
+/api/v1/account/set-leverage
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": {
+        "leverage": "100",
+        "marginMode": "cross",
+        "instId": "BTC-USDT",
+        "positionSide":"long"
+    }
+}

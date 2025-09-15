@@ -164,6 +164,51 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BloFinFundingRate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to position updates
+        /// <para><a href="https://docs.blofin.com/index.html#ws-positions-channel" /></para>
+        /// </summary>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<BloFinPosition[]>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to order updates
+        /// <para><a href="https://docs.blofin.com/index.html#ws-order-channel" /></para>
+        /// </summary>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BloFinOrder[]>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to trigger order updates
+        /// <para><a href="https://docs.blofin.com/index.html#ws-algo-orders-channel" /></para>
+        /// </summary>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToTriggerOrderUpdatesAsync(Action<DataEvent<BloFinAlgoOrderUpdate[]>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to futures balances updates
+        /// <para><a href="https://docs.blofin.com/index.html#ws-account-channel" /></para>
+        /// </summary>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BloFinFuturesBalances>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to inverse futures balances updates
+        /// <para><a href="https://docs.blofin.com/index.html#ws-inverse-account-channel" /></para>
+        /// </summary>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToInverseBalanceUpdatesAsync(Action<DataEvent<BloFinFuturesInverseBalanceUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
         /// Get the shared socket requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
         /// </summary>
         public IBloFinSocketClientFuturesApiShared SharedClient { get; }

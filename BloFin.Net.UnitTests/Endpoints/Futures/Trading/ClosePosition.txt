@@ -1,0 +1,12 @@
+POST
+/api/v1/trade/close-position
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": {
+        "instId": "ETH-USDT",
+        "positionSide": "net",
+        "clientOrderId": ""
+    }
+}

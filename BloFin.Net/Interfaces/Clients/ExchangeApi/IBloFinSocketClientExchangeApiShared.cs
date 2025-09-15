@@ -13,7 +13,10 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         IKlineSocketClient,
         IOrderBookSocketClient,
         ITickerSocketClient,
-        ITradeSocketClient
+        ITradeSocketClient,
+        IBalanceSocketClient,
+        IFuturesOrderSocketClient,
+        IPositionSocketClient
     {
     }
 }

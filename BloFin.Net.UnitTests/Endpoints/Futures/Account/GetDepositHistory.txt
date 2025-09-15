@@ -1,0 +1,33 @@
+GET
+/api/v1/asset/deposit-history
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "currency": "USDT",
+            "chain": "TRC20",
+            "address": "EXAMPLE_WALLET_ADDRESS",
+            "txId": "h9e69f5133c4f49f5d869d7ef6e11e0f9f5f81cd345678901cdef2345678901",
+            "type": "0",
+            "amount": "9",
+            "state": "1",
+            "ts": "1597026383085",
+            "confirm": "12",
+            "depositId": "c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8"
+        },
+        {
+            "currency": "USDT",
+            "chain": "TRC20",
+            "address": "EXAMPLE_WALLET_ADDRESS",
+            "txId": "i0f70f6244d5f50f6e970e8ef7f22f1f0f6f92de456789012def3456789012",
+            "type": "0",
+            "amount": "9",
+            "state": "1",
+            "ts": "1597026383085",
+            "confirm": "12",
+            "depositId": "d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9"
+        }
+    ]
+}

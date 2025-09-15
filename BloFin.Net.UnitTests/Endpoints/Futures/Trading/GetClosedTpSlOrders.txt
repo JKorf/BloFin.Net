@@ -1,0 +1,50 @@
+GET
+/api/v1/trade/orders-tpsl-history
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "tpslId": "2101",
+            "clientOrderId": "BBBBqqqq",
+            "instId": "ETH-USDT",
+            "marginMode": "cross",
+            "positionSide": "net",
+            "side": "sell",
+            "orderType": null,
+            "size": "1",
+            "reduceOnly": "true",
+            "leverage": "3",
+            "state": "canceled",
+            "actualSize": null,
+            "triggerType": null,
+            "orderCategory": "normal",
+            "tpTriggerPrice": "1661.100000000000000000",
+            "tpOrderPrice": null,
+            "slTriggerPrice": null,
+            "slOrderPrice": null,
+            "brokerId": ""
+        },
+        {
+            "tpslId": "1482",
+            "clientOrderId": "",
+            "instId": "ETH-USDT",
+            "marginMode": "cross",
+            "positionSide": "net",
+            "side": "sell",
+            "orderType": null,
+            "size": "1",
+            "reduceOnly": "true",
+            "leverage": "3",
+            "state": "canceled",
+            "actualSize": null,
+            "orderCategory": "normal",
+            "tpTriggerPrice": "1661.100000000000000000",
+            "tpOrderPrice": null,
+            "slTriggerPrice": null,
+            "slOrderPrice": null,
+            "brokerId": ""
+        }
+    ]
+}

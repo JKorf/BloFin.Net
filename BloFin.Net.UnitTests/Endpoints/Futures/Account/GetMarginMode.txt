@@ -1,0 +1,10 @@
+GET
+/api/v1/account/margin-mode
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": {
+        "marginMode": "isolated"
+    }
+}

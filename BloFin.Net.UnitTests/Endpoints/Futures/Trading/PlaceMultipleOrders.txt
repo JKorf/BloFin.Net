@@ -1,0 +1,17 @@
+POST
+/api/v1/trade/batch-orders
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "orderId": "22617453",
+            "clientOrderId": "eeeeee11223112"
+        },
+        {
+            "orderId": "22617454",
+            "clientOrderId": "eeeeee1122321"
+        }
+    ]
+}

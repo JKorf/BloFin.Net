@@ -10,7 +10,7 @@ namespace BloFin.Net.Objects.Internal
     internal record BloFinSocketUpdate<T>
     {
         [JsonPropertyName("arg")]
-        public Dictionary<string, object> Parameters { get; set; } = new();
+        public Dictionary<string, string> Parameters { get; set; } = new();
         [JsonPropertyName("data")]
         public T Data { get; set; } = default!;
         [JsonPropertyName("action")]

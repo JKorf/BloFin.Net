@@ -1,0 +1,15 @@
+POST
+/api/v1/trade/order
+true
+{
+    "code": "0",
+    "msg": "",
+    "data": [
+        {
+            "orderId": "28150801",
+            "clientOrderId": "test1597321",
+            "msg": "",
+            "code": "0"
+        }
+    ]
+}

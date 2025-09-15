@@ -1,3 +1,4 @@
+using BloFin.Net.Enums;
 using BloFin.Net.Interfaces.Clients.FuturesApi;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
@@ -6,6 +7,7 @@ using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -123,6 +125,131 @@ namespace BloFin.Net.Clients.FuturesApi
             {
                 Side = x.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             }).ToArray())), ct: ct).ConfigureAwait(false);
+
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
+        }
+
+        #endregion
+
+        #region Balance client
+        EndpointOptions<SubscribeBalancesRequest> IBalanceSocketClient.SubscribeBalanceOptions { get; } = new EndpointOptions<SubscribeBalancesRequest>(true);
+        async Task<ExchangeResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<ExchangeEvent<SharedBalance[]>> handler, CancellationToken ct)
+        {
+            var validationError = ((IBalanceSocketClient)this).SubscribeBalanceOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
+
+            var result = await SubscribeToBalanceUpdatesAsync(update =>
+            {
+                if (update.UpdateType == SocketUpdateType.Snapshot)
+                    return;
+
+                handler(update.AsExchangeEvent(Exchange, update.Data.Details.Select(x => new SharedBalance(x.Asset, x.Available, x.Balance)).ToArray()));
+            },
+            ct: ct).ConfigureAwait(false);
+
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
+        }
+
+        #endregion
+
+        #region Futures Order client
+
+        EndpointOptions<SubscribeFuturesOrderRequest> IFuturesOrderSocketClient.SubscribeFuturesOrderOptions { get; } = new EndpointOptions<SubscribeFuturesOrderRequest>(true);
+        async Task<ExchangeResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<ExchangeEvent<SharedFuturesOrder[]>> handler, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderSocketClient)this).SubscribeFuturesOrderOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
+
+            var result = await SubscribeToOrderUpdatesAsync(
+                update =>
+                {
+                    if (update.UpdateType == SocketUpdateType.Snapshot)
+                        return;
+
+                    handler(update.AsExchangeEvent(Exchange, update.Data.Select(x =>
+                        new SharedFuturesOrder(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), x.Symbol,
+                            x.OrderId.ToString(),
+                            ParseOrderType(x.OrderType),
+                            x.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                            ParseOrderStatus(x.Status),
+                            x.UpdateTime)
+                        {
+                            ClientOrderId = x.ClientOrderId,
+                            OrderPrice = x.Price == 0 ? null : x.Price,
+                            OrderQuantity = new SharedOrderQuantity(contractQuantity: x.Quantity),
+                            QuantityFilled = new SharedOrderQuantity(contractQuantity: x.QuantityFilled),
+                            UpdateTime = x.UpdateTime,
+                            Fee = x.Fee,
+                            AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice,
+                            PositionSide = x.PositionSide == Enums.PositionSide.Long ? SharedPositionSide.Long : x.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : null,
+                            ReduceOnly = x.ReduceOnly,
+                            TimeInForce = ParseTimeInForce(x.OrderType),
+                            StopLossPrice = x.StopLossTriggerPrice,
+                            TakeProfitPrice = x.TakeProfitTriggerPrice,
+                            Leverage = x.Leverage,
+                        }).ToArray()
+                    ));
+                },
+                ct: ct).ConfigureAwait(false);
+
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
+        }
+
+        private SharedOrderStatus ParseOrderStatus(OrderStatus status)
+        {
+            if (status == OrderStatus.Open || status == OrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
+            if (status == OrderStatus.Filled) return SharedOrderStatus.Filled;
+            return SharedOrderStatus.Canceled;
+        }
+
+        private SharedOrderType ParseOrderType(OrderType type)
+        {
+            if (type == OrderType.Market || type == OrderType.ImmediateOrCancel)
+                return SharedOrderType.Market;
+
+            if (type == OrderType.Limit || type == OrderType.PostOnly)
+                return SharedOrderType.Limit;
+
+            return SharedOrderType.Other;
+        }
+
+        private SharedTimeInForce? ParseTimeInForce(OrderType type)
+        {
+            if (type == OrderType.PostOnly || type == OrderType.Limit) return SharedTimeInForce.GoodTillCanceled;
+            if (type == OrderType.FillOrKill) return SharedTimeInForce.FillOrKill;
+            if (type == OrderType.ImmediateOrCancel || type == OrderType.Market) return SharedTimeInForce.ImmediateOrCancel;
+
+            return null;
+        }
+        #endregion
+
+        #region Position client
+        EndpointOptions<SubscribePositionRequest> IPositionSocketClient.SubscribePositionOptions { get; } = new EndpointOptions<SubscribePositionRequest>(true);
+        async Task<ExchangeResult<UpdateSubscription>> IPositionSocketClient.SubscribeToPositionUpdatesAsync(SubscribePositionRequest request, Action<ExchangeEvent<SharedPosition[]>> handler, CancellationToken ct)
+        {
+            var validationError = ((IPositionSocketClient)this).SubscribePositionOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
+
+            var result = await SubscribeToPositionUpdatesAsync(
+                 update =>
+                 {
+                     if (update.UpdateType == SocketUpdateType.Snapshot)
+                         return;
+
+                     handler(update.AsExchangeEvent(Exchange, update.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), x.Symbol, Math.Abs(x.PositionSize), x.UpdateTime)
+                     {
+                         AverageOpenPrice = x.AveragePrice,
+                         PositionSide = x.PositionSide == Enums.PositionSide.Net ? (x.PositionSize > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
+                         UnrealizedPnl = x.UnrealizedPnl,
+                         Leverage = x.Leverage,
+                         LiquidationPrice = x.LiquidationPrice
+                     }).ToArray()));
+                 },
+                ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }

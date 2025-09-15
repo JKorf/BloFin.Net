@@ -46,7 +46,7 @@ namespace BloFin.Net
                new ErrorInfo(ErrorType.InvalidStopParameters, false, "Take profit trigger price should be lower than the order price", "102049"),
                new ErrorInfo(ErrorType.InvalidStopParameters, false, "Stop loss trigger price must be lower than the best ask price", "102050"),
 
-               new ErrorInfo(ErrorType.UnknownOrder, false, "Order not found or not cancelable", "102068"),
+               new ErrorInfo(ErrorType.UnknownOrder, false, "Order not found or not cancelable", "102068", "1000"),
 
             ]
             );

@@ -81,7 +81,7 @@ namespace BloFin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BloFinTrade[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BloFinSubscription<BloFinTrade[]>(_logger, this, "trades", symbols.ToArray(), onMessage, false);
+            var subscription = new BloFinSubscription<BloFinTrade[]>(_logger, this, "trades", symbols.ToArray(), onMessage, false, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/public"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -93,7 +93,7 @@ namespace BloFin.Net.Clients.FuturesApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<BloFinKline>> onMessage, CancellationToken ct = default)
         {
             var intervalStr = EnumConverter.GetString(interval);
-            var subscription = new BloFinSubscription<BloFinKline[]>(_logger, this, "candle" + intervalStr, symbols.ToArray(), x => onMessage(x.As(x.Data.First())), false);
+            var subscription = new BloFinSubscription<BloFinKline[]>(_logger, this, "candle" + intervalStr, symbols.ToArray(), x => onMessage(x.As(x.Data.First())), false, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/public"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -105,7 +105,7 @@ namespace BloFin.Net.Clients.FuturesApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<BloFinIndexMarkKline>> onMessage, CancellationToken ct = default)
         {
             var intervalStr = EnumConverter.GetString(interval);
-            var subscription = new BloFinSubscription<BloFinIndexMarkKline[]>(_logger, this, "index-candle" + intervalStr, symbols.ToArray(), x => onMessage(x.As(x.Data.First())), false);
+            var subscription = new BloFinSubscription<BloFinIndexMarkKline[]>(_logger, this, "index-candle" + intervalStr, symbols.ToArray(), x => onMessage(x.As(x.Data.First())), false, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/public"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -117,7 +117,7 @@ namespace BloFin.Net.Clients.FuturesApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<BloFinIndexMarkKline>> onMessage, CancellationToken ct = default)
         {
             var intervalStr = EnumConverter.GetString(interval);
-            var subscription = new BloFinSubscription<BloFinIndexMarkKline[]>(_logger, this, "mark-price-candle" + intervalStr, symbols.ToArray(), x => onMessage(x.As(x.Data.First())), false);
+            var subscription = new BloFinSubscription<BloFinIndexMarkKline[]>(_logger, this, "mark-price-candle" + intervalStr, symbols.ToArray(), x => onMessage(x.As(x.Data.First())), false, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/public"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -131,7 +131,7 @@ namespace BloFin.Net.Clients.FuturesApi
             // Documentation states that the books subscription would publish 200 depth, but it's actually 400. Accept both
             depth.ValidateIntValues(nameof(depth), [5, 200, 400]);
 
-            var subscription = new BloFinSubscription<BloFinOrderBookUpdate>(_logger, this, "books" + (depth == 5 ? "5" : ""), symbols.ToArray(), onMessage, false);
+            var subscription = new BloFinSubscription<BloFinOrderBookUpdate>(_logger, this, "books" + (depth == 5 ? "5" : ""), symbols.ToArray(), onMessage, false, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/public"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -142,7 +142,7 @@ namespace BloFin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BloFinTicker>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BloFinSubscription<BloFinTicker[]>(_logger, this, "tickers", symbols.ToArray(), x => onMessage(x.As(x.Data.First())), false);
+            var subscription = new BloFinSubscription<BloFinTicker[]>(_logger, this, "tickers", symbols.ToArray(), x => onMessage(x.As(x.Data.First())), false, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/public"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -153,8 +153,43 @@ namespace BloFin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BloFinFundingRate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BloFinSubscription<BloFinFundingRate[]>(_logger, this, "funding-rate", symbols.ToArray(), x => onMessage(x.As(x.Data.First())), false);
+            var subscription = new BloFinSubscription<BloFinFundingRate[]>(_logger, this, "funding-rate", symbols.ToArray(), x => onMessage(x.As(x.Data.First())), false, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/public"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<BloFinPosition[]>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BloFinSubscription<BloFinPosition[]>(_logger, this, "positions", null, onMessage, true, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/private"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BloFinOrder[]>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BloFinSubscription<BloFinOrder[]>(_logger, this, "orders", null, onMessage, true, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/private"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTriggerOrderUpdatesAsync(Action<DataEvent<BloFinAlgoOrderUpdate[]>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BloFinSubscription<BloFinAlgoOrderUpdate[]>(_logger, this, "orders-algo", null, onMessage, true, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/private"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BloFinFuturesBalances>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BloFinSubscription<BloFinFuturesBalances>(_logger, this, "account", null, onMessage, true, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/private"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToInverseBalanceUpdatesAsync(Action<DataEvent<BloFinFuturesInverseBalanceUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BloFinSubscription<BloFinFuturesInverseBalanceUpdate>(_logger, this, "inverse-account", null, onMessage, true, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/private"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -170,7 +205,11 @@ namespace BloFin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection) => Task.FromResult<Query?>(null);
+        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
+        {
+            var authParams = ((BloFinAuthenticationProvider)AuthenticationProvider!).GetSocketParameters();
+            return Task.FromResult<Query?>(new BloFinLoginQuery(this, authParams, false));
+        }
 
         /// <inheritdoc />
         public IBloFinSocketClientFuturesApiShared SharedClient => this;

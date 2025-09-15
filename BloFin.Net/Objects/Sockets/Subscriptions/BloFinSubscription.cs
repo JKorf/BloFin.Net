@@ -18,19 +18,28 @@ namespace BloFin.Net.Objects.Sockets.Subscriptions
         private readonly SocketApiClient _client;
         private readonly Action<DataEvent<T>> _handler;
         private readonly string _topic;
-        private readonly string[] _symbols;
+        private readonly bool _firstUpdateIsSnapshot;
+        private readonly string[]? _symbols;
 
         /// <summary>
         /// ctor
         /// </summary>
-        public BloFinSubscription(ILogger logger, SocketApiClient client, string topic, string[] symbols, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
+        public BloFinSubscription(
+            ILogger logger,
+            SocketApiClient client, 
+            string topic,
+            string[]? symbols,
+            Action<DataEvent<T>> handler,
+            bool auth,
+            bool firstUpdateIsSnapshot) : base(logger, auth)
         {
             _client = client;
             _handler = handler;
             _topic = topic;
             _symbols = symbols;
+            _firstUpdateIsSnapshot = firstUpdateIsSnapshot;
 
-            MessageMatcher = MessageMatcher.Create<BloFinSocketUpdate<T>>(symbols.Select(x => topic + x), DoHandleMessage);
+            MessageMatcher = MessageMatcher.Create<BloFinSocketUpdate<T>>(symbols != null ? symbols.Select(x => topic + x) : [topic], DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -39,11 +48,16 @@ namespace BloFin.Net.Objects.Sockets.Subscriptions
             return new BloFinQuery(_client, new BloFinSocketRequest
             {
                 Operation = "subscribe",
-                Parameters = _symbols.Select(x => new Dictionary<string, object>
+                Parameters = _symbols != null ? _symbols.Select(x => new Dictionary<string, string>
                 {
                     { "channel", _topic },
                     { "instId", x }
-                }).ToArray()                
+                }).ToArray()
+                :
+                [new Dictionary<string, string>
+                {
+                    { "channel", _topic }
+                }]
             }, Authenticated);
         }
 
@@ -53,18 +67,28 @@ namespace BloFin.Net.Objects.Sockets.Subscriptions
             return new BloFinQuery(_client, new BloFinSocketRequest
             {
                 Operation = "unsubscribe",
-                Parameters = _symbols.Select(x => new Dictionary<string, object>
+                Parameters = _symbols != null ? _symbols.Select(x => new Dictionary<string, string>
                 {
                     { "channel", _topic },
                     { "instId", x }
                 }).ToArray()
+                :
+                [new Dictionary<string, string>
+                {
+                    { "channel", _topic }
+                }]
             }, Authenticated);
         }
 
         /// <inheritdoc />
         public CallResult DoHandleMessage(SocketConnection connection, DataEvent<BloFinSocketUpdate<T>> message)
         {
-            _handler.Invoke(message.As(message.Data.Data, _topic, message.Data.Parameters["instId"].ToString(), message.Data.Action == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update));
+            _handler.Invoke(
+                message.As(
+                    message.Data.Data, 
+                    _topic,
+                    message.Data.Parameters.TryGetValue("instId", out var symbol) ? symbol : null,
+                    message.Data.Action == "snapshot" ? SocketUpdateType.Snapshot : (_firstUpdateIsSnapshot && this.ConnectionInvocations == 1) ? SocketUpdateType.Snapshot : SocketUpdateType.Update));
             return new CallResult(null);
         }
     }

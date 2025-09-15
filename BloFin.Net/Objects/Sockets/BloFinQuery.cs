@@ -14,7 +14,7 @@ namespace BloFin.Net.Objects.Sockets
     {
         private readonly SocketApiClient _client;
         private readonly string _topic;
-        private readonly HashSet<string> _symbols = new();
+        private readonly HashSet<string>? _symbols;
 
         public BloFinQuery(SocketApiClient client, BloFinSocketRequest request, bool authenticated, int weight = 1) : base(request, authenticated, weight)
         {
@@ -24,17 +24,21 @@ namespace BloFin.Net.Objects.Sockets
                 "error"
             };
 
-            _topic = request.Parameters.First()["channel"].ToString()!;
+            _topic = request.Parameters.First()["channel"]!;
 
             foreach (var param in request.Parameters)
             {
-                _symbols.Add(param["instId"].ToString()!);
+                if (param.TryGetValue("instId", out var symbol))
+                {
+                    _symbols ??= new HashSet<string>();
+                    _symbols.Add(symbol);
+                }
 
                 var listenKey = request.Operation;
                 if (param.TryGetValue("channel", out var channel))
                     listenKey += channel;
-                if (param.TryGetValue("instId", out var instId))
-                    listenKey += instId;
+                if (symbol != null)
+                    listenKey += symbol;
                 listenList.Add(listenKey);
             }
 
@@ -49,6 +53,8 @@ namespace BloFin.Net.Objects.Sockets
             if (messageData.Code == 0)
                 return true;
 
+            if (_symbols == null)
+                return true;
 
             // Check if the error response is for this query, we have to parse the original send request to see if it's this one
             if (!messageData.Message!.StartsWith("Invalid request: "))

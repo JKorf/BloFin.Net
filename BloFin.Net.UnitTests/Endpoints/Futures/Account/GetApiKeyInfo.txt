@@ -11,13 +11,12 @@ true
     "readOnly": 0,
     "ips": [
       "YOUR_IP_ADDRESS_1",
-      "YOUR_IP_ADDRESS_2",
-      
+      "YOUR_IP_ADDRESS_2"      
     ],
     "type": 1,
     "expireTime": "1597026383085",
     "createTime": "1597026383085",
     "referralCode": "blofin",
-    "parentUid": "YOUR_PARENT_USER_ID",
+    "parentUid": "YOUR_PARENT_USER_ID"
   }
 }

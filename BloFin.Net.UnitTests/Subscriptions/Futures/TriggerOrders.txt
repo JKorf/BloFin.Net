@@ -1,0 +1,79 @@
+> {"op":"login","args":[{"apiKey":"","passphrase":"","nonce":"","timestamp":"1757937331100","sign":""}]}
+< {"event":"login","code":"0","msg":""}
+> { "op":"subscribe", "args":[{ "channel":"orders-algo" }]}
+< { "event": "subscribe", "arg": { "channel": "orders-algo" }}
+= 
+{
+    "action": "snapshot",
+    "arg": {
+        "channel": "orders-algo"
+    },
+    "data": [
+        {
+            "instType": "SWAP",
+            "instId": "BTC-USDT",
+            "tpslId": "11779982",
+            "algoId": "11779982",
+            "clientOrderId": "",
+            "size": "100",
+            "orderType": "conditional",
+            "side": "buy",
+            "positionSide": "long",
+            "marginMode": "cross",
+            "leverage": "10",
+            "state": "live",
+            "tpTriggerPrice": "73000.000000000000000000",
+            "tpOrderPrice": "-1",
+            "slTriggerPrice": null,
+            "slOrderPrice": null,
+            "triggerPrice": null,
+            "triggerPriceType": "last",
+            "orderPrice": null,
+            "actualSize": "",
+            "actualSide": "",
+            "reduceOnly": "false",
+            "cancelType": "not_canceled",
+            "createTime": "1731056529341",
+            "updateTime": "1731056529341",
+            "brokerId": ""
+        },
+        {
+            "instType": "SWAP",
+            "instId": "BTC-USDT",
+            "tpslId": "11779984",
+            "algoId": "11779984",
+            "clientOrderId": "",
+            "size": "100",
+            "orderType": "trigger",
+            "side": "buy",
+            "positionSide": "long",
+            "marginMode": "cross",
+            "leverage": "10",
+            "state": "live",
+            "tpTriggerPrice": null,
+            "tpOrderPrice": null,
+            "slTriggerPrice": null,
+            "slOrderPrice": null,
+            "triggerPrice": "73000.000000000000000000",
+            "triggerPriceType": "last",
+            "orderPrice": "-1",
+            "actualSize": "",
+            "actualSide": null,
+            "reduceOnly": "false",
+            "cancelType": "not_canceled",
+            "createTime": "1731057086771",
+            "updateTime": "1731057086771",
+            "brokerId": "",
+            "attachAlgoOrders": [
+                {
+                    "tpTriggerPrice": "75000",
+                    "tpTriggerPriceType": "market",
+                    "tpOrderPrice": "-1",
+                    "slTriggerPriceType": null,
+                    "slTriggerPrice": null,
+                    "slOrderPrice": null
+                }
+            ]
+        }
+    ]
+}

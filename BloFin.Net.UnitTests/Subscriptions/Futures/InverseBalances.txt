@@ -1,0 +1,29 @@
+> {"op":"login","args":[{"apiKey":"","passphrase":"","nonce":"","timestamp":"1757937331100","sign":""}]}
+< {"event":"login","code":"0","msg":""}
+> { "op":"subscribe", "args":[{ "channel":"inverse-account" }]}
+< { "event": "subscribe", "arg": { "channel": "inverse-account" }}
+= 
+{
+  "arg": {
+    "channel": "inverse-account"
+  },
+  "data": {
+    "ts": "1597026383085",
+    "details": [
+      {
+        "currency": "BTC",
+        "equity": "1",
+        "balance": "1",
+        "ts": "1617279471503",
+        "isolatedEquity": "0",
+        "equityUsd": "45078.3790756226851775",
+        "availableEquity": "1",
+        "available": "0",
+        "frozen": "0",
+        "orderFrozen": "0",
+        "unrealizedPnl": "0",
+        "isolatedUnrealizedPnl": "0"        
+      }
+    ]
+  }
+}

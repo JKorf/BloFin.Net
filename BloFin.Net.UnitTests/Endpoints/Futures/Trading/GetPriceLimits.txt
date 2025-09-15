@@ -1,0 +1,11 @@
+GET
+/api/v1/trade/order/price-range
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data":  {
+            "maxPrice": "1587.800000000000000000",
+            "minPrice": "1187.000000000000000000"
+        }
+}

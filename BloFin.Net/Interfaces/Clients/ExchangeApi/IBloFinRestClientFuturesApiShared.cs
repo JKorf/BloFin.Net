@@ -17,7 +17,14 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         IFuturesSymbolRestClient,
         IFuturesTickerRestClient,
         IIndexPriceKlineRestClient,
-        IMarkPriceKlineRestClient
+        IMarkPriceKlineRestClient,
+        IBalanceRestClient,
+        IPositionModeRestClient,
+        ILeverageRestClient,
+        IFuturesOrderRestClient,
+        IFuturesOrderClientIdRestClient,
+        IFuturesTpSlRestClient,
+        IFuturesTriggerOrderRestClient
     {
     }
 }

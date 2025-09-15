@@ -1,0 +1,21 @@
+GET
+/api/v1/account/batch-leverage-info
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "leverage": "50",
+            "marginMode": "cross",
+            "instId": "BTC-USDT",
+            "positionSide":"net"
+        },
+        {
+            "leverage": "3",
+            "marginMode": "cross",
+            "instId": "ETH-USDT",
+            "positionSide":"net"
+        }
+    ]
+}

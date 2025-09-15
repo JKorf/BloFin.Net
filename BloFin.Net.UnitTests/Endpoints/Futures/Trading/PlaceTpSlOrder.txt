@@ -1,0 +1,13 @@
+POST
+/api/v1/trade/order-tpsl
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": {
+        "tpslId": "1012",
+        "clientOrderId": null,
+        "code": "0",
+        "msg": null
+    }
+}
