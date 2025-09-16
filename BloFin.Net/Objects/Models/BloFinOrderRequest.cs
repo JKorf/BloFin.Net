@@ -1,11 +1,6 @@
 ﻿using BloFin.Net.Enums;
 using CryptoExchange.Net.Converters.SystemTextJson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace BloFin.Net.Objects.Models
 {
@@ -53,7 +48,6 @@ namespace BloFin.Net.Objects.Models
         /// Reduce only
         /// </summary>
         [JsonPropertyName("reduceOnly")]
-#warning check
         public bool ReduceOnly { get; set; }
         /// <summary>
         /// Client order id

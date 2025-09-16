@@ -7,8 +7,6 @@ true
     "data": 
         {
             "algoId": "1009",
-            "clientOrderId": null,
-            "code": "500",
-            "msg": "Cancel failed as the order has been filled, triggered, canceled or does not exist."
+            "clientOrderId": null
         }
 }

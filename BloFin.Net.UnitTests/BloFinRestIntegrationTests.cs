@@ -45,14 +45,20 @@ namespace BloFin.Net.UnitTests
         }
 
         [Test]
+        public async Task TestAccount()
+        {
+            await RunAndCheckResult(client => client.AccountApi.GetAccountBalancesAsync(Enums.AccountType.Futures, default, CancellationToken.None), true);
+            await RunAndCheckResult(client => client.AccountApi.GetAccountConfigAsync(CancellationToken.None), true);
+            await RunAndCheckResult(client => client.AccountApi.GetApiKeyInfoAsync(CancellationToken.None), true);
+            await RunAndCheckResult(client => client.AccountApi.GetTransferHistoryAsync(default, default, default, default, default, default, CancellationToken.None), true);
+            await RunAndCheckResult(client => client.AccountApi.GetWithdrawalHistoryAsync(default, default, default, default, default, default, default, CancellationToken.None), true);
+            await RunAndCheckResult(client => client.AccountApi.GetDepositHistoryAsync(default, default, default, default, default, default, default, CancellationToken.None), true);
+
+        }
+
+        [Test]
         public async Task TestFuturesAccount()
         {
-            await RunAndCheckResult(client => client.FuturesApi.Account.GetAccountBalancesAsync(Enums.AccountType.Futures, default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Account.GetAccountConfigAsync(CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Account.GetApiKeyInfoAsync(CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Account.GetTransferHistoryAsync(default, default, default, default, default, default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Account.GetWithdrawalHistoryAsync(default, default, default, default, default, default, default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Account.GetDepositHistoryAsync(default, default, default, default, default, default, default, CancellationToken.None), true);
             await RunAndCheckResult(client => client.FuturesApi.Account.GetBalancesAsync(default, CancellationToken.None), true);
             await RunAndCheckResult(client => client.FuturesApi.Account.GetMarginModeAsync(CancellationToken.None), true);
             await RunAndCheckResult(client => client.FuturesApi.Account.GetPositionModeAsync(CancellationToken.None), true);

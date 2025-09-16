@@ -2,7 +2,6 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using System.Collections.Generic;
-using BloFin.Net.Objects.Models;
 using BloFin.Net.Objects.Internal;
 using CryptoExchange.Net.Clients;
 using System.Text.Json;

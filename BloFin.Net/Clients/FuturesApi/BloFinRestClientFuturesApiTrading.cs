@@ -6,8 +6,6 @@ using CryptoExchange.Net.Objects.Errors;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Drawing;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -264,6 +262,12 @@ namespace BloFin.Net.Clients.FuturesApi
             parameters.AddOptional("clientOrderId", clientOrderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/trade/cancel-algo", BloFinExchange.RateLimiter.BloFinRest, 1, true);
             var result = await _baseClient.SendAsync<BloFinAlgoOrderId>(request, parameters, ct).ConfigureAwait(false);
+            if (!result)
+                return result.As<BloFinAlgoOrderId>(default);
+
+            if (result.Data.Code != 0)
+                return result.AsErrorWithData(new ServerError(result.Data.Code, _baseClient.GetErrorInfo(result.Data.Code, result.Data.Message)), result.Data);
+
             return result;
         }
 
@@ -277,9 +281,9 @@ namespace BloFin.Net.Clients.FuturesApi
             var parameters = new ParameterCollection();
             parameters.AddOptional("instId", symbol);
             parameters.AddOptionalEnum("orderType", orderType);
-            parameters.AddOptionalEnum("state", status);
-            parameters.AddOptional("before", before);
-            parameters.AddOptional("after", after);
+            // Before/After filter works inverted on the server
+            parameters.AddOptional("after", before);
+            parameters.AddOptional("before", after);
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/trade/orders-pending", BloFinExchange.RateLimiter.BloFinRest, 1, true);
             var result = await _baseClient.SendAsync<BloFinOrder[]>(request, parameters, ct).ConfigureAwait(false);
@@ -297,8 +301,9 @@ namespace BloFin.Net.Clients.FuturesApi
             parameters.AddOptional("instId", symbol);
             parameters.AddOptional("tpslId", orderId);
             parameters.AddOptional("clientOrderId", clientOrderId);
-            parameters.AddOptional("before", before);
-            parameters.AddOptional("after", after);
+            // Before/After filter works inverted on the server
+            parameters.AddOptional("after", before);
+            parameters.AddOptional("before", after);
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/trade/orders-tpsl-pending", BloFinExchange.RateLimiter.BloFinRest, 1, true);
             var result = await _baseClient.SendAsync<BloFinTpSlOrder[]>(request, parameters, ct).ConfigureAwait(false);
@@ -316,8 +321,9 @@ namespace BloFin.Net.Clients.FuturesApi
             parameters.AddOptional("instId", symbol);
             parameters.AddOptional("algoId", orderId);
             parameters.AddOptional("clientOrderId", clientOrderId);
-            parameters.AddOptional("before", beforeId);
-            parameters.AddOptional("after", afterId);
+            // Before/After filter works inverted on the server
+            parameters.AddOptional("after", beforeId);
+            parameters.AddOptional("before", afterId);
             parameters.AddOptional("limit", limit);
             parameters.AddOptional("orderType", "trigger");
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/trade/orders-algo-pending", BloFinExchange.RateLimiter.BloFinRest, 1, true);
@@ -337,6 +343,7 @@ namespace BloFin.Net.Clients.FuturesApi
             parameters.AddEnum("marginMode", marginMode);
             parameters.AddOptionalEnum("positionSide", positionSide);
             parameters.AddOptional("clientOrderId", clientOrderId);
+            parameters.Add("brokerId", BloFinExchange._brokerId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/trade/close-position", BloFinExchange.RateLimiter.BloFinRest, 1, true);
             var result = await _baseClient.SendAsync<BloFinClosePositionResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -347,14 +354,15 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Closed Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinOrder[]>> GetClosedOrdersAsync(string? symbol = null, OrderType? orderType = null, OrderStatus? orderStatus = null, string? after = null, string? before = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BloFinOrder[]>> GetClosedOrdersAsync(string? symbol = null, OrderType? orderType = null, OrderStatus? orderStatus = null, string? afterId = null, string? beforeId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("instId", symbol);
             parameters.AddOptionalEnum("orderType", orderType);
             parameters.AddOptionalEnum("state", orderStatus);
-            parameters.AddOptional("after", after);
-            parameters.AddOptional("before", before);
+            // Before/After filter works inverted on the server
+            parameters.AddOptional("before", afterId);
+            parameters.AddOptional("after", beforeId);
             parameters.AddOptionalMillisecondsString("begin", startTime);
             parameters.AddOptionalMillisecondsString("end", endTime);
             parameters.AddOptional("", limit);
@@ -368,15 +376,16 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Closed Tp Sl Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinTpSlOrder[]>> GetClosedTpSlOrdersAsync(string? symbol = null, string? orderId = null, string? clientOrderId = null, TpSlOrderStatus? status = null, string? after = null, string? before = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BloFinTpSlOrder[]>> GetClosedTpSlOrdersAsync(string? symbol = null, string? orderId = null, string? clientOrderId = null, TpSlOrderStatus? status = null, string? afterId = null, string? beforeId = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("instId", symbol);
             parameters.AddOptional("tpslId", orderId);
             parameters.AddOptional("clientOrderId", clientOrderId);
             parameters.AddOptionalEnum("state", status);
-            parameters.AddOptional("after", after);
-            parameters.AddOptional("before", before);
+            // Before/After filter works inverted on the server
+            parameters.AddOptional("after", beforeId);
+            parameters.AddOptional("before", afterId);
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/trade/orders-tpsl-history", BloFinExchange.RateLimiter.BloFinRest, 1, true);
             var result = await _baseClient.SendAsync<BloFinTpSlOrder[]>(request, parameters, ct).ConfigureAwait(false);
@@ -388,15 +397,16 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Closed Trigger Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinAlgoOrder[]>> GetClosedTriggerOrdersAsync(string? symbol = null, string? orderId = null, string? clientOrderId = null, TpSlOrderStatus? status = null, string? after = null, string? before = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BloFinAlgoOrder[]>> GetClosedTriggerOrdersAsync(string? symbol = null, string? orderId = null, string? clientOrderId = null, TpSlOrderStatus? status = null, string? afterId = null, string? beforeId = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("instId", symbol);
             parameters.AddOptional("algoId", orderId);
             parameters.AddOptional("clientOrderId", clientOrderId);
             parameters.AddOptionalEnum("state", status);
-            parameters.AddOptional("after", after);
-            parameters.AddOptional("before", before);
+            // Before/After filter works inverted on the server
+            parameters.AddOptional("after", beforeId);
+            parameters.AddOptional("before", afterId);
             parameters.AddOptional("limit", limit);
             parameters.Add("orderType", "trigger");
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/trade/orders-algo-history", BloFinExchange.RateLimiter.BloFinRest, 1, true);
@@ -409,13 +419,14 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get User Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinUserTrade[]>> GetUserTradesAsync(string? symbol = null, string? orderId = null, string? after = null, string? before = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BloFinUserTrade[]>> GetUserTradesAsync(string? symbol = null, string? orderId = null, string? afterId = null, string? beforeId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("instId", symbol);
             parameters.AddOptional("orderId", orderId);
-            parameters.AddOptional("after", after);
-            parameters.AddOptional("before", before);
+            // Before/After filter works inverted on the server
+            parameters.AddOptional("after", beforeId);
+            parameters.AddOptional("before", afterId);
             parameters.AddOptionalMillisecondsString("begin", startTime);
             parameters.AddOptionalMillisecondsString("end", endTime);
             parameters.AddOptional("limit", limit);

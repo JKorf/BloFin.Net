@@ -1,11 +1,6 @@
 ﻿using BloFin.Net.Enums;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace BloFin.Net.Objects.Models
 {
@@ -84,19 +79,12 @@ namespace BloFin.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("filledSize")]
         public decimal QuantityFilled { get; set; }
-        /// <summary>
-        /// Quantity filled
-        /// </summary>
-        [JsonPropertyName("filled_amount")]
-        public decimal QuantityFilled2 { get; set; }
-
         [JsonInclude, JsonPropertyName("filledAmount")]
         internal decimal QuantityFilled3
         {
-            get => QuantityFilled2;
-            set => QuantityFilled2 = value;
+            get => QuantityFilled;
+            set => QuantityFilled = value;
         }
-#warning check quantity filled mapping
         /// <summary>
         /// Average fill price
         /// </summary>

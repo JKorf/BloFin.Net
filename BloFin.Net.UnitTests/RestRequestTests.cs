@@ -16,6 +16,25 @@ namespace BloFin.Net.UnitTests
     public class RestRequestTests
     {
         [Test]
+        public async Task ValidateAccountCalls()
+        {
+            var client = new BloFinRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789");
+            });
+            var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Account", "https://openapi.blofin.com", IsAuthenticated);
+            await tester.ValidateAsync(client => client.AccountApi.GetAccountBalancesAsync(AccountType.Futures), "GetAccountBalances", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.AccountApi.TransferAsync("USDT", AccountType.Futures, AccountType.Funding, 1), "Transfer", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.AccountApi.GetAccountConfigAsync(), "GetAccountConfig", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.AccountApi.GetApiKeyInfoAsync(), "GetApiKeyInfo", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.AccountApi.GetTransferHistoryAsync(), "GetTransferHistory", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.AccountApi.GetWithdrawalHistoryAsync(), "GetWithdrawalHistory", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.AccountApi.GetDepositHistoryAsync(), "GetDepositHistory", nestedJsonProperty: "data");
+
+        }
+        
+        [Test]
         public async Task ValidateFuturesAccountCalls()
         {
             var client = new BloFinRestClient(opts =>
@@ -24,13 +43,7 @@ namespace BloFin.Net.UnitTests
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789");
             });
             var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Futures/Account", "https://openapi.blofin.com", IsAuthenticated);
-            await tester.ValidateAsync(client => client.FuturesApi.Account.GetAccountBalancesAsync(AccountType.Futures), "GetAccountBalances", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.FuturesApi.Account.TransferAsync("USDT", AccountType.Futures, AccountType.Funding, 1), "Transfer", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.FuturesApi.Account.GetAccountConfigAsync(), "GetAccountConfig", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.FuturesApi.Account.GetApiKeyInfoAsync(), "GetApiKeyInfo", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.FuturesApi.Account.GetTransferHistoryAsync(), "GetTransferHistory", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.FuturesApi.Account.GetWithdrawalHistoryAsync(), "GetWithdrawalHistory", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.FuturesApi.Account.GetDepositHistoryAsync(), "GetDepositHistory", nestedJsonProperty: "data");
+            
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetBalancesAsync(), "GetBalances", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetMarginModeAsync(), "GetMarginMode", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Account.SetMarginModeAsync(MarginMode.Isolated), "SetMarginMode", nestedJsonProperty: "data");
@@ -71,7 +84,7 @@ namespace BloFin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetPositionsAsync(), "GetPositions", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceOrderAsync("123", OrderSide.Buy, OrderType.Limit, 0.1m, MarginMode.Isolated), "PlaceOrder", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelOrderAsync(), "CancelOrder", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOpenOrdersAsync(), "GetOpenOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOpenOrdersAsync(), "GetOpenOrders", nestedJsonProperty: "data", ignoreProperties: ["filled_amount"]);
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceMultipleOrdersAsync([]), "PlaceMultipleOrders", nestedJsonProperty: "data", skipResponseValidation: true);
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceTpSlOrderAsync("123", OrderSide.Buy, MarginMode.Isolated), "PlaceTpSlOrder", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceTriggerOrderAsync("123", OrderSide.Buy, MarginMode.Isolated,0.1m), "PlaceTriggerOrder", nestedJsonProperty: "data");

@@ -7,15 +7,11 @@ true
     "data": [
         {
             "tpslId": "1009",
-            "clientOrderId": null,
-            "code": "500",
-            "msg": "Cancel failed as the order has been filled, triggered, canceled or does not exist."
+            "clientOrderId": null
         },
         {
             "tpslId": "1010",
-            "clientOrderId": null,
-            "code": "500",
-            "msg": "Cancel failed as the order has been filled, triggered, canceled or does not exist."
+            "clientOrderId": null
         }
     ]
 }

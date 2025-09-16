@@ -8,7 +8,6 @@ using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -462,7 +461,7 @@ namespace BloFin.Net.Clients.FuturesApi
         SharedFeeDeductionType IFuturesOrderRestClient.FuturesFeeDeductionType => SharedFeeDeductionType.AddToCost;
         SharedFeeAssetType IFuturesOrderRestClient.FuturesFeeAssetType => SharedFeeAssetType.QuoteAsset;
 
-        SharedOrderType[] IFuturesOrderRestClient.FuturesSupportedOrderTypes { get; } = new[] { SharedOrderType.Limit, SharedOrderType.Market };
+        SharedOrderType[] IFuturesOrderRestClient.FuturesSupportedOrderTypes { get; } = new[] { SharedOrderType.Limit, SharedOrderType.Market, SharedOrderType.LimitMaker };
         SharedTimeInForce[] IFuturesOrderRestClient.FuturesSupportedTimeInForce { get; } = new[] { SharedTimeInForce.GoodTillCanceled, SharedTimeInForce.ImmediateOrCancel, SharedTimeInForce.FillOrKill };
         SharedQuantitySupport IFuturesOrderRestClient.FuturesSupportedOrderQuantity { get; } = new SharedQuantitySupport(
                 SharedQuantityType.Contracts,
@@ -521,7 +520,7 @@ namespace BloFin.Net.Clients.FuturesApi
 
             var orders = await Trading.GetOpenOrdersAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
-                before: (long.Parse(request.OrderId) + 1).ToString(),
+                beforeId: (long.Parse(request.OrderId) + 1).ToString(),
                 ct: ct).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
@@ -531,7 +530,7 @@ namespace BloFin.Net.Clients.FuturesApi
             {
                 var closedOrders = await Trading.GetClosedOrdersAsync(
                     request.Symbol.GetSymbol(FormatSymbol),
-                    before: (long.Parse(request.OrderId) + 1).ToString(),
+                    beforeId: (long.Parse(request.OrderId) + 1).ToString(),
                     ct: ct).ConfigureAwait(false);
 
                 if (!closedOrders)
@@ -554,7 +553,7 @@ namespace BloFin.Net.Clients.FuturesApi
                 ClientOrderId = string.IsNullOrEmpty(orderInfo.ClientOrderId) ? null : orderInfo.ClientOrderId,
                 AveragePrice = orderInfo.AveragePrice == 0 ? null : orderInfo.AveragePrice,
                 OrderPrice = orderInfo.Price == 0 ? null : orderInfo.Price,
-                OrderQuantity = new SharedOrderQuantity(orderInfo.Quantity, contractQuantity: orderInfo.Quantity),
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: orderInfo.Quantity),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: orderInfo.QuantityFilled),
                 TimeInForce = ParseTimeInForce(orderInfo.OrderType),
                 UpdateTime = orderInfo.UpdateTime,
@@ -590,7 +589,7 @@ namespace BloFin.Net.Clients.FuturesApi
                 ClientOrderId = string.IsNullOrEmpty(x.ClientOrderId) ? null : x.ClientOrderId,
                 AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice,
                 OrderPrice = x.Price == 0 ? null : x.Price,
-                OrderQuantity = new SharedOrderQuantity(x.Quantity, contractQuantity: x.Quantity),
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: x.Quantity),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: x.QuantityFilled),
                 TimeInForce = ParseTimeInForce(x.OrderType),
                 UpdateTime = x.UpdateTime,
@@ -640,7 +639,7 @@ namespace BloFin.Net.Clients.FuturesApi
                 ClientOrderId = string.IsNullOrEmpty(x.ClientOrderId) ? null : x.ClientOrderId,
                 AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice,
                 OrderPrice = x.Price == 0 ? null : x.Price,
-                OrderQuantity = new SharedOrderQuantity(x.Quantity, contractQuantity: x.Quantity),
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: x.Quantity),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: x.QuantityFilled),
                 TimeInForce = ParseTimeInForce(x.OrderType),
                 UpdateTime = x.UpdateTime,
@@ -696,7 +695,7 @@ namespace BloFin.Net.Clients.FuturesApi
                 startTime: request.StartTime,
                 endTime: request.EndTime,
                 limit: request.Limit ?? 100,
-                before: fromId,
+                beforeId: fromId,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!orders)
@@ -729,7 +728,7 @@ namespace BloFin.Net.Clients.FuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-            var order = await Trading.CancelOrderAsync(request.Symbol!.GetSymbol(FormatSymbol), request.OrderId, ct: ct).ConfigureAwait(false);
+            var order = await Trading.CancelOrderAsync(request.OrderId, ct: ct).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedId>(Exchange, null, default);
 
@@ -873,7 +872,7 @@ namespace BloFin.Net.Clients.FuturesApi
                 ClientOrderId = string.IsNullOrEmpty(orderInfo.ClientOrderId) ? null : orderInfo.ClientOrderId,
                 AveragePrice = orderInfo.AveragePrice == 0 ? null : orderInfo.AveragePrice,
                 OrderPrice = orderInfo.Price == 0 ? null : orderInfo.Price,
-                OrderQuantity = new SharedOrderQuantity(orderInfo.Quantity, contractQuantity: orderInfo.Quantity),
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: orderInfo.Quantity),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: orderInfo.QuantityFilled),
                 TimeInForce = ParseTimeInForce(orderInfo.OrderType),
                 UpdateTime = orderInfo.UpdateTime,
@@ -919,8 +918,7 @@ namespace BloFin.Net.Clients.FuturesApi
 
             var result = await Trading.PlaceTpSlOrderAsync(
                 request.Symbol!.GetSymbol(FormatSymbol),
-                request.PositionSide == SharedPositionSide.Long && request.TpSlSide == SharedTpSlSide.TakeProfit ? OrderSide.Sell : OrderSide.Buy,
-#warning check
+                request.PositionSide == SharedPositionSide.Long ? OrderSide.Sell : OrderSide.Buy,
                 request.MarginMode == SharedMarginMode.Isolated ? MarginMode.Isolated : MarginMode.Cross,
                 positionSide: request.PositionMode == SharedPositionMode.OneWay ? null : request.PositionSide == SharedPositionSide.Long ? PositionSide.Long : PositionSide.Short,
                 reduceOnly: true,
@@ -978,7 +976,7 @@ namespace BloFin.Net.Clients.FuturesApi
         };
         async Task<ExchangeWebResult<SharedId>> IFuturesTriggerOrderRestClient.PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)
         {
-            var side = GetTriggerOrderParameters(request.PriceDirection, request.OrderPrice, request.OrderDirection);
+            var side = GetTriggerOrderParameters(request.OrderDirection, request.PositionSide);
             var validationError = ((IFuturesTriggerOrderRestClient)this).PlaceFuturesTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol!.TradingMode, SupportedTradingModes, side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, ((IFuturesOrderRestClient)this).FuturesSupportedOrderQuantity);
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
@@ -986,14 +984,13 @@ namespace BloFin.Net.Clients.FuturesApi
             var result = await Trading.PlaceTriggerOrderAsync(
                 request.Symbol!.GetSymbol(FormatSymbol),
                 side,
-#warning check direction
                 request.MarginMode == SharedMarginMode.Isolated ? MarginMode.Isolated : MarginMode.Cross,
                 request.TriggerPrice,
                 request.TriggerPriceType == null ? null : request.TriggerPriceType == SharedTriggerPriceType.LastPrice ? TriggerPriceType.LastPrice : request.TriggerPriceType == SharedTriggerPriceType.MarkPrice ? TriggerPriceType.MarkPrice : TriggerPriceType.IndexPrice,
                 request.PositionMode == SharedPositionMode.OneWay ? null : request.PositionSide == SharedPositionSide.Long ? PositionSide.Long : PositionSide.Short,
                 request.Quantity.QuantityInContracts,
                 orderPrice: request.OrderPrice,
-#warning need attached orders?
+                reduceOnly: request.OrderDirection == SharedTriggerOrderDirection.Exit,
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedId>(Exchange, null, default);
@@ -1025,7 +1022,6 @@ namespace BloFin.Net.Clients.FuturesApi
             if (orderInfo == null)
                 return order.AsExchangeError<SharedFuturesTriggerOrder>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
-#warning check
             // Return
             return order.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedFuturesTriggerOrder(
                 ExchangeSymbolCache.ParseSymbol(_topicId, orderInfo.Symbol),
@@ -1036,7 +1032,7 @@ namespace BloFin.Net.Clients.FuturesApi
                 orderInfo.Status == TpSlOrderStatus.Failed || orderInfo.Status == TpSlOrderStatus.Canceled ? SharedTriggerOrderStatus.CanceledOrRejected : SharedTriggerOrderStatus.Active,
                 orderInfo.TriggerPrice ?? 0,
                 orderInfo.PositionSide == PositionSide.Net ? null : orderInfo.PositionSide == PositionSide.Long ? SharedPositionSide.Long : SharedPositionSide.Short,
-                null
+                orderInfo.CreateTime
                 )
             {
                 OrderQuantity = new SharedOrderQuantity(contractQuantity: orderInfo.Quantity),
@@ -1058,24 +1054,24 @@ namespace BloFin.Net.Clients.FuturesApi
             return order.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedId(order.Data.AlgoOrderId.ToString()));
         }
 
-        private OrderSide GetTriggerOrderParameters(SharedTriggerPriceDirection orderType, decimal? orderPrice, SharedTriggerOrderDirection direction)
+        private OrderSide GetTriggerOrderParameters(SharedTriggerOrderDirection direction, SharedPositionSide side)
         {
-            if (orderType == SharedTriggerPriceDirection.PriceBelow)
+            if (direction == SharedTriggerOrderDirection.Enter)
             {
-                if (direction == SharedTriggerOrderDirection.Enter)
-                    // PriceBelow + Enter = TakeProfit Buy order
+                if (side == SharedPositionSide.Long)
+                    // Enter Long = Buy
                     return OrderSide.Buy;
                 else
-                    // PriceBelow + Exit = StopLoss Sell order
+                    // Enter Short = Sell
                     return OrderSide.Sell;
             }
 
-            if (direction == SharedTriggerOrderDirection.Enter)
-                // PriceAbove + Enter = StopLoss Buy order
-                return OrderSide.Buy;
-            else
-                // PriceAbove + Exit = TakeProfit Sell order
+            if (side == SharedPositionSide.Long)
+                // Exit Long = Sell
                 return OrderSide.Sell;
+            else
+                // Enter Short = Buy
+                return OrderSide.Buy;
         }
         #endregion
     }

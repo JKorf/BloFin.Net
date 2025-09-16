@@ -106,11 +106,24 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). For discuss
 ### Spot
 |API|Supported|Location|
 |--|--:|--|
-|TODO|✓|`restClient.SpotApi.Account`|
-### Futures
+|Spot API not yet available|
+
+### Futures REST
 |API|Supported|Location|
 |--|--:|--|
-|TODO|✓|`restClient.FuturesApi.ExchangeData`|
+|Public Data|✓|`restClient.FuturesApi.ExchangeData`|
+|Account|✓|`restClient.AccountApi`|
+|Trading|✓|`restClient.FuturesApi.AccountApi`/`restClient.FuturesApi.TradingApi`|
+|User|✓|`restClient.AccountApi`|
+|Copy Trading|X||
+|Affiliate|X||
+
+### Futures WebSocket
+|API|Supported|Location|
+|--|--:|--|
+|Public Data|✓|`socketClient.FuturesApi`|
+|Trading|✓|`socketClient.FuturesApi`|
+|Copy Trading|X||
 
 ## Support the project
 Any support is greatly appreciated.

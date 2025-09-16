@@ -2,7 +2,6 @@ using BloFin.Net.Objects.Internal;
 using BloFin.Net.Objects.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace BloFin.Net.Converters

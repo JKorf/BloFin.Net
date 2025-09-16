@@ -139,8 +139,35 @@
         <member name="M:BloFin.Net.BloFinTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
             <inheritdoc />
         </member>
+        <member name="M:BloFin.Net.Clients.Apis.BloFinRestClientAccountApi.GetAccountBalancesAsync(BloFin.Net.Enums.AccountType,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.Apis.BloFinRestClientAccountApi.TransferAsync(System.String,BloFin.Net.Enums.AccountType,BloFin.Net.Enums.AccountType,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.Apis.BloFinRestClientAccountApi.GetAccountConfigAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.Apis.BloFinRestClientAccountApi.GetApiKeyInfoAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.Apis.BloFinRestClientAccountApi.GetTransferHistoryAsync(System.String,System.Nullable{BloFin.Net.Enums.AccountType},System.Nullable{BloFin.Net.Enums.AccountType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.Apis.BloFinRestClientAccountApi.GetWithdrawalHistoryAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.WithdrawalStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.Apis.BloFinRestClientAccountApi.GetDepositHistoryAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.DepositStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="P:BloFin.Net.Clients.Apis.BloFinRestClientAccountApi.SharedClient">
+            <inheritdoc />
+        </member>
         <member name="T:BloFin.Net.Clients.BloFinRestClient">
             <inheritdoc cref="T:BloFin.Net.Interfaces.Clients.IBloFinRestClient" />
+        </member>
+        <member name="P:BloFin.Net.Clients.BloFinRestClient.AccountApi">
+            <inheritdoc />
         </member>
         <member name="P:BloFin.Net.Clients.BloFinRestClient.FuturesApi">
             <inheritdoc />
@@ -169,6 +196,38 @@
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
         <member name="M:BloFin.Net.Clients.BloFinRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="T:BloFin.Net.Clients.BloFinRestClientApi">
+            <summary>
+            BloFin rest client base
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Clients.BloFinRestClientApi.ExchangeName">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinRestClientApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinRestClientApi.CreateAccessor">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinRestClientApi.CreateSerializer">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinRestClientApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinRestClientApi.TryParseError(CryptoExchange.Net.Objects.RequestDefinition,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinRestClientApi.GetServerTimestampAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinRestClientApi.GetTimeSyncInfo">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.Clients.BloFinRestClientApi.GetTimeOffset">
             <inheritdoc />
         </member>
         <member name="T:BloFin.Net.Clients.BloFinSocketClient">
@@ -240,55 +299,10 @@
         <member name="P:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.Trading">
             <inheritdoc />
         </member>
-        <member name="P:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.ExchangeName">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.CreateAccessor">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.CreateSerializer">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.GetServerTimestampAsync">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.GetTimeSyncInfo">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.GetTimeOffset">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
-            <inheritdoc />
-        </member>
         <member name="P:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApi.SharedClient">
             <inheritdoc />
         </member>
         <member name="T:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetAccountBalancesAsync(BloFin.Net.Enums.AccountType,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.TransferAsync(System.String,BloFin.Net.Enums.AccountType,BloFin.Net.Enums.AccountType,System.Decimal,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetAccountConfigAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetApiKeyInfoAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetTransferHistoryAsync(System.String,System.Nullable{BloFin.Net.Enums.AccountType},System.Nullable{BloFin.Net.Enums.AccountType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetWithdrawalHistoryAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.WithdrawalStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetDepositHistoryAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.DepositStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BloFin.Net.Clients.FuturesApi.BloFinRestClientFuturesApiAccount.GetBalancesAsync(System.Nullable{BloFin.Net.Enums.ProductType},System.Threading.CancellationToken)">
@@ -1789,6 +1803,97 @@
             Extension methods specific to using the BloFin API
             </summary>
         </member>
+        <member name="T:BloFin.Net.Interfaces.Clients.Apis.IBloFinRestClientAccountApi">
+            <summary>
+            BloFin account API endpoints
+            </summary>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.Apis.IBloFinRestClientAccountApi.GetAccountBalancesAsync(BloFin.Net.Enums.AccountType,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get account balances
+            <para><a href="https://docs.blofin.com/index.html#get-instruments" /></para>
+            </summary>
+            <param name="accountType">Account type</param>
+            <param name="asset">Filter by asset</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.Apis.IBloFinRestClientAccountApi.TransferAsync(System.String,BloFin.Net.Enums.AccountType,BloFin.Net.Enums.AccountType,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Transfer asset between account types
+            <para><a href="https://docs.blofin.com/index.html#funds-transfer" /></para>
+            </summary>
+            <param name="asset">The asset</param>
+            <param name="fromAccount">From account</param>
+            <param name="toAccount">To account</param>
+            <param name="quantity">Quantity to transfer</param>
+            <param name="clientId">Client transfer id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.Apis.IBloFinRestClientAccountApi.GetAccountConfigAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get account config
+            <para><a href="https://docs.blofin.com/index.html#get-account-config" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.Apis.IBloFinRestClientAccountApi.GetApiKeyInfoAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get API key info
+            <para><a href="https://docs.blofin.com/index.html#get-api-key-info" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.Apis.IBloFinRestClientAccountApi.GetTransferHistoryAsync(System.String,System.Nullable{BloFin.Net.Enums.AccountType},System.Nullable{BloFin.Net.Enums.AccountType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get transfer history
+            <para><a href="https://docs.blofin.com/index.html#get-funds-transfer-history" /></para>
+            </summary>
+            <param name="asset">Filter by asset, for example `ETH`</param>
+            <param name="fromAccount">Filter by from account</param>
+            <param name="toAccount">Filter by to account</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.Apis.IBloFinRestClientAccountApi.GetWithdrawalHistoryAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.WithdrawalStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get withdrawal history
+            <para><a href="https://docs.blofin.com/index.html#get-withdraw-history" /></para>
+            </summary>
+            <param name="asset">Filter by asset, for example `ETH`</param>
+            <param name="withdrawId">Filter by withdrawal id</param>
+            <param name="transactionId">Filter by transaction id</param>
+            <param name="status">Filter by status</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.Clients.Apis.IBloFinRestClientAccountApi.GetDepositHistoryAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.DepositStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get deposit history
+            <para><a href="https://docs.blofin.com/index.html#get-deposit-history" /></para>
+            </summary>
+            <param name="asset">Filter by asset, for example `ETH`</param>
+            <param name="depositId">Filter by deposit id</param>
+            <param name="transactionId">Filter by transaction id</param>
+            <param name="status">Filter by status</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="P:BloFin.Net.Interfaces.Clients.Apis.IBloFinRestClientAccountApi.SharedClient">
+            <summary>
+            Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
+            </summary>
+        </member>
+        <member name="T:BloFin.Net.Interfaces.Clients.AccountApi.IBloFinRestClientAccountApiShared">
+            <summary>
+            Shared interface for account rest API usage
+            </summary>
+        </member>
         <member name="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApi">
             <summary>
             BloFin Exchange API endpoints
@@ -1821,82 +1926,6 @@
             <summary>
             BloFin Exchange account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
             </summary>
-        </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetAccountBalancesAsync(BloFin.Net.Enums.AccountType,System.String,System.Threading.CancellationToken)">
-            <summary>
-            Get account balances
-            <para><a href="https://docs.blofin.com/index.html#get-instruments" /></para>
-            </summary>
-            <param name="accountType">Account type</param>
-            <param name="asset">Filter by asset</param>
-            <param name="ct">Cancellation token</param>
-        </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.TransferAsync(System.String,BloFin.Net.Enums.AccountType,BloFin.Net.Enums.AccountType,System.Decimal,System.String,System.Threading.CancellationToken)">
-            <summary>
-            Transfer asset between account types
-            <para><a href="https://docs.blofin.com/index.html#funds-transfer" /></para>
-            </summary>
-            <param name="asset">The asset</param>
-            <param name="fromAccount">From account</param>
-            <param name="toAccount">To account</param>
-            <param name="quantity">Quantity to transfer</param>
-            <param name="clientId">Client transfer id</param>
-            <param name="ct">Cancellation token</param>
-        </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetAccountConfigAsync(System.Threading.CancellationToken)">
-            <summary>
-            Get account config
-            <para><a href="https://docs.blofin.com/index.html#get-account-config" /></para>
-            </summary>
-            <param name="ct">Cancellation token</param>
-        </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetApiKeyInfoAsync(System.Threading.CancellationToken)">
-            <summary>
-            Get API key info
-            <para><a href="https://docs.blofin.com/index.html#get-api-key-info" /></para>
-            </summary>
-            <param name="ct">Cancellation token</param>
-        </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetTransferHistoryAsync(System.String,System.Nullable{BloFin.Net.Enums.AccountType},System.Nullable{BloFin.Net.Enums.AccountType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Get transfer history
-            <para><a href="https://docs.blofin.com/index.html#get-funds-transfer-history" /></para>
-            </summary>
-            <param name="asset">Filter by asset, for example `ETH`</param>
-            <param name="fromAccount">Filter by from account</param>
-            <param name="toAccount">Filter by to account</param>
-            <param name="startTime">Filter by start time</param>
-            <param name="endTime">Filter by end time</param>
-            <param name="limit">Max number of results</param>
-            <param name="ct">Cancellation token</param>
-        </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetWithdrawalHistoryAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.WithdrawalStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Get withdrawal history
-            <para><a href="https://docs.blofin.com/index.html#get-withdraw-history" /></para>
-            </summary>
-            <param name="asset">Filter by asset, for example `ETH`</param>
-            <param name="withdrawId">Filter by withdrawal id</param>
-            <param name="transactionId">Filter by transaction id</param>
-            <param name="status">Filter by status</param>
-            <param name="startTime">Filter by start time</param>
-            <param name="endTime">Filter by end time</param>
-            <param name="limit">Max number of results</param>
-            <param name="ct">Cancellation token</param>
-        </member>
-        <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetDepositHistoryAsync(System.String,System.String,System.String,System.Nullable{BloFin.Net.Enums.DepositStatus},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <summary>
-            Get deposit history
-            <para><a href="https://docs.blofin.com/index.html#get-deposit-history" /></para>
-            </summary>
-            <param name="asset">Filter by asset, for example `ETH`</param>
-            <param name="depositId">Filter by deposit id</param>
-            <param name="transactionId">Filter by transaction id</param>
-            <param name="status">Filter by status</param>
-            <param name="startTime">Filter by start time</param>
-            <param name="endTime">Filter by end time</param>
-            <param name="limit">Max number of results</param>
-            <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApiAccount.GetBalancesAsync(System.Nullable{BloFin.Net.Enums.ProductType},System.Threading.CancellationToken)">
             <summary>
@@ -2184,8 +2213,8 @@
             <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
             <param name="orderType">Filter by order type</param>
             <param name="status">Filter by order status</param>
-            <param name="after">Return results after this id</param>
-            <param name="before">Return results before this id</param>
+            <param name="afterId">Return results after this id</param>
+            <param name="beforeId">Return results before this id</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -2197,8 +2226,8 @@
             <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
             <param name="orderId">Filter by tpsl order id</param>
             <param name="clientOrderId">Filter by client order id</param>
-            <param name="after">Return results after this id</param>
-            <param name="before">Return results before this id</param>
+            <param name="afterId">Return results after this id</param>
+            <param name="beforeId">Return results before this id</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -2234,8 +2263,8 @@
             <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
             <param name="orderType">Filter by order type</param>
             <param name="orderStatus">Filter by order status</param>
-            <param name="after">Return results after this id</param>
-            <param name="before">Return results before this id</param>
+            <param name="afterId">Return results after this id</param>
+            <param name="beforeId">Return results before this id</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="limit">Max number of results, max 100</param>
@@ -2250,8 +2279,8 @@
             <param name="orderId">Filter by tpsl order id</param>
             <param name="clientOrderId">Filter by client order id</param>
             <param name="status">Filter by status</param>
-            <param name="after">Return results after this id</param>
-            <param name="before">Return results before this id</param>
+            <param name="afterId">Return results after this id</param>
+            <param name="beforeId">Return results before this id</param>
             <param name="limit">Max number of results, max 100</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -2264,8 +2293,8 @@
             <param name="orderId">Filter by algo order id</param>
             <param name="clientOrderId">Filter by client order id</param>
             <param name="status">Filter by status</param>
-            <param name="after">Return results after this id</param>
-            <param name="before">Return results before this id</param>
+            <param name="afterId">Return results after this id</param>
+            <param name="beforeId">Return results before this id</param>
             <param name="limit">Max number of results, max 100</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -2276,8 +2305,8 @@
             </summary>
             <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="orderId">Filter by order id</param>
-            <param name="after">Return results after this id</param>
-            <param name="before">Return results before this id</param>
+            <param name="afterId">Return results after this id</param>
+            <param name="beforeId">Return results before this id</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="limit">Max number of results, max 100</param>
@@ -2505,9 +2534,15 @@
             Client for accessing the BloFin Rest API. 
             </summary>
         </member>
+        <member name="P:BloFin.Net.Interfaces.Clients.IBloFinRestClient.AccountApi">
+            <summary>
+            General account API endpoints
+            </summary>
+            <see cref="T:BloFin.Net.Interfaces.Clients.Apis.IBloFinRestClientAccountApi"/>
+        </member>
         <member name="P:BloFin.Net.Interfaces.Clients.IBloFinRestClient.FuturesApi">
             <summary>
-            Exchange API endpoints
+            Futures API endpoints
             </summary>
             <see cref="T:BloFin.Net.Interfaces.Clients.FuturesApi.IBloFinRestClientFuturesApi"/>
         </member>
@@ -2724,6 +2759,11 @@
         <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.BrokerId">
             <summary>
             Broker id
+            </summary>
+        </member>
+        <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.CreateTime">
+            <summary>
+            Create time
             </summary>
         </member>
         <member name="P:BloFin.Net.Objects.Models.BloFinAlgoOrder.AttachAlgoOrders">
@@ -3502,11 +3542,6 @@
             </summary>
         </member>
         <member name="P:BloFin.Net.Objects.Models.BloFinOrder.QuantityFilled">
-            <summary>
-            Quantity filled
-            </summary>
-        </member>
-        <member name="P:BloFin.Net.Objects.Models.BloFinOrder.QuantityFilled2">
             <summary>
             Quantity filled
             </summary>

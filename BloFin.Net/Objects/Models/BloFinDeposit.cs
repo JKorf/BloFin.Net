@@ -1,10 +1,6 @@
 ﻿using BloFin.Net.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace BloFin.Net.Objects.Models
 {
@@ -57,7 +53,7 @@ namespace BloFin.Net.Objects.Models
         /// Confirmations
         /// </summary>
         [JsonPropertyName("confirm")]
-        public decimal Confirmations { get; set; }
+        public int Confirmations { get; set; }
         /// <summary>
         /// Deposit id
         /// </summary>

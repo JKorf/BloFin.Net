@@ -3,7 +3,6 @@ using BloFin.Net.Objects.Models;
 using CryptoExchange.Net.Objects;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -129,11 +128,11 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="orderType">Filter by order type</param>
         /// <param name="status">Filter by order status</param>
-        /// <param name="after">Return results after this id</param>
-        /// <param name="before">Return results before this id</param>
+        /// <param name="afterId">Return results after this id</param>
+        /// <param name="beforeId">Return results before this id</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinOrder[]>> GetOpenOrdersAsync(string? symbol = null, OrderType? orderType = null, OrderStatus? status = null, string? after = null, string? before = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<BloFinOrder[]>> GetOpenOrdersAsync(string? symbol = null, OrderType? orderType = null, OrderStatus? status = null, string? afterId = null, string? beforeId = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get open TP/SL orders
@@ -142,11 +141,11 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">Filter by tpsl order id</param>
         /// <param name="clientOrderId">Filter by client order id</param>
-        /// <param name="after">Return results after this id</param>
-        /// <param name="before">Return results before this id</param>
+        /// <param name="afterId">Return results after this id</param>
+        /// <param name="beforeId">Return results before this id</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinTpSlOrder[]>> GetOpenTpSlOrdersAsync(string? symbol = null, string? orderId = null, string? clientOrderId = null, string? after = null, string? before = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<BloFinTpSlOrder[]>> GetOpenTpSlOrdersAsync(string? symbol = null, string? orderId = null, string? clientOrderId = null, string? afterId = null, string? beforeId = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get open trigger orders
@@ -179,13 +178,13 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="orderType">Filter by order type</param>
         /// <param name="orderStatus">Filter by order status</param>
-        /// <param name="after">Return results after this id</param>
-        /// <param name="before">Return results before this id</param>
+        /// <param name="afterId">Return results after this id</param>
+        /// <param name="beforeId">Return results before this id</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="limit">Max number of results, max 100</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinOrder[]>> GetClosedOrdersAsync(string? symbol = null, OrderType? orderType = null, OrderStatus? orderStatus = null, string? after = null, string? before = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<BloFinOrder[]>> GetClosedOrdersAsync(string? symbol = null, OrderType? orderType = null, OrderStatus? orderStatus = null, string? afterId = null, string? beforeId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get closed tp sl order history
@@ -195,11 +194,11 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="orderId">Filter by tpsl order id</param>
         /// <param name="clientOrderId">Filter by client order id</param>
         /// <param name="status">Filter by status</param>
-        /// <param name="after">Return results after this id</param>
-        /// <param name="before">Return results before this id</param>
+        /// <param name="afterId">Return results after this id</param>
+        /// <param name="beforeId">Return results before this id</param>
         /// <param name="limit">Max number of results, max 100</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinTpSlOrder[]>> GetClosedTpSlOrdersAsync(string? symbol = null, string? orderId = null, string? clientOrderId = null, TpSlOrderStatus? status = null, string? after = null, string? before = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<BloFinTpSlOrder[]>> GetClosedTpSlOrdersAsync(string? symbol = null, string? orderId = null, string? clientOrderId = null, TpSlOrderStatus? status = null, string? afterId = null, string? beforeId = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get closed trigger order history
@@ -209,11 +208,11 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="orderId">Filter by algo order id</param>
         /// <param name="clientOrderId">Filter by client order id</param>
         /// <param name="status">Filter by status</param>
-        /// <param name="after">Return results after this id</param>
-        /// <param name="before">Return results before this id</param>
+        /// <param name="afterId">Return results after this id</param>
+        /// <param name="beforeId">Return results before this id</param>
         /// <param name="limit">Max number of results, max 100</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinAlgoOrder[]>> GetClosedTriggerOrdersAsync(string? symbol = null, string? orderId = null, string? clientOrderId = null, TpSlOrderStatus? status = null, string? after = null, string? before = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<BloFinAlgoOrder[]>> GetClosedTriggerOrdersAsync(string? symbol = null, string? orderId = null, string? clientOrderId = null, TpSlOrderStatus? status = null, string? afterId = null, string? beforeId = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get user trade history
@@ -221,13 +220,13 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">Filter by order id</param>
-        /// <param name="after">Return results after this id</param>
-        /// <param name="before">Return results before this id</param>
+        /// <param name="afterId">Return results after this id</param>
+        /// <param name="beforeId">Return results before this id</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="limit">Max number of results, max 100</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinUserTrade[]>> GetUserTradesAsync(string? symbol = null, string? orderId = null, string? after = null, string? before = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<BloFinUserTrade[]>> GetUserTradesAsync(string? symbol = null, string? orderId = null, string? afterId = null, string? beforeId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get order price limits

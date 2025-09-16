@@ -1,11 +1,6 @@
 ﻿using BloFin.Net.Enums;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace BloFin.Net.Objects.Models
 {
@@ -79,6 +74,11 @@ namespace BloFin.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("brokerId")]
         public string? BrokerId { get; set; }
+        /// <summary>
+        /// Create time
+        /// </summary>
+        [JsonPropertyName("createTime")]
+        public DateTime CreateTime { get; set; }
         /// <summary>
         /// Attach algo orders
         /// </summary>

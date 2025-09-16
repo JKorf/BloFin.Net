@@ -13,7 +13,7 @@ builder.Services.AddBloFin();
 /*
 builder.Services.AddBloFin(options =>
 {
-    options.ApiCredentials = new ApiCredentials("<APIKEY>", "<APISECRET>");
+    options.ApiCredentials = new ApiCredentials("<APIKEY>", "<APISECRET>", "<APIPASS>");
     options.Rest.RequestTimeout = TimeSpan.FromSeconds(5);
 });
 */

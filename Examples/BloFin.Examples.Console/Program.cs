@@ -4,7 +4,7 @@ using BloFin.Net.Clients;
 // REST
 var restClient = new BloFinRestClient();
 var ticker = await restClient.FuturesApi.ExchangeData.GetTickersAsync("ETH-USDT");
-Console.WriteLine($"Rest client ticker price for ETHUSDT: {ticker.Data.First().LastPrice}");
+Console.WriteLine($"Rest client ticker price for ETH-USDT: {ticker.Data.First().LastPrice}");
 
 Console.WriteLine();
 Console.WriteLine("Press enter to start websocket subscription");

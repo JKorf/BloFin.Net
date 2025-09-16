@@ -1,4 +1,3 @@
-using CryptoExchange.Net.Interfaces;
 using BloFin.Net.Clients;
 using BloFin.Net.Interfaces.Clients;
 
