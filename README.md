@@ -44,6 +44,9 @@ BloFin.Net is available on [GitHub packages](https://github.com/JKorf/BloFin.Net
 
 The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/BloFin.Net/releases).
 
+## API key
+For accessing authenticated endpoints an API key is required. When creating an API key in the BloFin web interface select `Connect to Third-Party Application` and select `JKorf` as the application name. BloFin requires users to select the application they're using with the API key. Selecting a different application will not work with the library.
+
 ## How to use
 * REST Endpoints
 	```csharp
