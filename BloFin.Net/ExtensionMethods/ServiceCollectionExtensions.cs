@@ -109,6 +109,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     x.GetRequiredService<IOptions<BloFinRestOptions>>(),
                     x.GetRequiredService<IOptions<BloFinSocketOptions>>()));
 
+            services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBloFinRestClient>().AccountApi.SharedClient);
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBloFinRestClient>().FuturesApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBloFinSocketClient>().FuturesApi.SharedClient);
 
