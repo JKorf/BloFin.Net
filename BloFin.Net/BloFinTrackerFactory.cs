@@ -32,6 +32,19 @@ namespace BloFin.Net
         }
 
         /// <inheritdoc />
+        public bool CanCreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval)
+        {
+            if (symbol.TradingMode == TradingMode.Spot)
+                return false;
+
+            var client = (_serviceProvider?.GetRequiredService<IBloFinSocketClient>() ?? new BloFinSocketClient());
+            return client.FuturesApi.SharedClient.SubscribeKlineOptions.IsSupported(interval);
+        }
+
+        /// <inheritdoc />
+        public bool CanCreateTradeTracker(SharedSymbol symbol) => true;
+
+        /// <inheritdoc />
         public IKlineTracker CreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval, int? limit = null, TimeSpan? period = null)
         {
             var restClient = _serviceProvider?.GetRequiredService<IBloFinRestClient>() ?? new BloFinRestClient();

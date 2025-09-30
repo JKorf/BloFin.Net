@@ -102,6 +102,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IBloFinOrderBookFactory, BloFinOrderBookFactory>();
             services.AddTransient<IBloFinTrackerFactory, BloFinTrackerFactory>();
+            services.AddTransient<ITrackerFactory, BloFinTrackerFactory>();
             services.AddSingleton<IBloFinUserClientProvider, BloFinUserClientProvider>(x =>
                 new BloFinUserClientProvider(
                     x.GetRequiredService<HttpClient>(),
