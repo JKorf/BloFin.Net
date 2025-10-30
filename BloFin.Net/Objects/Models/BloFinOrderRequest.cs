@@ -78,6 +78,6 @@ namespace BloFin.Net.Objects.Models
         /// Broker id
         /// </summary>
         [JsonPropertyName("brokerId")]
-        public string BrokerId { get; } = BloFinExchange._brokerId;
+        internal string? BrokerId { get; set; }
     }
 }

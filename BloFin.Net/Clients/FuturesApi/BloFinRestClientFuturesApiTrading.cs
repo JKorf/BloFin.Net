@@ -1,6 +1,7 @@
 using BloFin.Net.Enums;
 using BloFin.Net.Interfaces.Clients.FuturesApi;
 using BloFin.Net.Objects.Models;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
 using Microsoft.Extensions.Logging;
@@ -60,7 +61,7 @@ namespace BloFin.Net.Clients.FuturesApi
             parameters.AddOptionalString("slTriggerPrice", stopLossTriggerPrice);
             parameters.AddOptionalString("slOrderPrice", stopLossOrderPrice);
             parameters.AddOptionalString("slOrderPrice", stopLossOrderPrice);
-            parameters.Add("brokerId", BloFinExchange._brokerId);
+            parameters.Add("brokerId", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange));
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/trade/order", BloFinExchange.RateLimiter.BloFinRest, 1, true);
             var result = await _baseClient.SendAsync<BloFinOrderId[]>(request, parameters, ct).ConfigureAwait(false);
             if (!result)
@@ -83,6 +84,9 @@ namespace BloFin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<CallResult<BloFinOrderId>[]>> PlaceMultipleOrdersAsync(IEnumerable<BloFinOrderRequest> orders, CancellationToken ct = default)
         {
+            foreach (var order in orders)
+                order.BrokerId = LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange);
+
             var parameters = new ParameterCollection();
             parameters.SetBody(orders.ToArray());
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/trade/batch-orders", BloFinExchange.RateLimiter.BloFinRest, 1, true);
@@ -123,7 +127,7 @@ namespace BloFin.Net.Clients.FuturesApi
             parameters.AddOptionalString("tpOrderPrice", takeProfitOrderPrice ?? (takeProfitTriggerPrice != null ? -1 : null));
             parameters.AddOptionalString("slTriggerPrice", stopLossTriggerPrice);
             parameters.AddOptionalString("slOrderPrice", stopLossOrderPrice ?? (stopLossTriggerPrice != null ? -1 : null));
-            parameters.Add("brokerId", BloFinExchange._brokerId);
+            parameters.Add("brokerId", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange));
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/trade/order-tpsl", BloFinExchange.RateLimiter.BloFinRest, 1, true);
             var result = await _baseClient.SendAsync<BloFinTpSlOrderId>(request, parameters, ct).ConfigureAwait(false);
             if (!result)
@@ -154,7 +158,7 @@ namespace BloFin.Net.Clients.FuturesApi
             parameters.AddOptionalString("orderPrice", orderPrice ?? -1);
             parameters.AddOptional("reduceOnly", reduceOnly);
             parameters.Add("orderType", "trigger");
-            parameters.Add("brokerId", BloFinExchange._brokerId);
+            parameters.Add("brokerId", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange));
             parameters.AddOptional("attachAlgoOrders", slTpOrders?.ToArray());
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/trade/order-algo", BloFinExchange.RateLimiter.BloFinRest, 1, true);
             var result = await _baseClient.SendAsync<BloFinAlgoOrderId>(request, parameters, ct).ConfigureAwait(false);
@@ -343,7 +347,7 @@ namespace BloFin.Net.Clients.FuturesApi
             parameters.AddEnum("marginMode", marginMode);
             parameters.AddOptionalEnum("positionSide", positionSide);
             parameters.AddOptional("clientOrderId", clientOrderId);
-            parameters.Add("brokerId", BloFinExchange._brokerId);
+            parameters.Add("brokerId", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange));
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/trade/close-position", BloFinExchange.RateLimiter.BloFinRest, 1, true);
             var result = await _baseClient.SendAsync<BloFinClosePositionResult>(request, parameters, ct).ConfigureAwait(false);
             return result;

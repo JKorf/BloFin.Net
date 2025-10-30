@@ -4483,6 +4483,11 @@
             ctor
             </summary>
         </member>
+        <member name="P:BloFin.Net.Objects.Options.BloFinRestOptions.BrokerId">
+            <summary>
+            Broker id
+            </summary>
+        </member>
         <member name="P:BloFin.Net.Objects.Options.BloFinRestOptions.ExchangeOptions">
             <summary>
             Exchange API options

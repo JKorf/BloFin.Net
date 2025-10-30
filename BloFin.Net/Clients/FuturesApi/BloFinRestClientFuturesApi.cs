@@ -11,6 +11,8 @@ namespace BloFin.Net.Clients.FuturesApi
     {
         #region fields 
         protected override ErrorMapping ErrorMapping => BloFinErrors.Errors;
+
+        public new BloFinRestOptions ClientOptions => (BloFinRestOptions)base.ClientOptions;
         #endregion
 
         #region Api clients

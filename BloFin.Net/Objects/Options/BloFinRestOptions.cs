@@ -24,6 +24,10 @@ namespace BloFin.Net.Objects.Options
             Default?.Set(this);
         }
 
+        /// <summary>
+        /// Broker id
+        /// </summary>
+        public string? BrokerId { get; set; }
         
          /// <summary>
         /// Exchange API options
@@ -34,7 +38,7 @@ namespace BloFin.Net.Objects.Options
         internal BloFinRestOptions Set(BloFinRestOptions targetOptions)
         {
             targetOptions = base.Set<BloFinRestOptions>(targetOptions);
-            
+            targetOptions.BrokerId = BrokerId;
             targetOptions.ExchangeOptions = ExchangeOptions.Set(targetOptions.ExchangeOptions);
 
             return targetOptions;

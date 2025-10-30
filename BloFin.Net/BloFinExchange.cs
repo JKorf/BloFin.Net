@@ -51,8 +51,6 @@ namespace BloFin.Net
 
         internal static JsonSerializerOptions _serializerContext = SerializerOptions.WithConverters(JsonSerializerContextCache.GetOrCreate<BloFinSourceGenerationContext>());
 
-        internal static string _brokerId = "5c07cf695885c282";
-
         /// <summary>
         /// Format a base and quote asset to an BloFin recognized symbol 
         /// </summary>
