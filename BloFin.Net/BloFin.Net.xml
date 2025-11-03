@@ -89,6 +89,11 @@
             Type of exchange
             </summary>
         </member>
+        <member name="P:BloFin.Net.BloFinExchange.AssetAliases">
+            <summary>
+            Aliases for BloFin assets
+            </summary>
+        </member>
         <member name="M:BloFin.Net.BloFinExchange.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <summary>
             Format a base and quote asset to an BloFin recognized symbol 
