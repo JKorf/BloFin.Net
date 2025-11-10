@@ -275,6 +275,9 @@
         <member name="T:BloFin.Net.Clients.BloFinUserClientProvider">
             <inheritdoc />
         </member>
+        <member name="P:BloFin.Net.Clients.BloFinUserClientProvider.ExchangeName">
+            <inheritdoc />
+        </member>
         <member name="M:BloFin.Net.Clients.BloFinUserClientProvider.#ctor(System.Action{BloFin.Net.Objects.Options.BloFinOptions})">
             <summary>
             ctor
@@ -4574,6 +4577,9 @@
             <summary>
             BloFin order book factory
             </summary>
+        </member>
+        <member name="P:BloFin.Net.SymbolOrderBooks.BloFinOrderBookFactory.ExchangeName">
+            <inheritdoc />
         </member>
         <member name="M:BloFin.Net.SymbolOrderBooks.BloFinOrderBookFactory.#ctor(System.IServiceProvider)">
             <summary>

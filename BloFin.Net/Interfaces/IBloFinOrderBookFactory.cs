@@ -8,7 +8,7 @@ namespace BloFin.Net.Interfaces
     /// <summary>
     /// BloFin local order book factory
     /// </summary>
-    public interface IBloFinOrderBookFactory
+    public interface IBloFinOrderBookFactory : IExchangeService
     {
         
         /// <summary>

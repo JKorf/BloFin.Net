@@ -17,6 +17,9 @@ namespace BloFin.Net.SymbolOrderBooks
     {
         private readonly IServiceProvider _serviceProvider;
 
+        /// <inheritdoc />
+        public string ExchangeName => BloFinExchange.ExchangeName;
+
         /// <summary>
         /// ctor
         /// </summary>
