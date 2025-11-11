@@ -172,6 +172,26 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         Task<WebCallResult<BloFinClosePositionResult>> ClosePositionAsync(string symbol, MarginMode marginMode, PositionSide? positionSide = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Get details of a specific order
+        /// <para><a href="https://docs.blofin.com/index.html#get-order-detail" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
+        /// <param name="orderId">The order id. Either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">The client order id. Either this or orderId should be provided</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BloFinOrder>> GetOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get details of a specific Tp/Sl order
+        /// <para><a href="https://docs.blofin.com/index.html#get-tpsl-order-detail" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
+        /// <param name="orderId">The order id. Either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">The client order id. Either this or orderId should be provided</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BloFinTpSlOrder>> GetTpSlOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Get closed order history
         /// <para><a href="https://docs.blofin.com/index.html#get-order-history" /></para>
         /// </summary>

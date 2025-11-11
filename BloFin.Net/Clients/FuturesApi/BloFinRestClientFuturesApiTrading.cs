@@ -355,6 +355,40 @@ namespace BloFin.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Get Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BloFinOrder>> GetOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("instId", symbol);
+            parameters.AddOptional("orderId", orderId);
+            parameters.AddOptional("clientOrderId", clientOrderId);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/trade/order-detail", BloFinExchange.RateLimiter.BloFinRest, 1, true);
+            var result = await _baseClient.SendAsync<BloFinOrder>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get TpSl Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BloFinTpSlOrder>> GetTpSlOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("instId", symbol);
+            parameters.AddOptional("tpslId", orderId);
+            parameters.AddOptional("clientOrderId", clientOrderId);
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/trade/orders-tpsl-detail", BloFinExchange.RateLimiter.BloFinRest, 1, true);
+            var result = await _baseClient.SendAsync<BloFinTpSlOrder>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
         #region Get Closed Orders
 
         /// <inheritdoc />

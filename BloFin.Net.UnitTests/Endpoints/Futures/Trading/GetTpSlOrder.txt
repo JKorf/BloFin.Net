@@ -1,0 +1,26 @@
+GET
+/api/v1/trade/orders-tpsl-detail
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": {
+        "tpslId": "2411",
+        "instId": "ETH-USDT",
+        "marginMode": "cross",
+        "positionSide": "net",
+        "side": "sell",
+        "tpTriggerPrice": "1666.000000000000000000",
+        "tpOrderPrice": null,
+        "slTriggerPrice": "1222.000000000000000000",
+        "slOrderPrice": null,
+        "size": "1",
+        "state": "live",
+        "leverage": "3",
+        "reduceOnly": "false",
+        "actualSize": null,
+        "clientOrderId": "aabbc",
+        "createTime": "1697016700775",
+        "brokerId": ""
+    }
+}

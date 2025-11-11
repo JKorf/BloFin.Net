@@ -98,6 +98,8 @@ namespace BloFin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetClosedTriggerOrdersAsync(), "GetClosedTriggerOrders", nestedJsonProperty: "data", ignoreProperties: ["orderType"]);
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetUserTradesAsync(), "GetUserTrades", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetPriceLimitsAsync("123", OrderSide.Buy), "GetPriceLimits", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrderAsync("ETHUSDT", "123"), "GetOrder", nestedJsonProperty: "data", ignoreProperties: ["filled_amount"]);
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetTpSlOrderAsync("ETHUSDT", "123"), "GetTpSlOrder", nestedJsonProperty: "data");
         }
 
         private bool IsAuthenticated(WebCallResult result)
