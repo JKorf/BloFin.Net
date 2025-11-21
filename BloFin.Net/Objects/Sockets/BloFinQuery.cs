@@ -6,6 +6,7 @@ using BloFin.Net.Objects.Internal;
 using CryptoExchange.Net.Clients;
 using System.Text.Json;
 using System.Linq;
+using System;
 
 namespace BloFin.Net.Objects.Sockets
 {
@@ -46,9 +47,9 @@ namespace BloFin.Net.Objects.Sockets
             MessageMatcher = MessageMatcher.Create<BloFinSocketResponse>(listenList, HandleMessage);
         }
 
-        public override bool PreCheckMessage(SocketConnection connection, DataEvent<object> message)
+        public override bool PreCheckMessage(SocketConnection connection, object message)
         {
-            var messageData = (BloFinSocketResponse)message.Data;
+            var messageData = (BloFinSocketResponse)message;
             if (messageData.Code == 0)
                 return true;
 
@@ -76,12 +77,12 @@ namespace BloFin.Net.Objects.Sockets
             return false;
         }
 
-        public CallResult<BloFinSocketResponse> HandleMessage(SocketConnection connection, DataEvent<BloFinSocketResponse> message)
+        public CallResult<BloFinSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BloFinSocketResponse message)
         {
-            if (message.Data.Code != 0)
-                return new CallResult<BloFinSocketResponse>(new ServerError(message.Data.Code, _client.GetErrorInfo(message.Data.Code, message.Data.Message)));
+            if (message.Code != 0)
+                return new CallResult<BloFinSocketResponse>(new ServerError(message.Code, _client.GetErrorInfo(message.Code, message.Message)), originalData);
 
-            return message.ToCallResult();
+            return new CallResult<BloFinSocketResponse>(message, originalData, null);
         }
     }
 }

@@ -1,21 +1,32 @@
-using CryptoExchange.Net.Testing;
-using NUnit.Framework;
-using System.Threading.Tasks;
 using BloFin.Net.Clients;
 using BloFin.Net.Objects.Models;
+using BloFin.Net.Objects.Options;
+using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Testing;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace BloFin.Net.UnitTests
 {
     [TestFixture]
     public class SocketSubscriptionTests
     {
-        [Test]
-        public async Task ValidateFuturesExchangeDataSubscriptions()
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateFuturesExchangeDataSubscriptions(bool newDeserialization)
         {
-            var client = new BloFinSocketClient(opts =>
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+
+            var client = new BloFinSocketClient(Options.Create(new BloFinSocketOptions
             {
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789");
-            });
+                ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789"),
+                OutputOriginalData = true,
+                UseUpdatedDeserialization = newDeserialization
+            }), logger);
             var tester = new SocketSubscriptionValidator<BloFinSocketClient>(client, "Subscriptions/Futures", "wss://openapi.blofin.com");
             await tester.ValidateAsync<BloFinTrade[]>((client, handler) => client.FuturesApi.SubscribeToTradeUpdatesAsync("ETH-USDT", handler), "Trades", nestedJsonProperty: "data");
             await tester.ValidateAsync<BloFinKline>((client, handler) => client.FuturesApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneDay, handler), "Klines", useFirstUpdateItem: true, nestedJsonProperty: "data");
