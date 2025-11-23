@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace BloFin.Net.Clients.FuturesApi
 {
-    internal class BloFinSocketClientFuturesApiMessageConverter : DynamicJsonConverter
+    internal class BloFinSocketClientFuturesApiMessageConverter : JsonSocketMessageHandler
     {
         public override JsonSerializerOptions Options { get; } = BloFinExchange._serializerContext;
 

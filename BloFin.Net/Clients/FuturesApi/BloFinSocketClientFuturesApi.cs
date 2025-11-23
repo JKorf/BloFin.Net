@@ -72,7 +72,7 @@ namespace BloFin.Net.Clients.FuturesApi
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(BloFinExchange._serializerContext);
 
-        public override IMessageConverter CreateMessageConverter(WebSocketMessageType messageType) => new BloFinSocketClientFuturesApiMessageConverter();
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BloFinSocketClientFuturesApiMessageConverter();
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
