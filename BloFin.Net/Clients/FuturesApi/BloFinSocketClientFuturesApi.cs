@@ -1,3 +1,4 @@
+using BloFin.Net.Clients.MessageHandlers;
 using BloFin.Net.Enums;
 using BloFin.Net.Interfaces.Clients.FuturesApi;
 using BloFin.Net.Objects.Internal;
@@ -72,7 +73,7 @@ namespace BloFin.Net.Clients.FuturesApi
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(BloFinExchange._serializerContext);
 
-        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BloFinSocketClientFuturesApiMessageConverter();
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BloFinSocketFuturesMessageConverter();
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)

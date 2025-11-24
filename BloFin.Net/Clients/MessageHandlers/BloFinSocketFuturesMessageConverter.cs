@@ -4,9 +4,9 @@ using System;
 using System.Net.WebSockets;
 using System.Text.Json;
 
-namespace BloFin.Net.Clients.FuturesApi
+namespace BloFin.Net.Clients.MessageHandlers
 {
-    internal class BloFinSocketClientFuturesApiMessageConverter : JsonSocketMessageHandler
+    internal class BloFinSocketFuturesMessageConverter : JsonSocketMessageHandler
     {
         public override JsonSerializerOptions Options { get; } = BloFinExchange._serializerContext;
 

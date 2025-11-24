@@ -13,13 +13,13 @@ namespace BloFin.Net.UnitTests
     [NonParallelizable]
     internal class BloFinSocketIntegrationTests : SocketIntegrationTest<BloFinSocketClient>
     {
-        public override bool Run { get; set; } = false;
+        public override bool Run { get; set; } = true;
 
         public BloFinSocketIntegrationTests()
         {
         }
 
-        public override BloFinSocketClient GetClient(ILoggerFactory loggerFactory)
+        public override BloFinSocketClient GetClient(ILoggerFactory loggerFactory, bool useUpdatedDeserialization)
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
@@ -29,16 +29,18 @@ namespace BloFin.Net.UnitTests
             return new BloFinSocketClient(Options.Create(new BloFinSocketOptions
             {
                 OutputOriginalData = true,
+                UseUpdatedDeserialization = useUpdatedDeserialization,
                 ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec, pass) : null
             }), loggerFactory);
         }
 
-        [Test]
-        public async Task TestSubscriptions()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task TestSubscriptions(bool useUpdatedDeserialization)
         {
             //await RunAndCheckUpdate<BloFinSpotTickerUpdate>((client, updateHandler) => client.FuturesApi.SubscribeToWalletUpdatesAsync(default , default), false, true);
-            await RunAndCheckUpdate<BloFinTicker>((client, updateHandler) => client.FuturesApi.SubscribeToTickerUpdatesAsync("ETH-USDT", updateHandler, default), true, false);
-            await RunAndCheckUpdate<BloFinOrderBookUpdate>((client, updateHandler) => client.FuturesApi.SubscribeToOrderBookUpdatesAsync(new string[] { "ETH-USDT" }, 5, updateHandler, default), true, false);
+            await RunAndCheckUpdate<BloFinTicker>(useUpdatedDeserialization, (client, updateHandler) => client.FuturesApi.SubscribeToTickerUpdatesAsync("ETH-USDT", updateHandler, default), true, false);
+            await RunAndCheckUpdate<BloFinOrderBookUpdate>(useUpdatedDeserialization, (client, updateHandler) => client.FuturesApi.SubscribeToOrderBookUpdatesAsync(new string[] { "ETH-USDT" }, 5, updateHandler, default), true, false);
         } 
     }
 }

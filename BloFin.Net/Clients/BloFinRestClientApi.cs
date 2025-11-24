@@ -1,8 +1,10 @@
-﻿using BloFin.Net.Objects.Internal;
+﻿using BloFin.Net.Clients.MessageHandlers;
+using BloFin.Net.Objects.Internal;
 using BloFin.Net.Objects.Options;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
@@ -11,7 +13,9 @@ using CryptoExchange.Net.SharedApis;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -71,7 +75,7 @@ namespace BloFin.Net.Clients
         }
 
         /// <inheritdoc />
-        protected override Error? TryParseError(RequestDefinition definition, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        protected override Error? TryParseError(RequestDefinition definition, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
         {
             var responseCode = accessor.GetValue<int>(MessagePath.Get().Property("code"));
             if (responseCode >= 0 && responseCode <= 2) // 0 = success, 1 = failed, 2 = partial success. More details in response so process them further

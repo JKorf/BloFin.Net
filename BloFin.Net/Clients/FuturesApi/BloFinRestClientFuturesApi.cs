@@ -1,8 +1,10 @@
+using BloFin.Net.Clients.MessageHandlers;
+using BloFin.Net.Interfaces.Clients.FuturesApi;
+using BloFin.Net.Objects.Options;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
+using CryptoExchange.Net.Objects.Errors;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
-using BloFin.Net.Objects.Options;
-using CryptoExchange.Net.Objects.Errors;
-using BloFin.Net.Interfaces.Clients.FuturesApi;
 
 namespace BloFin.Net.Clients.FuturesApi
 {
@@ -11,6 +13,7 @@ namespace BloFin.Net.Clients.FuturesApi
     {
         #region fields 
         protected override ErrorMapping ErrorMapping => BloFinErrors.Errors;
+        protected override IRestMessageHandler MessageHandler { get; } = new BloFinRestMessageHandler(BloFinErrors.Errors);
 
         public new BloFinRestOptions ClientOptions => (BloFinRestOptions)base.ClientOptions;
         #endregion

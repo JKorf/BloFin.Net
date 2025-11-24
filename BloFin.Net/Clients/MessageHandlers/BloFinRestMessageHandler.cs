@@ -1,0 +1,51 @@
+﻿using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Converters.SystemTextJson.MessageConverters;
+using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+namespace BloFin.Net.Clients.MessageHandlers
+{
+    internal class BloFinRestMessageHandler : JsonRestMessageHandler
+    {
+        private readonly ErrorMapping _errorMapping;
+
+        public override JsonSerializerOptions Options { get; } = BloFinExchange._serializerContext;
+
+        public BloFinRestMessageHandler(ErrorMapping errorMapping)
+        {
+            _errorMapping = errorMapping;
+        }
+
+        public override async ValueTask<Error?> CheckForErrorResponse(RequestDefinition request, object? state, HttpResponseHeaders responseHeaders, Stream responseStream)
+        {
+            var (error, document) = await GetJsonDocument(responseStream, state).ConfigureAwait(false);
+            if (error != null)
+                return error;
+
+            int? code = document!.RootElement.TryGetProperty("code", out var codeProp) ? codeProp.GetInt32() : null;
+            if (code >= 0 && code <= 2)
+                return null;
+
+            string? msg = document.RootElement.TryGetProperty("msg", out var msgProp) ? msgProp.GetString() : null;
+            return new ServerError(code.ToString()!, _errorMapping.GetErrorInfo(code.ToString()!, msg));
+        }
+
+        public override async ValueTask<Error> ParseErrorResponse(int httpStatusCode, object? state, HttpResponseHeaders responseHeaders, Stream responseStream)
+        {
+            if (httpStatusCode == 401 || httpStatusCode == 403)
+                return new ServerError(new ErrorInfo(ErrorType.Unauthorized, "Unauthorized"));
+
+            using var streamReader = new StreamReader(responseStream);
+            return new ServerError(ErrorInfo.Unknown with { Message = await streamReader.ReadToEndAsync().ConfigureAwait(false) });
+        }
+    }
+}
