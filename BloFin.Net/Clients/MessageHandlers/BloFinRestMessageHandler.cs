@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Converters.MessageParsing;
+﻿using BloFin.Net.Objects.Internal;
+using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Converters.SystemTextJson.MessageConverters;
 using CryptoExchange.Net.Objects;
@@ -25,18 +26,15 @@ namespace BloFin.Net.Clients.MessageHandlers
             _errorMapping = errorMapping;
         }
 
-        public override async ValueTask<Error?> CheckForErrorResponse(RequestDefinition request, object? state, HttpResponseHeaders responseHeaders, Stream responseStream)
+        public override Error? CheckDeserializedResponse<T>(HttpResponseHeaders responseHeaders, T result)
         {
-            var (error, document) = await GetJsonDocument(responseStream, state).ConfigureAwait(false);
-            if (error != null)
-                return error;
-
-            int? code = document!.RootElement.TryGetProperty("code", out var codeProp) ? codeProp.GetInt32() : null;
-            if (code >= 0 && code <= 2)
+            if (result is not BloFinResponse bloFinResponse)
                 return null;
 
-            string? msg = document.RootElement.TryGetProperty("msg", out var msgProp) ? msgProp.GetString() : null;
-            return new ServerError(code.ToString()!, _errorMapping.GetErrorInfo(code.ToString()!, msg));
+            if (bloFinResponse.Code >= 0 && bloFinResponse.Code <= 2)
+                return null;
+
+            return new ServerError(bloFinResponse.Code, _errorMapping.GetErrorInfo(bloFinResponse.Code.ToString(), bloFinResponse.Message));
         }
 
         public override async ValueTask<Error> ParseErrorResponse(int httpStatusCode, object? state, HttpResponseHeaders responseHeaders, Stream responseStream)
