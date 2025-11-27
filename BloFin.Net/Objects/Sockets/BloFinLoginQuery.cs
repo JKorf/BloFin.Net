@@ -23,6 +23,7 @@ namespace BloFin.Net.Objects.Sockets
             };
 
             MessageMatcher = MessageMatcher.Create<BloFinSocketResponse>(listenList, HandleMessage);
+            MessageRouter = MessageRouter.Create<BloFinSocketResponse>(listenList, HandleMessage);
         }
 
         public CallResult<BloFinSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BloFinSocketResponse message)

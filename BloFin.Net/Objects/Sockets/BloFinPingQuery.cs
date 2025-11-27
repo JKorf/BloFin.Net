@@ -12,6 +12,7 @@ namespace BloFin.Net.Objects.Sockets
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
             MessageMatcher = MessageMatcher.Create("pong");
+            MessageRouter = MessageRouter.Create("pong");
         }
     }
 }

@@ -35,6 +35,7 @@ namespace BloFin.Net.Objects.Sockets.Subscriptions
             _symbols = symbols;
 
             MessageMatcher = MessageMatcher.Create<BloFinSocketUpdate<T>>(symbols != null ? symbols.Select(x => topic + x) : [topic], DoHandleMessage);
+            MessageRouter = MessageRouter.Create<BloFinSocketUpdate<T>>(symbols != null ? symbols.Select(x => topic + x) : [topic], DoHandleMessage);
         }
 
         /// <inheritdoc />
