@@ -45,7 +45,7 @@ namespace BloFin.Net.Objects.Sockets
             RequiredResponses = request.Parameters.Length;
 
             MessageMatcher = MessageMatcher.Create<BloFinSocketResponse>(listenList, HandleMessage);
-            MessageRouter = MessageRouter.Create<BloFinSocketResponse>(listenList, HandleMessage);
+            MessageRouter = MessageRouter.CreateWithOptionalTopicFilters<BloFinSocketResponse>(request.Parameters.Select(x => request.Operation + x["channel"]), _symbols, HandleMessage);
         }
 
         public override bool PreCheckMessage(SocketConnection connection, object message)
