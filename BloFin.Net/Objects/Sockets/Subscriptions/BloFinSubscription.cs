@@ -11,7 +11,7 @@ using System.Linq;
 namespace BloFin.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
-    internal class BloFinSubscription<T> : Subscription<BloFinSocketResponse, BloFinSocketResponse>
+    internal class BloFinSubscription<T> : Subscription
     {
         private readonly SocketApiClient _client;
         private readonly Action<DateTime, string?, int, BloFinSocketUpdate<T>> _handler;
