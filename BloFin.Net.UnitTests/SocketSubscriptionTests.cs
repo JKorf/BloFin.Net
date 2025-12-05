@@ -13,6 +13,25 @@ namespace BloFin.Net.UnitTests
     [TestFixture]
     public class SocketSubscriptionTests
     {
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateConcurrentFuturesSubscriptions(bool newDeserialization)
+        {
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+
+            var client = new BloFinSocketClient(Options.Create(new BloFinSocketOptions
+            {
+                OutputOriginalData = true,
+                UseUpdatedDeserialization = newDeserialization
+            }), logger);
+
+            var tester = new SocketSubscriptionValidator<BloFinSocketClient>(client, "Subscriptions/Futures", "wss://ws.bitmex.com/");
+            await tester.ValidateConcurrentAsync<BloFinKline>(
+                (client, handler) => client.FuturesApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneDay, handler),
+                (client, handler) => client.FuturesApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneHour, handler),
+                "Concurrent");
+        }
 
         [TestCase(false)]
         [TestCase(true)]
