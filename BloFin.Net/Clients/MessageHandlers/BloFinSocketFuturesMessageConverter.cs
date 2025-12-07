@@ -16,10 +16,9 @@ namespace BloFin.Net.Clients.MessageHandlers
             AddTopicMapping<BloFinSocketUpdate>(x => x.Parameters.TryGetValue("instId", out var symbol) ? symbol : null);
         }
 
-        protected override MessageEvaluator[] TypeEvaluators { get; } = [
+        protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
 
             //new MessageEvaluator {
-            //    Priority = 1,
             //    Fields = [
             //        new PropertyFieldReference("event"),
             //        new PropertyFieldReference("channel") { Depth = 2 },
@@ -28,17 +27,15 @@ namespace BloFin.Net.Clients.MessageHandlers
             //    IdentifyMessageCallback = x => x.FieldValue("event") + x.FieldValue("channel") + x.FieldValue("instId")
             //},
 
-            new MessageEvaluator {
-                Priority = 2,
+            new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("event"),
                     new PropertyFieldReference("channel") { Depth = 2 },
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("event") + x.FieldValue("channel")
+                TypeIdentifierCallback = x => x.FieldValue("event") + x.FieldValue("channel")
             },
 
             //new MessageEvaluator {
-            //    Priority = 3,
             //    Fields = [
             //        new PropertyFieldReference("channel") { Depth = 2 },
             //        new PropertyFieldReference("instId") { Depth = 2 },
@@ -46,20 +43,18 @@ namespace BloFin.Net.Clients.MessageHandlers
             //    IdentifyMessageCallback = x => x.FieldValue("channel") + x.FieldValue("instId")
             //},
 
-            new MessageEvaluator {
-                Priority = 4,
+            new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("event"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("event")!
+                TypeIdentifierCallback = x => x.FieldValue("event")!
             },
 
-            new MessageEvaluator {
-                Priority = 5,
+            new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("channel") { Depth = 2 },
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("channel")!
+                TypeIdentifierCallback = x => x.FieldValue("channel")!
             },
         ];
 
