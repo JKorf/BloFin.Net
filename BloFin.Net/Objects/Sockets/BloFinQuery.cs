@@ -1,5 +1,4 @@
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using System.Collections.Generic;
 using BloFin.Net.Objects.Internal;
@@ -7,6 +6,7 @@ using CryptoExchange.Net.Clients;
 using System.Text.Json;
 using System.Linq;
 using System;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace BloFin.Net.Objects.Sockets
 {
