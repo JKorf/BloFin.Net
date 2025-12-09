@@ -14,6 +14,7 @@ namespace BloFin.Net
     {
         private static readonly IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(BloFinExchange._serializerContext);
 
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
         public BloFinAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
             if (credentials.Pass == null)
