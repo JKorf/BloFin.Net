@@ -229,9 +229,6 @@
         <member name="M:BloFin.Net.Clients.BloFinRestClientApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.BloFinRestClientApi.TryParseError(CryptoExchange.Net.Objects.RequestDefinition,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
         <member name="M:BloFin.Net.Clients.BloFinRestClientApi.GetServerTimestampAsync">
             <inheritdoc />
         </member>

@@ -15,14 +15,12 @@ namespace BloFin.Net.UnitTests
     [TestFixture]
     public class RestRequestTests
     {
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateAccountCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateAccountCalls()
         {
             var client = new BloFinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789");
             });
             var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Account", "https://openapi.blofin.com", IsAuthenticated);
@@ -36,14 +34,12 @@ namespace BloFin.Net.UnitTests
 
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateFuturesAccountCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateFuturesAccountCalls()
         {
             var client = new BloFinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789");
             });
             var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Futures/Account", "https://openapi.blofin.com", IsAuthenticated);
@@ -57,14 +53,12 @@ namespace BloFin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Account.SetLeverageAsync("123", 0.1m, MarginMode.Isolated), "SetLeverage", nestedJsonProperty: "data");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateFuturesExchangeDataCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateFuturesExchangeDataCalls()
         {
             var client = new BloFinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789");
             });
             var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Futures/ExchangeData", "https://openapi.blofin.com", IsAuthenticated);
@@ -78,14 +72,12 @@ namespace BloFin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetKlinesAsync("123", KlineInterval.OneDay), "GetKlines", nestedJsonProperty: "data");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateFuturesTradingCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateFuturesTradingCalls()
         {
             var client = new BloFinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789");
             });
             var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Futures/Trading", "https://openapi.blofin.com", IsAuthenticated);
