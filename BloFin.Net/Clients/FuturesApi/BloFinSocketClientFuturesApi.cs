@@ -90,7 +90,7 @@ namespace BloFin.Net.Clients.FuturesApi
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinTrade[]>>((receiveTime, originalData, invocations, data) =>
             {
                 onMessage(
-                    new DataEvent<BloFinTrade[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BloFinTrade[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("trades")
                         .WithSymbol(data.Data.First().Symbol)
@@ -115,7 +115,7 @@ namespace BloFin.Net.Clients.FuturesApi
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinKline[]>>((receiveTime, originalData, invocations, data) =>
             {
                 onMessage(
-                    new DataEvent<BloFinKline>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BloFinKline>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(streamId)
                         .WithSymbol(data.Parameters.TryGetValue("instId", out var symbol) ? symbol : null)
@@ -138,7 +138,7 @@ namespace BloFin.Net.Clients.FuturesApi
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinIndexMarkKline[]>>((receiveTime, originalData, invocations, data) =>
             {
                 onMessage(
-                    new DataEvent<BloFinIndexMarkKline>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BloFinIndexMarkKline>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(streamId)
                         .WithSymbol(data.Parameters.TryGetValue("instId", out var symbol) ? symbol : null)
@@ -160,7 +160,7 @@ namespace BloFin.Net.Clients.FuturesApi
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinIndexMarkKline[]>>((receiveTime, originalData, invocations, data) =>
             {
                 onMessage(
-                    new DataEvent<BloFinIndexMarkKline>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BloFinIndexMarkKline>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(streamId)
                         .WithSymbol(data.Parameters.TryGetValue("instId", out var symbol) ? symbol : null)
@@ -183,7 +183,7 @@ namespace BloFin.Net.Clients.FuturesApi
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinOrderBookUpdate>>((receiveTime, originalData, invocations, data) =>
             {
                 onMessage(
-                    new DataEvent<BloFinOrderBookUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<BloFinOrderBookUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("books")
                         .WithSymbol(data.Parameters.TryGetValue("instId", out var symbol) ? symbol : null)
@@ -205,7 +205,7 @@ namespace BloFin.Net.Clients.FuturesApi
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinTicker[]>>((receiveTime, originalData, invocations, data) =>
             {
                 onMessage(
-                    new DataEvent<BloFinTicker>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BloFinTicker>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("tickers")
                         .WithSymbol(data.Data.First().Symbol)
@@ -227,7 +227,7 @@ namespace BloFin.Net.Clients.FuturesApi
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinFundingRate[]>>((receiveTime, originalData, invocations, data) =>
             {
                 onMessage(
-                    new DataEvent<BloFinFundingRate>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BloFinFundingRate>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("funding-rate")
                         .WithSymbol(data.Data.First().Symbol)
@@ -244,7 +244,7 @@ namespace BloFin.Net.Clients.FuturesApi
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinPosition[]>>((receiveTime, originalData, invocations, data) =>
             {
                 onMessage(
-                    new DataEvent<BloFinPosition[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BloFinPosition[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("positions")
                         .WithSymbol(data.Data.First().Symbol)
@@ -262,7 +262,7 @@ namespace BloFin.Net.Clients.FuturesApi
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinOrder[]>>((receiveTime, originalData, invocations, data) =>
             {
                 onMessage(
-                    new DataEvent<BloFinOrder[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BloFinOrder[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("orders")
                         .WithSymbol(data.Data.First().Symbol)
@@ -280,7 +280,7 @@ namespace BloFin.Net.Clients.FuturesApi
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinAlgoOrderUpdate[]>>((receiveTime, originalData, invocations, data) =>
             {
                 onMessage(
-                    new DataEvent<BloFinAlgoOrderUpdate[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BloFinAlgoOrderUpdate[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("orders-algo")
                         .WithSymbol(data.Data.First().Symbol)
@@ -298,7 +298,7 @@ namespace BloFin.Net.Clients.FuturesApi
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinFuturesBalances>>((receiveTime, originalData, invocations, data) =>
             {
                 onMessage(
-                    new DataEvent<BloFinFuturesBalances>(data.Data, receiveTime, originalData)
+                    new DataEvent<BloFinFuturesBalances>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("account")
                         .WithDataTimestamp(data.Data.Timestamp)
@@ -315,7 +315,7 @@ namespace BloFin.Net.Clients.FuturesApi
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinFuturesInverseBalanceUpdate>>((receiveTime, originalData, invocations, data) =>
             {
                 onMessage(
-                    new DataEvent<BloFinFuturesInverseBalanceUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<BloFinFuturesInverseBalanceUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("inverse-account")
                         .WithDataTimestamp(data.Data.Timestamp)
