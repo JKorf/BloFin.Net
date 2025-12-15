@@ -18,15 +18,6 @@ namespace BloFin.Net.Clients.MessageHandlers
 
         protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
 
-            //new MessageEvaluator {
-            //    Fields = [
-            //        new PropertyFieldReference("event"),
-            //        new PropertyFieldReference("channel") { Depth = 2 },
-            //        new PropertyFieldReference("instId") { Depth = 2 },
-            //    ],
-            //    IdentifyMessageCallback = x => x.FieldValue("event") + x.FieldValue("channel") + x.FieldValue("instId")
-            //},
-
             new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("event"),
@@ -34,14 +25,6 @@ namespace BloFin.Net.Clients.MessageHandlers
                 ],
                 TypeIdentifierCallback = x => x.FieldValue("event") + x.FieldValue("channel")
             },
-
-            //new MessageEvaluator {
-            //    Fields = [
-            //        new PropertyFieldReference("channel") { Depth = 2 },
-            //        new PropertyFieldReference("instId") { Depth = 2 },
-            //    ],
-            //    IdentifyMessageCallback = x => x.FieldValue("channel") + x.FieldValue("instId")
-            //},
 
             new MessageTypeDefinition {
                 Fields = [
