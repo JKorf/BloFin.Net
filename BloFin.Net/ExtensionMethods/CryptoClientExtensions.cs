@@ -1,5 +1,6 @@
 using BloFin.Net.Clients;
 using BloFin.Net.Interfaces.Clients;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace CryptoExchange.Net.Interfaces
 {

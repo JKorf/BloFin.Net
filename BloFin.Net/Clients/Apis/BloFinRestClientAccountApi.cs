@@ -1,8 +1,10 @@
-﻿using BloFin.Net.Enums;
+﻿using BloFin.Net.Clients.MessageHandlers;
+using BloFin.Net.Enums;
 using BloFin.Net.Interfaces.Clients.AccountApi;
 using BloFin.Net.Interfaces.Clients.Apis;
 using BloFin.Net.Objects.Models;
 using BloFin.Net.Objects.Options;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
 using Microsoft.Extensions.Logging;
@@ -16,6 +18,7 @@ namespace BloFin.Net.Clients.Apis
     internal partial class BloFinRestClientAccountApi : BloFinRestClientApi, IBloFinRestClientAccountApi
     {
         protected override ErrorMapping ErrorMapping => BloFinErrors.Errors;
+        protected override IRestMessageHandler MessageHandler { get; } = new BloFinRestMessageHandler(BloFinErrors.Errors);
 
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
 

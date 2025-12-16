@@ -12,6 +12,7 @@ using BloFin.Net.Interfaces;
 using BloFin.Net.Interfaces.Clients;
 using BloFin.Net.Objects.Options;
 using BloFin.Net.SymbolOrderBooks;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

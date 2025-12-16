@@ -255,6 +255,9 @@ namespace BloFin.Net.Clients.FuturesApi
                 return new ExchangeWebResult<SharedFuturesTicker[]>(Exchange, validationError);
 
             var resultTickers = await ExchangeData.GetTickersAsync(ct: ct).ConfigureAwait(false);
+            if (!resultTickers)
+                return resultTickers.AsExchangeResult<SharedFuturesTicker[]>(Exchange, null, default);
+
             IEnumerable<BloFinTicker> data = resultTickers.Data;
             if (request.TradingMode.HasValue)
                 data = data.Where(x => request.TradingMode == TradingMode.PerpetualInverse ? x.Symbol!.EndsWith("USD") : !x.Symbol!.EndsWith("USD"));

@@ -1,5 +1,3 @@
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using System;
 
@@ -11,13 +9,8 @@ namespace BloFin.Net.Objects.Sockets
         public BloFinPingQuery() : base("ping", false, 1)
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
-
-            MessageMatcher = MessageMatcher.Create<string>("pong", HandleMessage);
-        }
-
-        public CallResult<string> HandleMessage(SocketConnection connection, DataEvent<string> message)
-        {
-            return message.ToCallResult();
+            MessageMatcher = MessageMatcher.Create("pong");
+            MessageRouter = MessageRouter.CreateWithoutHandler<string>("pong");
         }
     }
 }

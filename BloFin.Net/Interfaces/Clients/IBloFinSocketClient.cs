@@ -1,6 +1,6 @@
 using BloFin.Net.Interfaces.Clients.FuturesApi;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace BloFin.Net.Interfaces.Clients
 {

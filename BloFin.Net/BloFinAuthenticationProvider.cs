@@ -6,7 +6,6 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace BloFin.Net
@@ -15,6 +14,7 @@ namespace BloFin.Net
     {
         private static readonly IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(BloFinExchange._serializerContext);
 
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
         public BloFinAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
             if (credentials.Pass == null)
@@ -29,11 +29,11 @@ namespace BloFin.Net
             var timestamp = GetMillisecondTimestamp(apiClient);
             var nonce = Guid.NewGuid().ToString();
 
-            var query = requestConfig.ParameterPosition == HttpMethodParameterPosition.InUri && requestConfig.QueryParameters.Any() ? "?" + requestConfig.QueryParameters.CreateParamString(true, requestConfig.ArraySerialization) : "";
+            var query = requestConfig.ParameterPosition == HttpMethodParameterPosition.InUri && (requestConfig.QueryParameters?.Count > 0) ? "?" + requestConfig.QueryParameters.CreateParamString(true, requestConfig.ArraySerialization) : "";
             if (requestConfig.ParameterPosition == HttpMethodParameterPosition.InUri)
                 requestConfig.SetQueryString(query);
 
-            var body = requestConfig.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, requestConfig.BodyParameters) : "";
+            var body = requestConfig.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, requestConfig.BodyParameters ?? new Dictionary<string, object>()) : "";
             if (requestConfig.ParameterPosition == HttpMethodParameterPosition.InBody)
                 requestConfig.SetBodyContent(body);
 
@@ -41,6 +41,7 @@ namespace BloFin.Net
             var sign = SignHMACSHA256(signStr, SignOutputType.Hex).ToLowerInvariant();
             sign = Convert.ToBase64String(Encoding.UTF8.GetBytes(sign));
 
+            requestConfig.Headers ??= new Dictionary<string, string>();
             requestConfig.Headers.Add("ACCESS-KEY", ApiKey);
             requestConfig.Headers.Add("ACCESS-SIGN", sign);
             requestConfig.Headers.Add("ACCESS-TIMESTAMP", timestamp);

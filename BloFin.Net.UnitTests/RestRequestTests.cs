@@ -33,7 +33,7 @@ namespace BloFin.Net.UnitTests
             await tester.ValidateAsync(client => client.AccountApi.GetDepositHistoryAsync(), "GetDepositHistory", nestedJsonProperty: "data");
 
         }
-        
+
         [Test]
         public async Task ValidateFuturesAccountCalls()
         {

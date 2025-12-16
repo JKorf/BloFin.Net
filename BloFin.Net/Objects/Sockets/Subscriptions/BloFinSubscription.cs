@@ -1,5 +1,4 @@
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,16 +6,16 @@ using System.Collections.Generic;
 using BloFin.Net.Objects.Internal;
 using CryptoExchange.Net.Clients;
 using System.Linq;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace BloFin.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
-    internal class BloFinSubscription<T> : Subscription<BloFinSocketResponse, BloFinSocketResponse>
+    internal class BloFinSubscription<T> : Subscription
     {
         private readonly SocketApiClient _client;
-        private readonly Action<DataEvent<T>> _handler;
+        private readonly Action<DateTime, string?, int, BloFinSocketUpdate<T>> _handler;
         private readonly string _topic;
-        private readonly bool _firstUpdateIsSnapshot;
         private readonly string[]? _symbols;
 
         /// <summary>
@@ -27,17 +26,18 @@ namespace BloFin.Net.Objects.Sockets.Subscriptions
             SocketApiClient client, 
             string topic,
             string[]? symbols,
-            Action<DataEvent<T>> handler,
-            bool auth,
-            bool firstUpdateIsSnapshot) : base(logger, auth)
+            Action<DateTime, string?, int, BloFinSocketUpdate<T>> handler,
+            bool auth) : base(logger, auth)
         {
             _client = client;
             _handler = handler;
             _topic = topic;
             _symbols = symbols;
-            _firstUpdateIsSnapshot = firstUpdateIsSnapshot;
+
+            IndividualSubscriptionCount = symbols?.Length ?? 1;
 
             MessageMatcher = MessageMatcher.Create<BloFinSocketUpdate<T>>(symbols != null ? symbols.Select(x => topic + x) : [topic], DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithOptionalTopicFilters<BloFinSocketUpdate<T>>(topic, symbols, DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -79,14 +79,9 @@ namespace BloFin.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<BloFinSocketUpdate<T>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BloFinSocketUpdate<T> message)
         {
-            _handler.Invoke(
-                message.As(
-                    message.Data.Data, 
-                    _topic,
-                    message.Data.Parameters.TryGetValue("instId", out var symbol) ? symbol : null,
-                    message.Data.Action == "snapshot" ? SocketUpdateType.Snapshot : (_firstUpdateIsSnapshot && this.ConnectionInvocations == 1) ? SocketUpdateType.Snapshot : SocketUpdateType.Update));
+            _handler(receiveTime, originalData, ConnectionInvocations, message);
             return new CallResult(null);
         }
     }

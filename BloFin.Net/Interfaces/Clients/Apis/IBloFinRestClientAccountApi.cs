@@ -1,7 +1,7 @@
 ﻿using BloFin.Net.Enums;
 using BloFin.Net.Interfaces.Clients.AccountApi;
 using BloFin.Net.Objects.Models;
-using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects;
 using System;
 using System.Threading;
