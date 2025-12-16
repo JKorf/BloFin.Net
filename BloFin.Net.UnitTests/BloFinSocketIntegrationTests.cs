@@ -13,7 +13,7 @@ namespace BloFin.Net.UnitTests
     [NonParallelizable]
     internal class BloFinSocketIntegrationTests : SocketIntegrationTest<BloFinSocketClient>
     {
-        public override bool Run { get; set; } = true;
+        public override bool Run { get; set; } = false;
 
         public BloFinSocketIntegrationTests()
         {

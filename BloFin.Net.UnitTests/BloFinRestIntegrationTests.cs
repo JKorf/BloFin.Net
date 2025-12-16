@@ -14,7 +14,7 @@ namespace BloFin.Net.UnitTests
     [NonParallelizable]
     public class BloFinRestIntegrationTests : RestIntegrationTest<BloFinRestClient>
     {
-        public override bool Run { get; set; } = true;
+        public override bool Run { get; set; } = false;
 
         public override BloFinRestClient GetClient(ILoggerFactory loggerFactory)
         {
