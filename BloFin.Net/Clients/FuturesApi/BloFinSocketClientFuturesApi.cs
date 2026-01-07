@@ -89,12 +89,16 @@ namespace BloFin.Net.Clients.FuturesApi
         {
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinTrade[]>>((receiveTime, originalData, invocations, data) =>
             {
+                var timestamp = data.Data.Max(x => x.Timestamp);
+                if (data.Action != "snapshot")
+                    UpdateTimeOffset(timestamp);
+
                 onMessage(
                     new DataEvent<BloFinTrade[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("trades")
                         .WithSymbol(data.Data.First().Symbol)
-                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                     );
             });
 
@@ -182,12 +186,15 @@ namespace BloFin.Net.Clients.FuturesApi
 
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinOrderBookUpdate>>((receiveTime, originalData, invocations, data) =>
             {
+                if (data.Action != "snapshot")
+                    UpdateTimeOffset(data.Data.Timestamp);
+
                 onMessage(
                     new DataEvent<BloFinOrderBookUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("books")
                         .WithSymbol(data.Parameters.TryGetValue("instId", out var symbol) ? symbol : null)
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
 
@@ -204,12 +211,16 @@ namespace BloFin.Net.Clients.FuturesApi
         {
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinTicker[]>>((receiveTime, originalData, invocations, data) =>
             {
+                var item = data.Data.First();
+                if (data.Action != "snapshot")
+                    UpdateTimeOffset(item.Timestamp);
+
                 onMessage(
-                    new DataEvent<BloFinTicker>(Exchange, data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BloFinTicker>(Exchange, item, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("tickers")
-                        .WithSymbol(data.Data.First().Symbol)
-                        .WithDataTimestamp(data.Data.First().Timestamp)
+                        .WithSymbol(item.Symbol)
+                        .WithDataTimestamp(item.Timestamp, GetTimeOffset())
                     );
             });
 
@@ -226,11 +237,13 @@ namespace BloFin.Net.Clients.FuturesApi
         {
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinFundingRate[]>>((receiveTime, originalData, invocations, data) =>
             {
+                var item = data.Data.First();
+
                 onMessage(
-                    new DataEvent<BloFinFundingRate>(Exchange, data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BloFinFundingRate>(Exchange, item, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("funding-rate")
-                        .WithSymbol(data.Data.First().Symbol)
+                        .WithSymbol(item.Symbol)
                     );
             });
 
@@ -243,12 +256,16 @@ namespace BloFin.Net.Clients.FuturesApi
         {
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinPosition[]>>((receiveTime, originalData, invocations, data) =>
             {
+                DateTime? timestamp = data.Data.Any() ? data.Data.Max(x => x.UpdateTime) : null;
+                if (data.Action != "snapshot")
+                    UpdateTimeOffset(timestamp!.Value);
+
                 onMessage(
                     new DataEvent<BloFinPosition[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("positions")
                         .WithSymbol(data.Data.First().Symbol)
-                        .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.UpdateTime) : null)
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                     );
             });
 
@@ -261,12 +278,16 @@ namespace BloFin.Net.Clients.FuturesApi
         {
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinOrder[]>>((receiveTime, originalData, invocations, data) =>
             {
+                DateTime? timestamp = data.Data.Any() ? data.Data.Max(x => x.UpdateTime) : null;
+                if (data.Action != "snapshot")
+                    UpdateTimeOffset(timestamp!.Value);
+
                 onMessage(
                     new DataEvent<BloFinOrder[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("orders")
                         .WithSymbol(data.Data.First().Symbol)
-                        .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.UpdateTime) : null)
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                     );
             });
 
@@ -279,12 +300,16 @@ namespace BloFin.Net.Clients.FuturesApi
         {
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinAlgoOrderUpdate[]>>((receiveTime, originalData, invocations, data) =>
             {
+                DateTime? timestamp = data.Data.Any() ? data.Data.Max(x => x.UpdateTime) : null;
+                if (data.Action != "snapshot")
+                    UpdateTimeOffset(timestamp!.Value);
+
                 onMessage(
                     new DataEvent<BloFinAlgoOrderUpdate[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("orders-algo")
                         .WithSymbol(data.Data.First().Symbol)
-                        .WithDataTimestamp(data.Data.Any() ? data.Data.Max(x => x.UpdateTime) : null)
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                     );
             });
 
@@ -297,11 +322,14 @@ namespace BloFin.Net.Clients.FuturesApi
         {
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinFuturesBalances>>((receiveTime, originalData, invocations, data) =>
             {
+                if (data.Action != "snapshot")
+                    UpdateTimeOffset(data.Data.Timestamp);
+
                 onMessage(
                     new DataEvent<BloFinFuturesBalances>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("account")
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
 
@@ -314,11 +342,14 @@ namespace BloFin.Net.Clients.FuturesApi
         {
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinFuturesInverseBalanceUpdate>>((receiveTime, originalData, invocations, data) =>
             {
+                if (data.Action != "snapshot")
+                    UpdateTimeOffset(data.Data.Timestamp);
+
                 onMessage(
                     new DataEvent<BloFinFuturesInverseBalanceUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("inverse-account")
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
 
@@ -336,13 +367,6 @@ namespace BloFin.Net.Clients.FuturesApi
             var channel = message.GetValue<string>(_channelPath);
             var symbol = message.GetValue<string>(_symbolPath);
             return evnt + channel + symbol;
-        }
-
-        /// <inheritdoc />
-        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
-        {
-            var authParams = ((BloFinAuthenticationProvider)AuthenticationProvider!).GetSocketParameters();
-            return Task.FromResult<Query?>(new BloFinLoginQuery(this, authParams, false));
         }
 
         /// <inheritdoc />

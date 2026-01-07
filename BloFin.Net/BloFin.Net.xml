@@ -232,12 +232,6 @@
         <member name="M:BloFin.Net.Clients.BloFinRestClientApi.GetServerTimestampAsync">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.Clients.BloFinRestClientApi.GetTimeSyncInfo">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.BloFinRestClientApi.GetTimeOffset">
-            <inheritdoc />
-        </member>
         <member name="T:BloFin.Net.Clients.BloFinSocketClient">
             <inheritdoc cref="T:BloFin.Net.Interfaces.Clients.IBloFinSocketClient" />
         </member>
@@ -510,9 +504,6 @@
             <inheritdoc />
         </member>
         <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="P:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SharedClient">

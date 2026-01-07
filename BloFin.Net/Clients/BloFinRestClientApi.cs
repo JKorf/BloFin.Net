@@ -74,11 +74,5 @@ namespace BloFin.Net.Clients
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => throw new NotImplementedException();
 
-        /// <inheritdoc />
-        public override TimeSyncInfo? GetTimeSyncInfo() => null;
-
-        /// <inheritdoc />
-        public override TimeSpan? GetTimeOffset() => null;
-
     }
 }

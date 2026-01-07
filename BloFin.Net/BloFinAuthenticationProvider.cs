@@ -1,9 +1,12 @@
+using BloFin.Net.Objects.Sockets;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -49,7 +52,7 @@ namespace BloFin.Net
             requestConfig.Headers.Add("ACCESS-PASSPHRASE", Pass!);
         }
 
-        public Dictionary<string, string> GetSocketParameters()
+        public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
         {
             var timestamp = DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString()!;
             var nonce = Guid.NewGuid().ToString();
@@ -58,7 +61,7 @@ namespace BloFin.Net
             var sign = SignHMACSHA256(signStr, SignOutputType.Hex).ToLowerInvariant();
             sign = Convert.ToBase64String(Encoding.UTF8.GetBytes(sign));
 
-            return new Dictionary<string, string>
+            var parameters = new Dictionary<string, string>
             {
                 { "apiKey", ApiKey },
                 { "passphrase", Pass! },
@@ -66,6 +69,8 @@ namespace BloFin.Net
                 { "timestamp", timestamp },
                 { "sign", sign }
             };
+
+            return new BloFinLoginQuery(apiClient, parameters, false);
         }
     }
 }
