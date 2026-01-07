@@ -12,8 +12,7 @@ namespace BloFin.Net.Objects.Options
         /// </summary>
         internal static BloFinRestOptions Default { get; set; } = new BloFinRestOptions()
         {
-            Environment = BloFinEnvironment.Live,
-            AutoTimestamp = true
+            Environment = BloFinEnvironment.Live
         };
 
         /// <summary>
