@@ -186,8 +186,7 @@ namespace BloFin.Net.Clients.FuturesApi
 
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinOrderBookUpdate>>((receiveTime, originalData, invocations, data) =>
             {
-                if (data.Action != "snapshot")
-                    UpdateTimeOffset(data.Data.Timestamp);
+                UpdateTimeOffset(data.Data.Timestamp);
 
                 onMessage(
                     new DataEvent<BloFinOrderBookUpdate>(Exchange, data.Data, receiveTime, originalData)
