@@ -194,6 +194,7 @@ namespace BloFin.Net.Clients.FuturesApi
                         .WithStreamId("books")
                         .WithSymbol(data.Parameters.TryGetValue("instId", out var symbol) ? symbol : null)
                         .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
+                        .WithSequenceNumber(data.Data.Sequence)
                     );
             });
 
