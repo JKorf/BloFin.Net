@@ -27,11 +27,11 @@ namespace BloFin.Net.Objects.Models
         /// Previous sequence id
         /// </summary>
         [JsonPropertyName("prevSeqId")]
-        public long PrevSequence { get; set; }
+        public long? PrevSequence { get; set; }
         /// <summary>
         /// Sequence id
         /// </summary>
         [JsonPropertyName("seqId")]
-        public long Sequence { get; set; }
+        public long? Sequence { get; set; }
     }
 }

@@ -54,7 +54,7 @@ namespace BloFin.Net.SymbolOrderBooks
             Initialize(options);
 
             _strictLevels = false;
-            _sequencesAreConsecutive = options?.Limit == null;
+            _sequencesAreConsecutive = true;
 
             Levels = options?.Limit;
             _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
@@ -83,9 +83,9 @@ namespace BloFin.Net.SymbolOrderBooks
         private void HandleUpdate(DataEvent<BloFinOrderBookUpdate> @event)
         {
             if (@event.UpdateType == SocketUpdateType.Snapshot)
-                SetInitialOrderBook(@event.Data.Sequence, @event.Data.Bids, @event.Data.Asks);
+                SetSnapshot(@event.Data.Sequence ?? @event.Data.Timestamp.Ticks, @event.Data.Bids, @event.Data.Asks, @event.DataTime, @event.DataTimeLocal);
             else
-                UpdateOrderBook(@event.Data.Sequence, @event.Data.Bids, @event.Data.Asks);
+                UpdateOrderBook(@event.Data.PrevSequence!.Value + 1, @event.Data.Sequence!.Value, @event.Data.Bids, @event.Data.Asks, @event.DataTime, @event.DataTimeLocal);
         }
 
         /// <inheritdoc />
