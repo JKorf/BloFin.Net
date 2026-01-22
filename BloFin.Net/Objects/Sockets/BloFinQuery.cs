@@ -48,41 +48,8 @@ namespace BloFin.Net.Objects.Sockets
 
             RequiredResponses = request.Parameters.Length;
 
-            MessageMatcher = MessageMatcher.Create<BloFinSocketResponse>(listenList, HandleMessage);
             MessageRouter = MessageRouter.Create(routes.ToArray());
 
-        }
-
-        public override bool PreCheckMessage(SocketConnection connection, object message)
-        {
-            // TO REMOVE
-
-            var messageData = (BloFinSocketResponse)message;
-            if (messageData.Code == 0)
-                return true;
-
-            if (_symbols == null)
-                return true;
-
-            // Check if the error response is for this query, we have to parse the original send request to see if it's this one
-            if (!messageData.Message!.StartsWith("Invalid request: "))
-                return true;
-
-            var requestData = messageData.Message.Substring(17);
-#pragma warning disable IL2026 // Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code
-#pragma warning disable IL3050 // Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.
-            var data = JsonSerializer.Deserialize<BloFinSocketRequest>(requestData, BloFinExchange._serializerContext)!;
-#pragma warning restore IL3050 // Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.
-#pragma warning restore IL2026 // Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code
-
-            if (data.Parameters.Any(x => x["channel"].ToString() == _topic && _symbols.Contains(x["instId"].ToString()!)))
-            {
-                // If this is an error response we only get this response
-                RequiredResponses = 1;
-                return true;
-            }
-
-            return false;
         }
 
         public CallResult<BloFinSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BloFinSocketResponse message)

@@ -35,10 +35,6 @@ namespace BloFin.Net.Clients.FuturesApi
     internal partial class BloFinSocketClientFuturesApi : SocketApiClient, IBloFinSocketClientFuturesApi
     {
         #region fields
-        private static readonly MessagePath _eventPath = MessagePath.Get().Property("event");
-        private static readonly MessagePath _channelPath = MessagePath.Get().Property("arg").Property("channel");
-        private static readonly MessagePath _symbolPath = MessagePath.Get().Property("arg").Property("instId");
-
         protected override ErrorMapping ErrorMapping => BloFinErrors.Errors;
         #endregion
 
@@ -50,7 +46,6 @@ namespace BloFin.Net.Clients.FuturesApi
         internal BloFinSocketClientFuturesApi(ILogger logger, BloFinSocketOptions options) :
             base(logger, options.Environment.SocketClientAddress!, options, options.ExchangeOptions)
         {
-            ProcessUnparsableMessages = true;
             RateLimiter = BloFinExchange.RateLimiter.BloFinSocket;
 
             RegisterPeriodicQuery(
@@ -69,8 +64,6 @@ namespace BloFin.Net.Clients.FuturesApi
         }
         #endregion
 
-        /// <inheritdoc />
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(BloFinExchange._serializerContext);
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(BloFinExchange._serializerContext);
 
@@ -355,18 +348,6 @@ namespace BloFin.Net.Clients.FuturesApi
 
             var subscription = new BloFinSubscription<BloFinFuturesInverseBalanceUpdate>(_logger, this, "inverse-account", null, handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/private"), subscription, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public override string? GetListenerIdentifier(IMessageAccessor message)
-        {
-            if (!message.IsValid)
-                return "pong";
-
-            var evnt = message.GetValue<string?>(_eventPath);
-            var channel = message.GetValue<string>(_channelPath);
-            var symbol = message.GetValue<string>(_symbolPath);
-            return evnt + channel + symbol;
         }
 
         /// <inheritdoc />

@@ -18,6 +18,19 @@ namespace BloFin.Net
     public static class BloFinExchange
     {
         /// <summary>
+        /// Platform metadata
+        /// </summary>
+        public static PlatformInfo Metadata { get; } = new PlatformInfo(
+                "BloFin",
+                "BloFin",
+                "https://raw.githubusercontent.com/JKorf/BloFin.Net/main/BloFin.Net/Icon/icon.png",
+                "https://blofin.com/",
+                ["https://docs.blofin.com"],
+                PlatformType.CryptoCurrencyExchange,
+                CentralizationType.Centralized
+                );
+
+        /// <summary>
         /// Exchange name
         /// </summary>
         public static string ExchangeName => "BloFin";

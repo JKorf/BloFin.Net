@@ -22,7 +22,6 @@ namespace BloFin.Net.Objects.Sockets
                 "login"
             };
 
-            MessageMatcher = MessageMatcher.Create<BloFinSocketResponse>(listenList, HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<BloFinSocketResponse>(listenList, HandleMessage);
         }
 

@@ -59,6 +59,11 @@
             BloFin exchange information and configuration
             </summary>
         </member>
+        <member name="P:BloFin.Net.BloFinExchange.Metadata">
+            <summary>
+            Platform metadata
+            </summary>
+        </member>
         <member name="P:BloFin.Net.BloFinExchange.ExchangeName">
             <summary>
             Exchange name
@@ -218,9 +223,6 @@
             <inheritdoc />
         </member>
         <member name="M:BloFin.Net.Clients.BloFinRestClientApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.BloFinRestClientApi.CreateAccessor">
             <inheritdoc />
         </member>
         <member name="M:BloFin.Net.Clients.BloFinRestClientApi.CreateSerializer">
@@ -437,9 +439,6 @@
             ctor
             </summary>
         </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.CreateAccessor(System.Net.WebSockets.WebSocketMessageType)">
-            <inheritdoc />
-        </member>
         <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.CreateSerializer">
             <inheritdoc />
         </member>
@@ -501,9 +500,6 @@
             <inheritdoc />
         </member>
         <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SubscribeToInverseBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BloFin.Net.Objects.Models.BloFinFuturesInverseBalanceUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="P:BloFin.Net.Clients.FuturesApi.BloFinSocketClientFuturesApi.SharedClient">

@@ -36,7 +36,6 @@ namespace BloFin.Net.Objects.Sockets.Subscriptions
 
             IndividualSubscriptionCount = symbols?.Length ?? 1;
 
-            MessageMatcher = MessageMatcher.Create<BloFinSocketUpdate<T>>(symbols != null ? symbols.Select(x => topic + x) : [topic], DoHandleMessage);
             MessageRouter = MessageRouter.CreateWithOptionalTopicFilters<BloFinSocketUpdate<T>>(topic, symbols, DoHandleMessage);
         }
 
