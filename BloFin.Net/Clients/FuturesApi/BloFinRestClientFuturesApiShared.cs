@@ -807,6 +807,7 @@ namespace BloFin.Net.Clients.FuturesApi
                 Leverage = x.Leverage,
                 AverageOpenPrice = x.AveragePrice,
                 UpdateTime = x.UpdateTime,
+                PositionMode = x.PositionSide == PositionSide.Net ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
                 PositionSide = x.PositionSide == PositionSide.Net ? (x.PositionSize >= 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionSide == PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long
             }).ToArray());
         }
