@@ -52,6 +52,7 @@ namespace BloFin.Net.UnitTests
             await tester.ValidateAsync<BloFinFundingRate>((client, handler) => client.FuturesApi.SubscribeToFundingRateUpdatesAsync("ETH-USDT", handler), "FundingRate", useFirstUpdateItem: true, nestedJsonProperty: "data");
             
             await tester.ValidateAsync<BloFinPosition[]>((client, handler) => client.FuturesApi.SubscribeToPositionUpdatesAsync(handler), "Positions", nestedJsonProperty: "data");
+            await tester.ValidateAsync<BloFinPosition[]>((client, handler) => client.FuturesApi.SubscribeToPositionUpdatesAsync(handler), "Positions2", nestedJsonProperty: "data");
             await tester.ValidateAsync<BloFinOrder[]>((client, handler) => client.FuturesApi.SubscribeToOrderUpdatesAsync(handler), "Orders", nestedJsonProperty: "data");
             await tester.ValidateAsync<BloFinAlgoOrderUpdate[]>((client, handler) => client.FuturesApi.SubscribeToTriggerOrderUpdatesAsync(handler), "TriggerOrders", nestedJsonProperty: "data");
             await tester.ValidateAsync<BloFinFuturesBalances>((client, handler) => client.FuturesApi.SubscribeToBalanceUpdatesAsync(handler), "Balances", nestedJsonProperty: "data");

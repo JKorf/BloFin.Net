@@ -155,6 +155,23 @@
         <member name="M:BloFin.Net.BloFinTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
             <inheritdoc />
         </member>
+        <member name="M:BloFin.Net.BloFinTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.BloFinTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="T:BloFin.Net.BloFinUserFuturesDataTracker">
+            <inheritdoc />
+        </member>
+        <member name="P:BloFin.Net.BloFinUserFuturesDataTracker.WebsocketPositionUpdatesAreFullSnapshots">
+            <inheritdoc />
+        </member>
+        <member name="M:BloFin.Net.BloFinUserFuturesDataTracker.#ctor(Microsoft.Extensions.Logging.ILogger{BloFin.Net.BloFinUserFuturesDataTracker},BloFin.Net.Interfaces.Clients.IBloFinRestClient,BloFin.Net.Interfaces.Clients.IBloFinSocketClient,System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+            <summary>
+            ctor
+            </summary>
+        </member>
         <member name="M:BloFin.Net.Clients.Apis.BloFinRestClientAccountApi.GetAccountBalancesAsync(BloFin.Net.Enums.AccountType,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -2670,6 +2687,21 @@
             <summary>
             Tracker factory
             </summary>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.IBloFinTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)">
+            <summary>
+            Create a new futures user data tracker
+            </summary>
+            <param name="userIdentifier">User identifier</param>
+            <param name="config">Configuration</param>
+            <param name="credentials">Credentials</param>
+            <param name="environment">Environment</param>
+        </member>
+        <member name="M:BloFin.Net.Interfaces.IBloFinTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+            <summary>
+            Create a new futures user data tracker
+            </summary>
+            <param name="config">Configuration</param>
         </member>
         <member name="T:BloFin.Net.Objects.BloFinApiAddresses">
             <summary>

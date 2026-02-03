@@ -250,14 +250,13 @@ namespace BloFin.Net.Clients.FuturesApi
             var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinPosition[]>>((receiveTime, originalData, invocations, data) =>
             {
                 DateTime? timestamp = data.Data.Any() ? data.Data.Max(x => x.UpdateTime) : null;
-                if (data.Action != "snapshot")
-                    UpdateTimeOffset(timestamp!.Value);
+                if (timestamp != null)
+                    UpdateTimeOffset(timestamp.Value);
 
                 onMessage(
                     new DataEvent<BloFinPosition[]>(Exchange, data.Data, receiveTime, originalData)
-                        .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithUpdateType(invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("positions")
-                        .WithSymbol(data.Data.First().Symbol)
                         .WithDataTimestamp(timestamp, GetTimeOffset())
                     );
             });
@@ -279,7 +278,7 @@ namespace BloFin.Net.Clients.FuturesApi
                     new DataEvent<BloFinOrder[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("orders")
-                        .WithSymbol(data.Data.First().Symbol)
+                        .WithSymbol(data.Action == "snapshot" ? null : data.Data.First().Symbol)
                         .WithDataTimestamp(timestamp, GetTimeOffset())
                     );
             });
@@ -301,7 +300,7 @@ namespace BloFin.Net.Clients.FuturesApi
                     new DataEvent<BloFinAlgoOrderUpdate[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("orders-algo")
-                        .WithSymbol(data.Data.First().Symbol)
+                        .WithSymbol(data.Action == "snapshot" ? null : data.Data.First().Symbol)
                         .WithDataTimestamp(timestamp, GetTimeOffset())
                     );
             });

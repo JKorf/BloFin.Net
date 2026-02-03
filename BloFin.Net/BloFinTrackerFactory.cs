@@ -1,12 +1,17 @@
+using BloFin.Net.Clients;
+using BloFin.Net.Interfaces;
+using BloFin.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
 using CryptoExchange.Net.Trackers.Trades;
-using BloFin.Net.Interfaces;
-using BloFin.Net.Interfaces.Clients;
+using CryptoExchange.Net.Trackers.UserData;
+using CryptoExchange.Net.Trackers.UserData.Interfaces;
+using CryptoExchange.Net.Trackers.UserData.Objects;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
-using BloFin.Net.Clients;
 
 namespace BloFin.Net
 {
@@ -86,6 +91,35 @@ namespace BloFin.Net
                 symbol,
                 limit,
                 period
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig config)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<IBloFinRestClient>() ?? new BloFinRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IBloFinSocketClient>() ?? new BloFinSocketClient();
+            return new BloFinUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BloFinUserFuturesDataTracker>>() ?? new NullLogger<BloFinUserFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, FuturesUserDataTrackerConfig config, ApiCredentials credentials, BloFinEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<IBloFinUserClientProvider>() ?? new BloFinUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new BloFinUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BloFinUserFuturesDataTracker>>() ?? new NullLogger<BloFinUserFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
                 );
         }
     }

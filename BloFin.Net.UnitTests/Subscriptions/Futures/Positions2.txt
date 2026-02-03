@@ -1,0 +1,34 @@
+> {"op":"login","args":[{"apiKey":"","passphrase":"","nonce":"","timestamp":"1757937331100","sign":""}]}
+< {"event":"login","code":"0","msg":""}
+> { "op":"subscribe", "args":[{ "channel":"positions" }]}
+< { "event": "subscribe", "arg": { "channel": "positions" }}
+= 
+{
+"arg":{
+"channel":"positions"
+},
+"data":[
+{
+"instType":"SWAP",
+"instId":"ETH-USDT",
+"marginMode":"cross",
+"positionId":"1",
+"positionSide":"net",
+"positions":"1",
+"availablePositions":"1",
+"averagePrice":"2326.2",
+"unrealizedPnl":"0.001325984486",
+"unrealizedPnlRatio":"0.000114004340641389",
+"leverage":"2",
+"liquidationPrice":"",
+"markPrice":"2326.33",
+"initialMargin":"11.631662992243",
+"margin":"",
+"marginRatio":"271.116790397657100098",
+"maintenanceMargin":"0.093053303937944",
+"adl":"1",
+"createTime":"1770107493329",
+"updateTime":"1770107493329"
+}
+]
+}
