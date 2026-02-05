@@ -158,7 +158,7 @@
         <member name="M:BloFin.Net.BloFinTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
             <inheritdoc />
         </member>
-        <member name="M:BloFin.Net.BloFinTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)">
+        <member name="M:BloFin.Net.BloFinTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,BloFin.Net.BloFinEnvironment)">
             <inheritdoc />
         </member>
         <member name="T:BloFin.Net.BloFinUserFuturesDataTracker">
@@ -2688,7 +2688,7 @@
             Tracker factory
             </summary>
         </member>
-        <member name="M:BloFin.Net.Interfaces.IBloFinTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,BloFin.Net.BloFinEnvironment)">
+        <member name="M:BloFin.Net.Interfaces.IBloFinTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,BloFin.Net.BloFinEnvironment)">
             <summary>
             Create a new futures user data tracker
             </summary>

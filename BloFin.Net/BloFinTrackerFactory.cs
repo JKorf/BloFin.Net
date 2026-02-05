@@ -95,7 +95,7 @@ namespace BloFin.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig config)
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig? config = null)
         {
             var restClient = _serviceProvider?.GetRequiredService<IBloFinRestClient>() ?? new BloFinRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IBloFinSocketClient>() ?? new BloFinSocketClient();
@@ -109,7 +109,7 @@ namespace BloFin.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, FuturesUserDataTrackerConfig config, ApiCredentials credentials, BloFinEnvironment? environment = null)
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, BloFinEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IBloFinUserClientProvider>() ?? new BloFinUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);

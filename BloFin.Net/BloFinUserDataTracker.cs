@@ -20,7 +20,7 @@ namespace BloFin.Net
             IBloFinRestClient restClient,
             IBloFinSocketClient socketClient,
             string? userIdentifier,
-            FuturesUserDataTrackerConfig config) : base(logger,
+            FuturesUserDataTrackerConfig? config) : base(logger,
                 restClient.FuturesApi.SharedClient,
                 null,
                 restClient.FuturesApi.SharedClient,
@@ -30,7 +30,7 @@ namespace BloFin.Net
                 null,
                 socketClient.FuturesApi.SharedClient,
                 userIdentifier,
-                config)
+                config ?? new FuturesUserDataTrackerConfig())
         {
         }
     }
