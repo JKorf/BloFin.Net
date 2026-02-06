@@ -73,7 +73,7 @@ namespace BloFin.Net.Objects.Models
         /// Liquidation price
         /// </summary>
         [JsonPropertyName("liquidationPrice")]
-        public decimal LiquidationPrice { get; set; }
+        public decimal? LiquidationPrice { get; set; }
         /// <summary>
         /// Unrealized profit and loss
         /// </summary>

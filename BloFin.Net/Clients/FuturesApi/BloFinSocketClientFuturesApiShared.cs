@@ -244,6 +244,7 @@ namespace BloFin.Net.Clients.FuturesApi
                      handler(update.ToType(update.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), x.Symbol, Math.Abs(x.PositionSize), x.UpdateTime)
                      {
                          AverageOpenPrice = x.AveragePrice,
+                         PositionMode = x.PositionSide == PositionSide.Net ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
                          PositionSide = x.PositionSide == Enums.PositionSide.Net ? (x.PositionSize > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
                          UnrealizedPnl = x.UnrealizedPnl,
                          Leverage = x.Leverage,

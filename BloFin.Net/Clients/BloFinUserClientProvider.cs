@@ -64,7 +64,7 @@ namespace BloFin.Net.Clients
         /// <inheritdoc />
         public IBloFinRestClient GetRestClient(string userIdentifier, ApiCredentials? credentials = null, BloFinEnvironment? environment = null)
         {
-            if (!_restClients.TryGetValue(userIdentifier, out var client))
+            if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateRestClient(userIdentifier, credentials, environment);
 
             return client;
@@ -73,7 +73,7 @@ namespace BloFin.Net.Clients
         /// <inheritdoc />
         public IBloFinSocketClient GetSocketClient(string userIdentifier, ApiCredentials? credentials = null, BloFinEnvironment? environment = null)
         {
-            if (!_socketClients.TryGetValue(userIdentifier, out var client))
+            if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateSocketClient(userIdentifier, credentials, environment);
 
             return client;

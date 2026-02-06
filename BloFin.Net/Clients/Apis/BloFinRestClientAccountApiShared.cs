@@ -103,12 +103,15 @@ namespace BloFin.Net.Clients.Apis
             if (deposits.Data.Count() == (request.Limit ?? 100))
                 nextToken = new DateTimeToken(deposits.Data.Min(x => x.Timestamp));
 
-            return deposits.AsExchangeResult(Exchange, TradingMode.Spot, deposits.Data.Select(x => 
+            return deposits.AsExchangeResult(Exchange, TradingMode.Spot, deposits.Data.Select(x =>
                 new SharedDeposit(
-                    x.Asset, 
+                    x.Asset,
                     x.Quantity,
-                    x.Status == DepositStatus.Done, 
-                    x.Timestamp)
+                    x.Status == DepositStatus.Done,
+                    x.Timestamp,
+                    x.Status == DepositStatus.Failed ? SharedTransferStatus.Failed
+                    : x.Status == DepositStatus.Done ? SharedTransferStatus.Completed
+                    : SharedTransferStatus.InProgress)
             {
                 Confirmations = x.Confirmations,
                 Network = x.Network,
