@@ -12,8 +12,8 @@ namespace BloFin.Net.Clients
     /// <inheritdoc />
     public class BloFinUserClientProvider : IBloFinUserClientProvider
     {
-        private static ConcurrentDictionary<string, IBloFinRestClient> _restClients = new ConcurrentDictionary<string, IBloFinRestClient>();
-        private static ConcurrentDictionary<string, IBloFinSocketClient> _socketClients = new ConcurrentDictionary<string, IBloFinSocketClient>();
+        private ConcurrentDictionary<string, IBloFinRestClient> _restClients = new ConcurrentDictionary<string, IBloFinRestClient>();
+        private ConcurrentDictionary<string, IBloFinSocketClient> _socketClients = new ConcurrentDictionary<string, IBloFinSocketClient>();
         
         private readonly IOptions<BloFinRestOptions> _restOptions;
         private readonly IOptions<BloFinSocketOptions> _socketOptions;
