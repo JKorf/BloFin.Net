@@ -7,8 +7,8 @@ namespace BloFin.Net.Objects.Internal
     {
         [JsonPropertyName("event")]
         public string Event { get; set; } = string.Empty;
-        [JsonPropertyName("args")]
-        public Dictionary<string, object> Parameters { get; set; } = new();
+        [JsonPropertyName("arg")]
+        public Dictionary<string, string> Parameters { get; set; } = new();
         [JsonPropertyName("code")]
         public int Code { get; set; }
         [JsonPropertyName("msg")]

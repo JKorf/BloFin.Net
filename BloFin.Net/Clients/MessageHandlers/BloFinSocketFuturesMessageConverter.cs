@@ -13,6 +13,7 @@ namespace BloFin.Net.Clients.MessageHandlers
 
         public BloFinSocketFuturesMessageConverter()
         {
+            AddTopicMapping<BloFinSocketResponse>(x => x.Parameters.TryGetValue("instId", out var symbol) ? symbol : null);
             AddTopicMapping<BloFinSocketUpdate>(x => x.Parameters.TryGetValue("instId", out var symbol) ? symbol : null);
         }
 
