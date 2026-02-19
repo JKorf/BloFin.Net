@@ -1,5 +1,6 @@
 using BloFin.Net.Enums;
 using BloFin.Net.Interfaces.Clients.AccountApi;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
 using System;
@@ -20,47 +21,54 @@ namespace BloFin.Net.Clients.Apis
 
         #region Withdrawal client
 
-        GetWithdrawalsOptions IWithdrawalRestClient.GetWithdrawalsOptions { get; } = new GetWithdrawalsOptions(SharedPaginationSupport.Descending, true, 100);
-        async Task<ExchangeWebResult<SharedWithdrawal[]>> IWithdrawalRestClient.GetWithdrawalsAsync(GetWithdrawalsRequest request, INextPageToken? pageToken, CancellationToken ct)
+        GetWithdrawalsOptions IWithdrawalRestClient.GetWithdrawalsOptions { get; } = new GetWithdrawalsOptions(false, true, true, 100);
+        async Task<ExchangeWebResult<SharedWithdrawal[]>> IWithdrawalRestClient.GetWithdrawalsAsync(GetWithdrawalsRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = ((IWithdrawalRestClient)this).GetWithdrawalsOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedWithdrawal[]>(Exchange, validationError);
 
-            // Determine page token
-            DateTime? endTime = null;
-            if (pageToken is DateTimeToken dateToken)
-                endTime = dateToken.LastTime;
+            var direction = DataDirection.Descending;
+            var limit = request.Limit ?? 100;
+            var pageParams = Pagination.GetPaginationParameters(direction, limit, request.StartTime, request.EndTime ?? DateTime.UtcNow, pageRequest);
 
             // Get data
-            var withdrawals = await GetWithdrawalHistoryAsync(
+            var result = await GetWithdrawalHistoryAsync(
                 request.Asset,
-                startTime: request.StartTime,
-                endTime: endTime ?? request.EndTime,
-                limit: request.Limit ?? 100,                 
+                startTime: pageParams.StartTime,
+                endTime: pageParams.EndTime,
+                limit: pageParams.Limit,                 
                 ct: ct).ConfigureAwait(false);
-            if (!withdrawals)
-                return withdrawals.AsExchangeResult<SharedWithdrawal[]>(Exchange, null, default);
+            if (!result)
+                return result.AsExchangeResult<SharedWithdrawal[]>(Exchange, null, default);
 
-            // Determine next token
-            DateTimeToken? nextToken = null;
-            if (withdrawals.Data.Count() == (request.Limit ?? 100))
-                nextToken = new DateTimeToken(withdrawals.Data.Min(x => x.Timestamp));
+            var nextPageRequest = Pagination.GetNextPageRequest(
+                () => Pagination.NextPageFromTime(pageParams, result.Data.Min(x => x.Timestamp)),
+                result.Data.Length,
+                result.Data.Select(x => x.Timestamp),
+                request.StartTime,
+                request.EndTime ?? DateTime.UtcNow,
+                pageParams);
 
-            return withdrawals.AsExchangeResult(Exchange, TradingMode.Spot, withdrawals.Data.Select(x => 
-            new SharedWithdrawal(
-                x.Asset,
-                x.Address,
-                x.Quantity, 
-                x.Status == WithdrawalStatus.Success,
-                x.Timestamp)
-            {
-                Network = x.Network,
-                Tag = x.Tag,
-                TransactionId = x.TransactionId,
-                Fee = x.Fee,                
-                Id = x.WithdrawId
-            }).ToArray(), nextToken);
+            return result.AsExchangeResult(
+                       Exchange,
+                       TradingMode.Spot,
+                       ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, direction)
+                       .Select(x => 
+                            new SharedWithdrawal(
+                                x.Asset,
+                                x.Address,
+                                x.Quantity, 
+                                x.Status == WithdrawalStatus.Success,
+                                x.Timestamp)
+                            {
+                                Network = x.Network,
+                                Tag = x.Tag,
+                                TransactionId = x.TransactionId,
+                                Fee = x.Fee,                
+                                Id = x.WithdrawId
+                            })
+                       .ToArray(), nextPageRequest);
         }
 
         #endregion
@@ -76,48 +84,55 @@ namespace BloFin.Net.Clients.Apis
             return Task.FromResult(new ExchangeWebResult<SharedDepositAddress[]>(Exchange, new InvalidOperationError($"Method not available for {Exchange}")));
         }
 
-        GetDepositsOptions IDepositRestClient.GetDepositsOptions { get; } = new GetDepositsOptions(SharedPaginationSupport.Descending, true, 100);
-        async Task<ExchangeWebResult<SharedDeposit[]>> IDepositRestClient.GetDepositsAsync(GetDepositsRequest request, INextPageToken? pageToken, CancellationToken ct)
+        GetDepositsOptions IDepositRestClient.GetDepositsOptions { get; } = new GetDepositsOptions(false, true, true, 100);
+        async Task<ExchangeWebResult<SharedDeposit[]>> IDepositRestClient.GetDepositsAsync(GetDepositsRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = ((IDepositRestClient)this).GetDepositsOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedDeposit[]>(Exchange, validationError);
 
-            // Determine page token
-            DateTime? endTime = null;
-            if (pageToken is DateTimeToken dateToken)
-                endTime = dateToken.LastTime;
+            var direction = DataDirection.Descending;
+            var limit = request.Limit ?? 100;
+            var pageParams = Pagination.GetPaginationParameters(direction, limit, request.StartTime, request.EndTime ?? DateTime.UtcNow, pageRequest);
 
             // Get data
-            var deposits = await GetDepositHistoryAsync(
+            var result = await GetDepositHistoryAsync(
                 request.Asset,
-                startTime: request.StartTime,
-                endTime: endTime ?? request.EndTime,
-                limit: request.Limit ?? 100,
+                startTime: pageParams.StartTime,
+                endTime: pageParams.EndTime,
+                limit: pageParams.Limit,
                 ct: ct).ConfigureAwait(false);
-            if (!deposits)
-                return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, null, default);
+            if (!result)
+                return result.AsExchangeResult<SharedDeposit[]>(Exchange, null, default);
 
-            // Determine next token
-            DateTimeToken? nextToken = null;
-            if (deposits.Data.Count() == (request.Limit ?? 100))
-                nextToken = new DateTimeToken(deposits.Data.Min(x => x.Timestamp));
+            var nextPageRequest = Pagination.GetNextPageRequest(
+                () => Pagination.NextPageFromTime(pageParams, result.Data.Min(x => x.Timestamp)),
+                result.Data.Length,
+                result.Data.Select(x => x.Timestamp),
+                request.StartTime,
+                request.EndTime ?? DateTime.UtcNow,
+                pageParams);
 
-            return deposits.AsExchangeResult(Exchange, TradingMode.Spot, deposits.Data.Select(x =>
-                new SharedDeposit(
-                    x.Asset,
-                    x.Quantity,
-                    x.Status == DepositStatus.Done,
-                    x.Timestamp,
-                    x.Status == DepositStatus.Failed ? SharedTransferStatus.Failed
-                    : x.Status == DepositStatus.Done ? SharedTransferStatus.Completed
-                    : SharedTransferStatus.InProgress)
-            {
-                Confirmations = x.Confirmations,
-                Network = x.Network,
-                TransactionId = x.TransactionId,
-                Id = x.DepositId
-            }).ToArray(), nextToken);
+            return result.AsExchangeResult(
+                       Exchange,
+                       TradingMode.Spot,
+                       ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, direction)
+                       .Select(x =>
+                            new SharedDeposit(
+                                x.Asset,
+                                x.Quantity,
+                                x.Status == DepositStatus.Done,
+                                x.Timestamp,
+                                x.Status == DepositStatus.Failed ? SharedTransferStatus.Failed
+                                : x.Status == DepositStatus.Done ? SharedTransferStatus.Completed
+                                : SharedTransferStatus.InProgress)
+                            {
+                                Confirmations = x.Confirmations,
+                                Network = x.Network,
+                                TransactionId = x.TransactionId,
+                                Id = x.DepositId
+                            })
+                       .ToArray(), nextPageRequest);
         }
 
         #endregion
