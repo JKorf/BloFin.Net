@@ -403,7 +403,7 @@ namespace BloFin.Net.Clients.FuturesApi
             parameters.AddOptional("after", beforeId);
             parameters.AddOptionalMillisecondsString("begin", startTime);
             parameters.AddOptionalMillisecondsString("end", endTime);
-            parameters.AddOptional("", limit);
+            parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/trade/orders-history", BloFinExchange.RateLimiter.BloFinRest, 1, true);
             var result = await _baseClient.SendAsync<BloFinOrder[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
