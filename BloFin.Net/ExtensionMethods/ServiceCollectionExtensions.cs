@@ -13,6 +13,7 @@ using BloFin.Net.Interfaces.Clients;
 using BloFin.Net.Objects.Options;
 using BloFin.Net.SymbolOrderBooks;
 using CryptoExchange.Net.Interfaces.Clients;
+using System.Threading;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -95,8 +96,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 return new BloFinRestClient(client, serviceProvider.GetRequiredService<ILoggerFactory>(), serviceProvider.GetRequiredService<IOptions<BloFinRestOptions>>());
             }).ConfigurePrimaryHttpMessageHandler((serviceProvider) => {
                 var options = serviceProvider.GetRequiredService<IOptions<BloFinRestOptions>>().Value;
-                return LibraryHelpers.CreateHttpClientMessageHandler(options.Proxy, options.HttpKeepAliveInterval);
-            });
+                return LibraryHelpers.CreateHttpClientMessageHandler(options);
+            }).SetHandlerLifetime(Timeout.InfiniteTimeSpan);
             services.Add(new ServiceDescriptor(typeof(IBloFinSocketClient), x => { return new BloFinSocketClient(x.GetRequiredService<IOptions<BloFinSocketOptions>>(), x.GetRequiredService<ILoggerFactory>()); }, socketClientLifeTime ?? ServiceLifetime.Singleton));
 
             services.AddTransient<ICryptoRestClient, CryptoRestClient>();
@@ -106,7 +107,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<ITrackerFactory, BloFinTrackerFactory>();
             services.AddSingleton<IBloFinUserClientProvider, BloFinUserClientProvider>(x =>
                 new BloFinUserClientProvider(
-                    x.GetRequiredService<HttpClient>(),
+                    x.GetRequiredService<IHttpClientFactory>().CreateClient(typeof(IBloFinRestClient).Name),
                     x.GetRequiredService<ILoggerFactory>(),
                     x.GetRequiredService<IOptions<BloFinRestOptions>>(),
                     x.GetRequiredService<IOptions<BloFinSocketOptions>>()));
