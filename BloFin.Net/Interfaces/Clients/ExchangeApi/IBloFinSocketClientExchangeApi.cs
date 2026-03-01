@@ -17,7 +17,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Subscribe to live trade updates for a symbol
-        /// <para><a href="https://docs.blofin.com/index.html#ws-trades-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-trades-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/public (channel: trades)
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -27,7 +32,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to live trade updates for a symbol
-        /// <para><a href="https://docs.blofin.com/index.html#ws-trades-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-trades-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/public (channel: trades)
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols to subscribe to</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -37,7 +47,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to kline/candlestick data update
-        /// <para><a href="https://docs.blofin.com/index.html#ws-candlesticks-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-candlesticks-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/public (channel: candle{interval})
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="interval">The interval of the klines</param>
@@ -48,7 +63,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to kline/candlestick data update
-        /// <para><a href="https://docs.blofin.com/index.html#ws-candlesticks-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-candlesticks-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/public (channel: candle{interval})
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols to subscribe to</param>
         /// <param name="interval">The interval of the klines</param>
@@ -59,7 +79,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to kline/candlestick index price data update
-        /// <para><a href="https://docs.blofin.com/index.html#ws-index-candlesticks-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-index-candlesticks-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/public (channel: index-candle{interval})
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="interval">The interval of the klines</param>
@@ -70,7 +95,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to kline/candlestick index price data update
-        /// <para><a href="https://docs.blofin.com/index.html#ws-index-candlesticks-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-index-candlesticks-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/public (channel: index-candle{interval})
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols to subscribe to</param>
         /// <param name="interval">The interval of the klines</param>
@@ -81,7 +111,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to kline/candlestick mark price data update
-        /// <para><a href="https://docs.blofin.com/index.html#ws-mark-price-candlesticks-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-mark-price-candlesticks-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/public (channel: mark-price-candle{interval})
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="interval">The interval of the klines</param>
@@ -92,7 +127,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to kline/candlestick mark price data update
-        /// <para><a href="https://docs.blofin.com/index.html#ws-mark-price-candlesticks-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-mark-price-candlesticks-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/public (channel: mark-price-candle{interval})
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols to subscribe to</param>
         /// <param name="interval">The interval of the klines</param>
@@ -103,7 +143,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to order book updates
-        /// <para><a href="https://docs.blofin.com/index.html#ws-order-book-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-order-book-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/public (channel: books{depth})
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="depth">The depth of the book, 5 or 400</param>
@@ -114,7 +159,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to order book updates
-        /// <para><a href="https://docs.blofin.com/index.html#ws-order-book-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-order-book-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/public (channel: books{depth})
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols to subscribe to</param>
         /// <param name="depth">The depth of the book, 5 or 400. When using a depth 5 the full book snapshot will be pushed with each update</param>
@@ -125,7 +175,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to price ticker updates
-        /// <para><a href="https://docs.blofin.com/index.html#ws-tickers-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-tickers-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/public (channel: tickers)
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -135,7 +190,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to price ticker updates
-        /// <para><a href="https://docs.blofin.com/index.html#ws-tickers-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-tickers-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/public (channel: tickers)
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols to subscribe to</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -145,7 +205,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to funding rate updates
-        /// <para><a href="https://docs.blofin.com/index.html#ws-funding-rate-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-funding-rate-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/public (channel: funding-rate)
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol to subscribe to</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -155,7 +220,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to funding rate updates
-        /// <para><a href="https://docs.blofin.com/index.html#ws-funding-rate-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-funding-rate-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/public (channel: funding-rate)
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols to subscribe to</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -165,7 +235,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to position updates
-        /// <para><a href="https://docs.blofin.com/index.html#ws-positions-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-positions-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/private (channel: positions)
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -174,7 +249,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to order updates
-        /// <para><a href="https://docs.blofin.com/index.html#ws-order-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-order-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/private (channel: orders)
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -183,7 +263,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to trigger order updates
-        /// <para><a href="https://docs.blofin.com/index.html#ws-algo-orders-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-algo-orders-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/private (channel: orders-algo)
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -192,7 +277,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to futures balances updates
-        /// <para><a href="https://docs.blofin.com/index.html#ws-account-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-account-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/private (channel: account)
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -201,7 +291,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to inverse futures balances updates
-        /// <para><a href="https://docs.blofin.com/index.html#ws-inverse-account-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#ws-inverse-account-channel" /><br />
+        /// Endpoint:<br />
+        /// WS /ws/private (channel: inverse-account)
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>

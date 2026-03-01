@@ -15,7 +15,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Get positions
-        /// <para><a href="https://docs.blofin.com/index.html#get-positions" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-positions" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/account/positions
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol</param>
         /// <param name="ct">Cancellation token</param>
@@ -23,7 +28,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Place a new order
-        /// <para><a href="https://docs.blofin.com/index.html#place-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#place-order" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/trade/order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="side">Order side</param>
@@ -43,7 +53,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Place multiple new orders in a single request
-        /// <para><a href="https://docs.blofin.com/index.html#place-multiple-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#place-multiple-orders" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/trade/batch-orders
+        /// </para>
         /// </summary>
         /// <param name="orders">Orders to place</param>
         /// <param name="ct">Cancellation token</param>
@@ -51,7 +66,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Place a new TP/SL order
-        /// <para><a href="https://docs.blofin.com/index.html#place-tpsl-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#place-tpsl-order" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/trade/order-tpsl
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="orderSide">Order side</param>
@@ -69,7 +89,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Place new trigger order
-        /// <para><a href="https://docs.blofin.com/index.html#place-algo-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#place-algo-order" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/trade/order-algo
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="marginMode">Margin mode</param>
@@ -87,7 +112,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Cancel an open order
-        /// <para><a href="https://docs.blofin.com/index.html#cancel-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#cancel-order" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/trade/cancel-order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`. Only required when using clientOrderId</param>
         /// <param name="orderId">The order id. Either this or `clientOrderId` should be provided</param>
@@ -97,7 +127,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Cancel multiple orders
-        /// <para><a href="https://docs.blofin.com/index.html#cancel-multiple-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#cancel-multiple-orders" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/trade/cancel-batch-orders
+        /// </para>
         /// </summary>
         /// <param name="orders">Orders to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -105,7 +140,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Cancel TpSl orders
-        /// <para><a href="https://docs.blofin.com/index.html#cancel-tpsl-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#cancel-tpsl-order" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/trade/cancel-tpsl
+        /// </para>
         /// </summary>
         /// <param name="orders">Orders to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -113,7 +153,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Cancel a trigger order
-        /// <para><a href="https://docs.blofin.com/index.html#cancel-algo-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#cancel-algo-order" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/trade/cancel-algo
+        /// </para>
         /// </summary>
         /// <param name="orderId">Algo order id</param>
         /// <param name="symbol">Symbol name, for example `ETH-USDT`</param>
@@ -123,7 +168,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get open orders
-        /// <para><a href="https://docs.blofin.com/index.html#get-active-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-active-orders" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade/orders-pending
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="orderType">Filter by order type</param>
@@ -136,7 +186,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get open TP/SL orders
-        /// <para><a href="https://docs.blofin.com/index.html#get-active-tpsl-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-active-tpsl-orders" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade/orders-tpsl-pending
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">Filter by tpsl order id</param>
@@ -149,7 +204,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get open trigger orders
-        /// <para><a href="https://docs.blofin.com/index.html#get-active-algo-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-active-algo-orders" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade/orders-algo-pending
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">Filter by algo order id</param>
@@ -162,7 +222,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Close a position at market price
-        /// <para><a href="https://docs.blofin.com/index.html#close-positions" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#close-positions" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/trade/close-position
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="marginMode">Margin mode</param>
@@ -173,7 +238,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get details of a specific order
-        /// <para><a href="https://docs.blofin.com/index.html#get-order-detail" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-order-detail" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade/order-detail
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">The order id. Either this or clientOrderId should be provided</param>
@@ -183,7 +253,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get details of a specific Tp/Sl order
-        /// <para><a href="https://docs.blofin.com/index.html#get-tpsl-order-detail" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-tpsl-order-detail" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade/orders-tpsl-detail
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">The order id. Either this or clientOrderId should be provided</param>
@@ -193,7 +268,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get closed order history
-        /// <para><a href="https://docs.blofin.com/index.html#get-order-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-order-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade/orders-history
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="orderType">Filter by order type</param>
@@ -208,7 +288,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get closed tp sl order history
-        /// <para><a href="https://docs.blofin.com/index.html#get-tpsl-order-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-tpsl-order-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade/orders-tpsl-history
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">Filter by tpsl order id</param>
@@ -222,7 +307,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get closed trigger order history
-        /// <para><a href="https://docs.blofin.com/index.html#get-algo-order-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-algo-order-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade/orders-algo-history
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="orderId">Filter by algo order id</param>
@@ -236,7 +326,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get user trade history
-        /// <para><a href="https://docs.blofin.com/index.html#get-trade-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-trade-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade/fills-history
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">Filter by order id</param>
@@ -250,7 +345,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get order price limits
-        /// <para><a href="https://docs.blofin.com/index.html#get-trade-order-price-range" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-trade-order-price-range" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/trade/order/price-range
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="side">Order side</param>

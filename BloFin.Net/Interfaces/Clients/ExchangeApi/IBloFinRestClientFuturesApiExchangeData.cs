@@ -14,7 +14,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Get list of supported symbols
-        /// <para><a href="https://docs.blofin.com/index.html#get-instruments" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-instruments" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/market/instruments
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `BTC-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -22,7 +27,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get price ticker info
-        /// <para><a href="https://docs.blofin.com/index.html#get-tickers" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-tickers" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/market/tickers
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -30,7 +40,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the order book for a symbol
-        /// <para><a href="https://docs.blofin.com/index.html#get-order-book" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-order-book" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/market/books
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="depth">The depth of the book, max 100</param>
@@ -39,7 +54,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get recent trades
-        /// <para><a href="https://docs.blofin.com/index.html#get-trades" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-trades" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/market/trades
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="limit">Number of results, max 100</param>
@@ -48,7 +68,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get index and mark price for a symbol
-        /// <para><a href="https://docs.blofin.com/index.html#get-mark-price" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-mark-price" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/market/mark-price
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -56,7 +81,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get funding rate info
-        /// <para><a href="https://docs.blofin.com/index.html#get-funding-rate" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-funding-rate" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/market/funding-rate
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -64,7 +94,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get funding rate history
-        /// <para><a href="https://docs.blofin.com/index.html#get-funding-rate-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-funding-rate-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/market/funding-rate-history
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -75,7 +110,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get Kline data for a symbol
-        /// <para><a href="https://docs.blofin.com/index.html#get-candlesticks" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-candlesticks" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/market/candles
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="interval">Kline interval</param>
@@ -87,7 +127,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get index price Kline data for a symbol
-        /// <para><a href="https://docs.blofin.com/index.html#get-index-candlesticks" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-index-candlesticks" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/market/index-candles
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="interval">Kline interval</param>
@@ -99,7 +144,12 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get mark price Kline data for a symbol
-        /// <para><a href="https://docs.blofin.com/index.html#get-mark-price-candlesticks" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-mark-price-candlesticks" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/market/mark-price-candles
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
         /// <param name="interval">Kline interval</param>

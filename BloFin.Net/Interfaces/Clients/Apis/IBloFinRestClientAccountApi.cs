@@ -17,7 +17,12 @@ namespace BloFin.Net.Interfaces.Clients.Apis
 
         /// <summary>
         /// Get account balances
-        /// <para><a href="https://docs.blofin.com/index.html#get-instruments" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-instruments" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/asset/balances
+        /// </para>
         /// </summary>
         /// <param name="accountType">Account type</param>
         /// <param name="asset">Filter by asset</param>
@@ -26,7 +31,12 @@ namespace BloFin.Net.Interfaces.Clients.Apis
 
         /// <summary>
         /// Transfer asset between account types
-        /// <para><a href="https://docs.blofin.com/index.html#funds-transfer" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#funds-transfer" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/asset/transfer
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset</param>
         /// <param name="fromAccount">From account</param>
@@ -38,21 +48,36 @@ namespace BloFin.Net.Interfaces.Clients.Apis
 
         /// <summary>
         /// Get account config
-        /// <para><a href="https://docs.blofin.com/index.html#get-account-config" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-account-config" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/account/config
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinAccountConfig>> GetAccountConfigAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get API key info
-        /// <para><a href="https://docs.blofin.com/index.html#get-api-key-info" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-api-key-info" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/user/query-apikey
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinApiKey>> GetApiKeyInfoAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get transfer history
-        /// <para><a href="https://docs.blofin.com/index.html#get-funds-transfer-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-funds-transfer-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/asset/bills
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="fromAccount">Filter by from account</param>
@@ -65,7 +90,12 @@ namespace BloFin.Net.Interfaces.Clients.Apis
 
         /// <summary>
         /// Get withdrawal history
-        /// <para><a href="https://docs.blofin.com/index.html#get-withdraw-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-withdraw-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/asset/withdrawal-history
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="withdrawId">Filter by withdrawal id</param>
@@ -79,7 +109,12 @@ namespace BloFin.Net.Interfaces.Clients.Apis
 
         /// <summary>
         /// Get deposit history
-        /// <para><a href="https://docs.blofin.com/index.html#get-deposit-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-deposit-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/asset/deposit-history
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="depositId">Filter by deposit id</param>
