@@ -28,7 +28,7 @@ namespace BloFin.Net.Clients.FuturesApi
         public async Task<WebCallResult<BloFinSymbol[]>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptional("isntId", symbol);
+            parameters.AddOptional("instId", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/instruments", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             return await _baseClient.SendAsync<BloFinSymbol[]>(request, parameters, ct).ConfigureAwait(false);
         }

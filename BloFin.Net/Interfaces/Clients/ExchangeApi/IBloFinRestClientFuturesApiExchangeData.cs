@@ -21,7 +21,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/market/instruments
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol, for example `BTC-USDT`</param>
+        /// <param name="symbol">["<c>isntId</c>"] Filter by symbol, for example `BTC-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinSymbol[]>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default);
 
@@ -34,7 +34,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/market/tickers
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol, for example `ETH-USDT`</param>
+        /// <param name="symbol">["<c>instId</c>"] Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinTicker[]>> GetTickersAsync(string? symbol = null, CancellationToken ct = default);
 
@@ -47,8 +47,8 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/market/books
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
-        /// <param name="depth">The depth of the book, max 100</param>
+        /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
+        /// <param name="depth">["<c>size</c>"] The depth of the book, max 100</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinOrderBook>> GetOrderBookAsync(string symbol, int? depth = null, CancellationToken ct = default);
 
@@ -61,8 +61,8 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/market/trades
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
-        /// <param name="limit">Number of results, max 100</param>
+        /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
+        /// <param name="limit">["<c>limit</c>"] Number of results, max 100</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinTrade[]>> GetRecentTradesAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
@@ -75,7 +75,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/market/mark-price
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
+        /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinMarkIndexPrice>> GetIndexMarkPriceAsync(string symbol, CancellationToken ct = default);
 
@@ -88,7 +88,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/market/funding-rate
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
+        /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default);
 
@@ -101,10 +101,10 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/market/funding-rate-history
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="limit">Max number of results, max 100</param>
+        /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
+        /// <param name="startTime">["<c>before</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>after</c>"] Filter by end time</param>
+        /// <param name="limit">["<c>limit</c>"] Max number of results, max 100</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinFundingRate[]>> GetFundingRateHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
@@ -117,11 +117,11 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/market/candles
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
-        /// <param name="interval">Kline interval</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="limit">Max number of results, max 1440</param>
+        /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
+        /// <param name="interval">["<c>bar</c>"] Kline interval</param>
+        /// <param name="startTime">["<c>before</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>after</c>"] Filter by end time</param>
+        /// <param name="limit">["<c>limit</c>"] Max number of results, max 1440</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinKline[]>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
@@ -134,11 +134,11 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/market/index-candles
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
-        /// <param name="interval">Kline interval</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="limit">Max number of results, max 1440</param>
+        /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
+        /// <param name="interval">["<c>bar</c>"] Kline interval</param>
+        /// <param name="startTime">["<c>before</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>after</c>"] Filter by end time</param>
+        /// <param name="limit">["<c>limit</c>"] Max number of results, max 1440</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinIndexMarkKline[]>> GetIndexPriceKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
@@ -151,11 +151,11 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/market/mark-price-candles
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
-        /// <param name="interval">Kline interval</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="limit">Max number of results, max 1440</param>
+        /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
+        /// <param name="interval">["<c>bar</c>"] Kline interval</param>
+        /// <param name="startTime">["<c>before</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>after</c>"] Filter by end time</param>
+        /// <param name="limit">["<c>limit</c>"] Max number of results, max 1440</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinIndexMarkKline[]>> GetMarkPriceKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
     }

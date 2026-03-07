@@ -24,8 +24,8 @@ namespace BloFin.Net.Interfaces.Clients.Apis
         /// GET /api/v1/asset/balances
         /// </para>
         /// </summary>
-        /// <param name="accountType">Account type</param>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="accountType">["<c>accountType</c>"] Account type</param>
+        /// <param name="asset">["<c>currency</c>"] Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinBalance[]>> GetAccountBalancesAsync(AccountType accountType, string? asset = null, CancellationToken ct = default);
 
@@ -38,11 +38,11 @@ namespace BloFin.Net.Interfaces.Clients.Apis
         /// POST /api/v1/asset/transfer
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset</param>
-        /// <param name="fromAccount">From account</param>
-        /// <param name="toAccount">To account</param>
-        /// <param name="quantity">Quantity to transfer</param>
-        /// <param name="clientId">Client transfer id</param>
+        /// <param name="asset">["<c>currency</c>"] The asset</param>
+        /// <param name="fromAccount">["<c>fromAccount</c>"] From account</param>
+        /// <param name="toAccount">["<c>toAccount</c>"] To account</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity to transfer</param>
+        /// <param name="clientId">["<c>clientId</c>"] Client transfer id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinTransferResult>> TransferAsync(string asset, AccountType fromAccount, AccountType toAccount, decimal quantity, string? clientId = null, CancellationToken ct = default);
 
@@ -79,12 +79,12 @@ namespace BloFin.Net.Interfaces.Clients.Apis
         /// GET /api/v1/asset/bills
         /// </para>
         /// </summary>
-        /// <param name="asset">Filter by asset, for example `ETH`</param>
-        /// <param name="fromAccount">Filter by from account</param>
-        /// <param name="toAccount">Filter by to account</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
+        /// <param name="fromAccount">["<c>fromAccount</c>"] Filter by from account</param>
+        /// <param name="toAccount">["<c>toAccount</c>"] Filter by to account</param>
+        /// <param name="startTime">["<c>before</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>after</c>"] Filter by end time</param>
+        /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinTransfer[]>> GetTransferHistoryAsync(string? asset = null, AccountType? fromAccount = null, AccountType? toAccount = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
@@ -97,13 +97,13 @@ namespace BloFin.Net.Interfaces.Clients.Apis
         /// GET /api/v1/asset/withdrawal-history
         /// </para>
         /// </summary>
-        /// <param name="asset">Filter by asset, for example `ETH`</param>
-        /// <param name="withdrawId">Filter by withdrawal id</param>
-        /// <param name="transactionId">Filter by transaction id</param>
-        /// <param name="status">Filter by status</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
+        /// <param name="withdrawId">["<c>withdrawId</c>"] Filter by withdrawal id</param>
+        /// <param name="transactionId">["<c>txId</c>"] Filter by transaction id</param>
+        /// <param name="status">["<c>state</c>"] Filter by status</param>
+        /// <param name="startTime">["<c>before</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>after</c>"] Filter by end time</param>
+        /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinWithdrawal[]>> GetWithdrawalHistoryAsync(string? asset = null, string? withdrawId = null, string? transactionId = null, WithdrawalStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
@@ -116,13 +116,13 @@ namespace BloFin.Net.Interfaces.Clients.Apis
         /// GET /api/v1/asset/deposit-history
         /// </para>
         /// </summary>
-        /// <param name="asset">Filter by asset, for example `ETH`</param>
-        /// <param name="depositId">Filter by deposit id</param>
-        /// <param name="transactionId">Filter by transaction id</param>
-        /// <param name="status">Filter by status</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `ETH`</param>
+        /// <param name="depositId">["<c>depositId</c>"] Filter by deposit id</param>
+        /// <param name="transactionId">["<c>txId</c>"] Filter by transaction id</param>
+        /// <param name="status">["<c>state</c>"] Filter by status</param>
+        /// <param name="startTime">["<c>before</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>after</c>"] Filter by end time</param>
+        /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinDeposit[]>> GetDepositHistoryAsync(string? asset = null, string? depositId = null, string? transactionId = null, DepositStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 

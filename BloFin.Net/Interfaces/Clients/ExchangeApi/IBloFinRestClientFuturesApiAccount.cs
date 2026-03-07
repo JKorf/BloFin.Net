@@ -20,7 +20,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/account/balance
         /// </para>
         /// </summary>
-        /// <param name="productType">Product type</param>
+        /// <param name="productType">["<c>productType</c>"] Product type</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinFuturesBalances>> GetBalancesAsync(ProductType? productType = null, CancellationToken ct = default);
 
@@ -45,7 +45,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// POST /api/v1/account/set-margin-mode
         /// </para>
         /// </summary>
-        /// <param name="marginMode">New margin mode</param>
+        /// <param name="marginMode">["<c>marginMode</c>"] New margin mode</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinMarginMode>> SetMarginModeAsync(MarginMode marginMode, CancellationToken ct = default);
 
@@ -70,7 +70,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// POST /api/v1/account/set-position-mode
         /// </para>
         /// </summary>
-        /// <param name="positionMode">Position mode</param>
+        /// <param name="positionMode">["<c>positionMode</c>"] Position mode</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinPositionMode>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
 
@@ -83,8 +83,8 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// GET /api/v1/account/batch-leverage-info
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
-        /// <param name="marginMode">Margin mode</param>
+        /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
+        /// <param name="marginMode">["<c>marginMode</c>"] Margin mode</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinLeverage[]>> GetLeverageAsync(string symbol, MarginMode marginMode, CancellationToken ct = default);
 
@@ -97,10 +97,10 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// POST /api/v1/account/set-leverage
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH-USDT`</param>
-        /// <param name="leverage">Leverage</param>
-        /// <param name="marginMode">The margin mode</param>
-        /// <param name="positionSide">Position side</param>
+        /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
+        /// <param name="leverage">["<c>leverage</c>"] Leverage</param>
+        /// <param name="marginMode">["<c>marginMode</c>"] The margin mode</param>
+        /// <param name="positionSide">["<c>positionSide</c>"] Position side</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinLeverage>> SetLeverageAsync(string symbol, decimal leverage, MarginMode marginMode, PositionSide? positionSide = null, CancellationToken ct = default);
 
