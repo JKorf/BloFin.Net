@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace BloFin.Net.Objects.Models
 {
@@ -8,22 +8,22 @@ namespace BloFin.Net.Objects.Models
     public record BloFinCancelResponse
     {
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Client order id
+        /// ["<c>clientOrderId</c>"] Client order id
         /// </summary>
         [JsonPropertyName("clientOrderId")]
         public string? ClientOrderId { get; set; }
         /// <summary>
-        /// Response code
+        /// ["<c>code</c>"] Response code
         /// </summary>
         [JsonPropertyName("code")]
         public int Code { get; set; }
         /// <summary>
-        /// Response message
+        /// ["<c>msg</c>"] Response message
         /// </summary>
         [JsonPropertyName("msg")]
         public string? Message { get; set; }

@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace BloFin.Net.Objects.Models
 {
@@ -8,17 +8,17 @@ namespace BloFin.Net.Objects.Models
     public record BloFinCancelTpSlRequest
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>instId</c>"] Symbol
         /// </summary>
         [JsonPropertyName("instId"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? Symbol { get; set; }
         /// <summary>
-        /// Client order id
+        /// ["<c>clientOrderId</c>"] Client order id
         /// </summary>
         [JsonPropertyName("clientOrderId"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? ClientOrderId { get; set; }
         /// <summary>
-        /// TPSL Order id
+        /// ["<c>tpslId</c>"] TPSL Order id
         /// </summary>
         [JsonPropertyName("tpslId"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? OrderId { get; set; }

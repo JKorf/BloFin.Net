@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json.Serialization;
 
 namespace BloFin.Net.Objects.Models
@@ -9,17 +9,17 @@ namespace BloFin.Net.Objects.Models
     public record BloFinFundingRate
     {
         /// <summary>
-        /// Symbol name
+        /// ["<c>instId</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("instId")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Funding rate
+        /// ["<c>fundingRate</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("fundingRate")]
         public decimal FundingRate { get; set; }
         /// <summary>
-        /// Funding time
+        /// ["<c>fundingTime</c>"] Funding time
         /// </summary>
         [JsonPropertyName("fundingTime")]
         public DateTime FundingTime { get; set; }

@@ -1,4 +1,4 @@
-﻿using BloFin.Net.Enums;
+using BloFin.Net.Enums;
 using System;
 using System.Text.Json.Serialization;
 
@@ -10,102 +10,102 @@ namespace BloFin.Net.Objects.Models
     public record BloFinPosition
     {
         /// <summary>
-        /// Position id
+        /// ["<c>positionId</c>"] Position id
         /// </summary>
         [JsonPropertyName("positionId")]
         public string PositionId { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol name
+        /// ["<c>instId</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("instId")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol type
+        /// ["<c>instType</c>"] Symbol type
         /// </summary>
         [JsonPropertyName("instType")]
         public SymbolType SymbolType { get; set; }
         /// <summary>
-        /// Margin mode
+        /// ["<c>marginMode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("marginMode")]
         public MarginMode MarginMode { get; set; }
         /// <summary>
-        /// Position side
+        /// ["<c>positionSide</c>"] Position side
         /// </summary>
         [JsonPropertyName("positionSide")]
         public PositionSide PositionSide { get; set; }
         /// <summary>
-        /// Adl
+        /// ["<c>adl</c>"] Adl
         /// </summary>
         [JsonPropertyName("adl")]
         public decimal Adl { get; set; }
         /// <summary>
-        /// Position size
+        /// ["<c>positions</c>"] Position size
         /// </summary>
         [JsonPropertyName("positions")]
         public decimal PositionSize { get; set; }
         /// <summary>
-        /// Position size which can be closed
+        /// ["<c>availablePositions</c>"] Position size which can be closed
         /// </summary>
         [JsonPropertyName("availablePositions")]
         public decimal ClosableSize { get; set; }
         /// <summary>
-        /// Average open price
+        /// ["<c>averagePrice</c>"] Average open price
         /// </summary>
         [JsonPropertyName("averagePrice")]
         public decimal AveragePrice { get; set; }
         /// <summary>
-        /// Margin
+        /// ["<c>margin</c>"] Margin
         /// </summary>
         [JsonPropertyName("margin")]
         public decimal? Margin { get; set; }
         /// <summary>
-        /// Mark price
+        /// ["<c>markPrice</c>"] Mark price
         /// </summary>
         [JsonPropertyName("markPrice")]
         public decimal MarkPrice { get; set; }
         /// <summary>
-        /// Margin ratio
+        /// ["<c>marginRatio</c>"] Margin ratio
         /// </summary>
         [JsonPropertyName("marginRatio")]
         public decimal MarginRatio { get; set; }
         /// <summary>
-        /// Liquidation price
+        /// ["<c>liquidationPrice</c>"] Liquidation price
         /// </summary>
         [JsonPropertyName("liquidationPrice")]
         public decimal? LiquidationPrice { get; set; }
         /// <summary>
-        /// Unrealized profit and loss
+        /// ["<c>unrealizedPnl</c>"] Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("unrealizedPnl")]
         public decimal UnrealizedPnl { get; set; }
         /// <summary>
-        /// Unrealized profit and loss ratio
+        /// ["<c>unrealizedPnlRatio</c>"] Unrealized profit and loss ratio
         /// </summary>
         [JsonPropertyName("unrealizedPnlRatio")]
         public decimal UnrealizedPnlRatio { get; set; }
         /// <summary>
-        /// Initial margin
+        /// ["<c>initialMargin</c>"] Initial margin
         /// </summary>
         [JsonPropertyName("initialMargin")]
         public decimal? InitialMargin { get; set; }
         /// <summary>
-        /// Maintenance margin
+        /// ["<c>maintenanceMargin</c>"] Maintenance margin
         /// </summary>
         [JsonPropertyName("maintenanceMargin")]
         public decimal MaintenanceMargin { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>createTime</c>"] Create time
         /// </summary>
         [JsonPropertyName("createTime")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>updateTime</c>"] Update time
         /// </summary>
         [JsonPropertyName("updateTime")]
         public DateTime UpdateTime { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json.Serialization;
 
 namespace BloFin.Net.Objects.Models
@@ -9,12 +9,12 @@ namespace BloFin.Net.Objects.Models
     public record BloFinFuturesInverseBalanceUpdate
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Details
+        /// ["<c>details</c>"] Details
         /// </summary>
         [JsonPropertyName("details")]
         public BloFinFuturesBalance[] Details { get; set; } = [];

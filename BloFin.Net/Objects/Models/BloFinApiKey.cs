@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json.Serialization;
 
 namespace BloFin.Net.Objects.Models
@@ -9,52 +9,52 @@ namespace BloFin.Net.Objects.Models
     public record BloFinApiKey
     {
         /// <summary>
-        /// User UID
+        /// ["<c>uid</c>"] User UID
         /// </summary>
         [JsonPropertyName("uid")]
         public string Uid { get; set; } = string.Empty;
         /// <summary>
-        /// API key name
+        /// ["<c>apiName</c>"] API key name
         /// </summary>
         [JsonPropertyName("apiName")]
         public string ApiKeyName { get; set; } = string.Empty;
         /// <summary>
-        /// API key
+        /// ["<c>apiKey</c>"] API key
         /// </summary>
         [JsonPropertyName("apiKey")]
         public string ApiKey { get; set; } = string.Empty;
         /// <summary>
-        /// Is readonly
+        /// ["<c>readOnly</c>"] Is readonly
         /// </summary>
         [JsonPropertyName("readOnly")]
         public bool IsReadOnly { get; set; }
         /// <summary>
-        /// Bound IP addresses
+        /// ["<c>ips</c>"] Bound IP addresses
         /// </summary>
         [JsonPropertyName("ips")]
         public string[] Ips { get; set; } = [];
         /// <summary>
-        /// Key type
+        /// ["<c>type</c>"] Key type
         /// </summary>
         [JsonPropertyName("type")]
         public int KeyType { get; set; }
         /// <summary>
-        /// Key expire time
+        /// ["<c>expireTime</c>"] Key expire time
         /// </summary>
         [JsonPropertyName("expireTime")]
         public DateTime ExpireTime { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>createTime</c>"] Create time
         /// </summary>
         [JsonPropertyName("createTime")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Referral code
+        /// ["<c>referralCode</c>"] Referral code
         /// </summary>
         [JsonPropertyName("referralCode")]
         public string ReferralCode { get; set; } = string.Empty;
         /// <summary>
-        /// Parent account UID
+        /// ["<c>parentUid</c>"] Parent account UID
         /// </summary>
         [JsonPropertyName("parentUid")]
         public string ParentUid { get; set; } = string.Empty;

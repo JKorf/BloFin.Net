@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json.Serialization;
 
 namespace BloFin.Net.Objects.Models
@@ -9,22 +9,22 @@ namespace BloFin.Net.Objects.Models
     public record BloFinFuturesBalances
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Total equity
+        /// ["<c>totalEquity</c>"] Total equity
         /// </summary>
         [JsonPropertyName("totalEquity")]
         public decimal? TotalEquity { get; set; }
         /// <summary>
-        /// Isolated equity
+        /// ["<c>isolatedEquity</c>"] Isolated equity
         /// </summary>
         [JsonPropertyName("isolatedEquity")]
         public decimal? IsolatedEquity { get; set; }
         /// <summary>
-        /// Details
+        /// ["<c>details</c>"] Details
         /// </summary>
         [JsonPropertyName("details")]
         public BloFinFuturesBalance[] Details { get; set; } = [];
@@ -36,67 +36,67 @@ namespace BloFin.Net.Objects.Models
     public record BloFinFuturesBalance
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Equity
+        /// ["<c>equity</c>"] Equity
         /// </summary>
         [JsonPropertyName("equity")]
         public decimal Equity { get; set; }
         /// <summary>
-        /// Balance
+        /// ["<c>balance</c>"] Balance
         /// </summary>
         [JsonPropertyName("balance")]
         public decimal Balance { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Isolated equity
+        /// ["<c>isolatedEquity</c>"] Isolated equity
         /// </summary>
         [JsonPropertyName("isolatedEquity")]
         public decimal IsolatedEquity { get; set; }
         /// <summary>
-        /// Available
+        /// ["<c>available</c>"] Available
         /// </summary>
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
-        /// Available equity
+        /// ["<c>availableEquity</c>"] Available equity
         /// </summary>
         [JsonPropertyName("availableEquity")]
         public decimal AvailableEquity { get; set; }
         /// <summary>
-        /// Frozen
+        /// ["<c>frozen</c>"] Frozen
         /// </summary>
         [JsonPropertyName("frozen")]
         public decimal Frozen { get; set; }
         /// <summary>
-        /// Order frozen
+        /// ["<c>orderFrozen</c>"] Order frozen
         /// </summary>
         [JsonPropertyName("orderFrozen")]
         public decimal OrderFrozen { get; set; }
         /// <summary>
-        /// Equity usd
+        /// ["<c>equityUsd</c>"] Equity usd
         /// </summary>
         [JsonPropertyName("equityUsd")]
         public decimal EquityUsd { get; set; }
         /// <summary>
-        /// Unrealized pnl
+        /// ["<c>unrealizedPnl</c>"] Unrealized pnl
         /// </summary>
         [JsonPropertyName("unrealizedPnl")]
         public decimal? UnrealizedPnl { get; set; }
         /// <summary>
-        /// Isolated unrealized pnl
+        /// ["<c>isolatedUnrealizedPnl</c>"] Isolated unrealized pnl
         /// </summary>
         [JsonPropertyName("isolatedUnrealizedPnl")]
         public decimal IsolatedUnrealizedPnl { get; set; }
         /// <summary>
-        /// Bonus
+        /// ["<c>bonus</c>"] Bonus
         /// </summary>
         [JsonPropertyName("bonus")]
         public decimal Bonus { get; set; }

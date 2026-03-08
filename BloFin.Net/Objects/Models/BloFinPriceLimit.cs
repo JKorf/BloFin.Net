@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace BloFin.Net.Objects.Models
 {
@@ -8,12 +8,12 @@ namespace BloFin.Net.Objects.Models
     public record BloFinPriceLimit
     {
         /// <summary>
-        /// Max price
+        /// ["<c>maxPrice</c>"] Max price
         /// </summary>
         [JsonPropertyName("maxPrice")]
         public decimal MaxPrice { get; set; }
         /// <summary>
-        /// Min price
+        /// ["<c>minPrice</c>"] Min price
         /// </summary>
         [JsonPropertyName("minPrice")]
         public decimal MinPrice { get; set; }

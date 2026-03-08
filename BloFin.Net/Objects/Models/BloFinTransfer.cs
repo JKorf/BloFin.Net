@@ -1,4 +1,4 @@
-﻿using BloFin.Net.Enums;
+using BloFin.Net.Enums;
 using System;
 using System.Text.Json.Serialization;
 
@@ -10,37 +10,37 @@ namespace BloFin.Net.Objects.Models
     public record BloFinTransfer
     {
         /// <summary>
-        /// Transfer id
+        /// ["<c>transferId</c>"] Transfer id
         /// </summary>
         [JsonPropertyName("transferId")]
         public string TransferId { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// From account
+        /// ["<c>fromAccount</c>"] From account
         /// </summary>
         [JsonPropertyName("fromAccount")]
         public AccountType FromAccount { get; set; }
         /// <summary>
-        /// To account
+        /// ["<c>toAccount</c>"] To account
         /// </summary>
         [JsonPropertyName("toAccount")]
         public AccountType ToAccount { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Client id
+        /// ["<c>clientId</c>"] Client id
         /// </summary>
         [JsonPropertyName("clientId")]
         public string? ClientId { get; set; }

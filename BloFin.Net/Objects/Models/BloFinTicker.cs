@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json.Serialization;
 
 namespace BloFin.Net.Objects.Models
@@ -9,67 +9,67 @@ namespace BloFin.Net.Objects.Models
     public record BloFinTicker
     {
         /// <summary>
-        /// Symbol name
+        /// ["<c>instId</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("instId")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Last trade price
+        /// ["<c>last</c>"] Last trade price
         /// </summary>
         [JsonPropertyName("last")]
         public decimal LastPrice { get; set; }
         /// <summary>
-        /// Last trade quantity
+        /// ["<c>lastSize</c>"] Last trade quantity
         /// </summary>
         [JsonPropertyName("lastSize")]
         public decimal LastQuantity { get; set; }
         /// <summary>
-        /// Best ask price
+        /// ["<c>askPrice</c>"] Best ask price
         /// </summary>
         [JsonPropertyName("askPrice")]
         public decimal BestAskPrice { get; set; }
         /// <summary>
-        /// Best ask quantity
+        /// ["<c>askSize</c>"] Best ask quantity
         /// </summary>
         [JsonPropertyName("askSize")]
         public decimal BestAskQuantity { get; set; }
         /// <summary>
-        /// Best bid price
+        /// ["<c>bidPrice</c>"] Best bid price
         /// </summary>
         [JsonPropertyName("bidPrice")]
         public decimal BestBidPrice { get; set; }
         /// <summary>
-        /// Best bid quantity
+        /// ["<c>bidSize</c>"] Best bid quantity
         /// </summary>
         [JsonPropertyName("bidSize")]
         public decimal BestBidQuantity { get; set; }
         /// <summary>
-        /// Highest price in last 24h
+        /// ["<c>high24h</c>"] Highest price in last 24h
         /// </summary>
         [JsonPropertyName("high24h")]
         public decimal High24h { get; set; }
         /// <summary>
-        /// Open price 24h ago
+        /// ["<c>open24h</c>"] Open price 24h ago
         /// </summary>
         [JsonPropertyName("open24h")]
         public decimal Open24h { get; set; }
         /// <summary>
-        /// Lowest price in last 24h
+        /// ["<c>low24h</c>"] Lowest price in last 24h
         /// </summary>
         [JsonPropertyName("low24h")]
         public decimal Low24h { get; set; }
         /// <summary>
-        /// Volume in the last 24h in base asset
+        /// ["<c>volCurrency24h</c>"] Volume in the last 24h in base asset
         /// </summary>
         [JsonPropertyName("volCurrency24h")]
         public decimal BaseVolume24h { get; set; }
         /// <summary>
-        /// Volume in the last 24h in contracts
+        /// ["<c>vol24h</c>"] Volume in the last 24h in contracts
         /// </summary>
         [JsonPropertyName("vol24h")]
         public decimal ContractVolume24h { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }

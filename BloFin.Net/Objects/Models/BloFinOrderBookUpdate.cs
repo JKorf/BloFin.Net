@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json.Serialization;
 
 namespace BloFin.Net.Objects.Models
@@ -9,27 +9,27 @@ namespace BloFin.Net.Objects.Models
     public record BloFinOrderBookUpdate
     {
         /// <summary>
-        /// Asks
+        /// ["<c>asks</c>"] Asks
         /// </summary>
         [JsonPropertyName("asks")]
         public BloFinOrderBookEntry[] Asks { get; set; } = [];
         /// <summary>
-        /// Bids
+        /// ["<c>bids</c>"] Bids
         /// </summary>
         [JsonPropertyName("bids")]
         public BloFinOrderBookEntry[] Bids { get; set; } = [];
         /// <summary>
-        /// Timestamp
+        /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Previous sequence id
+        /// ["<c>prevSeqId</c>"] Previous sequence id
         /// </summary>
         [JsonPropertyName("prevSeqId")]
         public long? PrevSequence { get; set; }
         /// <summary>
-        /// Sequence id
+        /// ["<c>seqId</c>"] Sequence id
         /// </summary>
         [JsonPropertyName("seqId")]
         public long? Sequence { get; set; }
