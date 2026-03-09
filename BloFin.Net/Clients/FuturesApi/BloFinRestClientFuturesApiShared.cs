@@ -1157,5 +1157,63 @@ namespace BloFin.Net.Clients.FuturesApi
                 return OrderSide.Buy;
         }
         #endregion
+
+        #region Position History client
+
+        GetPositionHistoryOptions IPositionHistoryRestClient.GetPositionHistoryOptions { get; } = new GetPositionHistoryOptions(false, false, true, 100);
+        async Task<ExchangeWebResult<SharedPositionHistory[]>> IPositionHistoryRestClient.GetPositionHistoryAsync(GetPositionHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)
+        {
+            var validationError = ((IPositionHistoryRestClient)this).GetPositionHistoryOptions.ValidateRequest(Exchange, request, request.Symbol?.TradingMode ?? request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedPositionHistory[]>(Exchange, validationError);
+
+            // Pagination doesn't work correctly. When setting beforeId it still returns data after it
+
+            var direction = DataDirection.Descending;
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
+            var limit = request.Limit ?? 100;
+            var pageParams = Pagination.GetPaginationParameters(direction, limit, request.StartTime, request.EndTime ?? DateTime.UtcNow, pageRequest);
+
+            // Get data
+            var result = await Trading.GetPositionHistoryAsync(
+                symbol: request.Symbol!.GetSymbol(FormatSymbol),
+                startTime: pageParams.StartTime,
+                endTime: pageParams.EndTime,
+                beforeId: pageParams.FromId == null ? null : long.Parse(pageParams.FromId),
+                limit: pageParams.Limit,
+                ct: ct
+                ).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedPositionHistory[]>(Exchange, null, default);
+
+            var nextPageRequest = Pagination.GetNextPageRequest(
+                    () => Pagination.NextPageFromId(result.Data.Min(x => x.HistoryId)),
+                    result.Data.Length,
+                    result.Data.Select(x => x.CreateTime),
+                    request.StartTime,
+                    request.EndTime ?? DateTime.UtcNow,
+                    pageParams);
+
+            return result.AsExchangeResult(
+                Exchange,
+                TradingMode.Spot,
+                ExchangeHelpers.ApplyFilter(result.Data, x => x.CreateTime, request.StartTime, request.EndTime, direction)
+                    .Select(x =>
+                        new SharedPositionHistory(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol),
+                            x.Symbol,
+                            x.PositionSide == PositionSide.Net ? (x.ClosePositions >= 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionSide == PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
+                            x.OpenAveragePrice,
+                            x.CloseAveragePrice,
+                            x.ClosePositions,
+                            x.RealizedPnl,
+                            x.CreateTime)
+                        {
+                            Leverage = x.Leverage,
+                            PositionId = x.PositionId.ToString(),
+                        })
+                    .ToArray(), nextPageRequest);
+        }
+        #endregion
     }
 }

@@ -21,7 +21,8 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         IFuturesOrderRestClient,
         IFuturesOrderClientIdRestClient,
         IFuturesTpSlRestClient,
-        IFuturesTriggerOrderRestClient
+        IFuturesTriggerOrderRestClient,
+        IPositionHistoryRestClient
     {
     }
 }

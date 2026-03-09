@@ -1,0 +1,49 @@
+GET
+/api/v1/account/positions-history
+true
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "historyId": "1234567890",
+            "positionId": "7982",
+            "instId": "ETH-USDT",
+            "instType": "SWAP",
+            "side": "buy",
+            "marginMode": "isolated",
+            "positionSide": "net",
+            "closePositions": "1",
+            "maxPositions": "1",
+            "liquidationPositions": "0",
+            "openAveragePrice": "1591.800000000000000000",
+            "closeAveragePrice": "1592.500000000000000000",
+            "createTime": "1695352782370",
+            "updateTime": "1695352782372",
+            "leverage": "3",
+            "realizedPnl": "0.7",
+            "realizedPnlRatio": "0.000439",
+            "fee": "0.190536000000000000"
+        },
+        {
+            "historyId": "1234567891",
+            "positionId": "5483",
+            "instId": "BCH-USDT",
+            "instType": "SWAP",
+            "side": "sell",
+            "marginMode": "cross",
+            "positionSide": "net",
+            "closePositions": "290",
+            "maxPositions": "290",
+            "liquidationPositions": "0",
+            "openAveragePrice": "1890.000000000000000000",
+            "closeAveragePrice": "1887.000000000000000000",
+            "createTime": "1695090016933",
+            "updateTime": "1695090016931",
+            "leverage": "3",
+            "realizedPnl": "-8.7",
+            "realizedPnlRatio": "-0.004603",
+            "fee": "0.547200000000000000"
+        }
+    ]
+}

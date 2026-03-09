@@ -490,5 +490,26 @@ namespace BloFin.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Get Position History
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BloFinPositionHistory[]>> GetPositionHistoryAsync(long? positionId = null, string? symbol = null, PositionStatus? status = null, long? afterId = null, long? beforeId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("positionId", positionId);
+            parameters.AddOptional("instId", symbol);
+            parameters.AddOptionalEnum("state", status);
+            parameters.AddOptional("after", afterId);
+            parameters.AddOptional("before", beforeId);
+            parameters.AddOptionalMillisecondsString("begin", startTime);
+            //parameters.AddOptionalMillisecondsString("end", endTime);
+            parameters.AddOptional("limit", limit);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/account/positions-history", BloFinExchange.RateLimiter.BloFinRest, 1, true);
+            var result = await _baseClient.SendAsync<BloFinPositionHistory[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
     }
 }

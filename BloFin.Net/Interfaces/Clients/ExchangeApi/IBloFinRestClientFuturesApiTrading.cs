@@ -357,5 +357,25 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinPriceLimit>> GetPriceLimitsAsync(string symbol, OrderSide side, CancellationToken ct = default);
 
+        /// <summary>
+        /// Get position history
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-positions-history" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/account/positions-history<br />
+        /// </para>
+        /// </summary>
+        /// <param name="positionId">["<c>positionId</c>"] Filter by position id</param>
+        /// <param name="symbol">["<c>instId</c>"] Filter by symbol, for example `ETH-USDT`</param>
+        /// <param name="status">["<c>state</c>"] Filter by status</param>
+        /// <param name="afterId">["<c>after</c>"] Return results earlier than this id</param>
+        /// <param name="beforeId">["<c>before</c>"] Return results newer than this id</param>
+        /// <param name="startTime">["<c>begin</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>end</c>"] Filter by end time</param>
+        /// <param name="limit">["<c>limit</c>"] Max number of results</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BloFinPositionHistory[]>> GetPositionHistoryAsync(long? positionId = null, string? symbol = null, PositionStatus? status = null, long? afterId = null, long? beforeId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+
     }
 }
