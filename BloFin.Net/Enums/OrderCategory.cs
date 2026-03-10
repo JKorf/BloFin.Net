@@ -11,37 +11,37 @@ namespace BloFin.Net.Enums
     public enum OrderCategory
     {
         /// <summary>
-        /// Normal
+        /// ["<c>normal</c>"] Normal
         /// </summary>
         [Map("normal")]
         Normal,
         /// <summary>
-        /// Full liquidation
+        /// ["<c>full_liquidation</c>"] Full liquidation
         /// </summary>
         [Map("full_liquidation")]
         FullLiquidation,
         /// <summary>
-        /// Partial liquidation
+        /// ["<c>partial_liquidation</c>"] Partial liquidation
         /// </summary>
         [Map("partial_liquidation")]
         PartialLiquidation,
         /// <summary>
-        /// Auto deleveraging
+        /// ["<c>adl</c>"] Auto deleveraging
         /// </summary>
         [Map("adl")]
         Adl,
         /// <summary>
-        /// Take profit
+        /// ["<c>tp</c>"] Take profit
         /// </summary>
         [Map("tp")]
         TakeProfit,
         /// <summary>
-        /// Stop loss
+        /// ["<c>sl</c>"] Stop loss
         /// </summary>
         [Map("sl")]
         StopLoss,
         /// <summary>
-        /// Pre TP/SL
+        /// ["<c>pre_tp_sl</c>"] Pre TP/SL
         /// </summary>
         [Map("pre_tp_sl")]
         PreTpSl

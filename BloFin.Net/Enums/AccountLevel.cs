@@ -11,22 +11,22 @@ namespace BloFin.Net.Enums
     public enum AccountLevel
     {
         /// <summary>
-        /// Normal account
+        /// ["<c>0</c>"] Normal account
         /// </summary>
         [Map("0")]
         Normal,
         /// <summary>
-        /// Unified spot account
+        /// ["<c>1</c>"] Unified spot account
         /// </summary>
         [Map("1")]
         UnifiedSpot,
         /// <summary>
-        /// Unified spot futures account
+        /// ["<c>2</c>"] Unified spot futures account
         /// </summary>
         [Map("2")]
         UnifiedSpotFutures,
         /// <summary>
-        /// Unified multi asset account
+        /// ["<c>3</c>"] Unified multi asset account
         /// </summary>
         [Map("3")]
         UnifiedMultiAsset

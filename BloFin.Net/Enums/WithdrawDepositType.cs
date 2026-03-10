@@ -11,12 +11,12 @@ namespace BloFin.Net.Enums
     public enum WithdrawDepositType
     {
         /// <summary>
-        /// Blockchain
+        /// ["<c>0</c>"] Blockchain
         /// </summary>
         [Map("0")]
         Blockchain,
         /// <summary>
-        /// Internal
+        /// ["<c>1</c>"] Internal
         /// </summary>
         [Map("1")]
         Internal

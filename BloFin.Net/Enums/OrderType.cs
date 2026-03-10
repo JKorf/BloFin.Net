@@ -11,27 +11,27 @@ namespace BloFin.Net.Enums
     public enum OrderType
     {
         /// <summary>
-        /// Market
+        /// ["<c>market</c>"] Market
         /// </summary>
         [Map("market")]
         Market,
         /// <summary>
-        /// Limit
+        /// ["<c>limit</c>"] Limit
         /// </summary>
         [Map("limit")]
         Limit,
         /// <summary>
-        /// Post only
+        /// ["<c>post_only</c>"] Post only
         /// </summary>
         [Map("post_only")]
         PostOnly,
         /// <summary>
-        /// Fill or kill
+        /// ["<c>fok</c>"] Fill or kill
         /// </summary>
         [Map("fok")]
         FillOrKill,
         /// <summary>
-        /// Immediate or cancel
+        /// ["<c>ioc</c>"] Immediate or cancel
         /// </summary>
         [Map("ioc")]
         ImmediateOrCancel

@@ -11,32 +11,32 @@ namespace BloFin.Net.Enums
     public enum AccountType
     {
         /// <summary>
-        /// Funding account
+        /// ["<c>funding</c>"] Funding account
         /// </summary>
         [Map("funding")]
         Funding,
         /// <summary>
-        /// Futures account
+        /// ["<c>futures</c>"] Futures account
         /// </summary>
         [Map("futures")]
         Futures,
         /// <summary>
-        /// Copy trading account
+        /// ["<c>copy_trading</c>"] Copy trading account
         /// </summary>
         [Map("copy_trading")]
         CopyTrading,
         /// <summary>
-        /// Earn account
+        /// ["<c>earn</c>"] Earn account
         /// </summary>
         [Map("earn")]
         Earn,
         /// <summary>
-        /// Spot account
+        /// ["<c>spot</c>"] Spot account
         /// </summary>
         [Map("spot")]
         Spot,
         /// <summary>
-        /// Inverse contract account
+        /// ["<c>inverse_contract</c>"] Inverse contract account
         /// </summary>
         [Map("inverse_contract")]
         InverseContract

@@ -11,17 +11,17 @@ namespace BloFin.Net.Enums
     public enum PositionSide
     {
         /// <summary>
-        /// Long position
+        /// ["<c>long</c>"] Long position
         /// </summary>
         [Map("long")]
         Long,
         /// <summary>
-        /// Short position
+        /// ["<c>short</c>"] Short position
         /// </summary>
         [Map("short")]
         Short,
         /// <summary>
-        /// Net position
+        /// ["<c>net</c>"] Net position
         /// </summary>
         [Map("net")]
         Net,

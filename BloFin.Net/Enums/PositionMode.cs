@@ -11,12 +11,12 @@ namespace BloFin.Net.Enums
     public enum PositionMode
     {
         /// <summary>
-        /// One way / net mode
+        /// ["<c>net_mode</c>"] One way / net mode
         /// </summary>
         [Map("net_mode")]
         OneWayMode,
         /// <summary>
-        /// Hedge / long-short mode
+        /// ["<c>long_short_mode</c>"] Hedge / long-short mode
         /// </summary>
         [Map("long_short_mode")]
         HedgeMode,

@@ -11,22 +11,22 @@ namespace BloFin.Net.Enums
     public enum TpSlOrderStatus
     {
         /// <summary>
-        /// Live
+        /// ["<c>live</c>"] Live
         /// </summary>
         [Map("live")]
         Live,
         /// <summary>
-        /// Effective
+        /// ["<c>effective</c>"] Effective
         /// </summary>
         [Map("effective")]
         Effective,
         /// <summary>
-        /// Canceled
+        /// ["<c>canceled</c>"] Canceled
         /// </summary>
         [Map("canceled")]
         Canceled,
         /// <summary>
-        /// Failed to place order
+        /// ["<c>order_failed</c>"] Failed to place order
         /// </summary>
         [Map("order_failed")]
         Failed

@@ -11,27 +11,27 @@ namespace BloFin.Net.Enums
     public enum OrderStatus
     {
         /// <summary>
-        /// Unfilled
+        /// ["<c>live</c>"] Unfilled
         /// </summary>
         [Map("live")]
         Open,
         /// <summary>
-        /// Partially filled
+        /// ["<c>partially_filled</c>"] Partially filled
         /// </summary>
         [Map("partially_filled")]
         PartiallyFilled,
         /// <summary>
-        /// Canceled
+        /// ["<c>canceled</c>"] Canceled
         /// </summary>
         [Map("canceled")]
         Canceled,
         /// <summary>
-        /// Filled
+        /// ["<c>filled</c>"] Filled
         /// </summary>
         [Map("filled")]
         Filled,
         /// <summary>
-        /// Partially filled / partially canceled
+        /// ["<c>partially_canceled</c>"] Partially filled / partially canceled
         /// </summary>
         [Map("partially_canceled")]
         PartiallyCanceled

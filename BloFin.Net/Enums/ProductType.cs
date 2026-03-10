@@ -11,12 +11,12 @@ namespace BloFin.Net.Enums
     public enum ProductType
     {
         /// <summary>
-        /// USDT futures
+        /// ["<c>USDT-FUTURES</c>"] USDT futures
         /// </summary>
         [Map("USDT-FUTURES")]
         UsdtFutures,
         /// <summary>
-        /// Coin futures
+        /// ["<c>COIN-FUTURES</c>"] Coin futures
         /// </summary>
         [Map("COIN-FUTURES")]
         CoinFutures

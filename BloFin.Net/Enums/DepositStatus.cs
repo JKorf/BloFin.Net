@@ -11,22 +11,22 @@ namespace BloFin.Net.Enums
     public enum DepositStatus
     {
         /// <summary>
-        /// Pending
+        /// ["<c>0</c>"] Pending
         /// </summary>
         [Map("0")]
         Pending,
         /// <summary>
-        /// Done
+        /// ["<c>1</c>"] Done
         /// </summary>
         [Map("1")]
         Done,
         /// <summary>
-        /// Failed
+        /// ["<c>2</c>"] Failed
         /// </summary>
         [Map("2")]
         Failed,
         /// <summary>
-        /// Kyt
+        /// ["<c>3</c>"] Kyt
         /// </summary>
         [Map("3")]
         Kyt

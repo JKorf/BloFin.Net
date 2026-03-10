@@ -11,12 +11,12 @@ namespace BloFin.Net.Enums
     public enum SymbolStatus
     {
         /// <summary>
-        /// Live
+        /// ["<c>live</c>"] Live
         /// </summary>
         [Map("live")]
         Live,
         /// <summary>
-        /// Live
+        /// ["<c>suspend</c>"] Live
         /// </summary>
         [Map("suspend")]
         Suspended

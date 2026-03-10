@@ -11,7 +11,7 @@ namespace BloFin.Net.Enums
     public enum SymbolType
     {
         /// <summary>
-        /// Swap
+        /// ["<c>SWAP</c>"] Swap
         /// </summary>
         [Map("SWAP")]
         Swap,

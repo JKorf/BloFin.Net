@@ -11,12 +11,12 @@ namespace BloFin.Net.Enums
     public enum MarginMode
     {
         /// <summary>
-        /// Isolated
+        /// ["<c>isolated</c>"] Isolated
         /// </summary>
         [Map("isolated")]
         Isolated,
         /// <summary>
-        /// Cross
+        /// ["<c>cross</c>"] Cross
         /// </summary>
         [Map("cross")]
         Cross

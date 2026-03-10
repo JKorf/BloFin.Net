@@ -11,12 +11,12 @@ namespace BloFin.Net.Enums
     public enum AlgoOrderType
     {
         /// <summary>
-        /// Conditional
+        /// ["<c>conditional</c>"] Conditional
         /// </summary>
         [Map("conditional")]
         Conditional,
         /// <summary>
-        /// Trigger
+        /// ["<c>trigger</c>"] Trigger
         /// </summary>
         [Map("trigger")]
         Trigger
