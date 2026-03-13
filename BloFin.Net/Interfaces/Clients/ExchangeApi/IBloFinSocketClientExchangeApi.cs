@@ -13,7 +13,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
     /// <summary>
     /// BloFin Exchange streams
     /// </summary>
-    public interface IBloFinSocketClientFuturesApi : ISocketApiClient, IDisposable
+    public interface IBloFinSocketClientFuturesApi : ISocketApiClient<BloFinCredentials>, IDisposable
     {
         /// <summary>
         /// Subscribe to live trade updates for a symbol

@@ -49,7 +49,7 @@ namespace BloFin.Net.Clients
         }
 
         /// <inheritdoc />
-        public void InitializeUserClient(string userIdentifier, ApiCredentials credentials, BloFinEnvironment? environment = null)
+        public void InitializeUserClient(string userIdentifier, BloFinCredentials credentials, BloFinEnvironment? environment = null)
         {
             CreateRestClient(userIdentifier, credentials, environment);
             CreateSocketClient(userIdentifier, credentials, environment);
@@ -63,7 +63,7 @@ namespace BloFin.Net.Clients
         }
 
         /// <inheritdoc />
-        public IBloFinRestClient GetRestClient(string userIdentifier, ApiCredentials? credentials = null, BloFinEnvironment? environment = null)
+        public IBloFinRestClient GetRestClient(string userIdentifier, BloFinCredentials? credentials = null, BloFinEnvironment? environment = null)
         {
             if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateRestClient(userIdentifier, credentials, environment);
@@ -72,7 +72,7 @@ namespace BloFin.Net.Clients
         }
 
         /// <inheritdoc />
-        public IBloFinSocketClient GetSocketClient(string userIdentifier, ApiCredentials? credentials = null, BloFinEnvironment? environment = null)
+        public IBloFinSocketClient GetSocketClient(string userIdentifier, BloFinCredentials? credentials = null, BloFinEnvironment? environment = null)
         {
             if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateSocketClient(userIdentifier, credentials, environment);
@@ -80,7 +80,7 @@ namespace BloFin.Net.Clients
             return client;
         }
 
-        private IBloFinRestClient CreateRestClient(string userIdentifier, ApiCredentials? credentials, BloFinEnvironment? environment)
+        private IBloFinRestClient CreateRestClient(string userIdentifier, BloFinCredentials? credentials, BloFinEnvironment? environment)
         {
             var clientRestOptions = SetRestEnvironment(environment);
             var client = new BloFinRestClient(_httpClient, _loggerFactory, clientRestOptions);
@@ -92,7 +92,7 @@ namespace BloFin.Net.Clients
             return client;
         }
 
-        private IBloFinSocketClient CreateSocketClient(string userIdentifier, ApiCredentials? credentials, BloFinEnvironment? environment)
+        private IBloFinSocketClient CreateSocketClient(string userIdentifier, BloFinCredentials? credentials, BloFinEnvironment? environment)
         {
             var clientSocketOptions = SetSocketEnvironment(environment);
             var client = new BloFinSocketClient(clientSocketOptions!, _loggerFactory);

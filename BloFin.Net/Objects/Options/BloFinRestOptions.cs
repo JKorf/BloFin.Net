@@ -5,7 +5,7 @@ namespace BloFin.Net.Objects.Options
     /// <summary>
     /// Options for the BloFinRestClient
     /// </summary>
-    public class BloFinRestOptions : RestExchangeOptions<BloFinEnvironment>
+    public class BloFinRestOptions : RestExchangeOptions<BloFinEnvironment, BloFinCredentials>
     {
         /// <summary>
         /// Default options for new clients
@@ -31,7 +31,7 @@ namespace BloFin.Net.Objects.Options
          /// <summary>
         /// Exchange API options
         /// </summary>
-        public RestApiOptions ExchangeOptions { get; private set; } = new RestApiOptions();
+        public RestApiOptions<BloFinCredentials> ExchangeOptions { get; private set; } = new RestApiOptions<BloFinCredentials>();
 
 
         internal BloFinRestOptions Set(BloFinRestOptions targetOptions)

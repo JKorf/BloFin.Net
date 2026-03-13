@@ -18,7 +18,7 @@ namespace BloFin.Net.Interfaces
         /// <param name="config">Configuration</param>
         /// <param name="credentials">Credentials</param>
         /// <param name="environment">Environment</param>
-        IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, BloFinEnvironment? environment = null);
+        IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, BloFinCredentials credentials, FuturesUserDataTrackerConfig? config = null, BloFinEnvironment? environment = null);
         /// <summary>
         /// Create a new futures user data tracker
         /// </summary>

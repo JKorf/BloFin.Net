@@ -20,7 +20,7 @@ namespace BloFin.Net.Clients
     /// <summary>
     /// BloFin rest client base
     /// </summary>
-    public abstract class BloFinRestClientApi : RestApiClient
+    internal abstract class BloFinRestClientApi : RestApiClient<BloFinEnvironment, BloFinAuthenticationProvider, BloFinCredentials>
     {
         internal new BloFinRestOptions ClientOptions => (BloFinRestOptions)base.ClientOptions;
 
@@ -30,7 +30,7 @@ namespace BloFin.Net.Clients
         #endregion
 
         #region constructor/destructor
-        internal BloFinRestClientApi(ILogger logger, HttpClient? httpClient, string address, BloFinRestOptions options, RestApiOptions apiOptions)
+        internal BloFinRestClientApi(ILogger logger, HttpClient? httpClient, string address, BloFinRestOptions options, RestApiOptions<BloFinCredentials> apiOptions)
             : base(logger, httpClient, address, options, apiOptions)
         {
         }
@@ -43,9 +43,8 @@ namespace BloFin.Net.Clients
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(BloFinExchange._serializerContext);
 
-
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override BloFinAuthenticationProvider CreateAuthenticationProvider(BloFinCredentials credentials)
             => new BloFinAuthenticationProvider(credentials);
 
         internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)

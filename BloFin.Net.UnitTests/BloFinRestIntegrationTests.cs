@@ -12,7 +12,7 @@ using System.Threading;
 namespace BloFin.Net.UnitTests
 {
     [NonParallelizable]
-    public class BloFinRestIntegrationTests : RestIntegrationTest<BloFinRestClient>
+    internal class BloFinRestIntegrationTests : RestIntegrationTest<BloFinRestClient>
     {
         public override bool Run { get; set; } = false;
 
@@ -27,7 +27,7 @@ namespace BloFin.Net.UnitTests
             {
                 AutoTimestamp = false,
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec, pass) : null
+                ApiCredentials = Authenticated ? new BloFinCredentials(key, sec, pass) : null
             }));
         }
 

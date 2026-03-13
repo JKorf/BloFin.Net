@@ -13,14 +13,14 @@ using System.Text;
 
 namespace BloFin.Net
 {
-    internal class BloFinAuthenticationProvider : AuthenticationProvider
+    internal class BloFinAuthenticationProvider : AuthenticationProvider<BloFinCredentials, HMACCredential>
     {
         private static readonly IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(BloFinExchange._serializerContext);
 
         public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
-        public BloFinAuthenticationProvider(ApiCredentials credentials) : base(credentials)
+        public BloFinAuthenticationProvider(BloFinCredentials credentials) : base(credentials)
         {
-            if (credentials.Pass == null)
+            if (Credential.Pass == null)
                 throw new ArgumentException("Pass is required for BloFin authentication");
         }
 
@@ -45,11 +45,11 @@ namespace BloFin.Net
             sign = Convert.ToBase64String(Encoding.UTF8.GetBytes(sign));
 
             requestConfig.Headers ??= new Dictionary<string, string>();
-            requestConfig.Headers.Add("ACCESS-KEY", ApiKey);
+            requestConfig.Headers.Add("ACCESS-KEY", Credential.PublicKey);
             requestConfig.Headers.Add("ACCESS-SIGN", sign);
             requestConfig.Headers.Add("ACCESS-TIMESTAMP", timestamp);
             requestConfig.Headers.Add("ACCESS-NONCE", nonce);
-            requestConfig.Headers.Add("ACCESS-PASSPHRASE", Pass!);
+            requestConfig.Headers.Add("ACCESS-PASSPHRASE", Credential.Pass!);
         }
 
         public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
@@ -63,8 +63,8 @@ namespace BloFin.Net
 
             var parameters = new Dictionary<string, string>
             {
-                { "apiKey", ApiKey },
-                { "passphrase", Pass! },
+                { "apiKey", Credential.PublicKey },
+                { "passphrase", Credential.Pass! },
                 { "nonce", nonce },
                 { "timestamp", timestamp },
                 { "sign", sign }

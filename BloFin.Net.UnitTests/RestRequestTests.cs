@@ -21,7 +21,7 @@ namespace BloFin.Net.UnitTests
             var client = new BloFinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new BloFinCredentials("123", "456", "789");
             });
             var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Account", "https://openapi.blofin.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.AccountApi.GetAccountBalancesAsync(AccountType.Futures), "GetAccountBalances", nestedJsonProperty: "data");
@@ -40,7 +40,7 @@ namespace BloFin.Net.UnitTests
             var client = new BloFinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new BloFinCredentials("123", "456", "789");
             });
             var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Futures/Account", "https://openapi.blofin.com", IsAuthenticated);
             
@@ -59,7 +59,7 @@ namespace BloFin.Net.UnitTests
             var client = new BloFinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new BloFinCredentials("123", "456", "789");
             });
             var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Futures/ExchangeData", "https://openapi.blofin.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetSymbolsAsync(), "GetSymbols", nestedJsonProperty: "data");
@@ -78,7 +78,7 @@ namespace BloFin.Net.UnitTests
             var client = new BloFinRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789");
+                opts.ApiCredentials = new BloFinCredentials("123", "456", "789");
             });
             var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Futures/Trading", "https://openapi.blofin.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetPositionsAsync(), "GetPositions", nestedJsonProperty: "data");

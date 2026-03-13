@@ -29,7 +29,7 @@ namespace BloFin.Net.UnitTests
             return new BloFinSocketClient(Options.Create(new BloFinSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec, pass) : null
+                ApiCredentials = Authenticated ? new BloFinCredentials(key, sec, pass) : null
             }), loggerFactory);
         }
 
