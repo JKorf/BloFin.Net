@@ -45,7 +45,7 @@ namespace BloFin.Net
             sign = Convert.ToBase64String(Encoding.UTF8.GetBytes(sign));
 
             requestConfig.Headers ??= new Dictionary<string, string>();
-            requestConfig.Headers.Add("ACCESS-KEY", Credential.PublicKey);
+            requestConfig.Headers.Add("ACCESS-KEY", Credential.Key);
             requestConfig.Headers.Add("ACCESS-SIGN", sign);
             requestConfig.Headers.Add("ACCESS-TIMESTAMP", timestamp);
             requestConfig.Headers.Add("ACCESS-NONCE", nonce);
@@ -63,7 +63,7 @@ namespace BloFin.Net
 
             var parameters = new Dictionary<string, string>
             {
-                { "apiKey", Credential.PublicKey },
+                { "apiKey", Credential.Key },
                 { "passphrase", Credential.Pass! },
                 { "nonce", nonce },
                 { "timestamp", timestamp },
