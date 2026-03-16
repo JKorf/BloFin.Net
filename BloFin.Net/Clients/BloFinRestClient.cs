@@ -15,7 +15,7 @@ using BloFin.Net.Clients.Apis;
 namespace BloFin.Net.Clients
 {
     /// <inheritdoc cref="IBloFinRestClient" />
-    internal class BloFinRestClient : BaseRestClient<BloFinEnvironment, BloFinCredentials>, IBloFinRestClient
+    public class BloFinRestClient : BaseRestClient<BloFinEnvironment, BloFinCredentials>, IBloFinRestClient
     {
         #region Api clients
                 
