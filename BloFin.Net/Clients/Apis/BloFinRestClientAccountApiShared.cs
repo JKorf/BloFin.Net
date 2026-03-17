@@ -123,9 +123,7 @@ namespace BloFin.Net.Clients.Apis
                                 x.Quantity,
                                 x.Status == DepositStatus.Done,
                                 x.Timestamp,
-                                x.Status == DepositStatus.Failed ? SharedTransferStatus.Failed
-                                : x.Status == DepositStatus.Done ? SharedTransferStatus.Completed
-                                : SharedTransferStatus.InProgress)
+                                ParseTransferStatus(x.Status))
                             {
                                 Confirmations = x.Confirmations,
                                 Network = x.Network,
@@ -133,6 +131,18 @@ namespace BloFin.Net.Clients.Apis
                                 Id = x.DepositId
                             })
                        .ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus ParseTransferStatus(DepositStatus status)
+        {
+            if (status == DepositStatus.Failed)
+                return SharedTransferStatus.Failed;
+            if (status == DepositStatus.Done)
+                return SharedTransferStatus.Completed;
+            if (status == DepositStatus.Pending)
+                return SharedTransferStatus.InProgress;
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion

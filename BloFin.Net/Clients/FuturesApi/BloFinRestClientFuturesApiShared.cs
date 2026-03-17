@@ -886,8 +886,10 @@ namespace BloFin.Net.Clients.FuturesApi
         private SharedOrderStatus ParseOrderStatus(OrderStatus status)
         {
             if (status == OrderStatus.Open || status == OrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
+            if (status == OrderStatus.Filled) return SharedOrderStatus.Filled;
             if (status == OrderStatus.Canceled || status == OrderStatus.PartiallyCanceled) return SharedOrderStatus.Canceled;
-            return SharedOrderStatus.Filled;
+
+            return SharedOrderStatus.Unknown;
         }
 
         private SharedOrderType ParseOrderType(OrderType type)
@@ -1112,7 +1114,7 @@ namespace BloFin.Net.Clients.FuturesApi
                 orderInfo.OrderId.ToString(),
                 orderInfo.TriggerPrice == -1 ? SharedOrderType.Market : SharedOrderType.Limit,
                 orderInfo.Side == OrderSide.Buy && orderInfo.PositionSide == PositionSide.Long ? SharedTriggerOrderDirection.Enter : SharedTriggerOrderDirection.Exit,
-                orderInfo.Status == TpSlOrderStatus.Failed || orderInfo.Status == TpSlOrderStatus.Canceled ? SharedTriggerOrderStatus.CanceledOrRejected : SharedTriggerOrderStatus.Active,
+                ParseTriggerOrderStatus(orderInfo.Status),
                 orderInfo.TriggerPrice ?? 0,
                 orderInfo.PositionSide == PositionSide.Net ? null : orderInfo.PositionSide == PositionSide.Long ? SharedPositionSide.Long : SharedPositionSide.Short,
                 orderInfo.CreateTime
@@ -1121,6 +1123,17 @@ namespace BloFin.Net.Clients.FuturesApi
                 OrderQuantity = new SharedOrderQuantity(contractQuantity: orderInfo.Quantity),
                 ClientOrderId = orderInfo.ClientOrderId
             });
+        }
+
+        private SharedTriggerOrderStatus ParseTriggerOrderStatus(TpSlOrderStatus status)
+        {
+            if (status == TpSlOrderStatus.Failed || status == TpSlOrderStatus.Canceled)
+                return SharedTriggerOrderStatus.CanceledOrRejected;
+
+            if (status == TpSlOrderStatus.Effective || status == TpSlOrderStatus.Live)
+                return SharedTriggerOrderStatus.Active;
+
+            return SharedTriggerOrderStatus.Unknown;
         }
 
         EndpointOptions<CancelOrderRequest> IFuturesTriggerOrderRestClient.CancelFuturesTriggerOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
