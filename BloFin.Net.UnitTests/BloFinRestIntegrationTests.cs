@@ -8,6 +8,7 @@ using BloFin.Net.Clients;
 using BloFin.Net.Objects.Options;
 using CryptoExchange.Net.Objects.Errors;
 using System.Threading;
+using CryptoExchange.Net.Authentication;
 
 namespace BloFin.Net.UnitTests
 {

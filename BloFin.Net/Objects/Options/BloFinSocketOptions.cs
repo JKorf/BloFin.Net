@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
 
 namespace BloFin.Net.Objects.Options
@@ -27,7 +28,7 @@ namespace BloFin.Net.Objects.Options
         /// <summary>
         /// Exchange API options
         /// </summary>
-        public SocketApiOptions<BloFinCredentials> ExchangeOptions { get; private set; } = new SocketApiOptions<BloFinCredentials>();
+        public SocketApiOptions ExchangeOptions { get; private set; } = new SocketApiOptions();
 
         internal BloFinSocketOptions Set(BloFinSocketOptions targetOptions)
         {

@@ -1,6 +1,7 @@
 ﻿using BloFin.Net.Enums;
 using BloFin.Net.Interfaces.Clients.AccountApi;
 using BloFin.Net.Objects.Models;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects;
 using System;
@@ -12,7 +13,7 @@ namespace BloFin.Net.Interfaces.Clients.Apis
     /// <summary>
     /// BloFin account API endpoints
     /// </summary>
-    public interface IBloFinRestClientAccountApi : IRestApiClient, IDisposable
+    public interface IBloFinRestClientAccountApi : IRestApiClient<BloFinCredentials>, IDisposable
     {
 
         /// <summary>

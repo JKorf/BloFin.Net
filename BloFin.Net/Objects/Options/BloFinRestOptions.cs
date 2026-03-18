@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
 
 namespace BloFin.Net.Objects.Options
@@ -31,7 +32,7 @@ namespace BloFin.Net.Objects.Options
          /// <summary>
         /// Exchange API options
         /// </summary>
-        public RestApiOptions<BloFinCredentials> ExchangeOptions { get; private set; } = new RestApiOptions<BloFinCredentials>();
+        public RestApiOptions ExchangeOptions { get; private set; } = new RestApiOptions();
 
 
         internal BloFinRestOptions Set(BloFinRestOptions targetOptions)

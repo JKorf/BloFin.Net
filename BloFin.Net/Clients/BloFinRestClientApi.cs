@@ -30,7 +30,7 @@ namespace BloFin.Net.Clients
         #endregion
 
         #region constructor/destructor
-        internal BloFinRestClientApi(ILogger logger, HttpClient? httpClient, string address, BloFinRestOptions options, RestApiOptions<BloFinCredentials> apiOptions)
+        internal BloFinRestClientApi(ILogger logger, HttpClient? httpClient, string address, BloFinRestOptions options, RestApiOptions apiOptions)
             : base(logger, httpClient, address, options, apiOptions)
         {
         }

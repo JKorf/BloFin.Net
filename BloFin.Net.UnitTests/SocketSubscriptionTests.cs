@@ -1,6 +1,7 @@
 using BloFin.Net.Clients;
 using BloFin.Net.Objects.Models;
 using BloFin.Net.Objects.Options;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Testing;
 using Microsoft.Extensions.Logging;

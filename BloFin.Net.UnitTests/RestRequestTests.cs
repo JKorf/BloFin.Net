@@ -1,5 +1,6 @@
 using BloFin.Net.Clients;
 using BloFin.Net.Enums;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Testing;
 using NUnit.Framework;
