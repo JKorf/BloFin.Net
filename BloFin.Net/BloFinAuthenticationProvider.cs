@@ -13,14 +13,12 @@ using System.Text;
 
 namespace BloFin.Net
 {
-    internal class BloFinAuthenticationProvider : AuthenticationProvider<BloFinCredentials, HMACCredential>
+    internal class BloFinAuthenticationProvider : AuthenticationProvider<BloFinCredentials, HMACPassCredential>
     {
         private static readonly IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(BloFinExchange._serializerContext);
 
         public BloFinAuthenticationProvider(BloFinCredentials credentials) : base(credentials, credentials)
         {
-            if (Credential.Pass == null)
-                throw new ArgumentException("Pass is required for BloFin authentication");
         }
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration requestConfig)
