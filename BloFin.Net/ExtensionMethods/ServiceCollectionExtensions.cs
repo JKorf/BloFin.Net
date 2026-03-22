@@ -109,8 +109,6 @@ namespace Microsoft.Extensions.DependencyInjection
             }).SetHandlerLifetime(Timeout.InfiniteTimeSpan);
             services.Add(new ServiceDescriptor(typeof(IBloFinSocketClient), x => { return new BloFinSocketClient(x.GetRequiredService<IOptions<BloFinSocketOptions>>(), x.GetRequiredService<ILoggerFactory>()); }, socketClientLifeTime ?? ServiceLifetime.Singleton));
 
-            services.AddTransient<ICryptoRestClient, CryptoRestClient>();
-            services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IBloFinOrderBookFactory, BloFinOrderBookFactory>();
             services.AddTransient<IBloFinTrackerFactory, BloFinTrackerFactory>();
             services.AddTransient<ITrackerFactory, BloFinTrackerFactory>();
