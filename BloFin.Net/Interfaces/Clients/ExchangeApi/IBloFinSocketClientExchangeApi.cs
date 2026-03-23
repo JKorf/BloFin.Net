@@ -7,13 +7,14 @@ using BloFin.Net.Objects.Models;
 using System.Collections.Generic;
 using BloFin.Net.Enums;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 
 namespace BloFin.Net.Interfaces.Clients.FuturesApi
 {
     /// <summary>
     /// BloFin Exchange streams
     /// </summary>
-    public interface IBloFinSocketClientFuturesApi : ISocketApiClient, IDisposable
+    public interface IBloFinSocketClientFuturesApi : ISocketApiClient<BloFinCredentials>, IDisposable
     {
         /// <summary>
         /// Subscribe to live trade updates for a symbol

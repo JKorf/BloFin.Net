@@ -109,7 +109,7 @@ namespace BloFin.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, BloFinEnvironment? environment = null)
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, BloFinCredentials credentials, FuturesUserDataTrackerConfig? config = null, BloFinEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IBloFinUserClientProvider>() ?? new BloFinUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);

@@ -6,7 +6,7 @@ namespace BloFin.Net.Objects.Options
     /// <summary>
     /// BloFin options
     /// </summary>
-    public class BloFinOptions : LibraryOptions<BloFinRestOptions, BloFinSocketOptions, ApiCredentials, BloFinEnvironment>
+    public class BloFinOptions : LibraryOptions<BloFinRestOptions, BloFinSocketOptions, BloFinCredentials, BloFinEnvironment>
     {
     }
 }

@@ -203,7 +203,9 @@ namespace BloFin.Net.Clients.FuturesApi
         {
             if (status == OrderStatus.Open || status == OrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
             if (status == OrderStatus.Filled) return SharedOrderStatus.Filled;
-            return SharedOrderStatus.Canceled;
+            if (status == OrderStatus.Canceled || status == OrderStatus.PartiallyCanceled) return SharedOrderStatus.Canceled;
+
+            return SharedOrderStatus.Unknown;
         }
 
         private SharedOrderType ParseOrderType(OrderType type)

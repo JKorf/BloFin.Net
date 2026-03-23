@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
 
 namespace BloFin.Net.Objects.Options
@@ -5,7 +6,7 @@ namespace BloFin.Net.Objects.Options
     /// <summary>
     /// Options for the BloFinSocketClient
     /// </summary>
-    public class BloFinSocketOptions : SocketExchangeOptions<BloFinEnvironment>
+    public class BloFinSocketOptions : SocketExchangeOptions<BloFinEnvironment, BloFinCredentials>
     {
         /// <summary>
         /// Default options for new clients
@@ -16,7 +17,6 @@ namespace BloFin.Net.Objects.Options
             SocketSubscriptionsCombineTarget = 10
         };
 
-
         /// <summary>
         /// ctor
         /// </summary>
@@ -24,21 +24,16 @@ namespace BloFin.Net.Objects.Options
         {
             Default?.Set(this);
         }
-
-
         
-         /// <summary>
+        /// <summary>
         /// Exchange API options
         /// </summary>
         public SocketApiOptions ExchangeOptions { get; private set; } = new SocketApiOptions();
 
-
         internal BloFinSocketOptions Set(BloFinSocketOptions targetOptions)
         {
-            targetOptions = base.Set<BloFinSocketOptions>(targetOptions);
-            
+            targetOptions = base.Set<BloFinSocketOptions>(targetOptions);            
             targetOptions.ExchangeOptions = ExchangeOptions.Set(targetOptions.ExchangeOptions);
-
             return targetOptions;
         }
     }

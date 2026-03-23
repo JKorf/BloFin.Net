@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
 
 namespace BloFin.Net.Objects.Options
@@ -5,7 +6,7 @@ namespace BloFin.Net.Objects.Options
     /// <summary>
     /// Options for the BloFinRestClient
     /// </summary>
-    public class BloFinRestOptions : RestExchangeOptions<BloFinEnvironment>
+    public class BloFinRestOptions : RestExchangeOptions<BloFinEnvironment, BloFinCredentials>
     {
         /// <summary>
         /// Default options for new clients

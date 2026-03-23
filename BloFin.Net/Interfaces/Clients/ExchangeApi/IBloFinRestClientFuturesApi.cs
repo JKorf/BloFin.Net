@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces.Clients;
 using System;
 
@@ -6,7 +7,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
     /// <summary>
     /// BloFin Exchange API endpoints
     /// </summary>
-    public interface IBloFinRestClientFuturesApi : IRestApiClient, IDisposable
+    public interface IBloFinRestClientFuturesApi : IRestApiClient<BloFinCredentials>, IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

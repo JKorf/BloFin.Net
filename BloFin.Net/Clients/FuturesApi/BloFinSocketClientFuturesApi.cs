@@ -32,7 +32,7 @@ namespace BloFin.Net.Clients.FuturesApi
     /// <summary>
     /// Client providing access to the BloFin Futures websocket Api
     /// </summary>
-    internal partial class BloFinSocketClientFuturesApi : SocketApiClient, IBloFinSocketClientFuturesApi
+    internal partial class BloFinSocketClientFuturesApi : SocketApiClient<BloFinEnvironment, BloFinAuthenticationProvider, BloFinCredentials>, IBloFinSocketClientFuturesApi
     {
         #region fields
         protected override ErrorMapping ErrorMapping => BloFinErrors.Errors;
@@ -70,7 +70,7 @@ namespace BloFin.Net.Clients.FuturesApi
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BloFinSocketFuturesMessageConverter();
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override BloFinAuthenticationProvider CreateAuthenticationProvider(BloFinCredentials credentials)
             => new BloFinAuthenticationProvider(credentials);
 
         /// <inheritdoc />

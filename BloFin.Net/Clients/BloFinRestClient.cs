@@ -15,7 +15,7 @@ using BloFin.Net.Clients.Apis;
 namespace BloFin.Net.Clients
 {
     /// <inheritdoc cref="IBloFinRestClient" />
-    public class BloFinRestClient : BaseRestClient, IBloFinRestClient
+    public class BloFinRestClient : BaseRestClient<BloFinEnvironment, BloFinCredentials>, IBloFinRestClient
     {
         #region Api clients
                 
@@ -53,13 +53,6 @@ namespace BloFin.Net.Clients
 
         #endregion
 
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            AccountApi.SetOptions(options);
-            FuturesApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -67,13 +60,6 @@ namespace BloFin.Net.Clients
         public static void SetDefaultOptions(Action<BloFinRestOptions> optionsDelegate)
         {
             BloFinRestOptions.Default = ApplyOptionsDelegate(optionsDelegate);
-        }
-
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials credentials)
-        {
-            AccountApi.SetApiCredentials(credentials);
-            FuturesApi.SetApiCredentials(credentials);
         }
     }
 }

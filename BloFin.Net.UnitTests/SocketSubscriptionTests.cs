@@ -1,6 +1,7 @@
 using BloFin.Net.Clients;
 using BloFin.Net.Objects.Models;
 using BloFin.Net.Objects.Options;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Testing;
 using Microsoft.Extensions.Logging;
@@ -39,7 +40,7 @@ namespace BloFin.Net.UnitTests
 
             var client = new BloFinSocketClient(Options.Create(new BloFinSocketOptions
             {
-                ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789"),
+                ApiCredentials = new BloFinCredentials("123", "456", "789"),
                 OutputOriginalData = true
             }), logger);
             var tester = new SocketSubscriptionValidator<BloFinSocketClient>(client, "Subscriptions/Futures", "wss://openapi.blofin.com");

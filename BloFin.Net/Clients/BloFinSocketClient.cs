@@ -12,7 +12,7 @@ using BloFin.Net.Clients.FuturesApi;
 namespace BloFin.Net.Clients
 {
     /// <inheritdoc cref="IBloFinSocketClient" />
-    public class BloFinSocketClient : BaseSocketClient, IBloFinSocketClient
+    public class BloFinSocketClient : BaseSocketClient<BloFinEnvironment, BloFinCredentials>, IBloFinSocketClient
     {
         #region fields
         #endregion
@@ -50,12 +50,6 @@ namespace BloFin.Net.Clients
         }
         #endregion
 
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            FuturesApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -63,12 +57,6 @@ namespace BloFin.Net.Clients
         public static void SetDefaultOptions(Action<BloFinSocketOptions> optionsDelegate)
         {
             BloFinSocketOptions.Default = ApplyOptionsDelegate(optionsDelegate);
-        }
-
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials credentials)
-        {            
-            FuturesApi.SetApiCredentials(credentials);
         }
     }
 }
