@@ -49,22 +49,40 @@ The NuGet package files are added along side the source with the latest GitHub r
 For accessing authenticated endpoints an API key is required. When creating an API key in the BloFin web interface select `Connect to Third-Party Application` and select `JKorf` as the application name. BloFin requires users to select the application they're using with the API key. Selecting a different application will not work with the library.
 
 ## How to use
-* REST Endpoints
-	```csharp
-	// Get the ETH/USDT ticker via rest request
-	var restClient = new BloFinRestClient();
-	var tickerResult = await restClient.FuturesApi.ExchangeData.GetTickersAsync("ETH-USDT");
-	var lastPrice = tickerResult.Data.FirstOrDefault()?.LastPrice;
-	```
-* Websocket streams
-	```csharp
-	// Subscribe to ETH/USDT ticker updates via the websocket API
-	var socketClient = new BloFinSocketClient();
-	var tickerSubscriptionResult = socketClient.FuturesApi.SubscribeToTickerUpdatesAsync("ETH-USDT", (update) => 
-	{
-	  var lastPrice = update.Data.LastPrice;
-	});
-	```
+*Basic request:*
+```csharp
+// Get the ETH/USDT ticker via rest request
+var restClient = new BloFinRestClient();
+var tickerResult = await restClient.FuturesApi.ExchangeData.GetTickersAsync("ETH-USDT");
+var lastPrice = tickerResult.Data.FirstOrDefault()?.LastPrice;
+```
+	
+*Place order:*
+```csharp
+var restClient = new BloFinRestClient(opts => {
+	opts.ApiCredentials = new BloFinCredentials("APIKEY", "APISECRET");
+});
+
+// Place Limit order to go long for 0.1 ETH at 2000
+var orderResult = await restClient.FuturesApi.Trading.PlaceOrderAsync(
+    "ETH-USDT",
+    OrderSide.Buy,
+    OrderType.Limit,
+    0.1m,
+    MarginMode.Cross,
+    2000,
+    positionSide: PositionSide.Long);
+```
+
+*WebSocket subscription:*
+```csharp
+// Subscribe to ETH/USDT ticker updates via the websocket API
+var socketClient = new BloFinSocketClient();
+var tickerSubscriptionResult = socketClient.FuturesApi.SubscribeToTickerUpdatesAsync("ETH-USDT", (update) => 
+{
+  var lastPrice = update.Data.LastPrice;
+});
+```
 
 For information on the clients, dependency injection, response processing and more see the [documentation](https://cryptoexchange.jkorf.dev/client-libs/getting-started), or have a look at the examples [here](https://github.com/JKorf/BloFin.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
