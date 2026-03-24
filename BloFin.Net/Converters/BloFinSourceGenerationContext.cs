@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace BloFin.Net.Converters
 {
+    [JsonSerializable(typeof(BloFinResponse<BloFinPositionTier[]>))]
     [JsonSerializable(typeof(BloFinResponse<BloFinPositionHistory[]>))]
     [JsonSerializable(typeof(BloFinResponse<BloFinIndexMarkKline[]>))]
     [JsonSerializable(typeof(BloFinResponse<BloFinKline[]>))]

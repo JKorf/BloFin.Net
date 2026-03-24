@@ -181,5 +181,20 @@ namespace BloFin.Net.Clients.FuturesApi
         }
 
         #endregion
+
+        #region Get Position Tiers
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BloFinPositionTier[]>> GetPositionTiersAsync(string symbol, MarginMode marginMode, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("instId", symbol);
+            parameters.AddEnum("marginMode", marginMode);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/position-tiers", BloFinExchange.RateLimiter.BloFinRest, 1, false);
+            var result = await _baseClient.SendAsync<BloFinPositionTier[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
     }
 }

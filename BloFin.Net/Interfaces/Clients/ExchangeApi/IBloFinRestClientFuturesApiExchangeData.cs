@@ -158,5 +158,19 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="limit">["<c>limit</c>"] Max number of results, max 1440</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BloFinIndexMarkKline[]>> GetMarkPriceKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get position tiers
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-position-tiers" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/market/position-tiers
+        /// </para>
+        /// </summary>
+        /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `BTC-USDT`</param>
+        /// <param name="marginMode">["<c>marginMode</c>"] Margin mode</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BloFinPositionTier[]>> GetPositionTiersAsync(string symbol, MarginMode marginMode, CancellationToken ct = default);
     }
 }
