@@ -7,6 +7,7 @@ using BloFin.Net.Objects.Internal;
 using CryptoExchange.Net.Clients;
 using System.Linq;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Default.Routing;
 
 namespace BloFin.Net.Objects.Sockets.Subscriptions
 {

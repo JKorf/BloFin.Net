@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Linq;
 using System;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Default.Routing;
 
 namespace BloFin.Net.Objects.Sockets
 {
