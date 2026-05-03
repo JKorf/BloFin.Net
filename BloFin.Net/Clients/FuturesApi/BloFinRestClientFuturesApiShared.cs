@@ -2,6 +2,7 @@ using BloFin.Net.Enums;
 using BloFin.Net.Interfaces.Clients.FuturesApi;
 using BloFin.Net.Objects.Models;
 using CryptoExchange.Net;
+using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
@@ -69,6 +70,15 @@ namespace BloFin.Net.Clients.FuturesApi
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var limit = request.Limit ?? 1440;
             var pageParams = Pagination.GetPaginationParameters(direction, limit, request.StartTime, request.EndTime ?? DateTime.UtcNow, pageRequest);
+
+            if (pageParams.StartTime != null)
+            {
+                // When requesting at a specific start time that is exactly on the kline boundary, the API doesn't return the candle starting at that time.
+                // To include that candle -1ms is added
+                var epochTime = DateTimeConverter.ConvertToMilliseconds(pageParams.StartTime);
+                if (epochTime % (int)interval == 0)
+                    pageParams.StartTime = pageParams.StartTime.Value.AddMilliseconds(-1);
+            }
 
             var result = await ExchangeData.GetKlinesAsync(
                 symbol,
