@@ -1,0 +1,60 @@
+---
+description: BloFin.Net API shape and examples
+globs: **/*
+alwaysApply: true
+---
+
+# BloFin.Net Rules
+
+Before making API-shape decisions, also read:
+
+- `CLAUDE.md` for the full repository-specific AI coding guide
+- `llms.txt` for concise BloFin.Net context
+- `llms-full.txt` for detailed endpoint routing, pitfalls and examples
+- `docs/ai-api-map.md` for intent-to-method mapping
+
+Use the real BloFin.Net structure:
+
+- `BloFinRestClient.AccountApi`
+- `BloFinRestClient.FuturesApi.ExchangeData`
+- `BloFinRestClient.FuturesApi.Account`
+- `BloFinRestClient.FuturesApi.Trading`
+- `BloFinSocketClient.FuturesApi`
+- `SharedClient` from `AccountApi` and `FuturesApi` where appropriate
+
+Do not generate Binance, Bitget, BitMart, BitMEX, Bitstamp, or Bitfinex client roots. There is no `ExchangeApi`, `SpotApi`, `UsdFuturesApi`, `SpotApiV3`, `FuturesApiV2`, `PerpetualFuturesApi`, or `CoinFuturesApi`.
+
+Credentials:
+
+```csharp
+options.ApiCredentials = new BloFinCredentials("API_KEY", "API_SECRET", "PASSPHRASE");
+```
+
+Symbols:
+
+- Futures example: `ETH-USDT`
+- Query `FuturesApi.ExchangeData.GetSymbolsAsync()` for exact symbols.
+
+Handle results:
+
+```csharp
+var result = await client.FuturesApi.ExchangeData.GetOrderBookAsync("ETH-USDT", 20);
+if (!result.Success)
+    return;
+
+var book = result.Data;
+```
+
+Common mappings:
+
+- Account balances: `AccountApi.GetAccountBalancesAsync(...)`
+- Futures symbols: `FuturesApi.ExchangeData.GetSymbolsAsync()`
+- Ticker: `FuturesApi.ExchangeData.GetTickersAsync(symbol)`
+- Klines: `FuturesApi.ExchangeData.GetKlinesAsync(symbol, KlineInterval.OneMinute, ...)`
+- Futures balances: `FuturesApi.Account.GetBalancesAsync()`
+- Place order: `FuturesApi.Trading.PlaceOrderAsync(...)`
+- Cancel order: `FuturesApi.Trading.CancelOrderAsync(orderId: ...)`
+- Open orders: `FuturesApi.Trading.GetOpenOrdersAsync(...)`
+- Positions: `FuturesApi.Trading.GetPositionsAsync(...)`
+- Public sockets: `socketClient.FuturesApi.SubscribeToTickerUpdatesAsync(...)`
+- Private sockets: `socketClient.FuturesApi.SubscribeToOrderUpdatesAsync(...)`

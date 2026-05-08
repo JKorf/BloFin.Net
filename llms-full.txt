@@ -1,0 +1,230 @@
+# BloFin.Net Full AI Reference
+
+This file is optimized for AI coding assistants. It maps the actual BloFin.Net API shape, options, endpoint groups, symbols and common implementation patterns.
+
+## Identity
+
+- Repository: `JKorf/BloFin.Net`
+- Package: `BloFin.Net`
+- Current project version: `2.10.3`
+- Base library: `CryptoExchange.Net`
+- REST client: `BloFinRestClient`
+- Socket client: `BloFinSocketClient`
+- Credentials: `BloFinCredentials(string key, string secret, string pass)`
+
+BloFin.Net is not a single `ExchangeApi` library. REST exposes `AccountApi` and `FuturesApi`; sockets expose `FuturesApi`.
+
+## Correct Setup
+
+```csharp
+using BloFin.Net;
+using BloFin.Net.Clients;
+using BloFin.Net.Enums;
+
+var restClient = new BloFinRestClient(options =>
+{
+    options.ApiCredentials = new BloFinCredentials("API_KEY", "API_SECRET", "PASSPHRASE");
+    options.Environment = BloFinEnvironment.Live;
+});
+
+var socketClient = new BloFinSocketClient(options =>
+{
+    options.ApiCredentials = new BloFinCredentials("API_KEY", "API_SECRET", "PASSPHRASE");
+});
+```
+
+## Options
+
+REST options:
+
+- `BloFinRestOptions.Environment`
+- `BloFinRestOptions.ApiCredentials`
+- `BloFinRestOptions.BrokerId`
+- `BloFinRestOptions.ExchangeOptions`
+
+Socket options:
+
+- `BloFinSocketOptions.Environment`
+- `BloFinSocketOptions.ApiCredentials`
+- `BloFinSocketOptions.SocketSubscriptionsCombineTarget`, default `10`
+- `BloFinSocketOptions.ExchangeOptions`
+
+Global defaults:
+
+```csharp
+BloFinRestClient.SetDefaultOptions(options =>
+{
+    options.ApiCredentials = new BloFinCredentials("API_KEY", "API_SECRET", "PASSPHRASE");
+});
+```
+
+Dependency injection is available through `services.AddBloFin(...)`.
+
+## REST API Map
+
+### AccountApi
+
+Use `restClient.AccountApi` for general account and asset transfer history:
+
+- `GetAccountBalancesAsync(accountType, asset)`
+- `TransferAsync(asset, fromAccount, toAccount, quantity, clientId)`
+- `GetAccountConfigAsync()`
+- `GetApiKeyInfoAsync()`
+- `GetTransferHistoryAsync(asset, fromAccount, toAccount, startTime, endTime, limit)`
+- `GetWithdrawalHistoryAsync(asset, withdrawId, transactionId, status, startTime, endTime, limit)`
+- `GetDepositHistoryAsync(asset, depositId, transactionId, status, startTime, endTime, limit)`
+- `SharedClient`
+
+### FuturesApi.ExchangeData
+
+Use `restClient.FuturesApi.ExchangeData` for public futures market data:
+
+- `GetSymbolsAsync(symbol)`
+- `GetTickersAsync(symbol)`
+- `GetOrderBookAsync(symbol, depth)`
+- `GetRecentTradesAsync(symbol, limit)`
+- `GetIndexMarkPriceAsync(symbol)`
+- `GetFundingRateAsync(symbol)`
+- `GetFundingRateHistoryAsync(symbol, startTime, endTime, limit)`
+- `GetKlinesAsync(symbol, KlineInterval.OneMinute, startTime, endTime, limit)`
+- `GetIndexPriceKlinesAsync(symbol, KlineInterval.OneMinute, startTime, endTime, limit)`
+- `GetMarkPriceKlinesAsync(symbol, KlineInterval.OneMinute, startTime, endTime, limit)`
+- `GetPositionTiersAsync(symbol, marginMode)`
+
+### FuturesApi.Account
+
+Use `restClient.FuturesApi.Account` for futures account configuration:
+
+- `GetBalancesAsync(productType)`
+- `GetMarginModeAsync()`
+- `SetMarginModeAsync(marginMode)`
+- `GetPositionModeAsync()`
+- `SetPositionModeAsync(positionMode)`
+- `GetLeverageAsync(symbol, marginMode)`
+- `SetLeverageAsync(symbol, leverage, marginMode, positionSide)`
+
+### FuturesApi.Trading
+
+Use `restClient.FuturesApi.Trading` for futures orders, positions and fills:
+
+- `GetPositionsAsync(symbol)`
+- `PlaceOrderAsync(symbol, side, orderType, quantity, marginMode, price, positionSide, reduceOnly, clientOrderId, takeProfitTriggerPrice, takeProfitOrderPrice, stopLossTriggerPrice, stopLossOrderPrice)`
+- `PlaceMultipleOrdersAsync(orders)`
+- `PlaceTpSlOrderAsync(symbol, orderSide, marginMode, quantity, positionSide, reduceOnly, clientOrderId, takeProfitTriggerPrice, takeProfitOrderPrice, stopLossTriggerPrice, stopLossOrderPrice)`
+- `PlaceTriggerOrderAsync(symbol, side, marginMode, triggerPrice, triggerPriceType, positionSide, quantity, clientOrderId, orderPrice, reduceOnly, slTpOrders)`
+- `CancelOrderAsync(orderId, symbol, clientOrderId)`
+- `CancelOrdersAsync(orders)`
+- `CancelTpSlOrdersAsync(orders)`
+- `CancelTriggerOrderAsync(orderId, symbol, clientOrderId)`
+- `GetOpenOrdersAsync(symbol, orderType, status, afterId, beforeId, limit)`
+- `GetOpenTpSlOrdersAsync(symbol, orderId, clientOrderId, afterId, beforeId, limit)`
+- `GetOpenTriggerOrdersAsync(symbol, orderId, clientOrderId, beforeId, afterId, limit)`
+- `ClosePositionAsync(symbol, marginMode, positionSide, clientOrderId)`
+- `GetOrderAsync(symbol, orderId, clientOrderId)`
+- `GetTpSlOrderAsync(symbol, orderId, clientOrderId)`
+- `GetClosedOrdersAsync(symbol, orderType, orderStatus, afterId, beforeId, startTime, endTime, limit)`
+- `GetClosedTpSlOrdersAsync(symbol, orderId, clientOrderId, status, afterId, beforeId, limit)`
+- `GetClosedTriggerOrdersAsync(symbol, orderId, clientOrderId, status, afterId, beforeId, limit)`
+- `GetUserTradesAsync(symbol, orderId, afterId, beforeId, startTime, endTime, limit)`
+- `GetPriceLimitsAsync(symbol, side)`
+- `GetPositionHistoryAsync(positionId, symbol, status, afterId, beforeId, startTime, endTime, limit)`
+
+## Websocket API Map
+
+Use `socketClient.FuturesApi`.
+
+Public subscriptions:
+
+- `SubscribeToTradeUpdatesAsync(symbol, onMessage)`
+- `SubscribeToKlineUpdatesAsync(symbol, KlineInterval.OneMinute, onMessage)`
+- `SubscribeToIndexPriceKlineUpdatesAsync(symbol, KlineInterval.OneMinute, onMessage)`
+- `SubscribeToMarkPriceKlineUpdatesAsync(symbol, KlineInterval.OneMinute, onMessage)`
+- `SubscribeToOrderBookUpdatesAsync(symbol, depth, onMessage)`
+- `SubscribeToTickerUpdatesAsync(symbol, onMessage)`
+- `SubscribeToFundingRateUpdatesAsync(symbol, onMessage)`
+
+Private subscriptions:
+
+- `SubscribeToPositionUpdatesAsync(onMessage)`
+- `SubscribeToOrderUpdatesAsync(onMessage)`
+- `SubscribeToTriggerOrderUpdatesAsync(onMessage)`
+- `SubscribeToBalanceUpdatesAsync(onMessage)`
+- `SubscribeToInverseBalanceUpdatesAsync(onMessage)`
+
+## Symbols
+
+BloFin futures symbols are hyphen-separated:
+
+- `BTC-USDT`
+- `ETH-USDT`
+
+Use:
+
+```csharp
+var symbols = await restClient.FuturesApi.ExchangeData.GetSymbolsAsync();
+var eth = symbols.Data.SingleOrDefault(x => x.Symbol == "ETH-USDT");
+```
+
+Avoid:
+
+```text
+ETHUSDT
+ETH_USDT
+ETH/USDT
+tETHUSD
+ExchangeApi
+SpotApiV3
+UsdFuturesApiV3
+FuturesApiV2
+```
+
+## Result Handling
+
+```csharp
+var result = await restClient.FuturesApi.ExchangeData.GetOrderBookAsync("ETH-USDT", 20);
+if (!result.Success)
+{
+    Console.WriteLine($"BloFin error: {result.Error}");
+    return;
+}
+
+Console.WriteLine(result.Data.Bids.Length);
+```
+
+For sockets:
+
+```csharp
+var sub = await socketClient.FuturesApi.SubscribeToTickerUpdatesAsync("ETH-USDT", update =>
+{
+    Console.WriteLine(update.Data.LastPrice);
+});
+
+if (!sub.Success)
+{
+    Console.WriteLine(sub.Error);
+    return;
+}
+
+await socketClient.UnsubscribeAsync(sub.Data);
+```
+
+## Known Nonexistent Patterns
+
+These are wrong for BloFin.Net:
+
+```csharp
+client.ExchangeApi.ExchangeData.GetTickerAsync("ETH-USDT");
+client.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
+client.UsdFuturesApi.Trading.PlaceOrderAsync(...);
+new BloFinCredentials("key", "secret");
+BinPeriod.OneMinute;
+```
+
+Use:
+
+```csharp
+client.FuturesApi.ExchangeData.GetTickersAsync("ETH-USDT");
+client.FuturesApi.Trading.PlaceOrderAsync("ETH-USDT", OrderSide.Buy, OrderType.Limit, 1m, MarginMode.Cross, 2000m);
+new BloFinCredentials("key", "secret", "passphrase");
+KlineInterval.OneMinute;
+```

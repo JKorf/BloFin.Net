@@ -1,0 +1,80 @@
+# BloFin.Net
+
+BloFin.Net is a CryptoExchange.Net-based .NET client for BloFin REST and websocket APIs.
+
+## Install
+
+```bash
+dotnet add package BloFin.Net
+```
+
+## Client Shape
+
+```csharp
+using BloFin.Net;
+using BloFin.Net.Clients;
+using BloFin.Net.Enums;
+
+var restClient = new BloFinRestClient(options =>
+{
+    options.ApiCredentials = new BloFinCredentials("API_KEY", "API_SECRET", "PASSPHRASE");
+});
+
+var socketClient = new BloFinSocketClient();
+```
+
+REST:
+
+- `restClient.AccountApi`
+- `restClient.FuturesApi.ExchangeData`
+- `restClient.FuturesApi.Account`
+- `restClient.FuturesApi.Trading`
+- `restClient.AccountApi.SharedClient`
+- `restClient.FuturesApi.SharedClient`
+
+Sockets:
+
+- `socketClient.FuturesApi`
+- `socketClient.FuturesApi.SharedClient`
+
+There is no `ExchangeApi`, `SpotApi`, `UsdFuturesApi`, `FuturesApiV2`, `SpotApiV3`, or credential overload without passphrase.
+
+## Common Calls
+
+```csharp
+var symbols = await restClient.FuturesApi.ExchangeData.GetSymbolsAsync();
+var ticker = await restClient.FuturesApi.ExchangeData.GetTickersAsync("ETH-USDT");
+var klines = await restClient.FuturesApi.ExchangeData.GetKlinesAsync("ETH-USDT", KlineInterval.OneMinute, limit: 100);
+var book = await restClient.FuturesApi.ExchangeData.GetOrderBookAsync("ETH-USDT", 20);
+var balances = await restClient.FuturesApi.Account.GetBalancesAsync();
+var openOrders = await restClient.FuturesApi.Trading.GetOpenOrdersAsync("ETH-USDT");
+```
+
+## Trading
+
+```csharp
+var order = await restClient.FuturesApi.Trading.PlaceOrderAsync(
+    symbol: "ETH-USDT",
+    side: OrderSide.Buy,
+    orderType: OrderType.Limit,
+    quantity: 1m,
+    marginMode: MarginMode.Cross,
+    price: 2000m,
+    positionSide: PositionSide.Long);
+```
+
+## Sockets
+
+```csharp
+var sub = await socketClient.FuturesApi.SubscribeToTickerUpdatesAsync("ETH-USDT", update =>
+{
+    Console.WriteLine(update.Data.LastPrice);
+});
+```
+
+## BloFin Details
+
+- Use BloFin-native futures symbols such as `ETH-USDT`.
+- Use `KlineInterval`, not `BinPeriod`.
+- Credentials are `BloFinCredentials(key, secret, passphrase)`.
+- Always check `result.Success` before reading `result.Data`.
