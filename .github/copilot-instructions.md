@@ -4,7 +4,7 @@ Generate code against the actual BloFin.Net client shape.
 
 Before making API-shape decisions, also read:
 
-- `CLAUDE.md` for the full repository-specific AI coding guide
+- `AGENTS.md` for the full repository-specific AI coding guide
 - `llms.txt` for concise BloFin.Net context
 - `llms-full.txt` for detailed endpoint routing, pitfalls and examples
 - `docs/ai-api-map.md` for intent-to-method mapping
