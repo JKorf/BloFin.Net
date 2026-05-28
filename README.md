@@ -1,6 +1,7 @@
 # ![BloFin.Net](https://raw.githubusercontent.com/JKorf/BloFin.Net/main/BloFin.Net/Icon/icon.png) BloFin.Net  
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/BloFin.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/BloFin.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/BloFin.Net?style=for-the-badge)
+![Since](https://img.shields.io/badge/since-2025-brightgreen?style=for-the-badge)
 
 BloFin.Net is a client library for accessing the [BloFin REST and Websocket API](https://docs.blofin.com/index.html). 
 
