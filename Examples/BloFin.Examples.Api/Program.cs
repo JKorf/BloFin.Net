@@ -1,3 +1,4 @@
+using BloFin.Net;
 using BloFin.Net.Interfaces.Clients;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ builder.Services.AddBloFin();
 /*
 builder.Services.AddBloFin(options =>
 {
-    options.ApiCredentials = new ApiCredentials("<APIKEY>", "<APISECRET>", "<APIPASS>");
+    options.ApiCredentials = new BloFinCredentials("<APIKEY>", "<APISECRET>", "<APIPASS>");
     options.Rest.RequestTimeout = TimeSpan.FromSeconds(5);
 });
 */
@@ -27,7 +28,13 @@ app.UseHttpsRedirection();
 app.MapGet("/{Symbol}", async ([FromServices] IBloFinRestClient client, string symbol) =>
 {
     var result = await client.FuturesApi.ExchangeData.GetTickersAsync(symbol);
-    return result.Data.SingleOrDefault()?.LastPrice;
+    if (!result.Success)
+        return Results.Problem(result.Error?.Message, statusCode: 502);
+
+    var ticker = result.Data.SingleOrDefault();
+    return ticker == null
+        ? Results.NotFound()
+        : Results.Ok(ticker.LastPrice);
 })
 .WithOpenApi();
 
@@ -35,7 +42,9 @@ app.MapGet("/{Symbol}", async ([FromServices] IBloFinRestClient client, string s
 app.MapGet("/Balances", async ([FromServices] IBloFinRestClient client) =>
 {
     var result = await client.FuturesApi.Account.GetBalancesAsync();
-    return (object)(result.Success ? result.Data : result.Error!);
+    return result.Success
+        ? Results.Ok(result.Data)
+        : Results.Problem(result.Error?.Message, statusCode: 502);
 })
 .WithOpenApi();
 
