@@ -18,7 +18,6 @@ namespace BloFin.Net.Clients.FuturesApi
     {
         private const string _topicId = "BloFinFutures";
         private const string _exchangeName = "BloFin";
-        public string Exchange => _exchangeName;
 
         public TradingMode[] SupportedTradingModes => new[] { TradingMode.PerpetualLinear, TradingMode.PerpetualInverse };
 
@@ -225,7 +224,7 @@ namespace BloFin.Net.Clients.FuturesApi
                     MaxShortLeverage = s.MaxLeverage
                 }).ToArray());
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, resultData.Data);
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, resultData.Data!);
             return resultData;
         }
 
@@ -571,7 +570,7 @@ namespace BloFin.Net.Clients.FuturesApi
                 return HttpResult.Fail<SharedFuturesOrder>(Exchange, validationError);
 
             var orders = await Trading.GetOpenOrdersAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
+                request.Symbol!.GetSymbol(FormatSymbol),
                 beforeId: (long.Parse(request.OrderId) + 1).ToString(),
                 ct: ct).ConfigureAwait(false);
             if (!orders.Success)
@@ -904,7 +903,7 @@ namespace BloFin.Net.Clients.FuturesApi
                 return HttpResult.Fail<SharedFuturesOrder>(Exchange, validationError);
 
             var orders = await Trading.GetOpenOrdersAsync(
-                request.Symbol.GetSymbol(FormatSymbol),
+                request.Symbol!.GetSymbol(FormatSymbol),
                 limit: 100,
                 ct: ct).ConfigureAwait(false);
             if (!orders.Success)
@@ -1018,7 +1017,7 @@ namespace BloFin.Net.Clients.FuturesApi
                     new BloFinCancelTpSlRequest
                     {
                         OrderId = request.OrderId,
-                        Symbol = request.Symbol.GetSymbol(FormatSymbol)
+                        Symbol = request.Symbol!.GetSymbol(FormatSymbol)
                     }
                 ],
                 ct: ct).ConfigureAwait(false);

@@ -15,8 +15,6 @@ namespace BloFin.Net.Clients.FuturesApi
     {
         private const string _topicId = "BloFinFutures";
         private const string _exchangeName = "BloFin";
-        public string Exchange => _exchangeName;
-
         public TradingMode[] SupportedTradingModes => new[] { TradingMode.PerpetualLinear, TradingMode.PerpetualInverse };
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);

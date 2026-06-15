@@ -13,8 +13,6 @@ namespace BloFin.Net.Clients.Apis
     internal partial class BloFinRestClientAccountApi : IBloFinRestClientAccountApiShared
     {
         private const string _exchangeName = "BloFin";
-        public string Exchange => _exchangeName;
-
         public TradingMode[] SupportedTradingModes => new[] { TradingMode.Spot };
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
