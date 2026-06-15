@@ -28,12 +28,12 @@ namespace BloFin.Net.Clients.FuturesApi
         #endregion
 
         #region constructor/destructor
-        internal BloFinRestClientFuturesApi(ILogger logger, HttpClient? httpClient, BloFinRestOptions options)
-            : base(logger, httpClient, options.Environment.RestClientAddress, options, options.ExchangeOptions)
+        internal BloFinRestClientFuturesApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, BloFinRestOptions options)
+            : base(loggerFactory, httpClient, options.Environment.RestClientAddress, options, options.ExchangeOptions)
         {
             Account = new BloFinRestClientFuturesApiAccount(this);
-            ExchangeData = new BloFinRestClientFuturesApiExchangeData(logger, this);
-            Trading = new BloFinRestClientFuturesApiTrading(logger, this);
+            ExchangeData = new BloFinRestClientFuturesApiExchangeData(_logger, this);
+            Trading = new BloFinRestClientFuturesApiTrading(_logger, this);
         }
         #endregion
 

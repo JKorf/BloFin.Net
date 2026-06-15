@@ -30,8 +30,8 @@ namespace BloFin.Net.Clients
         #endregion
 
         #region constructor/destructor
-        internal BloFinRestClientApi(ILogger logger, HttpClient? httpClient, string address, BloFinRestOptions options, RestApiOptions apiOptions)
-            : base(logger, httpClient, address, options, apiOptions)
+        internal BloFinRestClientApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, string address, BloFinRestOptions options, RestApiOptions apiOptions)
+            : base(loggerFactory, BloFinExchange.Metadata.Id, httpClient, address, options, apiOptions)
         {
         }
         #endregion
@@ -47,28 +47,20 @@ namespace BloFin.Net.Clients
         protected override BloFinAuthenticationProvider CreateAuthenticationProvider(BloFinCredentials credentials)
             => new BloFinAuthenticationProvider(credentials);
 
-        internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
-            => SendToAddressAsync(BaseAddress, definition, parameters, cancellationToken, weight);
-
-        internal async Task<WebCallResult> SendToAddressAsync(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
+        internal async Task<HttpResult<T>> SendAsync<T>(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
         {
-            var result = await base.SendAsync<BloFinResponse>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            var result = await base.SendAsync<BloFinResponse<T>>(definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<T>(result);
 
-            return result.AsDataless();
-        }
+            if (result.Data.Code != 0)
+                return HttpResult.Fail<T>(result, new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)), result.Data.Data);
 
-        internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
-            => SendToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight);
-
-        internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
-        {
-            var result = await base.SendAsync<BloFinResponse<T>>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
-
-            return result.As<T>(result.Data?.Data);
+            return HttpResult.Ok<T>(result, result.Data.Data);
         }
 
         /// <inheritdoc />
-        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+        protected override Task<HttpResult<DateTime>> GetServerTimestampAsync()
             => throw new NotImplementedException();
 
     }

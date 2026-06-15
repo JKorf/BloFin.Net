@@ -1,6 +1,7 @@
 using BloFin.Net.Interfaces.Clients;
 using BloFin.Net.Objects.Options;
 using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -10,18 +11,17 @@ using System.Net.Http;
 namespace BloFin.Net.Clients
 {
     /// <inheritdoc />
-    public class BloFinUserClientProvider : IBloFinUserClientProvider
+    public class BloFinUserClientProvider :  UserClientProvider<
+        IBloFinRestClient,
+        IBloFinSocketClient,
+        BloFinRestOptions,
+        BloFinSocketOptions,
+        BloFinCredentials,
+        BloFinEnvironment
+        >, IBloFinUserClientProvider
     {
-        private ConcurrentDictionary<string, IBloFinRestClient> _restClients = new ConcurrentDictionary<string, IBloFinRestClient>();
-        private ConcurrentDictionary<string, IBloFinSocketClient> _socketClients = new ConcurrentDictionary<string, IBloFinSocketClient>();
-        
-        private readonly IOptions<BloFinRestOptions> _restOptions;
-        private readonly IOptions<BloFinSocketOptions> _socketOptions;
-        private readonly HttpClient _httpClient;
-        private readonly ILoggerFactory? _loggerFactory;
-
         /// <inheritdoc />
-        public string ExchangeName => BloFinExchange.ExchangeName;
+        public override string ExchangeName => BloFinExchange.ExchangeName;
 
         /// <summary>
         /// ctor
@@ -39,98 +39,19 @@ namespace BloFin.Net.Clients
             HttpClient? httpClient,
             ILoggerFactory? loggerFactory,
             IOptions<BloFinRestOptions> restOptions,
-            IOptions<BloFinSocketOptions> socketOptions)
+            IOptions<BloFinSocketOptions> socketOptions): base(httpClient, loggerFactory, restOptions, socketOptions)
         {
-            _httpClient = httpClient ?? new HttpClient();
-            _httpClient.Timeout = restOptions.Value.RequestTimeout;
-            _loggerFactory = loggerFactory;
-            _restOptions = restOptions;
-            _socketOptions = socketOptions;
         }
 
         /// <inheritdoc />
-        public void InitializeUserClient(string userIdentifier, BloFinCredentials credentials, BloFinEnvironment? environment = null)
-        {
-            CreateRestClient(userIdentifier, credentials, environment);
-            CreateSocketClient(userIdentifier, credentials, environment);
-        }
+        protected override IBloFinRestClient ConstructRestClient(
+            HttpClient client,
+            ILoggerFactory? loggerFactory, 
+            IOptions<BloFinRestOptions> options) => new BloFinRestClient(client, loggerFactory, options);
 
         /// <inheritdoc />
-        public void ClearUserClients(string userIdentifier)
-        {
-            _restClients.TryRemove(userIdentifier, out _);
-            _socketClients.TryRemove(userIdentifier, out _);
-        }
-
-        /// <inheritdoc />
-        public IBloFinRestClient GetRestClient(string userIdentifier, BloFinCredentials? credentials = null, BloFinEnvironment? environment = null)
-        {
-            if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
-                client = CreateRestClient(userIdentifier, credentials, environment);
-
-            return client;
-        }
-
-        /// <inheritdoc />
-        public IBloFinSocketClient GetSocketClient(string userIdentifier, BloFinCredentials? credentials = null, BloFinEnvironment? environment = null)
-        {
-            if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
-                client = CreateSocketClient(userIdentifier, credentials, environment);
-
-            return client;
-        }
-
-        private IBloFinRestClient CreateRestClient(string userIdentifier, BloFinCredentials? credentials, BloFinEnvironment? environment)
-        {
-            var clientRestOptions = SetRestEnvironment(environment);
-            var client = new BloFinRestClient(_httpClient, _loggerFactory, clientRestOptions);
-            if (credentials != null)
-            {
-                client.SetApiCredentials(credentials);
-                _restClients[userIdentifier] = client;
-            }
-            return client;
-        }
-
-        private IBloFinSocketClient CreateSocketClient(string userIdentifier, BloFinCredentials? credentials, BloFinEnvironment? environment)
-        {
-            var clientSocketOptions = SetSocketEnvironment(environment);
-            var client = new BloFinSocketClient(clientSocketOptions!, _loggerFactory);
-            if (credentials != null)
-            {
-                client.SetApiCredentials(credentials);
-                _socketClients[userIdentifier] = client;
-            }
-            return client;
-        }
-
-        private IOptions<BloFinRestOptions> SetRestEnvironment(BloFinEnvironment? environment)
-        {
-            if (environment == null)
-                return _restOptions;
-
-            var newRestClientOptions = new BloFinRestOptions();
-            var restOptions = _restOptions.Value.Set(newRestClientOptions);
-            newRestClientOptions.Environment = environment;
-            return Options.Create(newRestClientOptions);
-        }
-
-        private IOptions<BloFinSocketOptions> SetSocketEnvironment(BloFinEnvironment? environment)
-        {
-            if (environment == null)
-                return _socketOptions;
-
-            var newSocketClientOptions = new BloFinSocketOptions();
-            var restOptions = _socketOptions.Value.Set(newSocketClientOptions);
-            newSocketClientOptions.Environment = environment;
-            return Options.Create(newSocketClientOptions);
-        }
-
-        private static T ApplyOptionsDelegate<T>(Action<T>? del) where T : new()
-        {
-            var opts = new T();
-            del?.Invoke(opts);
-            return opts;
-        }
+        protected override IBloFinSocketClient ConstructSocketClient(
+            ILoggerFactory? loggerFactory,
+            IOptions<BloFinSocketOptions> options) => new BloFinSocketClient(options, loggerFactory);
     }
 }

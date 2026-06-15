@@ -23,15 +23,15 @@ namespace BloFin.Net.Objects.Sockets
                 "login"
             };
 
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<BloFinSocketResponse>(listenList, HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<BloFinSocketResponse>(listenList, HandleMessage);
         }
 
         public CallResult<BloFinSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BloFinSocketResponse message)
         {
             if (message.Code != 0)
-                return new CallResult<BloFinSocketResponse>(new ServerError(message.Code, _client.GetErrorInfo(message.Code, message.Message)), originalData);
+                return CallResult<BloFinSocketResponse>.Fail(new ServerError(message.Code, _client.GetErrorInfo(message.Code, message.Message)), originalData);
 
-            return new CallResult<BloFinSocketResponse>(message, originalData, null);
+            return CallResult<BloFinSocketResponse>.Ok(message, originalData);
         }
     }
 }

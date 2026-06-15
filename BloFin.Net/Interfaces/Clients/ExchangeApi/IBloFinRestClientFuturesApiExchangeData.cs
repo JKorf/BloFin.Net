@@ -23,7 +23,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>isntId</c>"] Filter by symbol, for example `BTC-USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinSymbol[]>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinSymbol[]>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get price ticker info
@@ -36,7 +36,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>instId</c>"] Filter by symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinTicker[]>> GetTickersAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinTicker[]>> GetTickersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the order book for a symbol
@@ -50,7 +50,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
         /// <param name="depth">["<c>size</c>"] The depth of the book, max 100</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinOrderBook>> GetOrderBookAsync(string symbol, int? depth = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinOrderBook>> GetOrderBookAsync(string symbol, int? depth = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get recent trades
@@ -64,7 +64,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
         /// <param name="limit">["<c>limit</c>"] Number of results, max 100</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinTrade[]>> GetRecentTradesAsync(string symbol, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinTrade[]>> GetRecentTradesAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get index and mark price for a symbol
@@ -77,7 +77,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinMarkIndexPrice>> GetIndexMarkPriceAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BloFinMarkIndexPrice>> GetIndexMarkPriceAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get funding rate info
@@ -90,7 +90,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BloFinFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get funding rate history
@@ -106,7 +106,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="endTime">["<c>after</c>"] Filter by end time</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results, max 100</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinFundingRate[]>> GetFundingRateHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinFundingRate[]>> GetFundingRateHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get Kline data for a symbol
@@ -123,7 +123,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="endTime">["<c>after</c>"] Filter by end time</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results, max 1440</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinKline[]>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinKline[]>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get index price Kline data for a symbol
@@ -140,7 +140,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="endTime">["<c>after</c>"] Filter by end time</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results, max 1440</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinIndexMarkKline[]>> GetIndexPriceKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinIndexMarkKline[]>> GetIndexPriceKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get mark price Kline data for a symbol
@@ -157,7 +157,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="endTime">["<c>after</c>"] Filter by end time</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results, max 1440</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinIndexMarkKline[]>> GetMarkPriceKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinIndexMarkKline[]>> GetMarkPriceKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get position tiers
@@ -171,6 +171,6 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>symbol</c>"] Symbol, for example `BTC-USDT`</param>
         /// <param name="marginMode">["<c>marginMode</c>"] Margin mode</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinPositionTier[]>> GetPositionTiersAsync(string symbol, MarginMode marginMode, CancellationToken ct = default);
+        Task<HttpResult<BloFinPositionTier[]>> GetPositionTiersAsync(string symbol, MarginMode marginMode, CancellationToken ct = default);
     }
 }

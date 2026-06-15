@@ -46,7 +46,7 @@ namespace BloFin.Net.Clients
         {
             Initialize(options.Value);
 
-            FuturesApi = AddApiClient(new BloFinSocketClientFuturesApi(_logger, options.Value));
+            FuturesApi = AddApiClient(new BloFinSocketClientFuturesApi(loggerFactory, options.Value));
         }
         #endregion
 
