@@ -25,7 +25,7 @@ namespace BloFin.Net.UnitTests
                 OutputOriginalData = true
             }), logger);
 
-            var tester = new SocketSubscriptionValidator<BloFinSocketClient>(client, "Subscriptions/Futures", "wss://ws.bitmex.com/");
+            var tester = new SocketSubscriptionValidator<BloFinSocketClient>(client, "Subscriptions/Futures", "wss://openapi.blofin.com/ws/public");
             await tester.ValidateConcurrentAsync<BloFinKline>(
                 (client, handler) => client.FuturesApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneDay, handler),
                 (client, handler) => client.FuturesApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneHour, handler),
