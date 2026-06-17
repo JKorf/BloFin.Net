@@ -22,7 +22,6 @@ namespace BloFin.Net
             string? userIdentifier,
             FuturesUserDataTrackerConfig? config) : base(logger,
                 restClient.FuturesApi.SharedClient,
-                null,
                 restClient.FuturesApi.SharedClient,
                 socketClient.FuturesApi.SharedClient,
                 restClient.FuturesApi.SharedClient,
