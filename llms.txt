@@ -39,6 +39,8 @@ Sockets:
 
 There is no `ExchangeApi`, `SpotApi`, `UsdFuturesApi`, `FuturesApiV2`, `SpotApiV3`, or credential overload without passphrase.
 
+REST calls return `HttpResult<T>` or `HttpResult`. WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers return `ExchangeCallResult<T>`. Always check `.Success` before reading `.Data`.
+
 ## Common Calls
 
 ```csharp
@@ -72,9 +74,21 @@ var sub = await socketClient.FuturesApi.SubscribeToTickerUpdatesAsync("ETH-USDT"
 });
 ```
 
+## Shared Clients
+
+```csharp
+using CryptoExchange.Net.SharedApis;
+
+var futuresShared = restClient.FuturesApi.SharedClient;
+var info = futuresShared.Discover();
+var supported = info.Features.Where(x => x.Supported).Select(x => x.EndpointName);
+Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supported)}");
+```
+
+Use `.Discover()` before routing optional shared features across exchanges.
+
 ## BloFin Details
 
 - Use BloFin-native futures symbols such as `ETH-USDT`.
 - Use `KlineInterval`, not `BinPeriod`.
 - Credentials are `BloFinCredentials(key, secret, passphrase)`.
-- Always check `result.Success` before reading `result.Data`.

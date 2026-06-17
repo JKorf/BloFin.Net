@@ -15,6 +15,7 @@ This map helps AI assistants route common user intents to the actual BloFin.Net 
 | Futures websocket subscriptions | `socketClient.FuturesApi` |
 | Shared REST abstraction | `restClient.AccountApi.SharedClient` / `restClient.FuturesApi.SharedClient` |
 | Shared socket abstraction | `socketClient.FuturesApi.SharedClient` |
+| Shared capability discovery | `restClient.AccountApi.SharedClient.Discover()` / `restClient.FuturesApi.SharedClient.Discover()` / `socketClient.FuturesApi.SharedClient.Discover()` |
 
 ## AccountApi
 
@@ -89,6 +90,18 @@ This map helps AI assistants route common user intents to the actual BloFin.Net 
 | Private orders | `SubscribeToOrderUpdatesAsync(...)` |
 | Private trigger orders | `SubscribeToTriggerOrderUpdatesAsync(...)` |
 | Private balances | `SubscribeToBalanceUpdatesAsync(...)` |
+
+## Shared API Result Handling
+
+| Situation | Pattern |
+| --- | --- |
+| REST success check | `if (!result.Success) { Console.WriteLine(result.Error); return; }` |
+| Socket subscription success check | `WebSocketResult<UpdateSubscription> sub = await ...; if (!sub.Success) { Console.WriteLine(sub.Error); return; }` |
+| Read REST data | Read `result.Data` only after `result.Success` |
+| Shared helper data | Read `ExchangeCallResult<T>.Data` only after `result.Success` |
+| Capability discovery | Call `.Discover()` on a shared client and inspect `Features.Where(x => x.Supported)` |
+
+Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers such as symbol support checks return `ExchangeCallResult<T>`.
 
 ## Avoid / Replace
 
