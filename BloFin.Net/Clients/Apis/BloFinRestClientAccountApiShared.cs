@@ -1,5 +1,6 @@
 using BloFin.Net.Enums;
 using BloFin.Net.Interfaces.Clients.AccountApi;
+using BloFin.Net.Objects.Models;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.SharedApis;
@@ -57,7 +58,8 @@ namespace BloFin.Net.Clients.Apis
                                 x.Address,
                                 x.Quantity, 
                                 x.Status == WithdrawalStatus.Success,
-                                x.Timestamp)
+                                x.Timestamp,
+                                GetWithdrawalStatus(x))
                             {
                                 Network = x.Network,
                                 Tag = x.Tag,
@@ -66,6 +68,20 @@ namespace BloFin.Net.Clients.Apis
                                 Id = x.WithdrawId
                             })
                        .ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus GetWithdrawalStatus(BloFinWithdrawal x)
+        {
+            if (x.Status == WithdrawalStatus.Canceled || x.Status == WithdrawalStatus.Failed)
+                return SharedTransferStatus.Failed;
+
+            if (x.Status == WithdrawalStatus.Success)
+                return SharedTransferStatus.Completed;
+
+            if (x.Status == WithdrawalStatus.WaitingReview || x.Status == WithdrawalStatus.Kyt || x.Status == WithdrawalStatus.Processing)
+                return SharedTransferStatus.InProgress;
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion
