@@ -27,7 +27,8 @@ namespace BloFin.Net
                 "https://blofin.com/",
                 ["https://docs.blofin.com"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                BloFinEnvironment.All
                 );
 
         /// <summary>
