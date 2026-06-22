@@ -424,7 +424,12 @@ namespace BloFin.Net.Clients.FuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedBalance[]>(result);
 
-            return HttpResult.Ok(result, result.Data.Details.Select(x => new SharedBalance(x.Asset, x.Available, x.Balance)).ToArray());
+            return HttpResult.Ok(result, result.Data.Details.Select(x => 
+                new SharedBalance(
+                    SupportedTradingModes,
+                    x.Asset,
+                    x.Available,
+                    x.Balance)).ToArray());
         }
 
         #endregion

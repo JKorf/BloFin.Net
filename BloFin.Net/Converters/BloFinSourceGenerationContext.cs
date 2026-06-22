@@ -1,5 +1,6 @@
 using BloFin.Net.Objects.Internal;
 using BloFin.Net.Objects.Models;
+using CryptoExchange.Net.Objects;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
@@ -78,6 +79,8 @@ namespace BloFin.Net.Converters
     [JsonSerializable(typeof(decimal?))]
     [JsonSerializable(typeof(DateTime))]
     [JsonSerializable(typeof(DateTime?))]
+    [JsonSerializable(typeof(Parameters))]
+    [JsonSerializable(typeof(Parameters[]))]
     internal partial class BloFinSourceGenerationContext : JsonSerializerContext
     {
     }

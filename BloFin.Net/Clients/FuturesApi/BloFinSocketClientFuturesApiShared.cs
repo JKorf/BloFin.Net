@@ -142,7 +142,12 @@ namespace BloFin.Net.Clients.FuturesApi
                 if (update.UpdateType == SocketUpdateType.Snapshot)
                     return;
 
-                handler(update.ToType(update.Data.Details.Select(x => new SharedBalance(x.Asset, x.Available, x.Balance)).ToArray()));
+                handler(update.ToType(update.Data.Details.Select(x => 
+                    new SharedBalance(
+                        SupportedTradingModes, 
+                        x.Asset,
+                        x.Available,
+                        x.Balance)).ToArray()));
             },
             ct: ct).ConfigureAwait(false);
 
