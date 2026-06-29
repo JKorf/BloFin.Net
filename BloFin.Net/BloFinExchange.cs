@@ -27,7 +27,8 @@ namespace BloFin.Net
                 "https://blofin.com/",
                 ["https://docs.blofin.com"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                BloFinEnvironment.All
                 );
 
         /// <summary>
@@ -63,6 +64,10 @@ namespace BloFin.Net
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
         internal static JsonSerializerOptions _serializerContext = SerializerOptions.WithConverters(JsonSerializerContextCache.GetOrCreate<BloFinSourceGenerationContext>());
+        internal static ParameterSerializationSettings _parameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Decimal = DecimalSerialization.String
+        };
 
         /// <summary>
         /// Aliases for BloFin assets
@@ -93,7 +98,7 @@ namespace BloFin.Net
         /// <summary>
         /// Rate limiter configuration for the BloFin API
         /// </summary>
-        public static BloFinRateLimiters RateLimiter { get; } = new BloFinRateLimiters();
+        public static BloFinRateLimiters RateLimiter { get; set; } = new BloFinRateLimiters();
     }
 
     /// <summary>
@@ -111,13 +116,19 @@ namespace BloFin.Net
         public event Action<RateLimitUpdateEvent> RateLimitUpdated;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        internal BloFinRateLimiters()
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public BloFinRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             Initialize();
         }
 
-        private void Initialize()
+        /// <summary>
+        /// Initialize the rate limits
+        /// </summary>
+        protected virtual void Initialize()
         {
             BloFinRest = new RateLimitGate("BloFin")
                 .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, [], 500, TimeSpan.FromMinutes(1), RateLimitWindowType.Sliding, connectionWeight: 0)) // 500 requests per IP per minute

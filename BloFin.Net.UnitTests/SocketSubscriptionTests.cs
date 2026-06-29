@@ -25,7 +25,7 @@ namespace BloFin.Net.UnitTests
                 OutputOriginalData = true
             }), logger);
 
-            var tester = new SocketSubscriptionValidator<BloFinSocketClient>(client, "Subscriptions/Futures", "wss://ws.bitmex.com/");
+            var tester = new SocketSubscriptionValidator<BloFinSocketClient>(client, "Subscriptions/Futures", "wss://openapi.blofin.com/ws/public");
             await tester.ValidateConcurrentAsync<BloFinKline>(
                 (client, handler) => client.FuturesApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneDay, handler),
                 (client, handler) => client.FuturesApi.SubscribeToKlineUpdatesAsync("ETH-USDT", Enums.KlineInterval.OneHour, handler),
@@ -51,7 +51,7 @@ namespace BloFin.Net.UnitTests
             await tester.ValidateAsync<BloFinOrderBookUpdate>((client, handler) => client.FuturesApi.SubscribeToOrderBookUpdatesAsync("ETH-USDT", 5, handler), "OrderBook", nestedJsonProperty: "data");
             await tester.ValidateAsync<BloFinTicker>((client, handler) => client.FuturesApi.SubscribeToTickerUpdatesAsync("ETH-USDT", handler), "Ticker", useFirstUpdateItem: true, nestedJsonProperty: "data");
             await tester.ValidateAsync<BloFinFundingRate>((client, handler) => client.FuturesApi.SubscribeToFundingRateUpdatesAsync("ETH-USDT", handler), "FundingRate", useFirstUpdateItem: true, nestedJsonProperty: "data");
-            
+
             await tester.ValidateAsync<BloFinPosition[]>((client, handler) => client.FuturesApi.SubscribeToPositionUpdatesAsync(handler), "Positions", nestedJsonProperty: "data");
             await tester.ValidateAsync<BloFinPosition[]>((client, handler) => client.FuturesApi.SubscribeToPositionUpdatesAsync(handler), "Positions2", nestedJsonProperty: "data");
             await tester.ValidateAsync<BloFinOrder[]>((client, handler) => client.FuturesApi.SubscribeToOrderUpdatesAsync(handler), "Orders", nestedJsonProperty: "data");

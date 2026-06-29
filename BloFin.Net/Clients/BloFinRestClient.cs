@@ -47,8 +47,8 @@ namespace BloFin.Net.Clients
         {
             Initialize(options.Value);
                         
-            AccountApi = AddApiClient(new BloFinRestClientAccountApi(_logger, httpClient, options.Value));
-            FuturesApi = AddApiClient(new BloFinRestClientFuturesApi(_logger, httpClient, options.Value));
+            AccountApi = AddApiClient(new BloFinRestClientAccountApi(loggerFactory, httpClient, options.Value));
+            FuturesApi = AddApiClient(new BloFinRestClientFuturesApi(loggerFactory, httpClient, options.Value));
         }
 
         #endregion

@@ -23,7 +23,7 @@ namespace BloFin.Net
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration requestConfig)
         {
-            if (!requestConfig.Authenticated)
+            if (!requestConfig.RequestDefinition.Authenticated)
                 return;
 
             var timestamp = GetMillisecondTimestamp(apiClient);
@@ -33,11 +33,11 @@ namespace BloFin.Net
             if (requestConfig.ParameterPosition == HttpMethodParameterPosition.InUri)
                 requestConfig.SetQueryString(query);
 
-            var body = requestConfig.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, requestConfig.BodyParameters ?? new Dictionary<string, object>()) : "";
+            var body = requestConfig.ParameterPosition == HttpMethodParameterPosition.InBody ? GetSerializedBody(_serializer, requestConfig.BodyParameters ?? new Parameters(BloFinExchange._parameterSerializationSettings)) : "";
             if (requestConfig.ParameterPosition == HttpMethodParameterPosition.InBody)
                 requestConfig.SetBodyContent(body);
 
-            var signStr = $"{requestConfig.Path}{query}{requestConfig.Method}{timestamp}{nonce}{body}";
+            var signStr = $"{requestConfig.RequestDefinition.Path}{query}{requestConfig.RequestDefinition.Method}{timestamp}{nonce}{body}";
             var sign = SignHMACSHA256(signStr, SignOutputType.Hex).ToLowerInvariant();
             sign = Convert.ToBase64String(Encoding.UTF8.GetBytes(sign));
 

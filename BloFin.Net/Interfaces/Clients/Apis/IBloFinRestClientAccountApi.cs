@@ -28,7 +28,7 @@ namespace BloFin.Net.Interfaces.Clients.Apis
         /// <param name="accountType">["<c>accountType</c>"] Account type</param>
         /// <param name="asset">["<c>currency</c>"] Filter by asset</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinBalance[]>> GetAccountBalancesAsync(AccountType accountType, string? asset = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinBalance[]>> GetAccountBalancesAsync(AccountType accountType, string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer asset between account types
@@ -45,7 +45,7 @@ namespace BloFin.Net.Interfaces.Clients.Apis
         /// <param name="quantity">["<c>amount</c>"] Quantity to transfer</param>
         /// <param name="clientId">["<c>clientId</c>"] Client transfer id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinTransferResult>> TransferAsync(string asset, AccountType fromAccount, AccountType toAccount, decimal quantity, string? clientId = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinTransferResult>> TransferAsync(string asset, AccountType fromAccount, AccountType toAccount, decimal quantity, string? clientId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get account config
@@ -57,7 +57,7 @@ namespace BloFin.Net.Interfaces.Clients.Apis
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinAccountConfig>> GetAccountConfigAsync(CancellationToken ct = default);
+        Task<HttpResult<BloFinAccountConfig>> GetAccountConfigAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get API key info
@@ -69,7 +69,7 @@ namespace BloFin.Net.Interfaces.Clients.Apis
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinApiKey>> GetApiKeyInfoAsync(CancellationToken ct = default);
+        Task<HttpResult<BloFinApiKey>> GetApiKeyInfoAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get transfer history
@@ -87,7 +87,7 @@ namespace BloFin.Net.Interfaces.Clients.Apis
         /// <param name="endTime">["<c>after</c>"] Filter by end time</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinTransfer[]>> GetTransferHistoryAsync(string? asset = null, AccountType? fromAccount = null, AccountType? toAccount = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinTransfer[]>> GetTransferHistoryAsync(string? asset = null, AccountType? fromAccount = null, AccountType? toAccount = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get withdrawal history
@@ -106,7 +106,7 @@ namespace BloFin.Net.Interfaces.Clients.Apis
         /// <param name="endTime">["<c>after</c>"] Filter by end time</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinWithdrawal[]>> GetWithdrawalHistoryAsync(string? asset = null, string? withdrawId = null, string? transactionId = null, WithdrawalStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinWithdrawal[]>> GetWithdrawalHistoryAsync(string? asset = null, string? withdrawId = null, string? transactionId = null, WithdrawalStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit history
@@ -125,7 +125,7 @@ namespace BloFin.Net.Interfaces.Clients.Apis
         /// <param name="endTime">["<c>after</c>"] Filter by end time</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinDeposit[]>> GetDepositHistoryAsync(string? asset = null, string? depositId = null, string? transactionId = null, DepositStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinDeposit[]>> GetDepositHistoryAsync(string? asset = null, string? depositId = null, string? transactionId = null, DepositStatus? status = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.

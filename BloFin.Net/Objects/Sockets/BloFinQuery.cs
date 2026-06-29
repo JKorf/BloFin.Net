@@ -28,7 +28,7 @@ namespace BloFin.Net.Objects.Sockets
             _topic = request.Parameters.First()["channel"]!;
 
             var routes = new List<MessageRoute>();
-            routes.Add(MessageRoute<BloFinSocketResponse>.CreateWithoutTopicFilter("error", HandleError, true));
+            routes.Add(MessageRoute.CreateForQuery<BloFinSocketResponse>("error", HandleError, true));
             foreach (var param in request.Parameters)
             {
                 if (param.TryGetValue("instId", out var symbol))
@@ -44,7 +44,7 @@ namespace BloFin.Net.Objects.Sockets
                     listenKey += symbol;
                 listenList.Add(listenKey);
 
-                routes.Add(MessageRoute<BloFinSocketResponse>.CreateWithOptionalTopicFilter(request.Operation + param["channel"], symbol, HandleMessage));
+                routes.Add(MessageRoute.CreateForQuery<BloFinSocketResponse>(request.Operation + param["channel"], symbol, HandleMessage));
             }
 
             RequiredResponses = request.Parameters.Length;
@@ -56,9 +56,9 @@ namespace BloFin.Net.Objects.Sockets
         public CallResult<BloFinSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BloFinSocketResponse message)
         {
             if (message.Code != 0)
-                return new CallResult<BloFinSocketResponse>(new ServerError(message.Code, _client.GetErrorInfo(message.Code, message.Message)), originalData);
+                return CallResult<BloFinSocketResponse>.Fail(new ServerError(message.Code, _client.GetErrorInfo(message.Code, message.Message)), originalData);
 
-            return new CallResult<BloFinSocketResponse>(message, originalData, null);
+            return CallResult<BloFinSocketResponse>.Ok(message, originalData);
         }
 
         public CallResult<BloFinSocketResponse>? HandleError(SocketConnection connection, DateTime receiveTime, string? originalData, BloFinSocketResponse message)
@@ -71,7 +71,7 @@ namespace BloFin.Net.Objects.Sockets
 
             // Check if the error response is for this query, we have to parse the original send request to see if it's this one
             if (!message.Message!.StartsWith("Invalid request: "))
-                return new CallResult<BloFinSocketResponse>(message);
+                return CallResult<BloFinSocketResponse>.Ok(message, originalData);
 
             var requestData = message.Message.Substring(17);
 #pragma warning disable IL2026 // Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code
@@ -84,7 +84,7 @@ namespace BloFin.Net.Objects.Sockets
             {
                 // If this is an error response we only get this response
                 RequiredResponses = 1;
-                return new CallResult<BloFinSocketResponse>(new ServerError(message.Code, _client.GetErrorInfo(message.Code, message.Message)));
+                return CallResult.Fail<BloFinSocketResponse>(new ServerError(message.Code, _client.GetErrorInfo(message.Code, message.Message)), originalData);
             }
 
             return null;

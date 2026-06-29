@@ -6,6 +6,7 @@
 
 using BloFin.Net;
 using BloFin.Net.Clients;
+using CryptoExchange.Net.SharedApis;
 
 var client = new BloFinRestClient(options =>
 {
@@ -15,9 +16,16 @@ var client = new BloFinRestClient(options =>
 var accountShared = client.AccountApi.SharedClient;
 var futuresShared = client.FuturesApi.SharedClient;
 
-Console.WriteLine($"Account shared exchange: {accountShared.Exchange}");
-Console.WriteLine($"Futures shared exchange: {futuresShared.Exchange}");
-Console.WriteLine($"Futures trading modes: {string.Join(", ", futuresShared.SupportedTradingModes)}");
+var accountInfo = accountShared.Discover();
+var futuresInfo = futuresShared.Discover();
+var supportedFuturesFeatures = futuresInfo.Features
+    .Where(x => x.Supported)
+    .Select(x => x.EndpointName);
+
+Console.WriteLine($"Account shared exchange: {accountInfo.Exchange}");
+Console.WriteLine($"Futures shared exchange: {futuresInfo.Exchange}");
+Console.WriteLine($"Futures trading modes: {string.Join(", ", futuresInfo.SupportedTradingModes)}");
+Console.WriteLine($"Futures shared features: {string.Join(", ", supportedFuturesFeatures)}");
 
 // Native BloFin endpoints remain available beside the shared abstractions.
 var nativeSymbols = await client.FuturesApi.ExchangeData.GetSymbolsAsync();

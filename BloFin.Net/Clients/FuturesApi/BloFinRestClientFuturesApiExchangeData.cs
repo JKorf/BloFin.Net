@@ -25,11 +25,11 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Symbols
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinSymbol[]>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinSymbol[]>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddOptional("instId", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/instruments", BloFinExchange.RateLimiter.BloFinRest, 1, false);
+            var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
+            parameters.Add("instId", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/market/instruments", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             return await _baseClient.SendAsync<BloFinSymbol[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
@@ -38,11 +38,11 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Tickers
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinTicker[]>> GetTickersAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinTicker[]>> GetTickersAsync(string? symbol = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddOptional("instId", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/tickers", BloFinExchange.RateLimiter.BloFinRest, 1, false);
+            var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
+            parameters.Add("instId", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/market/tickers", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinTicker[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -52,14 +52,17 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Order Book
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinOrderBook>> GetOrderBookAsync(string symbol, int? depth = null, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinOrderBook>> GetOrderBookAsync(string symbol, int? depth = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
             parameters.Add("instId", symbol);
-            parameters.AddOptional("size", depth);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/books", BloFinExchange.RateLimiter.BloFinRest, 1, false);
+            parameters.Add("size", depth);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/market/books", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinOrderBook[]>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<BloFinOrderBook>(result.Data?.Single());
+            if (!result.Success)
+                return HttpResult.Fail<BloFinOrderBook>(result);
+
+            return HttpResult.Ok(result, result.Data.Single());
         }
 
         #endregion
@@ -67,12 +70,12 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Recent Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinTrade[]>> GetRecentTradesAsync(string symbol, int? limit = null, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinTrade[]>> GetRecentTradesAsync(string symbol, int? limit = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
             parameters.Add("instId", symbol);
-            parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/trades", BloFinExchange.RateLimiter.BloFinRest, 1, false);
+            parameters.Add("limit", limit);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/market/trades", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinTrade[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -82,13 +85,16 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Index Mark Price
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinMarkIndexPrice>> GetIndexMarkPriceAsync(string symbol, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinMarkIndexPrice>> GetIndexMarkPriceAsync(string symbol, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
             parameters.Add("instId", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/mark-price", BloFinExchange.RateLimiter.BloFinRest, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/market/mark-price", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinMarkIndexPrice[]>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<BloFinMarkIndexPrice>(result.Data?.Single());
+            if (!result.Success)
+                return HttpResult.Fail<BloFinMarkIndexPrice>(result);
+
+            return HttpResult.Ok(result, result.Data.Single());
         }
 
         #endregion
@@ -96,13 +102,16 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Funding Rate
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
             parameters.Add("instId", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/funding-rate", BloFinExchange.RateLimiter.BloFinRest, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/market/funding-rate", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinFundingRate[]>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<BloFinFundingRate>(result.Data?.Single());
+            if (!result.Success)
+                return HttpResult.Fail<BloFinFundingRate>(result);
+
+            return HttpResult.Ok(result, result.Data.Single());
         }
 
         #endregion
@@ -110,15 +119,15 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Funding Rate History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinFundingRate[]>> GetFundingRateHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinFundingRate[]>> GetFundingRateHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
             parameters.Add("instId", symbol);
             // NOTE; the before parameter actually acts as startTime
-            parameters.AddOptionalMillisecondsString("before", startTime);
-            parameters.AddOptionalMillisecondsString("after", endTime);
-            parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/funding-rate-history", BloFinExchange.RateLimiter.BloFinRest, 1, false);
+            parameters.Add("before", startTime);
+            parameters.Add("after", endTime);
+            parameters.Add("limit", limit);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/market/funding-rate-history", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinFundingRate[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -128,16 +137,16 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Klines
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinKline[]>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinKline[]>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
             parameters.Add("instId", symbol);
-            parameters.AddEnum("bar", interval);
+            parameters.Add("bar", interval);
             // NOTE; the before parameter actually acts as startTime
-            parameters.AddOptionalMillisecondsString("before", startTime);
-            parameters.AddOptionalMillisecondsString("after", endTime);
-            parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/candles", BloFinExchange.RateLimiter.BloFinRest, 1, false);
+            parameters.Add("before", startTime);
+            parameters.Add("after", endTime);
+            parameters.Add("limit", limit);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/market/candles", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinKline[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -147,16 +156,16 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Index Price Klines
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinIndexMarkKline[]>> GetIndexPriceKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinIndexMarkKline[]>> GetIndexPriceKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
             parameters.Add("instId", symbol);
-            parameters.AddEnum("bar", interval);
+            parameters.Add("bar", interval);
             // NOTE; the before parameter actually acts as startTime
-            parameters.AddOptionalMillisecondsString("before", startTime);
-            parameters.AddOptionalMillisecondsString("after", endTime);
-            parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/index-candles", BloFinExchange.RateLimiter.BloFinRest, 1, false);
+            parameters.Add("before", startTime);
+            parameters.Add("after", endTime);
+            parameters.Add("limit", limit);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/market/index-candles", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinIndexMarkKline[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -166,16 +175,16 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Mark Price Klines
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinIndexMarkKline[]>> GetMarkPriceKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinIndexMarkKline[]>> GetMarkPriceKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
             parameters.Add("instId", symbol);
-            parameters.AddEnum("bar", interval);
+            parameters.Add("bar", interval);
             // NOTE; the before parameter actually acts as startTime
-            parameters.AddOptionalMillisecondsString("before", startTime);
-            parameters.AddOptionalMillisecondsString("after", endTime);
-            parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/mark-price-candles", BloFinExchange.RateLimiter.BloFinRest, 1, false);
+            parameters.Add("before", startTime);
+            parameters.Add("after", endTime);
+            parameters.Add("limit", limit);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/market/mark-price-candles", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinIndexMarkKline[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -185,12 +194,12 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Position Tiers
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BloFinPositionTier[]>> GetPositionTiersAsync(string symbol, MarginMode marginMode, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinPositionTier[]>> GetPositionTiersAsync(string symbol, MarginMode marginMode, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
             parameters.Add("instId", symbol);
-            parameters.AddEnum("marginMode", marginMode);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/market/position-tiers", BloFinExchange.RateLimiter.BloFinRest, 1, false);
+            parameters.Add("marginMode", marginMode);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/market/position-tiers", BloFinExchange.RateLimiter.BloFinRest, 1, false);
             var result = await _baseClient.SendAsync<BloFinPositionTier[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

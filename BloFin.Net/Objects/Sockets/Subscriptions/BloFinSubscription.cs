@@ -37,7 +37,10 @@ namespace BloFin.Net.Objects.Sockets.Subscriptions
 
             IndividualSubscriptionCount = symbols?.Length ?? 1;
 
-            MessageRouter = MessageRouter.CreateWithOptionalTopicFilters<BloFinSocketUpdate<T>>(topic, symbols, DoHandleMessage);
+            if (symbols == null)
+                MessageRouter = MessageRouter.CreateForEvent<BloFinSocketUpdate<T>>(topic, DoHandleMessage);
+            else
+                MessageRouter = MessageRouter.CreateForEvent<BloFinSocketUpdate<T>>(topic, symbols, DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -82,7 +85,7 @@ namespace BloFin.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BloFinSocketUpdate<T> message)
         {
             _handler(receiveTime, originalData, ConnectionInvocations, message);
-            return new CallResult(null);
+            return CallResult.Ok();
         }
     }
 }

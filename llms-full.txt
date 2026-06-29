@@ -14,6 +14,13 @@ This file is optimized for AI coding assistants. It maps the actual BloFin.Net A
 
 BloFin.Net is not a single `ExchangeApi` library. REST exposes `AccountApi` and `FuturesApi`; sockets expose `FuturesApi`.
 
+Result model:
+
+- REST methods return `HttpResult<T>` or `HttpResult`.
+- WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`.
+- Shared non-I/O symbol/cache helpers return `ExchangeCallResult<T>`.
+- Always check `.Success` before reading `.Data`.
+
 ## Correct Setup
 
 ```csharp
@@ -207,6 +214,19 @@ if (!sub.Success)
 
 await socketClient.UnsubscribeAsync(sub.Data);
 ```
+
+For shared clients:
+
+```csharp
+using CryptoExchange.Net.SharedApis;
+
+var futuresShared = restClient.FuturesApi.SharedClient;
+var info = futuresShared.Discover();
+var supported = info.Features.Where(x => x.Supported).Select(x => x.EndpointName);
+Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supported)}");
+```
+
+Use `CryptoExchange.Net.SharedApis` interfaces from each exchange's `.SharedClient` for multi-exchange code. Call `.Discover()` before routing optional shared features across exchanges.
 
 ## Known Nonexistent Patterns
 

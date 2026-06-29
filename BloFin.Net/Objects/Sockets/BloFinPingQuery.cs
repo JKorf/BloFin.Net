@@ -10,7 +10,7 @@ namespace BloFin.Net.Objects.Sockets
         public BloFinPingQuery() : base("ping", false, 1)
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
-            MessageRouter = MessageRouter.CreateWithoutHandler<string>("pong");
+            MessageRouter = MessageRouter.CreateVoid<string>("pong");
         }
     }
 }

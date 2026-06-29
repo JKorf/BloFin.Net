@@ -29,7 +29,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<BloFinTrade[]>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<BloFinTrade[]>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to live trade updates for a symbol
@@ -44,7 +44,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BloFinTrade[]>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BloFinTrade[]>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to kline/candlestick data update
@@ -60,7 +60,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<BloFinKline>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<BloFinKline>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to kline/candlestick data update
@@ -76,7 +76,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<BloFinKline>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<BloFinKline>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to kline/candlestick index price data update
@@ -92,7 +92,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<BloFinIndexMarkKline>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToIndexPriceKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<BloFinIndexMarkKline>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to kline/candlestick index price data update
@@ -108,7 +108,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<BloFinIndexMarkKline>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToIndexPriceKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<BloFinIndexMarkKline>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to kline/candlestick mark price data update
@@ -124,7 +124,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<BloFinIndexMarkKline>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(string symbol, KlineInterval interval, Action<DataEvent<BloFinIndexMarkKline>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to kline/candlestick mark price data update
@@ -140,7 +140,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<BloFinIndexMarkKline>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToMarkPriceKlineUpdatesAsync(IEnumerable<string> symbols, KlineInterval interval, Action<DataEvent<BloFinIndexMarkKline>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to order book updates
@@ -156,7 +156,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int depth, Action<DataEvent<BloFinOrderBookUpdate>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int depth, Action<DataEvent<BloFinOrderBookUpdate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to order book updates
@@ -172,7 +172,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<BloFinOrderBookUpdate>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<BloFinOrderBookUpdate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to price ticker updates
@@ -187,7 +187,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<BloFinTicker>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<BloFinTicker>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to price ticker updates
@@ -202,7 +202,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BloFinTicker>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BloFinTicker>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to funding rate updates
@@ -217,7 +217,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<BloFinFundingRate>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<BloFinFundingRate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to funding rate updates
@@ -232,7 +232,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BloFinFundingRate>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BloFinFundingRate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to position updates
@@ -246,7 +246,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<BloFinPosition[]>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<BloFinPosition[]>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to order updates
@@ -260,7 +260,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BloFinOrder[]>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BloFinOrder[]>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to trigger order updates
@@ -274,7 +274,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToTriggerOrderUpdatesAsync(Action<DataEvent<BloFinAlgoOrderUpdate[]>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToTriggerOrderUpdatesAsync(Action<DataEvent<BloFinAlgoOrderUpdate[]>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to futures balances updates
@@ -288,7 +288,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BloFinFuturesBalances>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BloFinFuturesBalances>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to inverse futures balances updates
@@ -302,7 +302,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<CallResult<UpdateSubscription>> SubscribeToInverseBalanceUpdatesAsync(Action<DataEvent<BloFinFuturesInverseBalanceUpdate>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToInverseBalanceUpdatesAsync(Action<DataEvent<BloFinFuturesInverseBalanceUpdate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Get the shared socket requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.

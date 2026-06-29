@@ -22,7 +22,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="productType">["<c>productType</c>"] Product type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinFuturesBalances>> GetBalancesAsync(ProductType? productType = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinFuturesBalances>> GetBalancesAsync(ProductType? productType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get margin mode config
@@ -34,7 +34,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinMarginMode>> GetMarginModeAsync(CancellationToken ct = default);
+        Task<HttpResult<BloFinMarginMode>> GetMarginModeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Set margin mode
@@ -47,7 +47,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="marginMode">["<c>marginMode</c>"] New margin mode</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinMarginMode>> SetMarginModeAsync(MarginMode marginMode, CancellationToken ct = default);
+        Task<HttpResult<BloFinMarginMode>> SetMarginModeAsync(MarginMode marginMode, CancellationToken ct = default);
 
         /// <summary>
         /// Get position mode config
@@ -59,7 +59,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinPositionMode>> GetPositionModeAsync(CancellationToken ct = default);
+        Task<HttpResult<BloFinPositionMode>> GetPositionModeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Set position mode
@@ -72,7 +72,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="positionMode">["<c>positionMode</c>"] Position mode</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinPositionMode>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
+        Task<HttpResult<BloFinPositionMode>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
 
         /// <summary>
         /// Get leverage settings
@@ -86,7 +86,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
         /// <param name="marginMode">["<c>marginMode</c>"] Margin mode</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinLeverage[]>> GetLeverageAsync(string symbol, MarginMode marginMode, CancellationToken ct = default);
+        Task<HttpResult<BloFinLeverage[]>> GetLeverageAsync(string symbol, MarginMode marginMode, CancellationToken ct = default);
 
         /// <summary>
         /// Set leverage
@@ -102,7 +102,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="marginMode">["<c>marginMode</c>"] The margin mode</param>
         /// <param name="positionSide">["<c>positionSide</c>"] Position side</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BloFinLeverage>> SetLeverageAsync(string symbol, decimal leverage, MarginMode marginMode, PositionSide? positionSide = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinLeverage>> SetLeverageAsync(string symbol, decimal leverage, MarginMode marginMode, PositionSide? positionSide = null, CancellationToken ct = default);
 
     }
 }
