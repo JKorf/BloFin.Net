@@ -95,6 +95,8 @@ For AI coding assistants and quick onboarding:
 * [`docs/ai-api-map.md`](docs/ai-api-map.md) maps common intents to client members
 * [`Examples/ai-friendly`](Examples/ai-friendly) contains compact examples that are compiled by the test suite
 
+See [cryptoexchange-skills-hub](https://github.com/JKorf/cryptoexchange-skills-hub) for installable skills.
+
 ## CryptoExchange.Net
 BloFin.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
 
@@ -207,120 +209,3 @@ Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/s
     * Added setter to BloFinExchange.RateLimiter to allow custom rate limit settings
     * Various small performance improvements
     * Fixed websocket connection attempts counting towards rate limit even when server could not be reached
-
-* Version 2.12.0 - 08 Jun 2026
-    * Updated CryptoExchange.Net to version 11.2.2
-    * Fixed user client provider not caching new client when previous client was disposed
-
-* Version 2.11.0 - 26 May 2026
-    * Updated CryptoExchange.Net to version 11.2.0
-
-* Version 2.10.3 - 03 May 2026
-    * Fixed Shared GetKlinesAsync request not returning kline when start time is exactly at the start of a kline
-
-* Version 2.10.2 - 09 Apr 2026
-    * Updated CryptoExchange.Net to version 11.1.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-
-* Version 2.10.1 - 24 Mar 2026
-    * Fix issue in credentials copying
-
-* Version 2.10.0 - 24 Mar 2026
-    * Updated CryptoExchange.Net to version 11.0.1, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Updated class for supplying API credentials from ApiCredentials to BloFinCredentials
-    * Updated Shared order status parsing to default to Unknown value if not parsable
-    * Added restClient.FuturesApi.ExchangeData.GetPositionTiersAsync endpoint
-
-    * Notes for updating:
-        * Update ApiCredentials to BloFinCredentials for authentication, i.e. `ApiCredentials = new ApiCredentials(..)` => `ApiCredentials = new BloFinCredentials(..)`
-
-* Version 2.9.0 - 09 Mar 2026
-    * Added restClient.FuturesApi.Trading.GetPositionHistoryAsync endpoint
-    * Added Shared IPositionHistoryRestClient implementation
-    * Updated xml comments to include json fields
-
-* Version 2.8.0 - 06 Mar 2026
-    * Updated CryptoExchange.Net to version 10.8.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Improved method XML comments
-
-* Version 2.7.0 - 24 Feb 2026
-    * Updated CryptoExchange.Net to version 10.7.0
-    * Added additional Http settings to client options
-    * Updated Shared REST interfaces pagination logic
-    * Updated HttpClient registration, fixing issue of DNS changes not getting processed
-    * Fixed UserClientProvider using unconfigured HttpClient
-    * Fixed restClient.FutuersApi.Trading.GetClosedOrdersAsync limit parameter serialization
-
-* Version 2.6.0 - 16 Feb 2026
-    * Updated CryptoExchange.Net to version 10.6.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Fixed SymbolOrderBook websocket subscription not getting closed if when waiting for initial data times out
-
-* Version 2.5.0 - 10 Feb 2026
-    * Updated CryptoExchange.Net to version 10.5.1, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Fixed websocket query topic mapping
-    * Updated UserClientProvider internal client cache to non-static to prevent cleanup issues
-
-* Version 2.4.0 - 06 Feb 2026
-    * Updated CryptoExchange.Net to version 10.4.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Added BloFinUserFuturesDataTracker
-    * Added additional methods for requesting supported symbols to Shared IFuturesSymbolRestClient interfaces
-    * Added PositionMode mapping on SharedPosition models
-    * Added Status mapping for SharedDeposit models
-    * Fixed disposed clients getting returned from UserClientProvider
-    * Fixed issues in SubscribeToPositionUpdatesAsync, SubscribeToOrderUpdatesAsync and SubscribeToTriggerOrderUpdatesAsync update processing
-    * Fixed BloFinPosition deserialization issue
-
-* Version 2.3.0 - 22 Jan 2026
-    * Updated CryptoExchange.Net to version 10.3.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Removed legacy websocket message handling and the corresponding UseUpdatedDeserialization client option
-    * Added Metadata to BloFinExchange
-
-* Version 2.2.1 - 14 Jan 2026
-    * Updated CryptoExchange.Net to version 10.2.3, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-
-* Version 2.2.0 - 13 Jan 2026
-    * Updated CryptoExchange.Net to version 10.2.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Added SequenceNumber to order book websocket updates
-    * Added timestamping to SymbolOrderBook implementation
-    * Updated SymbolOrderBook sequence checking
-
-* Version 2.1.1 - 07 Jan 2026
-    * Disabled default enabled AutoTimestamp as it's not support by API
-
-* Version 2.1.0 - 07 Jan 2026
-    * Updated CryptoExchange.Net version to 10.1.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Added DataTimeLocal and DataAge properties to DataEvent object
-    * Added UpdateServerTime, UpdateLocalTime and DataAge properties to (I)SymbolOrderBook
-
-* Version 2.0.0 - 16 Dec 2025
-    * Added Net10.0 target framework
-    * Updated CryptoExchange.Net version to 10.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
-    * Improved performance across the board, biggest gains in websocket message processing
-    * Updated REST message response handling
-    * Updated WebSocket message handling
-    * Added UseUpdatedDeserialization socket client options to toggle by new and old message handling
-    * Added SocketIndividualSubscriptionCombineTarget socket client option
-    * Updated Shared API's subscription update types from ExchangeEvent to DataEvent
-    * Fixed exception in Shared GetFuturesTickersAsync endpoint when request fails
-
-* Version 1.4.0 - 11 Nov 2025
-    * Updated CryptoExchange.Net version to 9.13.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
-    * Added restClient.FuturesApi.Trading.GetOrderAsync endpoint
-    * Added restClient.FuturesApi.Trading.GetTpSlOrderAsync endpoint
-
-* Version 1.3.0 - 03 Nov 2025
-    * Updated CryptoExchange.Net to version 9.12.0
-    * Added support for using SharedSymbol.UsdOrStable in Shared APIs
-    * Fixed exception when initial trade snapshot has no items in TradeTracker
-    * Removed some unhelpful verbose logs
-
-* Version 1.2.0 - 16 Oct 2025
-    * Updated CryptoExchange.Net version to 9.10.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
-
-* Version 1.1.0 - 30 Sep 2025
-    * Updated CryptoExchange.Net version to 9.8.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
-    * Added ITrackerFactory to TrackerFactory implementation
-    * Added missing Shared service registration for account endpoints
-
-* Version 1.0.0 - 17 Sep 2025
-    * Initial release
-
