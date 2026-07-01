@@ -9,6 +9,7 @@ using BloFin.Net.Objects.Options;
 using CryptoExchange.Net.Objects.Errors;
 using System.Threading;
 using CryptoExchange.Net.Authentication;
+using System.Collections.Generic;
 
 namespace BloFin.Net.UnitTests
 {
@@ -48,51 +49,63 @@ namespace BloFin.Net.UnitTests
         [Test]
         public async Task TestAccount()
         {
-            await RunAndCheckResult(client => client.AccountApi.GetAccountBalancesAsync(Enums.AccountType.Futures, default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.AccountApi.GetAccountConfigAsync(CancellationToken.None), true);
-            await RunAndCheckResult(client => client.AccountApi.GetApiKeyInfoAsync(CancellationToken.None), true);
-            await RunAndCheckResult(client => client.AccountApi.GetTransferHistoryAsync(default, default, default, default, default, default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.AccountApi.GetWithdrawalHistoryAsync(default, default, default, default, default, default, default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.AccountApi.GetDepositHistoryAsync(default, default, default, default, default, default, default, CancellationToken.None), true);
+            var warnings = new List<Exception>();
+            await RunAndCheckResult(warnings, client => client.AccountApi.GetAccountBalancesAsync(Enums.AccountType.Futures, default, CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.AccountApi.GetAccountConfigAsync(CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.AccountApi.GetApiKeyInfoAsync(CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.AccountApi.GetTransferHistoryAsync(default, default, default, default, default, default, CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.AccountApi.GetWithdrawalHistoryAsync(default, default, default, default, default, default, default, CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.AccountApi.GetDepositHistoryAsync(default, default, default, default, default, default, default, CancellationToken.None), true, "data");
+            foreach (var warning in warnings)
+                Assert.Warn(warning.Message);
 
         }
 
         [Test]
         public async Task TestFuturesAccount()
         {
-            await RunAndCheckResult(client => client.FuturesApi.Account.GetBalancesAsync(default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Account.GetMarginModeAsync(CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Account.GetPositionModeAsync(CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Account.GetLeverageAsync("ETH-USDT", Enums.MarginMode.Isolated, CancellationToken.None), true);
+            var warnings = new List<Exception>();
+            await RunAndCheckResult(warnings, client => client.FuturesApi.Account.GetBalancesAsync(default, CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.Account.GetMarginModeAsync(CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.Account.GetPositionModeAsync(CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.Account.GetLeverageAsync("ETH-USDT", Enums.MarginMode.Isolated, CancellationToken.None), true, "data");
+            foreach (var warning in warnings)
+                Assert.Warn(warning.Message);
         }
 
         [Test]
         public async Task TestFuturesExchangeData()
         {
-            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetSymbolsAsync(default, CancellationToken.None), false);
-            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetTickersAsync(default, CancellationToken.None), false);
-            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetOrderBookAsync("ETH-USDT", default, CancellationToken.None), false);
-            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetRecentTradesAsync("ETH-USDT", default, CancellationToken.None), false);
-            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetIndexMarkPriceAsync("ETH-USDT", CancellationToken.None), false);
-            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetFundingRateAsync("ETH-USDT", CancellationToken.None), false);
-            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetFundingRateHistoryAsync("ETH-USDT", default, default, default, CancellationToken.None), false);
-            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetKlinesAsync("ETH-USDT", Enums.KlineInterval.OneDay, default, default, default, CancellationToken.None), false);
-            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetIndexPriceKlinesAsync("ETH-USDT", Enums.KlineInterval.OneDay, default, default, default, CancellationToken.None), false);
-            await RunAndCheckResult(client => client.FuturesApi.ExchangeData.GetMarkPriceKlinesAsync("ETH-USDT", Enums.KlineInterval.OneDay, default, default, default, CancellationToken.None), false);
+            var warnings = new List<Exception>();
+            await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetSymbolsAsync(default, CancellationToken.None), false, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetTickersAsync(default, CancellationToken.None), false, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetOrderBookAsync("ETH-USDT", default, CancellationToken.None), false, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetRecentTradesAsync("ETH-USDT", default, CancellationToken.None), false, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetIndexMarkPriceAsync("ETH-USDT", CancellationToken.None), false, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetFundingRateAsync("ETH-USDT", CancellationToken.None), false, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetFundingRateHistoryAsync("ETH-USDT", default, default, default, CancellationToken.None), false, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetKlinesAsync("ETH-USDT", Enums.KlineInterval.OneDay, default, default, default, CancellationToken.None), false, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetIndexPriceKlinesAsync("ETH-USDT", Enums.KlineInterval.OneDay, default, default, default, CancellationToken.None), false, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.ExchangeData.GetMarkPriceKlinesAsync("ETH-USDT", Enums.KlineInterval.OneDay, default, default, default, CancellationToken.None), false, "data");
+            foreach (var warning in warnings)
+                Assert.Warn(warning.Message);
         }
 
         [Test]
         public async Task TestFuturesTrading()
         {
-            await RunAndCheckResult(client => client.FuturesApi.Trading.GetPositionsAsync(default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Trading.GetOpenOrdersAsync(default, default, default, default, default, default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Trading.GetOpenTpSlOrdersAsync(default, default, default, default, default, default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Trading.GetOpenTriggerOrdersAsync(default, default, default, default, default, default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Trading.GetClosedOrdersAsync(default, default, default, default, default, default, default, default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Trading.GetClosedTpSlOrdersAsync(default, default, default, default, default, default, default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Trading.GetClosedTriggerOrdersAsync(default, default, default, default, default, default, default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Trading.GetUserTradesAsync(default, default, default, default, default, default, default, CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Trading.GetPriceLimitsAsync("ETH-USDT", Enums.OrderSide.Buy, CancellationToken.None), true);
+            var warnings = new List<Exception>();
+            await RunAndCheckResult(warnings, client => client.FuturesApi.Trading.GetPositionsAsync(default, CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.Trading.GetOpenOrdersAsync(default, default, default, default, default, default, CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.Trading.GetOpenTpSlOrdersAsync(default, default, default, default, default, default, CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.Trading.GetOpenTriggerOrdersAsync(default, default, default, default, default, default, CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.Trading.GetClosedOrdersAsync(default, default, default, default, default, default, default, default, CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.Trading.GetClosedTpSlOrdersAsync(default, default, default, default, default, default, default, CancellationToken.None), true, "data", ignoreProperties: ["orderType", "triggerType", "tpTriggerPriceType", "slTriggerPriceType"]);
+            await RunAndCheckResult(warnings, client => client.FuturesApi.Trading.GetClosedTriggerOrdersAsync(default, default, default, default, default, default, default, CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.Trading.GetUserTradesAsync(default, default, default, default, default, default, default, CancellationToken.None), true, "data");
+            await RunAndCheckResult(warnings, client => client.FuturesApi.Trading.GetPriceLimitsAsync("ETH-USDT", Enums.OrderSide.Buy, CancellationToken.None), true, "data");
+            foreach (var warning in warnings)
+                Assert.Warn(warning.Message);
         }
     }
 }
