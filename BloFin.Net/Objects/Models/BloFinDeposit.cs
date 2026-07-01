@@ -59,6 +59,11 @@ namespace BloFin.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("depositId")]
         public string DepositId { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>tag</c>"] Tag
+        /// </summary>
+        [JsonPropertyName("tag")]
+        public string? Tag { get; set; }
     }
 
 
