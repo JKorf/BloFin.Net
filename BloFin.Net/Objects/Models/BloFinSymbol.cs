@@ -89,5 +89,20 @@ namespace BloFin.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("settleCurrency")]
         public string SettleAsset { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>thresholdX</c>"] X threshold
+        /// </summary>
+        [JsonPropertyName("thresholdX")]
+        public decimal ThresholdX { get; set; }
+        /// <summary>
+        /// ["<c>thresholdY</c>"] Y threshold
+        /// </summary>
+        [JsonPropertyName("thresholdY")]
+        public decimal ThresholdY { get; set; }
+        /// <summary>
+        /// ["<c>thresholdZ</c>"] Z threshold
+        /// </summary>
+        [JsonPropertyName("thresholdZ")]
+        public decimal ThresholdZ { get; set; }
     }
 }
