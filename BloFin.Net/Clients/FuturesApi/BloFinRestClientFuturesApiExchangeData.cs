@@ -35,6 +35,18 @@ namespace BloFin.Net.Clients.FuturesApi
 
         #endregion
 
+        #region Get Symbols V3
+
+        /// <inheritdoc />
+        public async Task<HttpResult<BloFinSymbolV3[]>> GetSymbolsV3Async(CancellationToken ct = default)
+        {
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "https://blofin.com", "uapi/v3/basic/symbols", BloFinExchange.RateLimiter.BloFinRest, 1, false);
+            var result = await _baseClient.SendAsync<BloFinSymbolV3[]>(request, null, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
         #region Get Tickers
 
         /// <inheritdoc />
