@@ -256,7 +256,7 @@ namespace BloFin.Net.Clients.FuturesApi
                 if (v3Info.TagIds.Any(x => _stockTags.Contains(x)))
                 {
                     result.BaseAssetType = SharedAssetType.TradFi;
-                    result.BaseAssetSubType = SharedAssetSubType.Stock;
+                    result.BaseAssetSubType = SharedAssetSubType.Equity;
                 }
                 else if (v3Info.TagIds.Any(x => _commodityTags.Contains(x)))
                 {
@@ -266,7 +266,7 @@ namespace BloFin.Net.Clients.FuturesApi
                 else if (v3Info.TagIds.Any(x => _indicesTags.Contains(x)))
                 {
                     result.BaseAssetType = SharedAssetType.TradFi;
-                    result.BaseAssetSubType = SharedAssetSubType.Index;
+                    result.BaseAssetSubType = SharedAssetSubType.Equity;
                 }
                 else
                 {
