@@ -53,7 +53,7 @@ namespace BloFin.Net.Clients
             if (!result.Success)
                 return HttpResult.Fail<T>(result);
 
-            if (result.Data.Code != 0)
+            if (result.Data.Code != 0 && result.Data.Code != 200)
                 return HttpResult.Fail<T>(result, new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)), result.Data.Data);
 
             return HttpResult.Ok<T>(result, result.Data.Data);

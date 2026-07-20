@@ -25,7 +25,7 @@ namespace BloFin.Net.Clients.MessageHandlers
             if (result is not BloFinResponse bloFinResponse)
                 return null;
 
-            if (bloFinResponse.Code >= 0 && bloFinResponse.Code <= 2)
+            if ((bloFinResponse.Code >= 0 && bloFinResponse.Code <= 2) || bloFinResponse.Code == 200)
                 return null;
 
             return new ServerError(bloFinResponse.Code, _errorMapping.GetErrorInfo(bloFinResponse.Code.ToString(), bloFinResponse.Message));

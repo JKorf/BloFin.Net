@@ -26,6 +26,17 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         Task<HttpResult<BloFinSymbol[]>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Get a list of supported symbols (v3 api).<br />
+        /// NOTE this endpoint is not documented in the official BloFin API docs, it might be changed at any time without prior notice. Use at your own risk.
+        /// <para>
+        /// Endpoint:<br />
+        /// GET uapi/v3/basic/symbols<br />
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<BloFinSymbolV3[]>> GetSymbolsV3Async(CancellationToken ct = default);
+
+        /// <summary>
         /// Get price ticker info
         /// <para>
         /// Docs:<br />
