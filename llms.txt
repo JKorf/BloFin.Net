@@ -45,6 +45,7 @@ REST calls return `HttpResult<T>` or `HttpResult`. WebSocket subscriptions retur
 
 ```csharp
 var symbols = await restClient.FuturesApi.ExchangeData.GetSymbolsAsync();
+var symbolMetadata = await restClient.FuturesApi.ExchangeData.GetSymbolsV3Async();
 var ticker = await restClient.FuturesApi.ExchangeData.GetTickersAsync("ETH-USDT");
 var klines = await restClient.FuturesApi.ExchangeData.GetKlinesAsync("ETH-USDT", KlineInterval.OneMinute, limit: 100);
 var book = await restClient.FuturesApi.ExchangeData.GetOrderBookAsync("ETH-USDT", 20);
@@ -86,6 +87,8 @@ Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supporte
 ```
 
 Use `.Discover()` before routing optional shared features across exchanges.
+
+The futures shared client populates the CryptoExchange.Net symbol catalog with normalized trading constraints and asset classifications.
 
 ## BloFin Details
 

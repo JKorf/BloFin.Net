@@ -58,3 +58,5 @@ Common mappings:
 - Positions: `FuturesApi.Trading.GetPositionsAsync(...)`
 - Public sockets: `socketClient.FuturesApi.SubscribeToTickerUpdatesAsync(...)`
 - Private sockets: `socketClient.FuturesApi.SubscribeToOrderUpdatesAsync(...)`
+
+The futures shared client populates the CryptoExchange.Net symbol catalog with normalized trading constraints and asset classifications.

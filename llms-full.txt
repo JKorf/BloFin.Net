@@ -6,8 +6,8 @@ This file is optimized for AI coding assistants. It maps the actual BloFin.Net A
 
 - Repository: `JKorf/BloFin.Net`
 - Package: `BloFin.Net`
-- Current project version: `2.10.3`
-- Base library: `CryptoExchange.Net`
+- Current project version: `3.2.0`
+- Base library: `CryptoExchange.Net` `12.2.0`
 - REST client: `BloFinRestClient`
 - Socket client: `BloFinSocketClient`
 - Credentials: `BloFinCredentials(string key, string secret, string pass)`

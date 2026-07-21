@@ -84,6 +84,7 @@ General account endpoints are under `restClient.AccountApi`:
 Futures exchange data is under `restClient.FuturesApi.ExchangeData`:
 
 - `GetSymbolsAsync(symbol)`
+- `GetSymbolsV3Async()`
 - `GetTickersAsync(symbol)`
 - `GetOrderBookAsync(symbol, depth)`
 - `GetRecentTradesAsync(symbol, limit)`
@@ -181,6 +182,10 @@ Console.WriteLine(result.Data.FirstOrDefault()?.LastPrice);
 ```
 
 Never assume `Data` is populated when `Success` is false.
+
+## Shared Futures Symbol Metadata
+
+The futures shared client publishes its symbols to the CryptoExchange.Net shared symbol catalog. Shared futures symbols include trading constraints and asset classifications such as crypto, equity and commodity where BloFin's V3 metadata identifies them. Prefer the shared catalog when multi-exchange code needs normalized symbol or asset-type metadata.
 
 ## Local Order Book And Trackers
 

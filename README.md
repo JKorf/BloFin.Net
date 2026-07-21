@@ -178,6 +178,15 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 3.2.0 - 21 Jul 2026
+    * Updated CryptoExchange.Net to v12.2.0 
+    * Added FuturesSymbolCatalog to Shared IFuturesSymbolRestClient interface
+    * Added BaseAssetType, BaseAssetSubType, QuoteAssetType and QuoteAssetSubType to GetSymbolsRequest model
+    * Added DisplayName to SharedFuturesSymbol model
+    * Added BaseAssetType, BaseAssetSubType, QuoteAssetType and QuoteAssetSubType to SharedFuturesSymbol model
+    * Added DebuggerDisplay attributes to Shared models
+    * Added restClient.FuturesApi.ExchangeData.GetSymbolsV3Async endpoint
+
 * Version 3.1.0 - 09 Jul 2026
     * Updated CryptoExchange.Net to v12.1.0
     * Added Tag property to BloFinDeposit model

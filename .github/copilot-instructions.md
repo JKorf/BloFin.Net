@@ -37,6 +37,7 @@ The passphrase is required.
 - Use `AccountApi` for general asset/account operations.
 - Use `FuturesApi.ExchangeData`, `FuturesApi.Account`, and `FuturesApi.Trading` for futures.
 - Use symbols such as `ETH-USDT`.
+- Use `GetSymbolsV3Async()` only when additional native symbol metadata is needed; its BloFin endpoint is undocumented and may change.
 - Use `KlineInterval`, not `BinPeriod`.
 - Check `result.Success` before reading `result.Data`.
 - Futures quantities are contract quantities.
@@ -58,6 +59,8 @@ The passphrase is required.
 | Positions | `restClient.FuturesApi.Trading.GetPositionsAsync(...)` |
 | Ticker stream | `socketClient.FuturesApi.SubscribeToTickerUpdatesAsync(...)` |
 | Order stream | `socketClient.FuturesApi.SubscribeToOrderUpdatesAsync(...)` |
+
+The futures shared client publishes normalized trading constraints and asset classifications to the CryptoExchange.Net shared symbol catalog.
 
 ## Avoid
 
