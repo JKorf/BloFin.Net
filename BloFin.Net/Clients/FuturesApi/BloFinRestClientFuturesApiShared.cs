@@ -13,6 +13,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace BloFin.Net.Clients.FuturesApi
 {
@@ -106,7 +107,20 @@ namespace BloFin.Net.Clients.FuturesApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.OpenTime, request.StartTime, request.EndTime, direction)
                    .Select(x => 
-                        new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume))
+                        new SharedKline(
+                            request.Symbol,
+                            symbol,
+                            x.OpenTime,
+                            x.ClosePrice,
+                            x.HighPrice, 
+                            x.LowPrice,
+                            x.OpenPrice,
+                            new SharedOrderQuantity(x.BaseVolume, x.QuoteVolume, x.Volume))
+                        {
+#pragma warning disable CS0618 // Type or member is obsolete | Temporary to maintain previous behavior
+                            Volume = x.Volume
+#pragma warning restore
+                        })
                    .ToArray(), nextPageRequest);
         }
 
@@ -150,7 +164,7 @@ namespace BloFin.Net.Clients.FuturesApi
                 return HttpResult.Fail<SharedTrade[]>(result);
 
             return HttpResult.Ok(result, result.Data.Select(x => 
-            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(contractQuantity: x.Quantity), x.Price, x.Timestamp)
             {
                 Side = x.Side == Enums.OrderSide.Sell ? SharedOrderSide.Sell : SharedOrderSide.Buy,
             }).ToArray());
@@ -340,7 +354,13 @@ namespace BloFin.Net.Clients.FuturesApi
 
             var ticker = resultTicker.Result.Data.Single();
             return HttpResult.Ok(resultTicker.Result, new SharedFuturesTicker(
-                ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, ticker.Symbol), ticker.Symbol, ticker.LastPrice, ticker.High24h, ticker.Low24h, ticker.BaseVolume24h, null)
+                ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, ticker.Symbol),
+                ticker.Symbol,
+                ticker.LastPrice,
+                ticker.High24h,
+                ticker.Low24h,
+                new SharedOrderQuantity(ticker.BaseVolume24h, null, ticker.ContractVolume24h),
+                null)
             {
                 MarkPrice = resultMarkPrice.Result.Data.MarkPrice,
                 IndexPrice = resultMarkPrice.Result.Data.IndexPrice,
@@ -366,7 +386,14 @@ namespace BloFin.Net.Clients.FuturesApi
 
             return HttpResult.Ok(resultTickers, data.Select(x =>
             {
-                return new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.LastPrice, x.High24h, x.Low24h, x.BaseVolume24h, null);
+                return new SharedFuturesTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
+                    x.Symbol,
+                    x.LastPrice,
+                    x.High24h,
+                    x.Low24h,
+                    new SharedOrderQuantity(x.BaseVolume24h, null, x.ContractVolume24h),
+                    null);
             }).ToArray());
         }
 

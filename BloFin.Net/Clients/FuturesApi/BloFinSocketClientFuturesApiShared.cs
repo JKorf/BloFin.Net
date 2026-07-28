@@ -55,7 +55,20 @@ namespace BloFin.Net.Clients.FuturesApi
             var interval = (Enums.KlineInterval)request.Interval;
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
             var result = await SubscribeToKlineUpdatesAsync(symbols, interval, update => handler(update.ToType(
-                new SharedKline(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Symbol), update.Symbol!, update.Data.OpenTime, update.Data.ClosePrice, update.Data.HighPrice, update.Data.LowPrice, update.Data.OpenPrice, update.Data.Volume))), ct).ConfigureAwait(false);
+                new SharedKline(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Symbol),
+                    update.Symbol!,
+                    update.Data.OpenTime, 
+                    update.Data.ClosePrice, 
+                    update.Data.HighPrice, 
+                    update.Data.LowPrice, 
+                    update.Data.OpenPrice,
+                    new SharedOrderQuantity(update.Data.BaseVolume, update.Data.QuoteVolume, update.Data.Volume))
+                {
+#pragma warning disable CS0618 // Type or member is obsolete | Temporary to maintain previous behavior
+                    Volume = update.Data.Volume
+#pragma warning restore
+                })), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -93,7 +106,14 @@ namespace BloFin.Net.Clients.FuturesApi
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
             var result = await SubscribeToTickerUpdatesAsync(symbols, update => handler(update.ToType(
-                new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, update.Data.LastPrice, update.Data.High24h, update.Data.Low24h, update.Data.BaseVolume24h, null))), ct: ct).ConfigureAwait(false);
+                new SharedSpotTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), 
+                    update.Data.Symbol,
+                    update.Data.LastPrice,
+                    update.Data.High24h,
+                    update.Data.Low24h,
+                    new SharedOrderQuantity(update.Data.BaseVolume24h, null, update.Data.ContractVolume24h),
+                    null))), ct: ct).ConfigureAwait(false);
 
             return result;
         }
@@ -116,7 +136,7 @@ namespace BloFin.Net.Clients.FuturesApi
             var result = await SubscribeToTradeUpdatesAsync(symbols, update => handler(update.ToType(update.Data.Select(x => new SharedTrade(
                 ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
                 x.Symbol,
-                x.Quantity,
+                new SharedOrderQuantity(contractQuantity: x.Quantity),
                 x.Price,
                 x.Timestamp
                 )

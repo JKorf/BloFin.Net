@@ -92,6 +92,7 @@ namespace BloFin.Net
                 symbol,
                 limit,
                 period,
+                TradeQuantityType.Contracts,
                 exchangeParameters
                 );
         }
