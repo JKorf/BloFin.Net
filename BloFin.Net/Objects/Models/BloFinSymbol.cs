@@ -40,6 +40,11 @@ namespace BloFin.Net.Objects.Models
         [JsonPropertyName("expireTime")]
         public DateTime? ExpireTime { get; set; }
         /// <summary>
+        /// ["<c>offTime</c>"] Offline time
+        /// </summary>
+        [JsonPropertyName("offTime")]
+        public DateTime? OfflineTime { get; set; }
+        /// <summary>
         /// ["<c>maxLeverage</c>"] Max leverage
         /// </summary>
         [JsonPropertyName("maxLeverage")]
@@ -104,5 +109,10 @@ namespace BloFin.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("thresholdZ")]
         public decimal ThresholdZ { get; set; }
+        /// <summary>
+        /// ["<c>assetClass</c>"] Asset class
+        /// </summary>
+        [JsonPropertyName("assetClass")]
+        public AssetClass AssetClass { get; set; }
     }
 }

@@ -28,10 +28,6 @@ namespace BloFin.Net.Clients.FuturesApi
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
         public SharedClientInfo Discover() => SharedUtils.GetClientInfo(BloFinExchange.Metadata, this);
 
-        private static HashSet<int> _stockTags = [33, 34, 40];
-        private static HashSet<int> _commodityTags = [39, 42];
-        private static HashSet<int> _indicesTags = [41];
-
         #region Book Ticker client
 
         GetBookTickerOptions IBookTickerRestClient.GetBookTickerOptions { get; } = new GetBookTickerOptions(_exchangeName, false);
@@ -221,27 +217,20 @@ namespace BloFin.Net.Clients.FuturesApi
             if (validationError != null)
                 return HttpResult.Fail<SharedFuturesSymbol[]>(Exchange, validationError);
 
-            var symbolsTask = ExchangeData.GetSymbolsAsync(ct: ct);
-            var symbolsV3Task = ExchangeData.GetSymbolsV3Async(ct: ct);
-            await Task.WhenAll(symbolsTask, symbolsV3Task).ConfigureAwait(false);
-            var symbolsResult = symbolsTask.Result;
-            var symbolsV3Result = symbolsV3Task.Result;
+            var symbolsResult = await ExchangeData.GetSymbolsAsync(ct: ct).ConfigureAwait(false);
             if (!symbolsResult.Success)
                 return HttpResult.Fail<SharedFuturesSymbol[]>(symbolsResult);
-            if (!symbolsV3Result.Success)
-                _logger.Log(LogLevel.Warning, "Failed to retrieve V3 symbol info: " + symbolsV3Result.Error);
 
             var data = symbolsResult.Data
-                .Select(x => ParseSymbol(x, symbolsV3Result.Data))
+                .Select(x => ParseSymbol(x))
                 .ToArray();
 
             ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, data);
             return HttpResult.Ok(symbolsResult, SharedUtils.ApplySymbolFilter(data, request));
         }
 
-        private SharedFuturesSymbol ParseSymbol(BloFinSymbol s, BloFinSymbolV3[]? v3Data)
+        private SharedFuturesSymbol ParseSymbol(BloFinSymbol s)
         {
-            var v3Info = v3Data?.FirstOrDefault(x => x.Symbol == s.Symbol);
             var result = new SharedFuturesSymbol(s.ContractType == ContractType.Linear ? TradingMode.PerpetualLinear : TradingMode.PerpetualInverse,
                 s.BaseAsset,
                 s.QuoteAsset,
@@ -260,32 +249,30 @@ namespace BloFin.Net.Clients.FuturesApi
 
             result.QuoteAssetType = result.TradingMode == TradingMode.PerpetualInverse ? SharedAssetType.Fiat : SharedAssetType.Crypto;
             result.QuoteAssetSubType = result.TradingMode == TradingMode.PerpetualInverse ? null : SharedAssetSubType.StableCoin;
-
-            if (v3Info == null)
+            if (s.AssetClass == AssetClass.Crypto)
             {
-                result.BaseAssetType = SharedAssetType.Unspecified;
+                result.BaseAssetType = SharedAssetType.Crypto;
+                if (LibraryHelpers.IsStableCoin(result.BaseAsset))
+                    result.BaseAssetSubType = SharedAssetSubType.StableCoin;
+            }
+            else if (s.AssetClass == AssetClass.Commodities)
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Commodity;
+            }
+            else if (s.AssetClass == AssetClass.Stocks)
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Equity;
+            }
+            else if (s.AssetClass == AssetClass.Indices)
+            {
+                result.BaseAssetType = SharedAssetType.TradFi;
+                result.BaseAssetSubType = SharedAssetSubType.Equity;
             }
             else
-            {                
-                if (v3Info.TagIds.Any(x => _stockTags.Contains(x)))
-                {
-                    result.BaseAssetType = SharedAssetType.TradFi;
-                    result.BaseAssetSubType = SharedAssetSubType.Equity;
-                }
-                else if (v3Info.TagIds.Any(x => _commodityTags.Contains(x)))
-                {
-                    result.BaseAssetType = SharedAssetType.TradFi;
-                    result.BaseAssetSubType = SharedAssetSubType.Commodity;
-                }
-                else if (v3Info.TagIds.Any(x => _indicesTags.Contains(x)))
-                {
-                    result.BaseAssetType = SharedAssetType.TradFi;
-                    result.BaseAssetSubType = SharedAssetSubType.Equity;
-                }
-                else
-                {
-                    result.BaseAssetType = SharedAssetType.Crypto;
-                }
+            {
+                result.BaseAssetType = SharedAssetType.Unspecified;
             }
 
             return result;
