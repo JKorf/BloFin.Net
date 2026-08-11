@@ -47,7 +47,13 @@ namespace BloFin.Net
         }
 
         /// <inheritdoc />
-        public bool CanCreateTradeTracker(SharedSymbol symbol) => true;
+        public bool CanCreateTradeTracker(SharedSymbol symbol)
+        {
+            if (symbol.TradingMode == TradingMode.Spot)
+                return false;
+
+            return true;
+        }
 
         /// <inheritdoc />
         public IKlineTracker CreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval, int? limit = null, TimeSpan? period = null, ExchangeParameters? exchangeParameters = null)
