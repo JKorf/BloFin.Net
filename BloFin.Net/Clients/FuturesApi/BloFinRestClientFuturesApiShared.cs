@@ -49,9 +49,9 @@ namespace BloFin.Net.Clients.FuturesApi
                 ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, ticker.Symbol),
                 ticker.Symbol,
                 ticker.BestAskPrice,
-                ticker.BestAskQuantity,
+                new SharedOrderQuantity(contractQuantity: ticker.BestAskQuantity),
                 ticker.BestBidPrice,
-                ticker.BestBidQuantity));
+                new SharedOrderQuantity(contractQuantity: ticker.BestBidQuantity)));
         }
 
         #endregion
@@ -137,7 +137,7 @@ namespace BloFin.Net.Clients.FuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            return HttpResult.Ok(result, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.Contracts, result.Data.Asks, result.Data.Bids));
         }
 
         #endregion
@@ -793,12 +793,11 @@ namespace BloFin.Net.Clients.FuturesApi
                 x.OrderId.ToString(),
                 x.TradeId.ToString(),
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity,
+                new SharedOrderQuantity(contractQuantity: x.Quantity),
                 x.Price,
                 x.Timestamp)
             {
                 Price = x.Price,
-                Quantity = x.Quantity,
                 Fee = x.Fee
             }).ToArray());
         }
@@ -840,12 +839,11 @@ namespace BloFin.Net.Clients.FuturesApi
                                 x.OrderId.ToString(),
                                 x.TradeId.ToString(),
                                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                                x.Quantity,
+                                new SharedOrderQuantity(contractQuantity: x.Quantity),
                                 x.Price,
                                 x.Timestamp)
                             {
                                 Price = x.Price,
-                                Quantity = x.Quantity,
                                 Fee = x.Fee
                             })
                        .ToArray(), nextPageRequest);
@@ -881,16 +879,21 @@ namespace BloFin.Net.Clients.FuturesApi
                 data = data.Where(x => request.TradingMode == TradingMode.PerpetualInverse ? x.Symbol!.EndsWith("USD") : !x.Symbol!.EndsWith("USD"));
 
             var resultTypes = request.Symbol == null && request.TradingMode == null ? SupportedTradingModes : request.Symbol != null ? new[] { request.Symbol!.TradingMode } : new[] { request.TradingMode!.Value };
-            return HttpResult.Ok(result, data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, Math.Abs(x.PositionSize), x.UpdateTime)
-            {
-                UnrealizedPnl = x.UnrealizedPnl,
-                LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
-                Leverage = x.Leverage,
-                AverageOpenPrice = x.AveragePrice,
-                UpdateTime = x.UpdateTime,
-                PositionMode = x.PositionSide == PositionSide.Net ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
-                PositionSide = x.PositionSide == PositionSide.Net ? (x.PositionSize >= 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionSide == PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long
-            }).ToArray());
+            return HttpResult.Ok(result, data.Select(x => 
+                new SharedPosition(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
+                    x.Symbol,
+                    new SharedOrderQuantity(contractQuantity: Math.Abs(x.PositionSize)),
+                    x.UpdateTime)
+                {
+                    UnrealizedPnl = x.UnrealizedPnl,
+                    LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
+                    Leverage = x.Leverage,
+                    AverageOpenPrice = x.AveragePrice,
+                    UpdateTime = x.UpdateTime,
+                    PositionMode = x.PositionSide == PositionSide.Net ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
+                    PositionSide = x.PositionSide == PositionSide.Net ? (x.PositionSize >= 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionSide == PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long
+                }).ToArray());
         }
 
         ClosePositionOptions IFuturesOrderRestClient.ClosePositionOptions { get; } = new ClosePositionOptions(_exchangeName, true)
@@ -1263,7 +1266,7 @@ namespace BloFin.Net.Clients.FuturesApi
                             x.PositionSide == PositionSide.Net ? (x.ClosePositions >= 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionSide == PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
                             x.OpenAveragePrice,
                             x.CloseAveragePrice,
-                            x.ClosePositions,
+                            new SharedOrderQuantity(contractQuantity: x.ClosePositions),
                             x.RealizedPnl,
                             x.CreateTime)
                         {

@@ -34,7 +34,15 @@ namespace BloFin.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToTickerUpdatesAsync(symbols, update => handler(update.ToType(new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
+            var result = await SubscribeToTickerUpdatesAsync(symbols, update => handler(
+                update.ToType(
+                    new SharedBookTicker(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol),
+                        update.Data.Symbol,
+                        update.Data.BestAskPrice,
+                        new SharedOrderQuantity(contractQuantity: update.Data.BestAskQuantity),
+                        update.Data.BestBidPrice,
+                        new SharedOrderQuantity(contractQuantity: update.Data.BestBidQuantity)))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -86,7 +94,9 @@ namespace BloFin.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToOrderBookUpdatesAsync(symbols, 5, update => handler(update.ToType(new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
+            var result = await SubscribeToOrderBookUpdatesAsync(symbols, 5, update => handler(
+                update.ToType(
+                    new SharedOrderBook(SharedQuantityType.Contracts, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -265,15 +275,20 @@ namespace BloFin.Net.Clients.FuturesApi
                      if (update.UpdateType == SocketUpdateType.Snapshot)
                          return;
 
-                     handler(update.ToType(update.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, Math.Abs(x.PositionSize), x.UpdateTime)
-                     {
-                         AverageOpenPrice = x.AveragePrice,
-                         PositionMode = x.PositionSide == PositionSide.Net ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
-                         PositionSide = x.PositionSide == Enums.PositionSide.Net ? (x.PositionSize > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
-                         UnrealizedPnl = x.UnrealizedPnl,
-                         Leverage = x.Leverage,
-                         LiquidationPrice = x.LiquidationPrice
-                     }).ToArray()));
+                     handler(update.ToType(update.Data.Select(x => 
+                         new SharedPosition(
+                             ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), 
+                             x.Symbol,
+                             new SharedOrderQuantity(contractQuantity: Math.Abs(x.PositionSize)), 
+                             x.UpdateTime)
+                         {
+                             AverageOpenPrice = x.AveragePrice,
+                             PositionMode = x.PositionSide == PositionSide.Net ? SharedPositionMode.OneWay : SharedPositionMode.HedgeMode,
+                             PositionSide = x.PositionSide == Enums.PositionSide.Net ? (x.PositionSize > 0 ? SharedPositionSide.Long : SharedPositionSide.Short) : x.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
+                             UnrealizedPnl = x.UnrealizedPnl,
+                             Leverage = x.Leverage,
+                             LiquidationPrice = x.LiquidationPrice
+                         }).ToArray()));
                  },
                 ct: ct).ConfigureAwait(false);
 
