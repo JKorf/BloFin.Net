@@ -6,8 +6,8 @@ This file is optimized for AI coding assistants. It maps the actual BloFin.Net A
 
 - Repository: `JKorf/BloFin.Net`
 - Package: `BloFin.Net`
-- Current project version: `3.3.0`
-- Base library: `CryptoExchange.Net` `12.2.0`
+- Current project version: `3.4.0`
+- Base library: `CryptoExchange.Net` `12.5.0`
 - REST client: `BloFinRestClient`
 - Socket client: `BloFinSocketClient`
 - Credentials: `BloFinCredentials(string key, string secret, string pass)`
@@ -227,6 +227,10 @@ Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supporte
 ```
 
 Use `CryptoExchange.Net.SharedApis` interfaces from each exchange's `.SharedClient` for multi-exchange code. Call `.Discover()` before routing optional shared features across exchanges.
+
+BloFin futures use contract quantities. Shared book tickers, trades, user trades, positions and position history expose `SharedOrderQuantity`; read `QuantityInContracts`. Shared order books set `QuantityType` to `SharedQuantityType.Contracts`.
+
+`BloFinTrackerFactory` creates kline and trade trackers only for futures symbols. Its `CanCreateKlineTracker(...)` and `CanCreateTradeTracker(...)` methods return `false` for spot symbols.
 
 ## Known Nonexistent Patterns
 

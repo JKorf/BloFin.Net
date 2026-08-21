@@ -60,3 +60,5 @@ Common mappings:
 - Private sockets: `socketClient.FuturesApi.SubscribeToOrderUpdatesAsync(...)`
 
 The futures shared client populates the CryptoExchange.Net symbol catalog with normalized trading constraints and asset classifications.
+
+Shared futures quantities are contracts: use `SharedOrderQuantity.QuantityInContracts`, and expect `SharedQuantityType.Contracts` on shared order books. `BloFinTrackerFactory` does not support spot symbols.

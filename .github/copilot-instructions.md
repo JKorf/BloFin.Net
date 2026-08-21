@@ -41,6 +41,8 @@ The passphrase is required.
 - Use `KlineInterval`, not `BinPeriod`.
 - Check `result.Success` before reading `result.Data`.
 - Futures quantities are contract quantities.
+- In shared futures results, read `SharedOrderQuantity.QuantityInContracts`; shared order books use `SharedQuantityType.Contracts`.
+- `BloFinTrackerFactory` supports futures symbols, not spot symbols.
 
 ## Frequent Endpoint Mapping
 

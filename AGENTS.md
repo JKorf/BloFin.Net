@@ -187,6 +187,8 @@ Never assume `Data` is populated when `Success` is false.
 
 The futures shared client publishes its symbols to the CryptoExchange.Net shared symbol catalog. Shared futures symbols include trading constraints and asset classifications such as crypto, equity and commodity where BloFin's V3 metadata identifies them. Prefer the shared catalog when multi-exchange code needs normalized symbol or asset-type metadata.
 
+Shared futures quantities are contract-based. Book tickers, trades, user trades, positions and position history expose `SharedOrderQuantity` values through `QuantityInContracts`; shared order books identify their entries with `SharedQuantityType.Contracts`.
+
 ## Local Order Book And Trackers
 
 BloFin.Net includes:
@@ -197,6 +199,8 @@ BloFin.Net includes:
 - `BloFinUserFuturesDataTracker`
 
 Use these when code needs maintained local order book state or user data tracking instead of manually combining snapshots and websocket deltas.
+
+BloFin trackers support futures symbols only. `BloFinTrackerFactory.CanCreateKlineTracker(...)` and `CanCreateTradeTracker(...)` return `false` for spot symbols.
 
 ## Common Pitfalls
 

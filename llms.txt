@@ -95,3 +95,4 @@ The futures shared client populates the CryptoExchange.Net symbol catalog with n
 - Use BloFin-native futures symbols such as `ETH-USDT`.
 - Use `KlineInterval`, not `BinPeriod`.
 - Credentials are `BloFinCredentials(key, secret, passphrase)`.
+- `BloFinTrackerFactory` supports futures symbols, not spot symbols.
