@@ -35,6 +35,8 @@ namespace BloFin.Net.Clients.FuturesApi
     internal partial class BloFinSocketClientFuturesApi : SocketApiClient<BloFinEnvironment, BloFinAuthenticationProvider, BloFinCredentials>, IBloFinSocketClientFuturesApi
     {
         #region fields
+        private readonly BloFinSocketClientFuturesSharedApi _sharedApi;
+
         protected override ErrorMapping ErrorMapping => BloFinErrors.Errors;
         #endregion
 
@@ -47,6 +49,8 @@ namespace BloFin.Net.Clients.FuturesApi
             base(loggerFactory, BloFinExchange.Metadata.Id, options.Environment.SocketClientAddress!, options, options.ExchangeOptions)
         {
             RateLimiter = BloFinExchange.RateLimiter.BloFinSocket;
+
+            _sharedApi = new BloFinSocketClientFuturesSharedApi(this);
 
             RegisterPeriodicQuery(
                 "Ping",
@@ -350,7 +354,9 @@ namespace BloFin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public IBloFinSocketClientFuturesApiShared SharedClient => this;
+        public IBloFinSocketClientFuturesApiShared SharedClient => _sharedApi;
+        /// <inheritdoc />
+        public IBloFinSocketClientFuturesSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverDate = null)

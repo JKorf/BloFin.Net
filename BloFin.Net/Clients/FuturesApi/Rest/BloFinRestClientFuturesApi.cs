@@ -12,6 +12,8 @@ namespace BloFin.Net.Clients.FuturesApi
     internal partial class BloFinRestClientFuturesApi : BloFinRestClientApi, IBloFinRestClientFuturesApi
     {
         #region fields 
+        private readonly BloFinRestClientFuturesSharedApi _sharedApi;
+
         protected override ErrorMapping ErrorMapping => BloFinErrors.Errors;
         protected override IRestMessageHandler MessageHandler { get; } = new BloFinRestMessageHandler(BloFinErrors.Errors);
 
@@ -34,10 +36,14 @@ namespace BloFin.Net.Clients.FuturesApi
             Account = new BloFinRestClientFuturesApiAccount(this);
             ExchangeData = new BloFinRestClientFuturesApiExchangeData(_logger, this);
             Trading = new BloFinRestClientFuturesApiTrading(_logger, this);
+
+            _sharedApi = new BloFinRestClientFuturesSharedApi(this);
         }
         #endregion
 
         /// <inheritdoc />
-        public IBloFinRestClientFuturesApiShared SharedClient => this;
+        public IBloFinRestClientFuturesApiShared SharedClient => _sharedApi;
+        /// <inheritdoc />
+        public IBloFinRestClientFuturesSharedApi SharedApi => _sharedApi;
     }
 }
