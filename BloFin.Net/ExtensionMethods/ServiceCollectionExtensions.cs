@@ -119,6 +119,12 @@ namespace Microsoft.Extensions.DependencyInjection
                     x.GetRequiredService<IOptions<BloFinRestOptions>>(),
                     x.GetRequiredService<IOptions<BloFinSocketOptions>>()));
 
+            services.AddTransient<IBloFinSharedApiClient, BloFinSharedApiClient>();
+
+            services.RegisterSharedApi(x => x.GetRequiredService<IBloFinRestClient>().AccountApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IBloFinRestClient>().FuturesApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IBloFinSocketClient>().FuturesApi.SharedApi);
+
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBloFinRestClient>().AccountApi.SharedClient);
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBloFinRestClient>().FuturesApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBloFinSocketClient>().FuturesApi.SharedClient);

@@ -13,11 +13,12 @@ namespace BloFin.Net.Clients.FuturesApi
 {
     internal partial class BloFinSocketClientFuturesSharedApi
     {
-        #region Kline client
         public SubscribeKlineOptions SubscribeKlineOptions { get; } = new SubscribeKlineOptions(_exchangeName, false)
         {
             SupportsMultipleSymbols = true
         };
+        #region Subscribe To Kline Updates
+
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(SubscribeKlineRequest request, Action<DataEvent<SharedKline>> handler, CancellationToken ct)
         {
             var validationError = SubscribeKlineOptions.ValidateRequest(request, this);
@@ -44,6 +45,7 @@ namespace BloFin.Net.Clients.FuturesApi
 
             return result;
         }
+
         #endregion
     }
 }

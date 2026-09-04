@@ -14,7 +14,11 @@ namespace BloFin.Net.Clients.Apis
 {
     internal partial class BloFinRestClientAccountSharedApi
     {
-        #region Withdrawal client
+
+        #region Get Withdrawal History
+
+        async Task<ICallResult<SharedWithdrawal[]>> IGetWithdrawalHistory.GetWithdrawalHistoryAsync(GetWithdrawalsRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetWithdrawalHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         Task<HttpResult<SharedWithdrawal[]>> IWithdrawalRestClient.GetWithdrawalsAsync(GetWithdrawalsRequest request, PageRequest? nextPageToken, CancellationToken ct)
             => GetWithdrawalHistoryAsync(request, nextPageToken, ct);
@@ -68,6 +72,8 @@ namespace BloFin.Net.Clients.Apis
                        .ToArray(), nextPageRequest);
         }
 
+        #endregion
+
         private SharedTransferStatus GetWithdrawalStatus(BloFinWithdrawal x)
         {
             if (x.Status == WithdrawalStatus.Canceled || x.Status == WithdrawalStatus.Failed)
@@ -82,6 +88,5 @@ namespace BloFin.Net.Clients.Apis
             return SharedTransferStatus.Unknown;
         }
 
-        #endregion
     }
 }

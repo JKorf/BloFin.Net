@@ -19,8 +19,12 @@ namespace BloFin.Net.Clients.FuturesApi
 {
     internal partial class BloFinRestClientFuturesSharedApi
     {
-        #region Position Mode client
         public SharedPositionModeSelection PositionModeSettingType => SharedPositionModeSelection.PerAccount;
+
+        #region Get Position Mode
+
+        async Task<ICallResult<SharedPositionModeResult>> IGetPositionMode.GetPositionModeAsync(GetPositionModeRequest request, CancellationToken ct)
+            => await GetPositionModeAsync(request, ct).ConfigureAwait(false);
 
         public GetPositionModeOptions GetPositionModeOptions { get; } = new GetPositionModeOptions(_exchangeName);
         public async Task<HttpResult<SharedPositionModeResult>> GetPositionModeAsync(GetPositionModeRequest request, CancellationToken ct)
@@ -36,6 +40,13 @@ namespace BloFin.Net.Clients.FuturesApi
             return HttpResult.Ok(result, new SharedPositionModeResult(result.Data.PositionMode == PositionMode.HedgeMode ? SharedPositionMode.HedgeMode : SharedPositionMode.OneWay));
         }
 
+        #endregion
+
+        #region Set Position Mode
+
+        async Task<ICallResult<SharedPositionModeResult>> ISetPositionMode.SetPositionModeAsync(SetPositionModeRequest request, CancellationToken ct)
+            => await SetPositionModeAsync(request, ct).ConfigureAwait(false);
+
         public SetPositionModeOptions SetPositionModeOptions { get; } = new SetPositionModeOptions(_exchangeName);
         public async Task<HttpResult<SharedPositionModeResult>> SetPositionModeAsync(SetPositionModeRequest request, CancellationToken ct)
         {
@@ -49,6 +60,7 @@ namespace BloFin.Net.Clients.FuturesApi
 
             return HttpResult.Ok(result, new SharedPositionModeResult(request.PositionMode));
         }
+
         #endregion
     }
 }

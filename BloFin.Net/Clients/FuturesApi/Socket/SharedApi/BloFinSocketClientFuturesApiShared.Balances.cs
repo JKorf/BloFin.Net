@@ -13,8 +13,9 @@ namespace BloFin.Net.Clients.FuturesApi
 {
     internal partial class BloFinSocketClientFuturesSharedApi
     {
-        #region Balance client
         public SubscribeBalanceOptions SubscribeBalanceOptions { get; } = new SubscribeBalanceOptions(_exchangeName, true);
+        #region Subscribe To Balance Updates
+
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<DataEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
             var validationError = SubscribeBalanceOptions.ValidateRequest(request, this);
@@ -39,5 +40,6 @@ namespace BloFin.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

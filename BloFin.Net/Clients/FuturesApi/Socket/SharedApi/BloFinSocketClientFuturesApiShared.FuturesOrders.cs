@@ -13,7 +13,8 @@ namespace BloFin.Net.Clients.FuturesApi
 {
     internal partial class BloFinSocketClientFuturesSharedApi
     {
-        #region Futures Order client
+        #region Subscribe To Futures Order Updates
+
         async Task<WebSocketResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<DataEvent<SharedFuturesOrder[]>> handler, CancellationToken ct)
             => await SubscribeToFuturesOrderUpdatesAsync(request, x => handler(x.ToType<SharedFuturesOrder[]>(x.Data)), ct).ConfigureAwait(false);
 
@@ -62,6 +63,8 @@ namespace BloFin.Net.Clients.FuturesApi
             return result;
         }
 
+        #endregion
+
         private SharedOrderStatus ParseOrderStatus(OrderStatus status)
         {
             if (status == OrderStatus.Open || status == OrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
@@ -90,6 +93,5 @@ namespace BloFin.Net.Clients.FuturesApi
 
             return null;
         }
-        #endregion
     }
 }

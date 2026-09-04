@@ -14,12 +14,16 @@ namespace BloFin.Net.Clients.Apis
 {
     internal partial class BloFinRestClientAccountSharedApi
     {
-        #region Deposit client
 
         GetDepositAddressesOptions IDepositRestClient.GetDepositAddressesOptions { get; } = new GetDepositAddressesOptions(_exchangeName, true)
         {
             Supported = false
         };
+        #region Get Deposit History
+
+        async Task<ICallResult<SharedDeposit[]>> IGetDepositHistory.GetDepositHistoryAsync(GetDepositsRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetDepositHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
+
         Task<HttpResult<SharedDepositAddress[]>> IDepositRestClient.GetDepositAddressesAsync(GetDepositAddressesRequest request, CancellationToken ct)
         {
             return Task.FromResult(HttpResult.Fail<SharedDepositAddress[]>(Exchange, new InvalidOperationError($"Method not available for {Exchange}")));
@@ -75,6 +79,8 @@ namespace BloFin.Net.Clients.Apis
                        .ToArray(), nextPageRequest);
         }
 
+        #endregion
+
         private SharedTransferStatus ParseTransferStatus(DepositStatus status)
         {
             if (status == DepositStatus.Failed)
@@ -87,6 +93,5 @@ namespace BloFin.Net.Clients.Apis
             return SharedTransferStatus.Unknown;
         }
 
-        #endregion
     }
 }

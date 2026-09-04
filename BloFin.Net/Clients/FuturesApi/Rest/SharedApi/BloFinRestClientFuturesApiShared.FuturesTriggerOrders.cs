@@ -19,7 +19,11 @@ namespace BloFin.Net.Clients.FuturesApi
 {
     internal partial class BloFinRestClientFuturesSharedApi
     {
-        #region Trigger Order Client
+        #region Place Futures Trigger Order
+
+        async Task<ICallResult<SharedId>> IPlaceFuturesTriggerOrder.PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)
+            => await PlaceFuturesTriggerOrderAsync(request, ct).ConfigureAwait(false);
+
         public PlaceFuturesTriggerOrderOptions PlaceFuturesTriggerOrderOptions { get; } = new PlaceFuturesTriggerOrderOptions(_exchangeName, false)
         {
             RequiredRequestParameters = new List<ParameterDescription>
@@ -52,6 +56,13 @@ namespace BloFin.Net.Clients.FuturesApi
             // Return
             return HttpResult.Ok(result, new SharedId(result.Data.AlgoOrderId.ToString()));
         }
+
+        #endregion
+
+        #region Get Futures Trigger Order
+
+        async Task<ICallResult<SharedFuturesTriggerOrder>> IGetFuturesTriggerOrder.GetFuturesTriggerOrderAsync(GetOrderRequest request, CancellationToken ct)
+            => await GetFuturesTriggerOrderAsync(request, ct).ConfigureAwait(false);
 
         public GetFuturesTriggerOrderOptions GetFuturesTriggerOrderOptions { get; } = new GetFuturesTriggerOrderOptions(_exchangeName, true);
         public async Task<HttpResult<SharedFuturesTriggerOrder>> GetFuturesTriggerOrderAsync(GetOrderRequest request, CancellationToken ct)
@@ -94,6 +105,8 @@ namespace BloFin.Net.Clients.FuturesApi
             });
         }
 
+        #endregion
+
         private SharedTriggerOrderStatus ParseTriggerOrderStatus(TpSlOrderStatus status)
         {
             if (status == TpSlOrderStatus.Failed || status == TpSlOrderStatus.Canceled)
@@ -104,6 +117,11 @@ namespace BloFin.Net.Clients.FuturesApi
 
             return SharedTriggerOrderStatus.Unknown;
         }
+
+        #region Cancel Futures Trigger Order
+
+        async Task<ICallResult<SharedId>> ICancelFuturesTriggerOrder.CancelFuturesTriggerOrderAsync(CancelOrderRequest request, CancellationToken ct)
+            => await CancelFuturesTriggerOrderAsync(request, ct).ConfigureAwait(false);
 
         public CancelFuturesTriggerOrderOptions CancelFuturesTriggerOrderOptions { get; } = new CancelFuturesTriggerOrderOptions(_exchangeName, true);
         public async Task<HttpResult<SharedId>> CancelFuturesTriggerOrderAsync(CancelOrderRequest request, CancellationToken ct)
@@ -118,6 +136,8 @@ namespace BloFin.Net.Clients.FuturesApi
 
             return HttpResult.Ok(order, new SharedId(order.Data.AlgoOrderId.ToString()));
         }
+
+        #endregion
 
         private OrderSide GetTriggerOrderParameters(SharedTriggerOrderDirection direction, SharedPositionSide side)
         {
@@ -138,6 +158,5 @@ namespace BloFin.Net.Clients.FuturesApi
                 // Enter Short = Buy
                 return OrderSide.Buy;
         }
-        #endregion
     }
 }
