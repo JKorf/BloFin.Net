@@ -28,7 +28,7 @@ namespace BloFin.Net.Clients.FuturesApi
         {
             ParameterRuleOverwrites = [
                 RequestParameterRuleOverride<PlaceFuturesTriggerOrderRequest>.Required(x => x.PositionMode),
-                RequestParameterRuleOverride<PlaceFuturesTriggerOrderRequest>.Required(x => x.MarginMode)
+                RequestParameterRuleOverride<PlaceFuturesTriggerOrderRequest>.Required(x => x.MarginMode),
             ]
         };
         public async Task<HttpResult<SharedId>> PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)

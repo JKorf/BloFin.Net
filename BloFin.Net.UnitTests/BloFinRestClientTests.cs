@@ -45,5 +45,21 @@ namespace BloFin.Net.UnitTests
             Assert.That(missingOptions, Is.Empty);
             Assert.That(missingInterfaces, Is.Empty);
         }
+        [Test]
+        public void TestFuturesRestSharedApiDoesntHaveUnsupportedCapabilities()
+        {
+            var unsupported = CryptoExchange.Net.Testing.TestHelpers.ValidateUnsupportedCapabilities(new BloFinRestClient().FuturesApi.SharedApi);
+
+            Assert.That(unsupported, Is.Empty);
+        }
+
+        [Test]
+        public void TestFuturesSocketSharedApiDoesntHaveUnsupportedCapabilities()
+        {
+            var unsupported = CryptoExchange.Net.Testing.TestHelpers.ValidateUnsupportedCapabilities(new BloFinSocketClient().FuturesApi.SharedApi);
+
+            Assert.That(unsupported, Is.Empty);
+        }
+
     }
 }

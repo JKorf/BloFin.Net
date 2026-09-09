@@ -38,10 +38,11 @@ namespace BloFin.Net.Clients.FuturesApi
         async Task<ICallResult<SharedId>> IPlaceFuturesOrder.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
             => await PlaceFuturesOrderAsync(request, ct).ConfigureAwait(false);
 
-        public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, false)
+        public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, true)
         {
             ParameterRuleOverwrites = [
-                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.Required(x => x.MarginMode)
+                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.Required(x => x.MarginMode),
+                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.NotSupported(x => x.Leverage)
             ]
         };
         public async Task<HttpResult<SharedId>> PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
