@@ -40,7 +40,7 @@ namespace BloFin.Net.Clients.FuturesApi
 
         public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<PlaceFuturesOrderRequest>.Required(x => x.MarginMode),
                 RequestParameterRuleOverride<PlaceFuturesOrderRequest>.NotSupported(x => x.Leverage)
             ]
@@ -404,7 +404,7 @@ namespace BloFin.Net.Clients.FuturesApi
 
         public CloseFullPositionOptions CloseFullPositionOptions { get; } = new CloseFullPositionOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<CloseFullPositionRequest>.NotSupported(x => x.PositionSide)
             ]
         };
@@ -433,7 +433,7 @@ namespace BloFin.Net.Clients.FuturesApi
 
         public ClosePositionOptions ClosePositionOptions { get; } = new ClosePositionOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<ClosePositionRequest>.Required(x => x.MarginMode)
             ]
         };

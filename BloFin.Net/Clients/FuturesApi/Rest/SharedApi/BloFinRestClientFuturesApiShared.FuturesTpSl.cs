@@ -26,7 +26,7 @@ namespace BloFin.Net.Clients.FuturesApi
 
         public SetFuturesTpSlOptions SetFuturesTpSlOptions { get; } = new SetFuturesTpSlOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<SetTpSlRequest>.Required(x => x.PositionMode),
                 RequestParameterRuleOverride<SetTpSlRequest>.Required(x => x.MarginMode)
             ]
@@ -65,7 +65,7 @@ namespace BloFin.Net.Clients.FuturesApi
 
         public CancelFuturesTpSlOptions CancelFuturesTpSlOptions { get; } = new CancelFuturesTpSlOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<CancelTpSlRequest>.Required(x => x.OrderId)
             ]
         };

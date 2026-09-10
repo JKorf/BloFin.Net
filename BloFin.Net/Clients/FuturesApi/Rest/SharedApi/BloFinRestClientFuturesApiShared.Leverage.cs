@@ -28,7 +28,7 @@ namespace BloFin.Net.Clients.FuturesApi
 
         public GetLeverageOptions GetLeverageOptions { get; } = new GetLeverageOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites =
+            ParameterRuleOverrides =
             [
                 RequestParameterRuleOverride<GetLeverageRequest>.Required(x => x.MarginMode)
             ]
@@ -60,7 +60,7 @@ namespace BloFin.Net.Clients.FuturesApi
 
         public SetLeverageOptions SetLeverageOptions { get; } = new SetLeverageOptions(_exchangeName)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<SetLeverageRequest>.Required(x => x.MarginMode)
             ]   
         };
