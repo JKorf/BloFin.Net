@@ -59,8 +59,9 @@ namespace Microsoft.Extensions.DependencyInjection
             options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
 
 
-            services.AddSingleton(x => Options.Options.Create(options.Rest));
-            services.AddSingleton(x => Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options.Rest));
+            services.AddSingleton(Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options));
 
             return AddBloFinCore(services, options.SocketClientLifeTime);
         }
@@ -88,8 +89,9 @@ namespace Microsoft.Extensions.DependencyInjection
             options.Socket.Environment = options.Socket.Environment ?? options.Environment ?? BloFinEnvironment.Live;
             options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
 
-            services.AddSingleton(x => Options.Options.Create(options.Rest));
-            services.AddSingleton(x => Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options.Rest));
+            services.AddSingleton(Options.Options.Create(options.Socket));
+            services.AddSingleton(Options.Options.Create(options));
 
             return AddBloFinCore(services, options.SocketClientLifeTime);
         }
@@ -124,6 +126,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.RegisterSharedApi(x => x.GetRequiredService<IBloFinRestClient>().AccountApi.SharedApi);
             services.RegisterSharedApi(x => x.GetRequiredService<IBloFinRestClient>().FuturesApi.SharedApi);
             services.RegisterSharedApi(x => x.GetRequiredService<IBloFinSocketClient>().FuturesApi.SharedApi);
+
+            services.RegisterSharedApiClientCapabilities<IBloFinSharedApiClient>();
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBloFinRestClient>().AccountApi.SharedClient);
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBloFinRestClient>().FuturesApi.SharedClient);
