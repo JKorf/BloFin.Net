@@ -26,7 +26,7 @@ namespace BloFin.Net.Clients.FuturesApi
         public BloFinSocketClientFuturesSharedApi(BloFinSocketClientFuturesApi api)
             : base(
                   SharedTransport.Socket,
-                  api.Exchange,
+                  api,
                   new[] { TradingMode.PerpetualLinear, TradingMode.PerpetualInverse },
                   () => api.Authenticated,
                   api.FormatSymbol)

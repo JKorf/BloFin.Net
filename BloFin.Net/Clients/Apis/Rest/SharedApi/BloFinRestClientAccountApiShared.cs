@@ -26,7 +26,7 @@ namespace BloFin.Net.Clients.Apis
         public BloFinRestClientAccountSharedApi(BloFinRestClientAccountApi api)
             : base(
                   SharedTransport.Rest,
-                  api.Exchange,
+                  api,
                   new[] { TradingMode.Spot },
                   () => api.Authenticated,
                   api.FormatSymbol)
