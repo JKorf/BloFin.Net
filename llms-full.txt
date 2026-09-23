@@ -80,7 +80,7 @@ Use `restClient.AccountApi` for general account and asset transfer history:
 - `GetTransferHistoryAsync(asset, fromAccount, toAccount, startTime, endTime, limit)`
 - `GetWithdrawalHistoryAsync(asset, withdrawId, transactionId, status, startTime, endTime, limit)`
 - `GetDepositHistoryAsync(asset, depositId, transactionId, status, startTime, endTime, limit)`
-- `SharedClient`
+- `SharedApi`
 
 ### FuturesApi.ExchangeData
 
@@ -220,13 +220,11 @@ For shared clients:
 ```csharp
 using CryptoExchange.Net.SharedApis;
 
-var futuresShared = restClient.FuturesApi.SharedClient;
-var info = futuresShared.Discover();
-var supported = info.Features.Where(x => x.Supported).Select(x => x.EndpointName);
-Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supported)}");
+var futuresShared = restClient.FuturesApi.SharedApi;
+// Use the exchange-level `IBloFinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 ```
 
-Use `CryptoExchange.Net.SharedApis` interfaces from each exchange's `.SharedClient` for multi-exchange code. Call `.Discover()` before routing optional shared features across exchanges.
+Use the exchange-level `IBloFinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 BloFin futures use contract quantities. Shared book tickers, trades, user trades, positions and position history expose `SharedOrderQuantity`; read `QuantityInContracts`. Shared order books set `QuantityType` to `SharedQuantityType.Contracts`.
 

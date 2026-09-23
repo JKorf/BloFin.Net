@@ -21,13 +21,19 @@ namespace BloFin.Net
             IBloFinSocketClient socketClient,
             string? userIdentifier,
             FuturesUserDataTrackerConfig? config) : base(logger,
-                restClient.FuturesApi.SharedClient,
-                restClient.FuturesApi.SharedClient,
-                socketClient.FuturesApi.SharedClient,
-                restClient.FuturesApi.SharedClient,
-                socketClient.FuturesApi.SharedClient,
+                restClient.FuturesApi.SharedApi,
+                restClient.FuturesApi.SharedApi,
+                socketClient.FuturesApi.SharedApi,
+
+                restClient.FuturesApi.SharedApi,
+                restClient.FuturesApi.SharedApi,
+                socketClient.FuturesApi.SharedApi,
+
+                restClient.FuturesApi.SharedApi,
                 null,
-                socketClient.FuturesApi.SharedClient,
+
+                restClient.FuturesApi.SharedApi,
+                socketClient.FuturesApi.SharedApi,
                 userIdentifier,
                 config ?? new FuturesUserDataTrackerConfig())
         {

@@ -29,13 +29,13 @@ REST:
 - `restClient.FuturesApi.ExchangeData`
 - `restClient.FuturesApi.Account`
 - `restClient.FuturesApi.Trading`
-- `restClient.AccountApi.SharedClient`
-- `restClient.FuturesApi.SharedClient`
+- `restClient.AccountApi.SharedApi`
+- `restClient.FuturesApi.SharedApi`
 
 Sockets:
 
 - `socketClient.FuturesApi`
-- `socketClient.FuturesApi.SharedClient`
+- `socketClient.FuturesApi.SharedApi`
 
 There is no `ExchangeApi`, `SpotApi`, `UsdFuturesApi`, `FuturesApiV2`, `SpotApiV3`, or credential overload without passphrase.
 
@@ -80,13 +80,11 @@ var sub = await socketClient.FuturesApi.SubscribeToTickerUpdatesAsync("ETH-USDT"
 ```csharp
 using CryptoExchange.Net.SharedApis;
 
-var futuresShared = restClient.FuturesApi.SharedClient;
-var info = futuresShared.Discover();
-var supported = info.Features.Where(x => x.Supported).Select(x => x.EndpointName);
-Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supported)}");
+var futuresShared = restClient.FuturesApi.SharedApi;
+// Use the exchange-level `IBloFinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 ```
 
-Use `.Discover()` before routing optional shared features across exchanges.
+Use the exchange-level `IBloFinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 The futures shared client populates the CryptoExchange.Net symbol catalog with normalized trading constraints and asset classifications.
 

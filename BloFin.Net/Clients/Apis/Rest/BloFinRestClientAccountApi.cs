@@ -17,6 +17,8 @@ namespace BloFin.Net.Clients.Apis
 {
     internal partial class BloFinRestClientAccountApi : BloFinRestClientApi, IBloFinRestClientAccountApi
     {
+        private readonly BloFinRestClientAccountSharedApi _sharedApi;
+
         protected override ErrorMapping ErrorMapping => BloFinErrors.Errors;
         protected override IRestMessageHandler MessageHandler { get; } = new BloFinRestMessageHandler(BloFinErrors.Errors);
 
@@ -25,6 +27,7 @@ namespace BloFin.Net.Clients.Apis
         internal BloFinRestClientAccountApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, BloFinRestOptions options)
             : base(loggerFactory, httpClient, options.Environment.RestClientAddress, options, options.ExchangeOptions)
         {
+            _sharedApi = new BloFinRestClientAccountSharedApi(this);
         }
 
         #region Get Balances
@@ -143,6 +146,8 @@ namespace BloFin.Net.Clients.Apis
         #endregion
 
         /// <inheritdoc />
-        public IBloFinRestClientAccountApiShared SharedClient => this;
+        public IBloFinRestClientAccountApiShared SharedClient => _sharedApi;
+        /// <inheritdoc />
+        public IBloFinRestClientAccountSharedApi SharedApi => _sharedApi;
     }
 }

@@ -20,7 +20,7 @@ Use the real BloFin.Net structure:
 - `BloFinRestClient.FuturesApi.Account`
 - `BloFinRestClient.FuturesApi.Trading`
 - `BloFinSocketClient.FuturesApi`
-- `SharedClient` from `AccountApi` and `FuturesApi` where appropriate
+- `SharedApi` from `AccountApi` and `FuturesApi` where appropriate
 
 Do not generate Binance, Bitget, BitMart, BitMEX, Bitstamp, or Bitfinex client roots. There is no `ExchangeApi`, `SpotApi`, `UsdFuturesApi`, `SpotApiV3`, `FuturesApiV2`, `PerpetualFuturesApi`, or `CoinFuturesApi`.
 
