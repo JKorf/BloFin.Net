@@ -23,9 +23,9 @@ BloFin.Net is a CryptoExchange.Net-based client for the BloFin REST and websocke
 - Socket root:
   - `socketClient.FuturesApi`
 - Shared clients:
-  - `restClient.AccountApi.SharedClient`
-  - `restClient.FuturesApi.SharedClient`
-  - `socketClient.FuturesApi.SharedClient`
+  - `restClient.AccountApi.SharedApi`
+  - `restClient.FuturesApi.SharedApi`
+  - `socketClient.FuturesApi.SharedApi`
 
 Do not invent roots such as `SpotApi`, `SpotApiV3`, `UsdFuturesApi`, `FuturesApiV2`, `ExchangeApi`, `CoinFuturesApi`, or `PerpetualFuturesApi`. BloFin.Net uses `AccountApi` for asset/account endpoints and `FuturesApi` for market/trading/futures account endpoints.
 
