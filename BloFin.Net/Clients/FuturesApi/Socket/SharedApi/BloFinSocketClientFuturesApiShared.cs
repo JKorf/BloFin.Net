@@ -44,5 +44,8 @@ namespace BloFin.Net.Clients.FuturesApi
                 SubscribePositionOptions
             );
         }
+
+        /// <inheritdoc />
+        public Task UnsubscribeAllAsync() => _api.UnsubscribeAllAsync();
     }
 }
