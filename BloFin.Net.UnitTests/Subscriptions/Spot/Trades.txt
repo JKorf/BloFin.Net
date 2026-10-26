@@ -1,0 +1,4 @@
+> {"op":"subscribe","args":[{"channel":"trades","instId":"BTC-USDT","instType":"SPOT"}]}
+< {"event":"subscribe","arg":{"channel":"trades","instId":"BTC-USDT"}}
+=
+{"arg":{"channel":"trades","instId":"BTC-USDT"},"data":[{"instId":"BTC-USDT","tradeId":"12496113955","price":"78301.75","size":"0.02695","side":"buy","ts":"1789729343121"}]}

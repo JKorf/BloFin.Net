@@ -1,0 +1,4 @@
+> {"op":"subscribe","args":[{"channel":"candle1m","instId":"BTC-USDT","instType":"SPOT"}]}
+< {"event":"subscribe","arg":{"channel":"candle1m","instId":"BTC-USDT"}}
+=
+{"arg":{"channel":"candle1m","instId":"BTC-USDT"},"data":[["1789729320000","78314.84","78314.84","78301.75","78301.75","14.69471","1150634.4326","0"]]}

@@ -1,0 +1,5 @@
+GET
+/api/v1/market/index-candles
+false
+UriParams: {"instId":"ETH-USDT","bar":"1m"}
+{"code":"0","data":[["1753151760000","3781.07","3784.12","3781.07","3783.98","1"]]}

@@ -1,0 +1,52 @@
+GET
+/api/v1/spot/market/instruments
+false
+UriParams: {"instType":"SPOT"}
+{
+  "data": [
+    {
+      "instId": "BTC-USDT",
+      "baseCurrency": "BTC",
+      "quoteCurrency": "USDT",
+      "contractValue": null,
+      "listTime": "1704038400000",
+      "expireTime": "4928123449163",
+      "maxLeverage": null,
+      "minSize": "0.00001",
+      "lotSize": "0.00001",
+      "tickSize": "0.01",
+      "instType": "SPOT",
+      "contractType": null,
+      "maxLimitSize": "9000",
+      "maxMarketSize": "100",
+      "state": "live",
+      "thresholdX": null,
+      "thresholdY": null,
+      "thresholdZ": null,
+      "settleCurrency": null
+    },
+    {
+      "instId": "ETH-USDT",
+      "baseCurrency": "ETH",
+      "quoteCurrency": "USDT",
+      "contractValue": null,
+      "listTime": "1704038400000",
+      "expireTime": "4928109425279",
+      "maxLeverage": null,
+      "minSize": "0.0001",
+      "lotSize": "0.0001",
+      "tickSize": "0.01",
+      "instType": "SPOT",
+      "contractType": null,
+      "maxLimitSize": "9000",
+      "maxMarketSize": "2500",
+      "state": "live",
+      "thresholdX": null,
+      "thresholdY": null,
+      "thresholdZ": null,
+      "settleCurrency": null
+    }
+  ],
+  "code": "0",
+  "msg": "success"
+}

@@ -55,6 +55,19 @@ namespace BloFin.Net.UnitTests
         }
 
         [Test]
+        public async Task ValidateSpotExchangeDataCalls()
+        {
+            using var client = new BloFinRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new BloFinCredentials("123", "456", "789");
+            });
+            var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Spot", "https://openapi.blofin.com", IsAuthenticated);
+            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetSymbolsAsync(), "GetSymbols", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetTickersAsync("BTC-USDT"), "GetTickers", nestedJsonProperty: "data");
+        }
+
+        [Test]
         public async Task ValidateFuturesExchangeDataCalls()
         {
             var client = new BloFinRestClient(opts =>
@@ -71,6 +84,7 @@ namespace BloFin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetFundingRateAsync("123"), "GetFundingRate", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetFundingRateHistoryAsync("123"), "GetFundingRateHistory", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetKlinesAsync("123", KlineInterval.OneDay), "GetKlines", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetIndexPriceKlinesAsync("ETH-USDT", KlineInterval.OneMinute), "GetIndexPriceKlines", nestedJsonProperty: "data");
         }
 
         [Test]

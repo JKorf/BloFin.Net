@@ -39,7 +39,7 @@ namespace BloFin.Net.Objects.Models
         /// <summary>
         /// Whether the kline is finished
         /// </summary>
-        [ArrayProperty(8), JsonConverter(typeof(BoolConverter))]
+        [ArrayProperty(5), JsonConverter(typeof(BoolConverter))]
         public bool Finished { get; set; }
     }
 }
