@@ -1,0 +1,5 @@
+GET
+/api/v1/spot/market/tickers
+false
+UriParams: {"instType":"SPOT","instId":"BTC-USDT"}
+{"code":"0","msg":"success","data":[{"instId":"BTC-USDT","last":"78069.09","lastSize":"0.69859","askPrice":"78076","askSize":"0.76963","bidPrice":"78072.01","bidSize":"3.95928","high24h":"78471.12","open24h":"76351.4","low24h":"76017.97","volCurrency24h":"10461.16467","vol24h":null,"ts":"1789729668378"}]}

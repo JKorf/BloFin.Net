@@ -15,5 +15,10 @@ namespace BloFin.Net.Enums
         /// </summary>
         [Map("SWAP")]
         Swap,
+        /// <summary>
+        /// ["<c>SPOT</c>"] Spot
+        /// </summary>
+        [Map("SPOT")]
+        Spot,
     }
 }

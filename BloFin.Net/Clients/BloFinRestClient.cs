@@ -11,6 +11,8 @@ using BloFin.Net.Interfaces.Clients.FuturesApi;
 using BloFin.Net.Clients.FuturesApi;
 using BloFin.Net.Interfaces.Clients.Apis;
 using BloFin.Net.Clients.Apis;
+using BloFin.Net.Clients.SpotApi;
+using BloFin.Net.Interfaces.Clients.SpotApi;
 
 namespace BloFin.Net.Clients
 {
@@ -18,6 +20,9 @@ namespace BloFin.Net.Clients
     public class BloFinRestClient : BaseRestClient<BloFinEnvironment, BloFinCredentials>, IBloFinRestClient
     {
         #region Api clients
+
+        /// <inheritdoc />
+        public IBloFinRestClientSpotApi SpotApi { get; }
                 
          /// <inheritdoc />
         public IBloFinRestClientAccountApi AccountApi { get; }
@@ -46,6 +51,7 @@ namespace BloFin.Net.Clients
         public BloFinRestClient(HttpClient? httpClient, ILoggerFactory? loggerFactory, IOptions<BloFinRestOptions> options) : base(loggerFactory, "BloFin")
         {
             Initialize(options.Value);
+            SpotApi = AddApiClient(new BloFinRestClientSpotApi(loggerFactory, httpClient, options.Value));
                         
             AccountApi = AddApiClient(new BloFinRestClientAccountApi(loggerFactory, httpClient, options.Value));
             FuturesApi = AddApiClient(new BloFinRestClientFuturesApi(loggerFactory, httpClient, options.Value));

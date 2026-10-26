@@ -54,7 +54,8 @@ namespace BloFin.Net.Clients.FuturesApi
 
             RegisterPeriodicQuery(
                 "Ping",
-                TimeSpan.FromSeconds(30),
+                // Send a ping before the documented 30-second idle timeout.
+                TimeSpan.FromSeconds(25),
                 x => new BloFinPingQuery(),
                 (connection, result) =>
                 {

@@ -8,6 +8,8 @@ using BloFin.Net.Interfaces.Clients;
 using BloFin.Net.Objects.Options;
 using BloFin.Net.Interfaces.Clients.FuturesApi;
 using BloFin.Net.Clients.FuturesApi;
+using BloFin.Net.Clients.SpotApi;
+using BloFin.Net.Interfaces.Clients.SpotApi;
 
 namespace BloFin.Net.Clients
 {
@@ -18,6 +20,9 @@ namespace BloFin.Net.Clients
         #endregion
 
         #region Api clients
+
+        /// <inheritdoc />
+        public IBloFinSocketClientSpotApi SpotApi { get; }
 
         
          /// <inheritdoc />
@@ -45,6 +50,7 @@ namespace BloFin.Net.Clients
         public BloFinSocketClient(IOptions<BloFinSocketOptions> options, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "BloFin")
         {
             Initialize(options.Value);
+            SpotApi = AddApiClient(new BloFinSocketClientSpotApi(loggerFactory, options.Value));
 
             FuturesApi = AddApiClient(new BloFinSocketClientFuturesApi(loggerFactory, options.Value));
         }

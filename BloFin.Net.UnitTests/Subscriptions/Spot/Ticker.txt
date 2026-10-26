@@ -1,0 +1,4 @@
+> {"op":"subscribe","args":[{"channel":"tickers","instId":"BTC-USDT","instType":"SPOT"}]}
+< {"event":"subscribe","arg":{"channel":"tickers","instId":"BTC-USDT"}}
+=
+{"arg":{"channel":"tickers","instId":"BTC-USDT"},"data":[{"askPrice":"78301.75","askSize":"5.31932","bidPrice":"78299.56","bidSize":"0.06998","high24h":"78471.12","instId":"BTC-USDT","last":"78301.75","lastSize":"0.03371","low24h":"76017.97","open24h":"76417.17","ts":"1789729341982","volCurrency24h":"10371.24688","volCurrencyQuote24h":"799973595.6904959"}]}

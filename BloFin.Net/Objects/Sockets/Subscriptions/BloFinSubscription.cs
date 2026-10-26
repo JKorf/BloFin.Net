@@ -18,6 +18,7 @@ namespace BloFin.Net.Objects.Sockets.Subscriptions
         private readonly Action<DateTime, string?, int, BloFinSocketUpdate<T>> _handler;
         private readonly string _topic;
         private readonly string[]? _symbols;
+        private readonly string? _symbolType;
 
         /// <summary>
         /// ctor
@@ -28,12 +29,14 @@ namespace BloFin.Net.Objects.Sockets.Subscriptions
             string topic,
             string[]? symbols,
             Action<DateTime, string?, int, BloFinSocketUpdate<T>> handler,
-            bool auth) : base(logger, auth)
+            bool auth,
+            string? symbolType = null) : base(logger, auth)
         {
             _client = client;
             _handler = handler;
             _topic = topic;
             _symbols = symbols;
+            _symbolType = symbolType;
 
             IndividualSubscriptionCount = symbols?.Length ?? 1;
 
@@ -43,22 +46,23 @@ namespace BloFin.Net.Objects.Sockets.Subscriptions
                 MessageRouter = MessageRouter.CreateForEvent<BloFinSocketUpdate<T>>(topic, symbols, DoHandleMessage);
         }
 
+        private Dictionary<string, string> CreateParameters(string? symbol)
+        {
+            var parameters = new Dictionary<string, string> { { "channel", _topic } };
+            if (symbol != null)
+                parameters.Add("instId", symbol);
+            if (_symbolType != null)
+                parameters.Add("instType", _symbolType);
+            return parameters;
+        }
+
         /// <inheritdoc />
         protected override Query? GetSubQuery(SocketConnection connection)
         {
             return new BloFinQuery(_client, new BloFinSocketRequest
             {
                 Operation = "subscribe",
-                Parameters = _symbols != null ? _symbols.Select(x => new Dictionary<string, string>
-                {
-                    { "channel", _topic },
-                    { "instId", x }
-                }).ToArray()
-                :
-                [new Dictionary<string, string>
-                {
-                    { "channel", _topic }
-                }]
+                Parameters = _symbols != null ? _symbols.Select(CreateParameters).ToArray() : [CreateParameters(null)]
             }, Authenticated);
         }
 
@@ -68,16 +72,7 @@ namespace BloFin.Net.Objects.Sockets.Subscriptions
             return new BloFinQuery(_client, new BloFinSocketRequest
             {
                 Operation = "unsubscribe",
-                Parameters = _symbols != null ? _symbols.Select(x => new Dictionary<string, string>
-                {
-                    { "channel", _topic },
-                    { "instId", x }
-                }).ToArray()
-                :
-                [new Dictionary<string, string>
-                {
-                    { "channel", _topic }
-                }]
+                Parameters = _symbols != null ? _symbols.Select(CreateParameters).ToArray() : [CreateParameters(null)]
             }, Authenticated);
         }
 

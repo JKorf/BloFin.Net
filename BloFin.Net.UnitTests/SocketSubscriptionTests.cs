@@ -33,6 +33,17 @@ namespace BloFin.Net.UnitTests
         }
 
         [Test]
+        public async Task ValidateSpotExchangeDataSubscriptions()
+        {
+            using var client = new BloFinSocketClient(options => options.OutputOriginalData = true);
+            var tester = new SocketSubscriptionValidator<BloFinSocketClient>(client, "Subscriptions/Spot", "wss://openapi.blofin.com/ws/spot/public");
+            await tester.ValidateAsync<BloFinTrade[]>((client, handler) => client.SpotApi.SubscribeToTradeUpdatesAsync("BTC-USDT", handler), "Trades", nestedJsonProperty: "data");
+            await tester.ValidateAsync<BloFinSpotKline>((client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("BTC-USDT", Enums.KlineInterval.OneMinute, handler), "Klines", useFirstUpdateItem: true, nestedJsonProperty: "data");
+            await tester.ValidateAsync<BloFinSpotTicker>((client, handler) => client.SpotApi.SubscribeToTickerUpdatesAsync("BTC-USDT", handler), "Ticker", useFirstUpdateItem: true, nestedJsonProperty: "data");
+            await tester.ValidateAsync<BloFinSpotTicker>((client, handler) => client.SpotApi.SubscribeToTickerUpdatesAsync("BTC-USDT", handler), "TickerPartial", useFirstUpdateItem: true, nestedJsonProperty: "data");
+        }
+
+        [Test]
         public async Task ValidateFuturesExchangeDataSubscriptions()
         {
             var logger = new LoggerFactory();
