@@ -186,17 +186,20 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). For discuss
 
 ## Supported functionality
 
-### Spot
+### Spot REST
 |API|Supported|Location|
 |--|--:|--|
-|Spot API not yet available|
+|Public Data|✓|`restClient.SpotApi.ExchangeData`|
+|Account|✓|`restClient.SpotApi.Account`|
+|Trading|✓|`restClient.SpotApi.Trading`|
+|User|✓|`restClient.AccountApi`|
 
 ### Futures REST
 |API|Supported|Location|
 |--|--:|--|
 |Public Data|✓|`restClient.FuturesApi.ExchangeData`|
 |Account|✓|`restClient.AccountApi`|
-|Trading|✓|`restClient.FuturesApi.AccountApi`/`restClient.FuturesApi.TradingApi`|
+|Trading|✓|`restClient.FuturesApi.Account`/`restClient.FuturesApi.Trading`|
 |User|✓|`restClient.AccountApi`|
 |Copy Trading|X||
 |Affiliate|X||
@@ -207,6 +210,12 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). For discuss
 |Public Data|✓|`socketClient.FuturesApi`|
 |Trading|✓|`socketClient.FuturesApi`|
 |Copy Trading|X||
+
+### Spot WebSocket
+|API|Supported|Location|
+|--|--:|--|
+|Public Data|✓|`socketClient.SpotApi`|
+|Trading|✓|`socketClient.SpotApi`|
 
 ## Support the project
 Any support is greatly appreciated.
@@ -220,6 +229,36 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 4.0.0 - 27 Oct 2026
+    * Spot API
+      * Added Spot API implementation
+      * Added Options.SpotOptions
+      * Added Spot UserDataTracker implementation
+      * Added Spot support for SymbolOrderBook
+    * Shared API
+      * Added Shared Spot API implementation
+      * Added Shared ISubscribeFundingInfoSocket implementation to futures socket API
+      * Added Shared IGetMarkPriceRest, IGetAllMarkPricesRest, IGetFundingInfoRest, IGetLeverageTiersRest, IPlaceMultipleFuturesOrdersRest, IEditFuturesOrderRest, IEditFuturesOrderByClientOrderIdRest and IGetAllAssetsRest implementations to futures rest API
+    * Added restClient.FuturesApi.Account.GetAssetsAsync endpoint
+    * Added restClient.FuturesApi.Trading.EditOrderAsync endpoint
+    * Added multiPositionMode parameter to restClient.FuturesApi.Account.SetPositionModeAsync endpoint
+    * Added takeProfitTriggerPriceType, stopLossTriggerPriceType, positionId parameters to restClient.FuturesApi.Trading.PlaceOrderAsync endpoint
+    * Added TrailingStop value to AlgoOrderType Enum
+    * Added GoodTillCancel value to OrderType Enum
+    * Added OrderType, OrderPrice, TargetAsset to BloFinAlgoOrder model
+    * Added FundingInterval, FundingRateCap, FundingRateFloor, FundingIntervalUnit to BloFinFundingRate model
+    * Added PositionId, FeeAsset, TargetAsset to BloFinOrder model
+    * Added Timestamp to BloFinOrderBook model
+    * Added MultiPositionMode to BloFinPositionMode model
+    * Added ApiTradePermission to BloFinSymbol model
+    * Added PositionId to BloFinTpSlOrder model
+    * Added PositionId, FeeAsset to BloFinUserTrade model
+    * Updated nullability on order, trade and balance models
+    * Updated Options.ExchangeOptions to Options.FuturesOptions
+    * Updated socketClient.FuturesApi.SubscribeToFundingRateUpdatesAsync update type to BloFinFundingUpdate model
+    * Updated restClient.FuturesApi.ExchangeData.GetIndexMarkPriceAsync and GetFundingRateAsync response to array type and made symbol parameter optional
+    * Fixed restClient.FuturesApi.Trading.PlaceMultipleOrdersAsync endpoint
+
 * Version 3.6.0 - 30 Sep 2026
     * Updated CryptoExchange.Net to V13.1.0
 

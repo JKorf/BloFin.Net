@@ -16,13 +16,17 @@ Before making API-shape decisions, also read:
 Use the real BloFin.Net structure:
 
 - `BloFinRestClient.AccountApi`
+- `BloFinRestClient.SpotApi.ExchangeData`
+- `BloFinRestClient.SpotApi.Account`
+- `BloFinRestClient.SpotApi.Trading`
 - `BloFinRestClient.FuturesApi.ExchangeData`
 - `BloFinRestClient.FuturesApi.Account`
 - `BloFinRestClient.FuturesApi.Trading`
+- `BloFinSocketClient.SpotApi`
 - `BloFinSocketClient.FuturesApi`
-- `SharedApi` from `AccountApi` and `FuturesApi` where appropriate
+- `SharedApi` from `AccountApi`, `SpotApi`, and `FuturesApi` where appropriate
 
-Do not generate Binance, Bitget, BitMart, BitMEX, Bitstamp, or Bitfinex client roots. There is no `ExchangeApi`, `SpotApi`, `UsdFuturesApi`, `SpotApiV3`, `FuturesApiV2`, `PerpetualFuturesApi`, or `CoinFuturesApi`.
+Do not generate Binance, Bitget, BitMart, BitMEX, Bitstamp, or Bitfinex client roots. There is no `ExchangeApi`, `UsdFuturesApi`, `SpotApiV3`, `FuturesApiV2`, `PerpetualFuturesApi`, or `CoinFuturesApi`.
 
 Credentials:
 
@@ -33,7 +37,8 @@ options.ApiCredentials = new BloFinCredentials("API_KEY", "API_SECRET", "PASSPHR
 Symbols:
 
 - Futures example: `ETH-USDT`
-- Query `FuturesApi.ExchangeData.GetSymbolsAsync()` for exact symbols.
+- Spot example: `ETH-USDT`
+- Query the relevant API's `ExchangeData.GetSymbolsAsync()` for exact symbols.
 
 Handle results:
 
@@ -48,6 +53,8 @@ var book = result.Data;
 Common mappings:
 
 - Account balances: `AccountApi.GetAccountBalancesAsync(...)`
+- Spot symbols/tickers: `SpotApi.ExchangeData.GetSymbolsAsync()` / `GetTickersAsync(symbol)`
+- Spot orders: `SpotApi.Trading.PlaceOrderAsync(...)` / `GetOpenOrdersAsync(...)`
 - Futures symbols: `FuturesApi.ExchangeData.GetSymbolsAsync()`
 - Ticker: `FuturesApi.ExchangeData.GetTickersAsync(symbol)`
 - Klines: `FuturesApi.ExchangeData.GetKlinesAsync(symbol, KlineInterval.OneMinute, ...)`
@@ -58,7 +65,8 @@ Common mappings:
 - Positions: `FuturesApi.Trading.GetPositionsAsync(...)`
 - Public sockets: `socketClient.FuturesApi.SubscribeToTickerUpdatesAsync(...)`
 - Private sockets: `socketClient.FuturesApi.SubscribeToOrderUpdatesAsync(...)`
+- Spot sockets: `socketClient.SpotApi.SubscribeToTickerUpdatesAsync(...)` / `SubscribeToOrderUpdatesAsync(...)`
 
-The futures shared client populates the CryptoExchange.Net symbol catalog with normalized trading constraints and asset classifications.
+Options use `FuturesOptions` and `SpotOptions`, not `ExchangeOptions`. The futures and spot APIs both expose shared clients.
 
-Shared futures quantities are contracts: use `SharedOrderQuantity.QuantityInContracts`, and expect `SharedQuantityType.Contracts` on shared order books. `BloFinTrackerFactory` does not support spot symbols.
+Shared futures quantities are contracts: use `SharedOrderQuantity.QuantityInContracts`, and expect `SharedQuantityType.Contracts` on shared order books. Spot user-data trackers and local order books are supported; generic kline/trade trackers remain futures-only.

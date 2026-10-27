@@ -26,18 +26,24 @@ var socketClient = new BloFinSocketClient();
 REST:
 
 - `restClient.AccountApi`
+- `restClient.SpotApi.ExchangeData`
+- `restClient.SpotApi.Account`
+- `restClient.SpotApi.Trading`
 - `restClient.FuturesApi.ExchangeData`
 - `restClient.FuturesApi.Account`
 - `restClient.FuturesApi.Trading`
 - `restClient.AccountApi.SharedApi`
+- `restClient.SpotApi.SharedApi`
 - `restClient.FuturesApi.SharedApi`
 
 Sockets:
 
+- `socketClient.SpotApi`
+- `socketClient.SpotApi.SharedApi`
 - `socketClient.FuturesApi`
 - `socketClient.FuturesApi.SharedApi`
 
-There is no `ExchangeApi`, `SpotApi`, `UsdFuturesApi`, `FuturesApiV2`, `SpotApiV3`, or credential overload without passphrase.
+There is no `ExchangeApi`, `UsdFuturesApi`, `FuturesApiV2`, `SpotApiV3`, or credential overload without passphrase.
 
 REST calls return `HttpResult<T>` or `HttpResult`. WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers return `ExchangeCallResult<T>`. Always check `.Success` before reading `.Data`.
 
@@ -51,6 +57,7 @@ var klines = await restClient.FuturesApi.ExchangeData.GetKlinesAsync("ETH-USDT",
 var book = await restClient.FuturesApi.ExchangeData.GetOrderBookAsync("ETH-USDT", 20);
 var balances = await restClient.FuturesApi.Account.GetBalancesAsync();
 var openOrders = await restClient.FuturesApi.Trading.GetOpenOrdersAsync("ETH-USDT");
+var spotTicker = await restClient.SpotApi.ExchangeData.GetTickersAsync("ETH-USDT");
 ```
 
 ## Trading
@@ -81,16 +88,18 @@ var sub = await socketClient.FuturesApi.SubscribeToTickerUpdatesAsync("ETH-USDT"
 using CryptoExchange.Net.SharedApis;
 
 var futuresShared = restClient.FuturesApi.SharedApi;
+var spotShared = restClient.SpotApi.SharedApi;
 // Use the exchange-level `IBloFinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 ```
 
 Use the exchange-level `IBloFinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
-The futures shared client populates the CryptoExchange.Net symbol catalog with normalized trading constraints and asset classifications.
+The futures and spot shared clients expose normalized CryptoExchange.Net capabilities. The futures shared client also populates the symbol catalog with normalized trading constraints and asset classifications.
 
 ## BloFin Details
 
-- Use BloFin-native futures symbols such as `ETH-USDT`.
+- Use BloFin-native futures and spot symbols such as `ETH-USDT`.
 - Use `KlineInterval`, not `BinPeriod`.
 - Credentials are `BloFinCredentials(key, secret, passphrase)`.
-- `BloFinTrackerFactory` supports futures symbols, not spot symbols.
+- REST/socket options use `FuturesOptions` and `SpotOptions`; `ExchangeOptions` was removed.
+- `BloFinTrackerFactory` supports spot and futures user-data trackers; generic kline/trade trackers remain futures-only.

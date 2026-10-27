@@ -9,12 +9,16 @@ This map helps AI assistants route common user intents to the actual BloFin.Net 
 | REST client | `new BloFinRestClient(...)` |
 | Socket client | `new BloFinSocketClient(...)` |
 | General account and asset endpoints | `restClient.AccountApi` |
+| Spot market data | `restClient.SpotApi.ExchangeData` |
+| Spot account | `restClient.SpotApi.Account` |
+| Spot trading | `restClient.SpotApi.Trading` |
 | Futures market data | `restClient.FuturesApi.ExchangeData` |
 | Futures account settings | `restClient.FuturesApi.Account` |
 | Futures trading | `restClient.FuturesApi.Trading` |
 | Futures websocket subscriptions | `socketClient.FuturesApi` |
-| Shared REST abstraction | `restClient.AccountApi.SharedApi` / `restClient.FuturesApi.SharedApi` |
-| Shared socket abstraction | `socketClient.FuturesApi.SharedApi` |
+| Spot websocket subscriptions | `socketClient.SpotApi` |
+| Shared REST abstraction | API root's `SharedApi` property |
+| Shared socket abstraction | `socketClient.SpotApi.SharedApi` / `socketClient.FuturesApi.SharedApi` |
 | Resolve a runtime-selected Shared API capability | `IBloFinSharedApiClient.GetCapability(...)` |
 
 ## AccountApi
@@ -29,6 +33,22 @@ This map helps AI assistants route common user intents to the actual BloFin.Net 
 | Withdrawal history | `AccountApi.GetWithdrawalHistoryAsync(...)` |
 | Deposit history | `AccountApi.GetDepositHistoryAsync(...)` |
 
+## Spot
+
+| Intent | Method |
+| --- | --- |
+| Symbols | `SpotApi.ExchangeData.GetSymbolsAsync()` |
+| Tickers | `SpotApi.ExchangeData.GetTickersAsync(symbol)` |
+| Order book | `SpotApi.ExchangeData.GetOrderBookAsync(symbol, depth)` |
+| Recent trades | `SpotApi.ExchangeData.GetRecentTradesAsync(symbol, limit)` |
+| Klines | `SpotApi.ExchangeData.GetKlinesAsync(symbol, KlineInterval.OneMinute, ...)` |
+| Balances | `SpotApi.Account.GetBalancesAsync(accountType, asset)` |
+| Place order | `SpotApi.Trading.PlaceOrderAsync(...)` |
+| Cancel order | `SpotApi.Trading.CancelOrderAsync(...)` |
+| Open orders | `SpotApi.Trading.GetOpenOrdersAsync(...)` |
+| Order details/history | `SpotApi.Trading.GetOrderAsync(...)` / `GetOrderHistoryAsync(...)` |
+| User trades | `SpotApi.Trading.GetUserTradesAsync(...)` |
+
 ## Futures Market Data
 
 | Intent | Method |
@@ -37,8 +57,8 @@ This map helps AI assistants route common user intents to the actual BloFin.Net 
 | Tickers | `FuturesApi.ExchangeData.GetTickersAsync(symbol)` |
 | Order book | `FuturesApi.ExchangeData.GetOrderBookAsync(symbol, depth)` |
 | Recent trades | `FuturesApi.ExchangeData.GetRecentTradesAsync(symbol, limit)` |
-| Index/mark price | `FuturesApi.ExchangeData.GetIndexMarkPriceAsync(symbol)` |
-| Funding rate | `FuturesApi.ExchangeData.GetFundingRateAsync(symbol)` |
+| Index/mark price | `FuturesApi.ExchangeData.GetIndexMarkPriceAsync(symbol)`|
+| Funding rate | `FuturesApi.ExchangeData.GetFundingRateAsync(symbol)`|
 | Funding history | `FuturesApi.ExchangeData.GetFundingRateHistoryAsync(symbol, ...)` |
 | Klines | `FuturesApi.ExchangeData.GetKlinesAsync(symbol, KlineInterval.OneMinute, ...)` |
 | Index klines | `FuturesApi.ExchangeData.GetIndexPriceKlinesAsync(symbol, KlineInterval.OneMinute, ...)` |
@@ -53,7 +73,7 @@ This map helps AI assistants route common user intents to the actual BloFin.Net 
 | Margin mode | `FuturesApi.Account.GetMarginModeAsync()` |
 | Set margin mode | `FuturesApi.Account.SetMarginModeAsync(marginMode)` |
 | Position mode | `FuturesApi.Account.GetPositionModeAsync()` |
-| Set position mode | `FuturesApi.Account.SetPositionModeAsync(positionMode)` |
+| Set position mode | `FuturesApi.Account.SetPositionModeAsync(positionMode, multiPositionMode)` |
 | Leverage settings | `FuturesApi.Account.GetLeverageAsync(symbol, marginMode)` |
 | Set leverage | `FuturesApi.Account.SetLeverageAsync(symbol, leverage, marginMode, positionSide)` |
 
@@ -66,6 +86,7 @@ This map helps AI assistants route common user intents to the actual BloFin.Net 
 | Place batch orders | `FuturesApi.Trading.PlaceMultipleOrdersAsync(orders)` |
 | Place TP/SL | `FuturesApi.Trading.PlaceTpSlOrderAsync(...)` |
 | Place trigger order | `FuturesApi.Trading.PlaceTriggerOrderAsync(...)` |
+| Edit order | `FuturesApi.Trading.EditOrderAsync(...)` |
 | Cancel order | `FuturesApi.Trading.CancelOrderAsync(orderId: ...)` or `CancelOrderAsync(symbol: ..., clientOrderId: ...)` |
 | Open orders | `FuturesApi.Trading.GetOpenOrdersAsync(...)` |
 | Open TP/SL orders | `FuturesApi.Trading.GetOpenTpSlOrdersAsync(...)` |
@@ -77,7 +98,7 @@ This map helps AI assistants route common user intents to the actual BloFin.Net 
 | Price limits | `FuturesApi.Trading.GetPriceLimitsAsync(symbol, side)` |
 | Position history | `FuturesApi.Trading.GetPositionHistoryAsync(...)` |
 
-## Sockets
+## Futures Sockets
 
 | Intent | Method |
 | --- | --- |
@@ -90,6 +111,19 @@ This map helps AI assistants route common user intents to the actual BloFin.Net 
 | Private orders | `SubscribeToOrderUpdatesAsync(...)` |
 | Private trigger orders | `SubscribeToTriggerOrderUpdatesAsync(...)` |
 | Private balances | `SubscribeToBalanceUpdatesAsync(...)` |
+
+`SubscribeToFundingRateUpdatesAsync(...)` emits `BloFinFundingUpdate`.
+
+## Spot Sockets
+
+| Intent | Method |
+| --- | --- |
+| Trades | `socketClient.SpotApi.SubscribeToTradeUpdatesAsync(...)` |
+| Klines | `socketClient.SpotApi.SubscribeToKlineUpdatesAsync(...)` |
+| Order book | `socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(...)` |
+| Tickers | `socketClient.SpotApi.SubscribeToTickerUpdatesAsync(...)` |
+| Private orders | `socketClient.SpotApi.SubscribeToOrderUpdatesAsync(...)` |
+| Private balances | `socketClient.SpotApi.SubscribeToBalanceUpdatesAsync(...)` |
 
 ## Shared API Result Handling
 
@@ -107,8 +141,8 @@ Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscript
 
 | Avoid | Use |
 | --- | --- |
-| `ExchangeApi` | `AccountApi` or `FuturesApi` |
-| `SpotApi` | `FuturesApi` where applicable |
+| `ExchangeApi` | `AccountApi`, `SpotApi` or `FuturesApi` as appropriate |
+| `SpotApiV3` | `SpotApi` |
 | `UsdFuturesApi` | `FuturesApi` |
 | `FuturesApiV2` | `FuturesApi` |
 | `BinPeriod.OneMinute` | `KlineInterval.OneMinute` |

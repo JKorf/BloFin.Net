@@ -16,18 +16,25 @@ BloFin.Net is a CryptoExchange.Net-based client for the BloFin REST and websocke
 - REST roots:
   - `restClient.AccountApi`
   - `restClient.FuturesApi`
-- Futures REST sub-clients:
+  - `restClient.SpotApi`
+- API-specific REST sub-clients:
   - `restClient.FuturesApi.ExchangeData`
   - `restClient.FuturesApi.Account`
   - `restClient.FuturesApi.Trading`
-- Socket root:
+  - `restClient.SpotApi.ExchangeData`
+  - `restClient.SpotApi.Account`
+  - `restClient.SpotApi.Trading`
+- Socket roots:
   - `socketClient.FuturesApi`
+  - `socketClient.SpotApi`
 - Shared clients:
   - `restClient.AccountApi.SharedApi`
   - `restClient.FuturesApi.SharedApi`
+  - `restClient.SpotApi.SharedApi`
   - `socketClient.FuturesApi.SharedApi`
+  - `socketClient.SpotApi.SharedApi`
 
-Do not invent roots such as `SpotApi`, `SpotApiV3`, `UsdFuturesApi`, `FuturesApiV2`, `ExchangeApi`, `CoinFuturesApi`, or `PerpetualFuturesApi`. BloFin.Net uses `AccountApi` for asset/account endpoints and `FuturesApi` for market/trading/futures account endpoints.
+Do not invent roots such as `SpotApiV3`, `UsdFuturesApi`, `FuturesApiV2`, `ExchangeApi`, `CoinFuturesApi`, or `PerpetualFuturesApi`. BloFin.Net uses `AccountApi` for general account endpoints, `FuturesApi` for futures, and `SpotApi` for spot.
 
 ## Credentials And Options
 
@@ -46,16 +53,18 @@ Useful options:
 
 - `BloFinRestOptions.Environment` defaults to `BloFinEnvironment.Live`
 - `BloFinRestOptions.BrokerId`
-- `BloFinRestOptions.ExchangeOptions`
+- `BloFinRestOptions.FuturesOptions`
+- `BloFinRestOptions.SpotOptions`
 - `BloFinSocketOptions.Environment` defaults to `BloFinEnvironment.Live`
 - `BloFinSocketOptions.SocketSubscriptionsCombineTarget` defaults to `10`
-- `BloFinSocketOptions.ExchangeOptions`
+- `BloFinSocketOptions.FuturesOptions`
+- `BloFinSocketOptions.SpotOptions`
 - Use `BloFinRestClient.SetDefaultOptions(...)` and `BloFinSocketClient.SetDefaultOptions(...)` for application-wide defaults
 - Use `services.AddBloFin(...)` for dependency injection
 
 ## Symbol Rules
 
-BloFin futures symbols use hyphen-separated instrument ids:
+BloFin futures and spot symbols use hyphen-separated instrument ids:
 
 - `BTC-USDT`
 - `ETH-USDT`
@@ -67,7 +76,7 @@ Do not rewrite symbols into:
 - `BTC/USDT`
 - `tBTCUSD`
 
-Use `restClient.FuturesApi.ExchangeData.GetSymbolsAsync()` to discover supported instruments.
+Use the relevant `FuturesApi.ExchangeData.GetSymbolsAsync()` or `SpotApi.ExchangeData.GetSymbolsAsync()` method to discover supported instruments.
 
 ## REST Endpoint Routing
 
@@ -80,6 +89,12 @@ General account endpoints are under `restClient.AccountApi`:
 - `GetTransferHistoryAsync(...)`
 - `GetWithdrawalHistoryAsync(...)`
 - `GetDepositHistoryAsync(...)`
+
+Spot endpoints are grouped under `restClient.SpotApi`:
+
+- Market data: `ExchangeData.GetSymbolsAsync()`, `GetTickersAsync(symbol)`, `GetOrderBookAsync(symbol, depth)`, `GetRecentTradesAsync(symbol, limit)`, `GetKlinesAsync(symbol, interval, ...)`
+- Account: `Account.GetBalancesAsync(accountType, asset)`, `TransferAsync(...)`, `GetTransferHistoryAsync(...)`
+- Trading: `Trading.PlaceOrderAsync(...)`, `PlaceMultipleOrdersAsync(orders)`, `CancelOrderAsync(...)`, `GetOpenOrdersAsync(...)`, `GetOrderAsync(...)`, `GetOrderHistoryAsync(...)`, `GetUserTradesAsync(...)`
 
 Futures exchange data is under `restClient.FuturesApi.ExchangeData`:
 
@@ -102,7 +117,7 @@ Futures account endpoints are under `restClient.FuturesApi.Account`:
 - `GetMarginModeAsync()`
 - `SetMarginModeAsync(marginMode)`
 - `GetPositionModeAsync()`
-- `SetPositionModeAsync(positionMode)`
+- `SetPositionModeAsync(positionMode, multiPositionMode)`
 - `GetLeverageAsync(symbol, marginMode)`
 - `SetLeverageAsync(symbol, leverage, marginMode, positionSide)`
 
@@ -113,6 +128,7 @@ Futures trading endpoints are under `restClient.FuturesApi.Trading`:
 - `PlaceMultipleOrdersAsync(orders)`
 - `PlaceTpSlOrderAsync(...)`
 - `PlaceTriggerOrderAsync(...)`
+- `EditOrderAsync(...)`
 - `CancelOrderAsync(orderId, symbol, clientOrderId)`
 - `CancelOrdersAsync(orders)`
 - `CancelTpSlOrdersAsync(orders)`
@@ -132,7 +148,7 @@ Futures trading endpoints are under `restClient.FuturesApi.Trading`:
 
 ## Websocket Routing
 
-Use `socketClient.FuturesApi`.
+Use `socketClient.FuturesApi` for futures and `socketClient.SpotApi` for spot.
 
 Public subscriptions:
 
@@ -152,6 +168,8 @@ Private subscriptions:
 - `SubscribeToBalanceUpdatesAsync(...)`
 - `SubscribeToInverseBalanceUpdatesAsync(...)`
 
+Spot private subscriptions include order, algo-order and balance updates.
+
 Always check `subscription.Success` before using `subscription.Data`. Unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
 
 ## Enums To Use
@@ -160,7 +178,7 @@ Always check `subscription.Success` before using `subscription.Data`. Unsubscrib
 - Products: `ProductType`
 - Klines: `KlineInterval.OneMinute`, `ThreeMinutes`, `FiveMinutes`, `FifteenMinutes`, `OneHour`, `OneDay`
 - Orders: `OrderSide.Buy`, `OrderSide.Sell`
-- Order types: `OrderType.Market`, `Limit`, `PostOnly`, `FillOrKill`, `ImmediateOrCancel`
+- Order types: `OrderType.Market`, `Limit`, `PostOnly`, `FillOrKill`, `ImmediateOrCancel`, `GoodTillCancel`
 - Margin: `MarginMode.Cross`, `MarginMode.Isolated`
 - Position mode: `PositionMode.OneWayMode`, `PositionMode.HedgeMode`
 - Position side: `PositionSide.Long`, `Short`, `Net`
@@ -195,17 +213,18 @@ BloFin.Net includes:
 
 - `BloFinOrderBookFactory`
 - `BloFinSymbolOrderBook`
+- `BloFinSpotSymbolOrderBook`
 - `BloFinTrackerFactory`
 - `BloFinUserFuturesDataTracker`
 
 Use these when code needs maintained local order book state or user data tracking instead of manually combining snapshots and websocket deltas.
 
-BloFin trackers support futures symbols only. `BloFinTrackerFactory.CanCreateKlineTracker(...)` and `CanCreateTradeTracker(...)` return `false` for spot symbols.
+`BloFinOrderBookFactory` exposes `Futures`, `Spot`, `CreateFutures(...)` and `CreateSpot(...)`. `BloFinTrackerFactory` can create both futures and spot user-data trackers; generic kline and trade trackers remain futures-only.
 
 ## Common Pitfalls
 
-- Do not use `ExchangeApi`; BloFin REST uses `AccountApi` and `FuturesApi`.
-- Do not use `SpotApi`, `UsdFuturesApi`, `FuturesApiV2`, or versioned API roots.
+- Do not use `ExchangeApi`; BloFin REST uses `AccountApi`, `SpotApi` and `FuturesApi`.
+- Do not use `SpotApiV3`, `UsdFuturesApi`, `FuturesApiV2`, or other invented versioned API roots.
 - Do not omit the passphrase when creating `BloFinCredentials`.
 - Do not convert `ETH-USDT` to `ETHUSDT`, `ETH_USDT`, or `ETH/USDT`.
 - Use `KlineInterval`, not `BinPeriod`.
@@ -218,6 +237,10 @@ BloFin trackers support futures symbols only. `BloFinTrackerFactory.CanCreateKli
 - `BloFin.Net/Interfaces/Clients/ExchangeApi/IBloFinRestClientFuturesApiAccount.cs`
 - `BloFin.Net/Interfaces/Clients/ExchangeApi/IBloFinRestClientFuturesApiTrading.cs`
 - `BloFin.Net/Interfaces/Clients/ExchangeApi/IBloFinSocketClientExchangeApi.cs`
+- `BloFin.Net/Interfaces/Clients/SpotApi/IBloFinRestClientSpotApiExchangeData.cs`
+- `BloFin.Net/Interfaces/Clients/SpotApi/IBloFinRestClientSpotApiAccount.cs`
+- `BloFin.Net/Interfaces/Clients/SpotApi/IBloFinRestClientSpotApiTrading.cs`
+- `BloFin.Net/Interfaces/Clients/SpotApi/IBloFinSocketClientSpotApi.cs`
 - `BloFin.Net/Objects/Options/BloFinRestOptions.cs`
 - `BloFin.Net/Objects/Options/BloFinSocketOptions.cs`
 - `BloFin.Net/BloFinCredentials.cs`

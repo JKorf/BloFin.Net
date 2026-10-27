@@ -6,13 +6,13 @@ This file is optimized for AI coding assistants. It maps the actual BloFin.Net A
 
 - Repository: `JKorf/BloFin.Net`
 - Package: `BloFin.Net`
-- Current project version: `3.6.0`
-- Base library: `CryptoExchange.Net` `12.5.0`
+- Current project version: `4.0.0`
+- Base library: `CryptoExchange.Net` `13.2.2`
 - REST client: `BloFinRestClient`
 - Socket client: `BloFinSocketClient`
 - Credentials: `BloFinCredentials(string key, string secret, string pass)`
 
-BloFin.Net is not a single `ExchangeApi` library. REST exposes `AccountApi` and `FuturesApi`; sockets expose `FuturesApi`.
+BloFin.Net is not a single `ExchangeApi` library. REST exposes `AccountApi`, `SpotApi` and `FuturesApi`; sockets expose `SpotApi` and `FuturesApi`.
 
 Result model:
 
@@ -47,14 +47,16 @@ REST options:
 - `BloFinRestOptions.Environment`
 - `BloFinRestOptions.ApiCredentials`
 - `BloFinRestOptions.BrokerId`
-- `BloFinRestOptions.ExchangeOptions`
+- `BloFinRestOptions.FuturesOptions`
+- `BloFinRestOptions.SpotOptions`
 
 Socket options:
 
 - `BloFinSocketOptions.Environment`
 - `BloFinSocketOptions.ApiCredentials`
 - `BloFinSocketOptions.SocketSubscriptionsCombineTarget`, default `10`
-- `BloFinSocketOptions.ExchangeOptions`
+- `BloFinSocketOptions.FuturesOptions`
+- `BloFinSocketOptions.SpotOptions`
 
 Global defaults:
 
@@ -82,6 +84,35 @@ Use `restClient.AccountApi` for general account and asset transfer history:
 - `GetDepositHistoryAsync(asset, depositId, transactionId, status, startTime, endTime, limit)`
 - `SharedApi`
 
+### SpotApi
+
+Spot REST endpoints are grouped under `restClient.SpotApi`.
+
+Market data (`SpotApi.ExchangeData`):
+
+- `GetSymbolsAsync(symbol)`
+- `GetTickersAsync(symbol)`
+- `GetOrderBookAsync(symbol, depth)`
+- `GetRecentTradesAsync(symbol, limit)`
+- `GetKlinesAsync(symbol, interval, startTime, endTime, limit)`
+
+Account (`SpotApi.Account`):
+
+- `GetBalancesAsync(accountType, asset)`
+- `TransferAsync(asset, fromAccount, toAccount, quantity, ...)`
+- `GetTransferHistoryAsync(...)`
+
+Trading (`SpotApi.Trading`):
+
+- `PlaceOrderAsync(symbol, side, type, quantity, price, assetType, clientOrderId)`
+- `PlaceMultipleOrdersAsync(orders)`
+- `CancelOrderAsync(orderId, clientOrderId)`
+- `GetOpenOrdersAsync(...)`
+- `GetOrderAsync(symbol, orderId, clientOrderId)`
+- `GetOrderHistoryAsync(...)`
+- `GetUserTradesAsync(...)`
+- `SharedApi`
+
 ### FuturesApi.ExchangeData
 
 Use `restClient.FuturesApi.ExchangeData` for public futures market data:
@@ -106,7 +137,7 @@ Use `restClient.FuturesApi.Account` for futures account configuration:
 - `GetMarginModeAsync()`
 - `SetMarginModeAsync(marginMode)`
 - `GetPositionModeAsync()`
-- `SetPositionModeAsync(positionMode)`
+- `SetPositionModeAsync(positionMode, multiPositionMode)`
 - `GetLeverageAsync(symbol, marginMode)`
 - `SetLeverageAsync(symbol, leverage, marginMode, positionSide)`
 
@@ -115,10 +146,11 @@ Use `restClient.FuturesApi.Account` for futures account configuration:
 Use `restClient.FuturesApi.Trading` for futures orders, positions and fills:
 
 - `GetPositionsAsync(symbol)`
-- `PlaceOrderAsync(symbol, side, orderType, quantity, marginMode, price, positionSide, reduceOnly, clientOrderId, takeProfitTriggerPrice, takeProfitOrderPrice, stopLossTriggerPrice, stopLossOrderPrice)`
+- `PlaceOrderAsync(symbol, side, orderType, quantity, marginMode, price, positionSide, reduceOnly, clientOrderId, takeProfitTriggerPrice, takeProfitOrderPrice, takeProfitTriggerPriceType, stopLossTriggerPrice, stopLossOrderPrice, stopLossTriggerPriceType, positionId)`
 - `PlaceMultipleOrdersAsync(orders)`
 - `PlaceTpSlOrderAsync(symbol, orderSide, marginMode, quantity, positionSide, reduceOnly, clientOrderId, takeProfitTriggerPrice, takeProfitOrderPrice, stopLossTriggerPrice, stopLossOrderPrice)`
 - `PlaceTriggerOrderAsync(symbol, side, marginMode, triggerPrice, triggerPriceType, positionSide, quantity, clientOrderId, orderPrice, reduceOnly, slTpOrders)`
+- `EditOrderAsync(symbol, orderId, clientOrderId, newPrice, newQuantity, ...)`
 - `CancelOrderAsync(orderId, symbol, clientOrderId)`
 - `CancelOrdersAsync(orders)`
 - `CancelTpSlOrdersAsync(orders)`
@@ -138,7 +170,7 @@ Use `restClient.FuturesApi.Trading` for futures orders, positions and fills:
 
 ## Websocket API Map
 
-Use `socketClient.FuturesApi`.
+Use `socketClient.FuturesApi` for futures. 
 
 Public subscriptions:
 
@@ -158,9 +190,23 @@ Private subscriptions:
 - `SubscribeToBalanceUpdatesAsync(onMessage)`
 - `SubscribeToInverseBalanceUpdatesAsync(onMessage)`
 
+Use `socketClient.SpotApi` for spot.
+
+Public subscriptions:
+
+- `SubscribeToTradeUpdatesAsync(symbol, onMessage)`
+- `SubscribeToKlineUpdatesAsync(symbol, interval, onMessage)`
+- `SubscribeToOrderBookUpdatesAsync(symbol, depth, onMessage)`
+- `SubscribeToTickerUpdatesAsync(symbol, onMessage)`
+
+Private subscriptions:
+
+- `SubscribeToOrderUpdatesAsync(onMessage)`
+- `SubscribeToBalanceUpdatesAsync(onMessage)`
+
 ## Symbols
 
-BloFin futures symbols are hyphen-separated:
+BloFin futures and spot symbols are hyphen-separated:
 
 - `BTC-USDT`
 - `ETH-USDT`
@@ -168,7 +214,7 @@ BloFin futures symbols are hyphen-separated:
 Use:
 
 ```csharp
-var symbols = await restClient.FuturesApi.ExchangeData.GetSymbolsAsync();
+var symbols = await restClient.SpotApi.ExchangeData.GetSymbolsAsync();
 var eth = symbols.Data.SingleOrDefault(x => x.Symbol == "ETH-USDT");
 ```
 
@@ -221,6 +267,7 @@ For shared clients:
 using CryptoExchange.Net.SharedApis;
 
 var futuresShared = restClient.FuturesApi.SharedApi;
+var spotShared = restClient.SpotApi.SharedApi;
 // Use the exchange-level `IBloFinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 ```
 
@@ -228,7 +275,7 @@ Use the exchange-level `IBloFinSharedApiClient` aggregate's `GetCapability(...)`
 
 BloFin futures use contract quantities. Shared book tickers, trades, user trades, positions and position history expose `SharedOrderQuantity`; read `QuantityInContracts`. Shared order books set `QuantityType` to `SharedQuantityType.Contracts`.
 
-`BloFinTrackerFactory` creates kline and trade trackers only for futures symbols. Its `CanCreateKlineTracker(...)` and `CanCreateTradeTracker(...)` methods return `false` for spot symbols.
+`BloFinOrderBookFactory` supports futures and spot local order books. `BloFinTrackerFactory` creates futures and spot user-data trackers; its generic kline and trade trackers remain futures-only.
 
 ## Known Nonexistent Patterns
 
@@ -246,6 +293,7 @@ Use:
 
 ```csharp
 client.FuturesApi.ExchangeData.GetTickersAsync("ETH-USDT");
+client.SpotApi.ExchangeData.GetTickersAsync("ETH-USDT");
 client.FuturesApi.Trading.PlaceOrderAsync("ETH-USDT", OrderSide.Buy, OrderType.Limit, 1m, MarginMode.Cross, 2000m);
 new BloFinCredentials("key", "secret", "passphrase");
 KlineInterval.OneMinute;
