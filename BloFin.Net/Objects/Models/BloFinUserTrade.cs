@@ -38,12 +38,12 @@ namespace BloFin.Net.Objects.Models
         /// ["<c>fillPnl</c>"] Profit and loss
         /// </summary>
         [JsonPropertyName("fillPnl")]
-        public decimal Pnl { get; set; }
+        public decimal? Pnl { get; set; }
         /// <summary>
         /// ["<c>positionSide</c>"] Position side
         /// </summary>
         [JsonPropertyName("positionSide")]
-        public PositionSide PositionSide { get; set; }
+        public PositionSide? PositionSide { get; set; }
         /// <summary>
         /// ["<c>side</c>"] Side
         /// </summary>
@@ -64,6 +64,16 @@ namespace BloFin.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("brokerId")]
         public string? BrokerId { get; set; }
+        /// <summary>
+        /// ["<c>positionId</c>"] Position id
+        /// </summary>
+        [JsonPropertyName("positionId")]
+        public string? PositionId { get; set; }
+        /// <summary>
+        /// ["<c>feeCurrency</c>"] Fee asset
+        /// </summary>
+        [JsonPropertyName("feeCurrency")]
+        public AssetType FeeAsset { get; set; }
     }
 
 

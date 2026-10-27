@@ -1,0 +1,16 @@
+POST
+/api/v1/spot/trade/order
+true
+BodyParams: {"instId": "ETHUSDT","side": "buy","orderType": "limit","size": 0.1}
+{
+    "code": "0",
+    "msg": "",
+    "data": [
+        {
+            "orderId": "28150801",
+            "clientOrderId": "test1597321",
+            "msg": "",
+            "code": "0"
+        }
+    ]
+}

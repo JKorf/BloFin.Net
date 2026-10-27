@@ -23,6 +23,26 @@ namespace BloFin.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("fundingTime")]
         public DateTime FundingTime { get; set; }
+        /// <summary>
+        /// ["<c>fundingInterval</c>"] Funding interval
+        /// </summary>
+        [JsonPropertyName("fundingInterval")]
+        public int FundingInterval { get; set; }
+        /// <summary>
+        /// ["<c>fundingRateCap</c>"] Funding rate cap
+        /// </summary>
+        [JsonPropertyName("fundingRateCap")]
+        public decimal FundingRateCap { get; set; }
+        /// <summary>
+        /// ["<c>fundingRateFloor</c>"] Funding rate floor
+        /// </summary>
+        [JsonPropertyName("fundingRateFloor")]
+        public decimal FundingRateFloor { get; set; }
+        /// <summary>
+        /// ["<c>fundingIntervalUnit</c>"] Funding interval unit
+        /// </summary>
+        [JsonPropertyName("fundingIntervalUnit")]
+        public string FundingIntervalUnit { get; set; } = string.Empty;
     }
 
 

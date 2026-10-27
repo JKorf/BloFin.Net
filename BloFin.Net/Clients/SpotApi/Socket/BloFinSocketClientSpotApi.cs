@@ -8,7 +8,6 @@ using BloFin.Net.Objects.Sockets;
 using BloFin.Net.Objects.Sockets.Subscriptions;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
@@ -29,6 +28,8 @@ namespace BloFin.Net.Clients.SpotApi
     /// <inheritdoc cref="IBloFinSocketClientSpotApi" />
     internal class BloFinSocketClientSpotApi : SocketApiClient<BloFinEnvironment, BloFinAuthenticationProvider, BloFinCredentials>, IBloFinSocketClientSpotApi
     {
+        private readonly BloFinSocketClientSpotSharedApi _sharedApi;
+
         /// <inheritdoc />
         protected override ErrorMapping ErrorMapping => BloFinErrors.Errors;
 
@@ -38,11 +39,14 @@ namespace BloFin.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override BloFinAuthenticationProvider CreateAuthenticationProvider(BloFinCredentials credentials) => new BloFinAuthenticationProvider(credentials);
 
+        /// <inheritdoc />
+        public IBloFinSocketClientSpotSharedApi SharedApi => _sharedApi;
+
         /// <summary>
         /// Create the public spot websocket client
         /// </summary>
         internal BloFinSocketClientSpotApi(ILoggerFactory? loggerFactory, BloFinSocketOptions options)
-            : base(loggerFactory, BloFinExchange.Metadata.Id, options.Environment.SocketClientAddress, options, options.ExchangeOptions)
+            : base(loggerFactory, BloFinExchange.Metadata.Id, options.Environment.SocketClientAddress, options, options.SpotOptions)
         {
             RateLimiter = BloFinExchange.RateLimiter.BloFinSocket;
             // Send a ping before the documented 30-second idle timeout.
@@ -51,10 +55,12 @@ namespace BloFin.Net.Clients.SpotApi
                 if (result.Error?.ErrorType == ErrorType.Timeout)
                     _ = connection.TriggerReconnectAsync();
             });
+
+            _sharedApi = new BloFinSocketClientSpotSharedApi(this);
         }
 
         /// <inheritdoc />
-        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BloFinSocketFuturesMessageConverter();
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BloFinSocketMessageConverter();
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverDate = null)
@@ -123,6 +129,94 @@ namespace BloFin.Net.Clients.SpotApi
             });
             var subscription = new BloFinSubscription<BloFinSpotKline[]>(_logger, this, streamId, symbols.ToArray(), handler, false, "SPOT");
             return await SubscribeAsync(BaseAddress.AppendPath("ws/spot/public"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int depth, Action<DataEvent<BloFinOrderBookUpdate>> onMessage, CancellationToken ct = default)
+            => SubscribeToOrderBookUpdatesAsync([symbol], depth, onMessage, ct);
+
+        /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<BloFinOrderBookUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var topic = "books" + (depth == 400 ? "" : depth.ToString());
+            var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinOrderBookUpdate>>((receiveTime, originalData, invocations, data) =>
+            {
+                var item = data.Data;
+                if (data.Action != "snapshot")
+                    UpdateTimeOffset(item.Timestamp);
+
+                onMessage(new DataEvent<BloFinOrderBookUpdate>(Exchange, item, receiveTime, originalData)
+                    .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                    .WithStreamId(topic)
+                    .WithSymbol(data.Parameters.TryGetValue("instId", out var symbol) ? symbol : null)
+                    .WithDataTimestamp(item.Timestamp, GetTimeOffset()));
+            });
+            var subscription = new BloFinSubscription<BloFinOrderBookUpdate>(_logger, this, topic, symbols.ToArray(), handler, false, "SPOT");
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/spot/public"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BloFinOrder[]>> onMessage, CancellationToken ct = default)
+        {
+            var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinOrder[]>>((receiveTime, originalData, invocations, data) =>
+            {
+                DateTime? timestamp = data.Data.Any() ? data.Data.Max(x => x.UpdateTime) : null;
+                if (data.Action != "snapshot")
+                    UpdateTimeOffset(timestamp!.Value);
+
+                onMessage(
+                    new DataEvent<BloFinOrder[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId("orders")
+                        .WithSymbol(data.Action == "snapshot" ? null : data.Data.First().Symbol)
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
+                    );
+            });
+
+            var subscription = new BloFinSubscription<BloFinOrder[]>(_logger, this, "orders", null, handler, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/spot/private"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToAlgoOrderUpdatesAsync(Action<DataEvent<BloFinAlgoOrderUpdate[]>> onMessage, CancellationToken ct = default)
+        {
+            var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinAlgoOrderUpdate[]>>((receiveTime, originalData, invocations, data) =>
+            {
+                DateTime? timestamp = data.Data.Any() ? data.Data.Max(x => x.UpdateTime) : null;
+                if (data.Action != "snapshot")
+                    UpdateTimeOffset(timestamp!.Value);
+
+                onMessage(
+                    new DataEvent<BloFinAlgoOrderUpdate[]>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId("orders-algo")
+                        .WithSymbol(data.Action == "snapshot" ? null : data.Data.First().Symbol)
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
+                    );
+            });
+
+            var subscription = new BloFinSubscription<BloFinAlgoOrderUpdate[]>(_logger, this, "orders-algo", null, handler, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/spot/private"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BloFinFuturesBalances>> onMessage, CancellationToken ct = default)
+        {
+            var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinFuturesBalances>>((receiveTime, originalData, invocations, data) =>
+            {
+                if (data.Action != "snapshot")
+                    UpdateTimeOffset(data.Data.Timestamp);
+
+                onMessage(
+                    new DataEvent<BloFinFuturesBalances>(Exchange, data.Data, receiveTime, originalData)
+                        .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : invocations == 1 ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithStreamId("spot-account")
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
+                    );
+            });
+
+            var subscription = new BloFinSubscription<BloFinFuturesBalances>(_logger, this, "spot-account", null, handler, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("ws/spot/private"), subscription, ct).ConfigureAwait(false);
         }
     }
 }

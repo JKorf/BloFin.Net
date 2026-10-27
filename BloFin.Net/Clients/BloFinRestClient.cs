@@ -1,12 +1,10 @@
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using System;
-using CryptoExchange.Net.Authentication;
 using BloFin.Net.Interfaces.Clients;
 using BloFin.Net.Objects.Options;
 using CryptoExchange.Net.Clients;
 using Microsoft.Extensions.Options;
-using CryptoExchange.Net.Objects.Options;
 using BloFin.Net.Interfaces.Clients.FuturesApi;
 using BloFin.Net.Clients.FuturesApi;
 using BloFin.Net.Interfaces.Clients.Apis;
@@ -22,8 +20,7 @@ namespace BloFin.Net.Clients
         #region Api clients
 
         /// <inheritdoc />
-        public IBloFinRestClientSpotApi SpotApi { get; }
-                
+        public IBloFinRestClientSpotApi SpotApi { get; }                
          /// <inheritdoc />
         public IBloFinRestClientAccountApi AccountApi { get; }
          /// <inheritdoc />
@@ -51,8 +48,7 @@ namespace BloFin.Net.Clients
         public BloFinRestClient(HttpClient? httpClient, ILoggerFactory? loggerFactory, IOptions<BloFinRestOptions> options) : base(loggerFactory, "BloFin")
         {
             Initialize(options.Value);
-            SpotApi = AddApiClient(new BloFinRestClientSpotApi(loggerFactory, httpClient, options.Value));
-                        
+            SpotApi = AddApiClient(new BloFinRestClientSpotApi(loggerFactory, httpClient, options.Value));                        
             AccountApi = AddApiClient(new BloFinRestClientAccountApi(loggerFactory, httpClient, options.Value));
             FuturesApi = AddApiClient(new BloFinRestClientFuturesApi(loggerFactory, httpClient, options.Value));
         }

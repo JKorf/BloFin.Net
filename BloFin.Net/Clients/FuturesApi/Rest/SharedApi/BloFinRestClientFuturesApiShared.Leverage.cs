@@ -1,19 +1,9 @@
 using BloFin.Net.Enums;
-using BloFin.Net.Interfaces.Clients.FuturesApi;
-using BloFin.Net.Objects.Models;
-using CryptoExchange.Net;
-using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 
 namespace BloFin.Net.Clients.FuturesApi
 {
@@ -79,6 +69,40 @@ namespace BloFin.Net.Clients.FuturesApi
                 return HttpResult.Fail<SharedLeverage>(result);
 
             return HttpResult.Ok(result, new SharedLeverage(result.Data.Leverage));
+        }
+
+        #endregion
+
+        #region Get Leverage Tiers
+
+        async Task<IExchangeCallResult<SharedLeverageTier[]>> IGetLeverageTiers.GetLeverageTiersAsync(GetLeverageTiersRequest request, CancellationToken ct)
+            => await GetLeverageTiersAsync(request, ct).ConfigureAwait(false);
+
+        public GetLeverageTiersOptions GetLeverageTiersOptions { get; } = new GetLeverageTiersOptions(_exchangeName, true)
+        {
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required<SharedMarginMode>("MarginMode", "Margin mode", SharedMarginMode.Cross)
+                ]
+        };
+        public async Task<HttpResult<SharedLeverageTier[]>> GetLeverageTiersAsync(GetLeverageTiersRequest request, CancellationToken ct)
+        {
+            var validationError = GetLeverageTiersOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return HttpResult.Fail<SharedLeverageTier[]>(Exchange, validationError);
+
+            var marginMode = request.GetParamValue<SharedMarginMode>("MarginMode");
+            var result = await _api.ExchangeData.GetPositionTiersAsync(
+                symbol: request.Symbol!.GetSymbol(FormatSymbol),
+                marginMode == SharedMarginMode.Cross ? MarginMode.Cross : MarginMode.Isolated,
+                ct: ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<SharedLeverageTier[]>(result);
+
+            int index = 0;
+            return HttpResult.Ok(result, result.Data.Select(x => {
+                return new SharedLeverageTier(request.Symbol, x.Symbol, index++, null, x.MinSize ?? 0, x.MaxSize, x.MaintenanceMarginRate, x.MaxLeverage);
+                }
+            ).ToArray());
         }
 
         #endregion

@@ -1,6 +1,4 @@
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Trackers.UserData;
 using CryptoExchange.Net.Trackers.UserData.Interfaces;
 using CryptoExchange.Net.Trackers.UserData.Objects;
 
@@ -12,6 +10,21 @@ namespace BloFin.Net.Interfaces
     public interface IBloFinTrackerFactory : ITrackerFactory
     {
         /// <summary>
+        /// Create a new spot user data tracker
+        /// </summary>
+        /// <param name="userIdentifier">User identifier</param>
+        /// <param name="config">Configuration</param>
+        /// <param name="credentials">Credentials</param>
+        /// <param name="environment">Environment</param>
+        IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, BloFinCredentials credentials, SpotUserDataTrackerConfig? config = null, BloFinEnvironment? environment = null);
+
+        /// <summary>
+        /// Create a new spot user data tracker
+        /// </summary>
+        /// <param name="config">Configuration</param>
+        IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig? config = null);
+
+        /// <summary>
         /// Create a new futures user data tracker
         /// </summary>
         /// <param name="userIdentifier">User identifier</param>
@@ -19,6 +32,7 @@ namespace BloFin.Net.Interfaces
         /// <param name="credentials">Credentials</param>
         /// <param name="environment">Environment</param>
         IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, BloFinCredentials credentials, FuturesUserDataTrackerConfig? config = null, BloFinEnvironment? environment = null);
+
         /// <summary>
         /// Create a new futures user data tracker
         /// </summary>

@@ -1,8 +1,6 @@
 ﻿using BloFin.Net.Objects.Internal;
 using BloFin.Net.Objects.Options;
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
@@ -11,7 +9,6 @@ using CryptoExchange.Net.SharedApis;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,10 +21,8 @@ namespace BloFin.Net.Clients
     {
         internal new BloFinRestOptions ClientOptions => (BloFinRestOptions)base.ClientOptions;
 
-        #region Api clients
         /// <inheritdoc />
         public string ExchangeName => "BloFin";
-        #endregion
 
         #region constructor/destructor
         internal BloFinRestClientApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, string address, BloFinRestOptions options, RestApiOptions apiOptions)
@@ -53,7 +48,7 @@ namespace BloFin.Net.Clients
             if (!result.Success)
                 return HttpResult.Fail<T>(result);
 
-            if (result.Data.Code != 0 && result.Data.Code != 200)
+            if (result.Data.Code != 0 && result.Data.Code != 1 && result.Data.Code != 200)
                 return HttpResult.Fail<T>(result, new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)), result.Data.Data);
 
             return HttpResult.Ok<T>(result, result.Data.Data);

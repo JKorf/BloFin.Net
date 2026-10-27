@@ -34,6 +34,11 @@ namespace BloFin.Net.Enums
         /// ["<c>ioc</c>"] Immediate or cancel
         /// </summary>
         [Map("ioc")]
-        ImmediateOrCancel
+        ImmediateOrCancel,
+        /// <summary>
+        /// ["<c>gtc</c>"] Good till canceled
+        /// </summary>
+        [Map("gtc")]
+        GoodTillCancel
     }
 }

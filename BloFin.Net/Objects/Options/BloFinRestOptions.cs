@@ -1,4 +1,3 @@
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
 
 namespace BloFin.Net.Objects.Options
@@ -29,17 +28,22 @@ namespace BloFin.Net.Objects.Options
         /// </summary>
         public string? BrokerId { get; set; }
         
-         /// <summary>
-        /// Exchange API options
+        /// <summary>
+        /// Futures API options
         /// </summary>
-        public RestApiOptions ExchangeOptions { get; private set; } = new RestApiOptions();
+        public RestApiOptions FuturesOptions { get; private set; } = new RestApiOptions();
 
+        /// <summary>
+        /// Spot API options
+        /// </summary>
+        public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions();
 
         internal BloFinRestOptions Set(BloFinRestOptions targetOptions)
         {
             targetOptions = base.Set<BloFinRestOptions>(targetOptions);
             targetOptions.BrokerId = BrokerId;
-            targetOptions.ExchangeOptions = ExchangeOptions.Set(targetOptions.ExchangeOptions);
+            targetOptions.FuturesOptions = FuturesOptions.Set(targetOptions.FuturesOptions);
+            targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
 
             return targetOptions;
         }

@@ -17,6 +17,12 @@ namespace BloFin.Net
     /// </summary>
     public static class BloFinExchange
     {
+        internal static JsonSerializerOptions _serializerContext = SerializerOptions.WithConverters(JsonSerializerContextCache.GetOrCreate<BloFinSourceGenerationContext>());
+        internal static ParameterSerializationSettings _parameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Decimal = DecimalSerialization.String
+        };
+
         /// <summary>
         /// Platform metadata
         /// </summary>
@@ -62,12 +68,6 @@ namespace BloFin.Net
         /// Type of exchange
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
-
-        internal static JsonSerializerOptions _serializerContext = SerializerOptions.WithConverters(JsonSerializerContextCache.GetOrCreate<BloFinSourceGenerationContext>());
-        internal static ParameterSerializationSettings _parameterSerializationSettings = new ParameterSerializationSettings
-        {
-            Decimal = DecimalSerialization.String
-        };
 
         /// <summary>
         /// Aliases for BloFin assets

@@ -71,8 +71,9 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="positionMode">["<c>positionMode</c>"] Position mode</param>
+        /// <param name="multiPositionMode">["<c>multiPosition</c>"] Multi position mode</param>
         /// <param name="ct">Cancellation token</param>
-        Task<HttpResult<BloFinPositionMode>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
+        Task<HttpResult<BloFinPositionMode>> SetPositionModeAsync(PositionMode positionMode, bool? multiPositionMode = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get leverage settings
@@ -104,5 +105,16 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<BloFinLeverage>> SetLeverageAsync(string symbol, decimal leverage, MarginMode marginMode, PositionSide? positionSide = null, CancellationToken ct = default);
 
+        /// <summary>
+        /// Get assets
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#get-currencies" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/asset/currencies
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<BloFinAsset[]>> GetAssetsAsync(CancellationToken ct = default);
     }
 }

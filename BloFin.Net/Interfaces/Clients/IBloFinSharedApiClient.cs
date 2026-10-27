@@ -1,5 +1,6 @@
 using BloFin.Net.Interfaces.Clients.AccountApi;
 using BloFin.Net.Interfaces.Clients.FuturesApi;
+using BloFin.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.SharedApis;
 
 namespace BloFin.Net.Interfaces.Clients
@@ -23,5 +24,14 @@ namespace BloFin.Net.Interfaces.Clients
         /// Futures WebSocket shared API implementations
         /// </summary>
         IBloFinSocketClientFuturesSharedApi FuturesSocket { get; }
+
+        /// <summary>
+        /// Spot REST Shared API implementations
+        /// </summary>
+        public IBloFinRestClientSpotSharedApi SpotRest { get; }
+        /// <summary>
+        /// Spot WebSocket Shared API implementations
+        /// </summary>
+        public IBloFinSocketClientSpotSharedApi SpotSocket { get; }
     }
 }

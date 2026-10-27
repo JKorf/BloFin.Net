@@ -1,0 +1,36 @@
+GET
+/api/v1/spot/trade/orders-algo-history
+true
+UriParams: {}
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "algoId": "2101",
+            "clientOrderId": "BBBBqqqq",
+            "instId": "ETH-USDT",
+            "marginMode": null,
+            "positionSide": null,
+            "side": "sell",
+            "orderType": "trigger",
+            "size": "1",
+            "actualSize": "1",
+            "leverage": null,
+            "state": "canceled",
+            "triggerPrice": "1661.100000000000000000",
+            "triggerPriceType": "last",
+            "brokerId": "",
+            "attachAlgoOrders": [
+                {
+                    "tpTriggerPrice": "1666.000000000000000000",
+                    "tpOrderPrice": "-1",
+                    "tpTriggerPriceType": "last",
+                    "slTriggerPrice": "1222.000000000000000000",
+                    "slOrderPrice": "-1",
+                    "slTriggerPriceType": "last"
+                }
+            ]
+        }
+    ]
+}

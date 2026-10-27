@@ -5,9 +5,7 @@ using BloFin.Net.Interfaces.Clients;
 using BloFin.Net.Objects.Options;
 using BloFin.Net.SymbolOrderBooks;
 using CryptoExchange.Net;
-using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.SharedApis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -98,6 +96,8 @@ namespace Microsoft.Extensions.DependencyInjection
                     .Add(client => client.AccountRest)
                     .Add(client => client.FuturesRest)
                     .Add(client => client.FuturesSocket)
+                    .Add(client => client.SpotRest)
+                    .Add(client => client.SpotSocket)
                     );
 
             return services;

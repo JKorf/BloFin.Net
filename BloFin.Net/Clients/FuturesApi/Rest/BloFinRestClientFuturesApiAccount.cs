@@ -76,10 +76,11 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Set Position Mode
 
         /// <inheritdoc />
-        public async Task<HttpResult<BloFinPositionMode>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinPositionMode>> SetPositionModeAsync(PositionMode positionMode, bool? multiPositionMode = null, CancellationToken ct = default)
         {
             var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
             parameters.Add("positionMode", positionMode);
+            parameters.Add("multiPosition", multiPositionMode == true ? "true" : "false");
             var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/v1/account/set-position-mode", BloFinExchange.RateLimiter.BloFinRest, 1, true);
             var result = await _baseClient.SendAsync<BloFinPositionMode>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -114,6 +115,19 @@ namespace BloFin.Net.Clients.FuturesApi
             parameters.Add("positionSide", positionSide);
             var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/v1/account/set-leverage", BloFinExchange.RateLimiter.BloFinRest, 1, true);
             var result = await _baseClient.SendAsync<BloFinLeverage>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Assets
+
+        /// <inheritdoc />
+        public async Task<HttpResult<BloFinAsset[]>> GetAssetsAsync(CancellationToken ct = default)
+        {
+            var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/asset/currencies", BloFinExchange.RateLimiter.BloFinRest, 1, true);
+            var result = await _baseClient.SendAsync<BloFinAsset[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

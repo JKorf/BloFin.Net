@@ -1,5 +1,4 @@
 using BloFin.Net.Enums;
-using BloFin.Net.Interfaces.Clients.FuturesApi;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;

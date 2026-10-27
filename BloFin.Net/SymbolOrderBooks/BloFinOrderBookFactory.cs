@@ -29,29 +29,38 @@ namespace BloFin.Net.SymbolOrderBooks
             _serviceProvider = serviceProvider;            
             
             Futures = new OrderBookFactory<BloFinOrderBookOptions>(CreateFutures, Create);
+            Spot = new OrderBookFactory<BloFinOrderBookOptions>(CreateSpot, Create);
         }
-
-        
+                
          /// <inheritdoc />
         public IOrderBookFactory<BloFinOrderBookOptions> Futures { get; }
+        /// <inheritdoc />
+        public IOrderBookFactory<BloFinOrderBookOptions> Spot { get; }
 
 
         /// <inheritdoc />
         public ISymbolOrderBook Create(SharedSymbol symbol, Action<BloFinOrderBookOptions>? options = null)
         {
             var symbolName = symbol.GetSymbol(BloFinExchange.FormatSymbol);
+            if (symbol.TradingMode == TradingMode.Spot)
+                return CreateSpot(symbolName, options);
 
             return CreateFutures(symbolName, options);
         }
-
         
-         /// <inheritdoc />
+        /// <inheritdoc />
         public ISymbolOrderBook CreateFutures(string symbol, Action<BloFinOrderBookOptions>? options = null)
             => new BloFinFuturesSymbolOrderBook(symbol, options, 
                                                           _serviceProvider.GetRequiredService<ILoggerFactory>(),
                                                           _serviceProvider.GetRequiredService<IBloFinRestClient>(),
                                                           _serviceProvider.GetRequiredService<IBloFinSocketClient>());
 
+        /// <inheritdoc />
+        public ISymbolOrderBook CreateSpot(string symbol, Action<BloFinOrderBookOptions>? options = null)
+            => new BloFinSpotSymbolOrderBook(symbol, options,
+                                                          _serviceProvider.GetRequiredService<ILoggerFactory>(),
+                                                          _serviceProvider.GetRequiredService<IBloFinRestClient>(),
+                                                          _serviceProvider.GetRequiredService<IBloFinSocketClient>());
 
     }
 }

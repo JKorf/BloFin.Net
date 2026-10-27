@@ -49,17 +49,17 @@ namespace BloFin.Net.Objects.Models
         /// ["<c>balance</c>"] Balance
         /// </summary>
         [JsonPropertyName("balance")]
-        public decimal Balance { get; set; }
+        public decimal? Balance { get; set; }
         /// <summary>
         /// ["<c>ts</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ts")]
-        public DateTime Timestamp { get; set; }
+        public DateTime? Timestamp { get; set; }
         /// <summary>
         /// ["<c>isolatedEquity</c>"] Isolated equity
         /// </summary>
         [JsonPropertyName("isolatedEquity")]
-        public decimal IsolatedEquity { get; set; }
+        public decimal? IsolatedEquity { get; set; }
         /// <summary>
         /// ["<c>available</c>"] Available
         /// </summary>
@@ -74,12 +74,12 @@ namespace BloFin.Net.Objects.Models
         /// ["<c>frozen</c>"] Frozen
         /// </summary>
         [JsonPropertyName("frozen")]
-        public decimal Frozen { get; set; }
+        public decimal? Frozen { get; set; }
         /// <summary>
         /// ["<c>orderFrozen</c>"] Order frozen
         /// </summary>
         [JsonPropertyName("orderFrozen")]
-        public decimal OrderFrozen { get; set; }
+        public decimal? OrderFrozen { get; set; }
         /// <summary>
         /// ["<c>equityUsd</c>"] Equity usd
         /// </summary>
@@ -94,7 +94,7 @@ namespace BloFin.Net.Objects.Models
         /// ["<c>isolatedUnrealizedPnl</c>"] Isolated unrealized pnl
         /// </summary>
         [JsonPropertyName("isolatedUnrealizedPnl")]
-        public decimal IsolatedUnrealizedPnl { get; set; }
+        public decimal? IsolatedUnrealizedPnl { get; set; }
         /// <summary>
         /// ["<c>bonus</c>"] Bonus
         /// </summary>

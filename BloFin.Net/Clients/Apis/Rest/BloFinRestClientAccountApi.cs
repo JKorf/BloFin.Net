@@ -25,7 +25,7 @@ namespace BloFin.Net.Clients.Apis
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
 
         internal BloFinRestClientAccountApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, BloFinRestOptions options)
-            : base(loggerFactory, httpClient, options.Environment.RestClientAddress, options, options.ExchangeOptions)
+            : base(loggerFactory, httpClient, options.Environment.RestClientAddress, options, options.FuturesOptions)
         {
             _sharedApi = new BloFinRestClientAccountSharedApi(this);
         }

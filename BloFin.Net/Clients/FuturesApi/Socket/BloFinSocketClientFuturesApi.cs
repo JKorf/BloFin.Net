@@ -7,9 +7,7 @@ using BloFin.Net.Objects.Options;
 using BloFin.Net.Objects.Sockets;
 using BloFin.Net.Objects.Sockets.Subscriptions;
 using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Converters.MessageParsing;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
@@ -17,8 +15,6 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
-using CryptoExchange.Net.Sockets;
-using CryptoExchange.Net.Sockets.Default;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -46,7 +42,7 @@ namespace BloFin.Net.Clients.FuturesApi
         /// ctor
         /// </summary>
         internal BloFinSocketClientFuturesApi(ILoggerFactory? loggerFactory, BloFinSocketOptions options) :
-            base(loggerFactory, BloFinExchange.Metadata.Id, options.Environment.SocketClientAddress!, options, options.ExchangeOptions)
+            base(loggerFactory, BloFinExchange.Metadata.Id, options.Environment.SocketClientAddress!, options, options.FuturesOptions)
         {
             RateLimiter = BloFinExchange.RateLimiter.BloFinSocket;
 
@@ -72,7 +68,7 @@ namespace BloFin.Net.Clients.FuturesApi
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(BloFinExchange._serializerContext);
 
-        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BloFinSocketFuturesMessageConverter();
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BloFinSocketMessageConverter();
 
         /// <inheritdoc />
         protected override BloFinAuthenticationProvider CreateAuthenticationProvider(BloFinCredentials credentials)
@@ -227,25 +223,25 @@ namespace BloFin.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<BloFinFundingRate>> onMessage, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<BloFinFundingUpdate>> onMessage, CancellationToken ct = default)
             => SubscribeToFundingRateUpdatesAsync([symbol], onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BloFinFundingRate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BloFinFundingUpdate>> onMessage, CancellationToken ct = default)
         {
-            var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinFundingRate[]>>((receiveTime, originalData, invocations, data) =>
+            var handler = new Action<DateTime, string?, int, BloFinSocketUpdate<BloFinFundingUpdate[]>>((receiveTime, originalData, invocations, data) =>
             {
                 var item = data.Data.First();
 
                 onMessage(
-                    new DataEvent<BloFinFundingRate>(Exchange, item, receiveTime, originalData)
+                    new DataEvent<BloFinFundingUpdate>(Exchange, item, receiveTime, originalData)
                         .WithUpdateType(data.Action == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId("funding-rate")
                         .WithSymbol(item.Symbol)
                     );
             });
 
-            var subscription = new BloFinSubscription<BloFinFundingRate[]>(_logger, this, "funding-rate", symbols.ToArray(), handler, false);
+            var subscription = new BloFinSubscription<BloFinFundingUpdate[]>(_logger, this, "funding-rate", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("ws/public"), subscription, ct).ConfigureAwait(false);
         }
 

@@ -19,6 +19,11 @@ namespace BloFin.Net.Enums
         /// ["<c>trigger</c>"] Trigger
         /// </summary>
         [Map("trigger")]
-        Trigger
+        Trigger,
+        /// <summary>
+        /// ["<c>trailing_stop</c>"] Trailing stop
+        /// </summary>
+        [Map("trailing_stop")]
+        TrailingStop
     }
 }

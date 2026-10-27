@@ -1,12 +1,5 @@
-using BloFin.Net.Enums;
 using BloFin.Net.Interfaces.Clients.FuturesApi;
-using CryptoExchange.Net;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
-using System;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace BloFin.Net.Clients.FuturesApi
@@ -41,7 +34,8 @@ namespace BloFin.Net.Clients.FuturesApi
                 SubscribeTradeOptions,
                 SubscribeBalanceOptions,
                 SubscribeFuturesOrderOptions,
-                SubscribePositionOptions
+                SubscribePositionOptions,
+                SubscribeFundingInfoOptions
             );
         }
 

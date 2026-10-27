@@ -48,7 +48,7 @@ namespace BloFin.Net.Objects.Models
         /// ["<c>reduceOnly</c>"] Reduce only
         /// </summary>
         [JsonPropertyName("reduceOnly")]
-        public bool ReduceOnly { get; set; }
+        public bool? ReduceOnly { get; set; }
         /// <summary>
         /// ["<c>clientOrderId</c>"] Client order id
         /// </summary>
@@ -65,6 +65,11 @@ namespace BloFin.Net.Objects.Models
         [JsonPropertyName("tpOrderPrice"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal? TakeProfitOrderPrice { get; set; }
         /// <summary>
+        /// ["<c>tpTriggerPriceType</c>"] Take profit trigger price type
+        /// </summary>
+        [JsonPropertyName("tpTriggerPriceType"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TriggerPriceType? TakeProfitTriggerPriceType { get; set; }
+        /// <summary>
         /// ["<c>slTriggerPrice</c>"] Stop loss trigger price
         /// </summary>
         [JsonPropertyName("slTriggerPrice"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
@@ -75,9 +80,19 @@ namespace BloFin.Net.Objects.Models
         [JsonPropertyName("slOrderPrice"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal? StopLossOrderPrice { get; set; }
         /// <summary>
+        /// ["<c>slTriggerPriceType</c>"] Stop loss trigger price type
+        /// </summary>
+        [JsonPropertyName("slTriggerPriceType"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public TriggerPriceType? StopLossTriggerPriceType { get; set; }
+        /// <summary>
+        /// ["<c>positionId</c>"] Position id
+        /// </summary>
+        [JsonPropertyName("positionId"), JsonInclude]
+        internal string? PositionId { get; set; }
+        /// <summary>
         /// ["<c>brokerId</c>"] Broker id
         /// </summary>
-        [JsonPropertyName("brokerId")]
+        [JsonPropertyName("brokerId"), JsonInclude]
         internal string? BrokerId { get; set; }
     }
 }

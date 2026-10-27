@@ -7,7 +7,6 @@ using BloFin.Net.Objects.Models;
 using System.Collections.Generic;
 using BloFin.Net.Enums;
 using CryptoExchange.Net.Interfaces.Clients;
-using CryptoExchange.Net.Authentication;
 
 namespace BloFin.Net.Interfaces.Clients.FuturesApi
 {
@@ -217,7 +216,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<BloFinFundingRate>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<BloFinFundingUpdate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to funding rate updates
@@ -232,7 +231,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
-        Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BloFinFundingRate>> onMessage, CancellationToken ct = default);
+        Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BloFinFundingUpdate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to position updates

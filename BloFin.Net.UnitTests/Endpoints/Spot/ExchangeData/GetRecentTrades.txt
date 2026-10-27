@@ -1,0 +1,18 @@
+GET
+/api/v1/spot/market/trades
+false
+UriParams: {"instId": "ETHUSDT"}
+{
+    "code": "0",
+    "msg": "success",
+    "data": [
+        {
+            "tradeId": "124892894",
+            "instId": "ETH-USDT",
+            "price": "1620.11",
+            "size": "34",
+            "side": "sell",
+            "ts": "1695262343171"
+        }
+    ]
+}

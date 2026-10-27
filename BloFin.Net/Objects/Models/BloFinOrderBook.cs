@@ -1,6 +1,7 @@
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
+using System;
 using System.Text.Json.Serialization;
 
 namespace BloFin.Net.Objects.Models
@@ -20,6 +21,11 @@ namespace BloFin.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("bids")]
         public BloFinOrderBookEntry[] Bids { get; set; } = [];
+        /// <summary>
+        /// ["<c>ts</c>"] Timestamp
+        /// </summary>
+        [JsonPropertyName("ts")]
+        public DateTime Timestamp { get; set; }
     }
 
     /// <summary>

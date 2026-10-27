@@ -36,6 +36,59 @@ namespace BloFin.Net.UnitTests
         }
 
         [Test]
+        public async Task ValidateSpotExchangeDataCalls()
+        {
+            using var client = new BloFinRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new BloFinCredentials("123", "456", "789");
+            });
+            var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Spot/ExchangeData", "https://openapi.blofin.com", IsAuthenticated);
+            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetSymbolsAsync(), "GetSymbols", nestedJsonProperty: "data", ignoreProperties: [
+                "contractValue", "contractType"
+                ]);
+            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetTickersAsync("BTC-USDT"), "GetTickers", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetOrderBookAsync("ETHUSDT", 123), "GetOrderBook", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetRecentTradesAsync("ETHUSDT"), "GetRecentTrades", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetKlinesAsync("ETHUSDT", KlineInterval.OneMinute), "GetKlines", nestedJsonProperty: "data");
+        }
+
+        [Test]
+        public async Task ValidateSpotAccountCalls()
+        {
+            using var client = new BloFinRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new BloFinCredentials("123", "456", "789");
+            });
+            var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Spot/Account", "https://openapi.blofin.com", IsAuthenticated);
+            await tester.ValidateAsync(client => client.SpotApi.Account.GetBalancesAsync(AccountType.Spot), "GetBalances", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Account.TransferAsync("123", AccountType.Spot, AccountType.Futures, 0.1m), "Transfer", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Account.GetTransferHistoryAsync(), "GetTransferHistory", nestedJsonProperty: "data");
+        }
+
+        [Test]
+        public async Task ValidateSpotTradingCalls()
+        {
+            using var client = new BloFinRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new BloFinCredentials("123", "456", "789");
+            });
+            var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Spot/Trading", "https://openapi.blofin.com", IsAuthenticated);
+            await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceOrderAsync("ETHUSDT", OrderSide.Buy, OrderType.Limit, 0.1m), "PlaceOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.CancelOrderAsync(), "CancelOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.GetOpenOrdersAsync(), "GetOpenOrders", nestedJsonProperty: "data", ignoreProperties: ["filled_amount"]);
+            await tester.ValidateAsync(client => client.SpotApi.Trading.GetOrderAsync("ETHUSDT"), "GetOrder", nestedJsonProperty: "data", ignoreProperties: ["filled_amount"]);
+            await tester.ValidateAsync(client => client.SpotApi.Trading.GetOrderHistoryAsync(), "GetOrderHistory", nestedJsonProperty: "data", ignoreProperties: ["filled_amount"]);
+            await tester.ValidateAsync(client => client.SpotApi.Trading.GetUserTradesAsync(), "GetUserTrades", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceAlgoOrderAsync("ETHUSDT", OrderSide.Buy, AlgoOrderType.Trigger, 0.1m, 0.1m), "PlaceAlgoOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.CancelAlgoOrderAsync("ETHUSDT"), "CancelAlgoOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.GetOpenAlgoOrdersAsync(), "GetOpenAlgoOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.GetAlgoOrderHistoryAsync(), "GetAlgoOrderHistory", nestedJsonProperty: "data");
+        }
+
+        [Test]
         public async Task ValidateFuturesAccountCalls()
         {
             var client = new BloFinRestClient(opts =>
@@ -52,19 +105,6 @@ namespace BloFin.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Account.SetPositionModeAsync(PositionMode.HedgeMode), "SetPositionMode", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetLeverageAsync("123", MarginMode.Isolated), "GetLeverage", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Account.SetLeverageAsync("123", 0.1m, MarginMode.Isolated), "SetLeverage", nestedJsonProperty: "data");
-        }
-
-        [Test]
-        public async Task ValidateSpotExchangeDataCalls()
-        {
-            using var client = new BloFinRestClient(opts =>
-            {
-                opts.AutoTimestamp = false;
-                opts.ApiCredentials = new BloFinCredentials("123", "456", "789");
-            });
-            var tester = new RestRequestValidator<BloFinRestClient>(client, "Endpoints/Spot", "https://openapi.blofin.com", IsAuthenticated);
-            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetSymbolsAsync(), "GetSymbols", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetTickersAsync("BTC-USDT"), "GetTickers", nestedJsonProperty: "data");
         }
 
         [Test]

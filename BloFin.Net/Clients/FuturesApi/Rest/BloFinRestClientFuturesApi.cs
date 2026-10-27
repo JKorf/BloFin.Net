@@ -31,7 +31,7 @@ namespace BloFin.Net.Clients.FuturesApi
 
         #region constructor/destructor
         internal BloFinRestClientFuturesApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, BloFinRestOptions options)
-            : base(loggerFactory, httpClient, options.Environment.RestClientAddress, options, options.ExchangeOptions)
+            : base(loggerFactory, httpClient, options.Environment.RestClientAddress, options, options.FuturesOptions)
         {
             Account = new BloFinRestClientFuturesApiAccount(this);
             ExchangeData = new BloFinRestClientFuturesApiExchangeData(_logger, this);

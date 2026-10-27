@@ -1,11 +1,9 @@
 using BloFin.Net.Interfaces.Clients;
 using BloFin.Net.Objects.Options;
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Concurrent;
 using System.Net.Http;
 
 namespace BloFin.Net.Clients

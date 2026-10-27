@@ -11,21 +11,36 @@ namespace BloFin.Net.Clients.SpotApi
     /// <inheritdoc cref="IBloFinRestClientSpotApi" />
     internal class BloFinRestClientSpotApi : BloFinRestClientApi, IBloFinRestClientSpotApi
     {
+        private readonly BloFinRestClientSpotSharedApi _sharedApi;
+
         /// <inheritdoc />
         protected override ErrorMapping ErrorMapping => BloFinErrors.Errors;
         /// <inheritdoc />
         protected override IRestMessageHandler MessageHandler { get; } = new BloFinRestMessageHandler(BloFinErrors.Errors);
 
+        /// <inheritdoc />
+        public IBloFinRestClientSpotApiAccount Account { get; }
+
+        /// <inheritdoc />
+        public IBloFinRestClientSpotApiExchangeData ExchangeData { get; }
+
+        /// <inheritdoc />
+        public IBloFinRestClientSpotApiTrading Trading { get; }
+
         /// <summary>
         /// Create the spot REST API client
         /// </summary>
         internal BloFinRestClientSpotApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, BloFinRestOptions options)
-            : base(loggerFactory, httpClient, options.Environment.RestClientAddress, options, options.ExchangeOptions)
+            : base(loggerFactory, httpClient, options.Environment.RestClientAddress, options, options.SpotOptions)
         {
+            Account = new BloFinRestClientSpotApiAccount(this);
             ExchangeData = new BloFinRestClientSpotApiExchangeData(this);
+            Trading = new BloFinRestClientSpotApiTrading(this);
+
+            _sharedApi = new BloFinRestClientSpotSharedApi(this);
         }
 
         /// <inheritdoc />
-        public IBloFinRestClientSpotApiExchangeData ExchangeData { get; }
+        public IBloFinRestClientSpotSharedApi SharedApi => _sharedApi;
     }
 }

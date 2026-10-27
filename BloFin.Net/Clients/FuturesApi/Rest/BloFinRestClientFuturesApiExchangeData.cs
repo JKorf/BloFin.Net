@@ -97,16 +97,12 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Index Mark Price
 
         /// <inheritdoc />
-        public async Task<HttpResult<BloFinMarkIndexPrice>> GetIndexMarkPriceAsync(string symbol, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinMarkIndexPrice[]>> GetIndexMarkPriceAsync(string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
             parameters.Add("instId", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/market/mark-price", BloFinExchange.RateLimiter.BloFinRest, 1, false);
-            var result = await _baseClient.SendAsync<BloFinMarkIndexPrice[]>(request, parameters, ct).ConfigureAwait(false);
-            if (!result.Success)
-                return HttpResult.Fail<BloFinMarkIndexPrice>(result);
-
-            return HttpResult.Ok(result, result.Data.Single());
+            return await _baseClient.SendAsync<BloFinMarkIndexPrice[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -114,16 +110,12 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Get Funding Rate
 
         /// <inheritdoc />
-        public async Task<HttpResult<BloFinFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinFundingRate[]>> GetFundingRateAsync(string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
             parameters.Add("instId", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/market/funding-rate", BloFinExchange.RateLimiter.BloFinRest, 1, false);
-            var result = await _baseClient.SendAsync<BloFinFundingRate[]>(request, parameters, ct).ConfigureAwait(false);
-            if (!result.Success)
-                return HttpResult.Fail<BloFinFundingRate>(result);
-
-            return HttpResult.Ok(result, result.Data.Single());
+            return await _baseClient.SendAsync<BloFinFundingRate[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion

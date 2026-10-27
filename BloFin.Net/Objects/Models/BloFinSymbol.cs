@@ -114,5 +114,10 @@ namespace BloFin.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("assetClass")]
         public AssetClass AssetClass { get; set; }
+        /// <summary>
+        /// ["<c>apiPermissions</c>"] API trading permission
+        /// </summary>
+        [JsonPropertyName("apiPermission")]
+        public ApiTradePermission ApiTradePermission { get; set; }
     }
 }

@@ -30,6 +30,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         ISubscribeTradesSocket,
         ISubscribeBalancesSocket,
         ISubscribeFuturesOrdersSocket,
-        ISubscribePositionsSocket
+        ISubscribePositionsSocket,
+        ISubscribeFundingInfoSocket
     { }
 }

@@ -1,6 +1,3 @@
-using BloFin.Net.Enums;
-using BloFin.Net.Interfaces.Clients.FuturesApi;
-using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
@@ -32,7 +29,7 @@ namespace BloFin.Net.Clients.FuturesApi
                         SupportedTradingModes, 
                         x.Asset,
                         x.Available,
-                        x.Balance)).ToArray()));
+                        x.Equity)).ToArray()));
             },
             ct: ct).ConfigureAwait(false);
 

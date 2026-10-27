@@ -46,10 +46,30 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="clientOrderId">["<c>clientOrderId</c>"] Client order id</param>
         /// <param name="takeProfitTriggerPrice">["<c>tpTriggerPrice</c>"] Take profit trigger price</param>
         /// <param name="takeProfitOrderPrice">["<c>tpOrderPrice</c>"] Take profit order price</param>
+        /// <param name="takeProfitTriggerPriceType">["<c>tpTriggerPriceType</c>"] Take profit trigger price type</param>
         /// <param name="stopLossTriggerPrice">["<c>slTriggerPrice</c>"] Stop loss trigger price</param>
         /// <param name="stopLossOrderPrice">["<c>slOrderPrice</c>"] Stop loss order price</param>
+        /// <param name="stopLossTriggerPriceType">["<c>slTriggerPriceType</c>"] Stop loss trigger price type</param>
+        /// <param name="positionId">["<c>positionId</c>"] Position id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<HttpResult<BloFinOrderId>> PlaceOrderAsync(string symbol, OrderSide side, OrderType orderType, decimal quantity, MarginMode marginMode, decimal? price = null, PositionSide? positionSide = null, bool? reduceOnly = null, string? clientOrderId = null, decimal? takeProfitTriggerPrice = null, decimal? takeProfitOrderPrice = null, decimal? stopLossTriggerPrice = null, decimal? stopLossOrderPrice = null, CancellationToken ct = default);
+        Task<HttpResult<BloFinOrderId>> PlaceOrderAsync(
+            string symbol,
+            OrderSide side,
+            OrderType orderType,
+            decimal quantity,
+            MarginMode marginMode,
+            decimal? price = null,
+            PositionSide? positionSide = null,
+            bool? reduceOnly = null,
+            string? clientOrderId = null,
+            decimal? takeProfitTriggerPrice = null,
+            decimal? takeProfitOrderPrice = null,
+            TriggerPriceType? takeProfitTriggerPriceType = null,
+            decimal? stopLossTriggerPrice = null,
+            decimal? stopLossOrderPrice = null,
+            TriggerPriceType? stopLossTriggerPriceType = null,
+            string? positionId = null,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Place multiple new orders in a single request
@@ -109,6 +129,43 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// <param name="slTpOrders">["<c>attachAlgoOrders</c>"] Stop loss / take profit orders</param>
         /// <param name="ct">Cancellation token</param>
         Task<HttpResult<BloFinAlgoOrderId>> PlaceTriggerOrderAsync(string symbol, OrderSide side, MarginMode marginMode, decimal triggerPrice, TriggerPriceType? triggerPriceType = null, PositionSide? positionSide = null, decimal? quantity = null, string? clientOrderId = null, decimal? orderPrice = null, bool? reduceOnly = null, IEnumerable<BloFinTpSlOrderRequest>? slTpOrders = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Edit an open order
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://docs.blofin.com/index.html#amend-order" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/trade/amend-order
+        /// </para>
+        /// </summary>
+        /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
+        /// <param name="orderId">["<c>orderId</c>"] The order ID</param>
+        /// <param name="clientOrderId">["<c>clientOrderId</c>"] The client order ID</param>
+        /// <param name="newPrice">["<c>newPrice</c>"] The new price</param>
+        /// <param name="newQuantity">["<c>newSize</c>"] The new quantity</param>
+        /// <param name="newTakeProfitTriggerPrice">["<c>newTpTriggerPrice</c>"] The new take profit trigger price</param>
+        /// <param name="newTakeProfitOrderPrice">["<c>newTpOrderPrice</c>"] The new take profit order price</param>
+        /// <param name="newTakeProfitTriggerPriceType">["<c>newTpTriggerPriceType</c>"] The new take profit trigger price type</param>
+        /// <param name="newStopLossTriggerPrice">["<c>newSlTriggerPrice</c>"] The new stop loss trigger price</param>
+        /// <param name="newStopLossOrderPrice">["<c>newSlOrderPrice</c>"] The new stop loss order price</param>
+        /// <param name="newStopLossTriggerPriceType">["<c>newSlTriggerPriceType</c>"] The new stop loss trigger price type</param>
+        /// <param name="requestId">["<c>requestId</c>"] The request ID</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<BloFinOrderId>> EditOrderAsync(
+            string symbol,
+            string? orderId,
+            string? clientOrderId,
+            decimal? newPrice = null,
+            decimal? newQuantity = null,
+            decimal? newTakeProfitTriggerPrice = null,
+            decimal? newTakeProfitOrderPrice = null,
+            TriggerPriceType? newTakeProfitTriggerPriceType = null,
+            decimal? newStopLossTriggerPrice = null,
+            decimal? newStopLossOrderPrice = null,
+            TriggerPriceType? newStopLossTriggerPriceType = null,
+            string? requestId = null,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an open order

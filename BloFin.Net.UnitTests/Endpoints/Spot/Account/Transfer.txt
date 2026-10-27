@@ -1,0 +1,12 @@
+POST
+/api/v1/asset/transfer
+true
+BodyParams: {"currency": "123","fromAccount": "spot","toAccount": "futures","amount": 0.1}
+{
+    "code": "0",
+    "msg": "success",
+    "data": {
+        "transferId": "3743",
+        "clientTransferId": "1211211"
+    }
+}

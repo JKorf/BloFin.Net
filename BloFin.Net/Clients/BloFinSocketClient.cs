@@ -1,6 +1,4 @@
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Objects.Options;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -16,18 +14,13 @@ namespace BloFin.Net.Clients
     /// <inheritdoc cref="IBloFinSocketClient" />
     public class BloFinSocketClient : BaseSocketClient<BloFinEnvironment, BloFinCredentials>, IBloFinSocketClient
     {
-        #region fields
-        #endregion
-
         #region Api clients
 
         /// <inheritdoc />
         public IBloFinSocketClientSpotApi SpotApi { get; }
-
         
          /// <inheritdoc />
         public IBloFinSocketClientFuturesApi FuturesApi { get; }
-
 
         #endregion
 
@@ -50,8 +43,8 @@ namespace BloFin.Net.Clients
         public BloFinSocketClient(IOptions<BloFinSocketOptions> options, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "BloFin")
         {
             Initialize(options.Value);
-            SpotApi = AddApiClient(new BloFinSocketClientSpotApi(loggerFactory, options.Value));
 
+            SpotApi = AddApiClient(new BloFinSocketClientSpotApi(loggerFactory, options.Value));
             FuturesApi = AddApiClient(new BloFinSocketClientFuturesApi(loggerFactory, options.Value));
         }
         #endregion

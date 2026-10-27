@@ -1,19 +1,5 @@
-using BloFin.Net.Enums;
 using BloFin.Net.Interfaces.Clients.FuturesApi;
-using BloFin.Net.Objects.Models;
-using CryptoExchange.Net;
-using CryptoExchange.Net.Converters.SystemTextJson;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Timers;
 
 namespace BloFin.Net.Clients.FuturesApi
 {
@@ -71,7 +57,15 @@ namespace BloFin.Net.Clients.FuturesApi
                 PlaceFuturesTriggerOrderOptions,
                 GetFuturesTriggerOrderOptions,
                 CancelFuturesTriggerOrderOptions,
-                GetPositionHistoryOptions
+                GetPositionHistoryOptions,
+                GetMarkPriceOptions,
+                GetAllMarkPricesOptions,
+                GetFundingInfoOptions,
+                GetLeverageTiersOptions,
+                PlaceMultipleFuturesOrdersOptions,
+                EditFuturesOrderOptions,
+                EditFuturesOrderByClientOrderIdOptions,
+                GetAllAssetsOptions
             );
         }
     }

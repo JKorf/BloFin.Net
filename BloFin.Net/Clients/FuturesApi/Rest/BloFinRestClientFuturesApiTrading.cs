@@ -44,7 +44,24 @@ namespace BloFin.Net.Clients.FuturesApi
         #region Place Order
 
         /// <inheritdoc />
-        public async Task<HttpResult<BloFinOrderId>> PlaceOrderAsync(string symbol, OrderSide side, OrderType orderType, decimal quantity, MarginMode marginMode, decimal? price = null, PositionSide? positionSide = null, bool? reduceOnly = null, string? clientOrderId = null, decimal? takeProfitTriggerPrice = null, decimal? takeProfitOrderPrice = null, decimal? stopLossTriggerPrice = null, decimal? stopLossOrderPrice = null, CancellationToken ct = default)
+        public async Task<HttpResult<BloFinOrderId>> PlaceOrderAsync(
+            string symbol, 
+            OrderSide side,
+            OrderType orderType,
+            decimal quantity,
+            MarginMode marginMode,
+            decimal? price = null,
+            PositionSide? positionSide = null,
+            bool? reduceOnly = null,
+            string? clientOrderId = null, 
+            decimal? takeProfitTriggerPrice = null,
+            decimal? takeProfitOrderPrice = null,
+            TriggerPriceType? takeProfitTriggerPriceType = null,
+            decimal? stopLossTriggerPrice = null, 
+            decimal? stopLossOrderPrice = null,
+            TriggerPriceType? stopLossTriggerPriceType = null,
+            string? positionId = null,
+            CancellationToken ct = default)
         {
             var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
             parameters.Add("instId", symbol);
@@ -58,9 +75,11 @@ namespace BloFin.Net.Clients.FuturesApi
             parameters.Add("clientOrderId", clientOrderId);
             parameters.Add("tpTriggerPrice", takeProfitTriggerPrice);
             parameters.Add("tpOrderPrice", takeProfitOrderPrice);
+            parameters.Add("tpTriggerPriceType", takeProfitTriggerPriceType);
             parameters.Add("slTriggerPrice", stopLossTriggerPrice);
             parameters.Add("slOrderPrice", stopLossOrderPrice);
-            parameters.Add("slOrderPrice", stopLossOrderPrice);
+            parameters.Add("slTriggerPriceType", stopLossTriggerPriceType);
+            parameters.Add("positionId", positionId);
             parameters.Add("brokerId", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange));
             var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/v1/trade/order", BloFinExchange.RateLimiter.BloFinRest, 1, true);
             var result = await _baseClient.SendAsync<BloFinOrderId[]>(request, parameters, ct).ConfigureAwait(false);
@@ -84,10 +103,11 @@ namespace BloFin.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<HttpResult<CallResult<BloFinOrderId>[]>> PlaceMultipleOrdersAsync(IEnumerable<BloFinOrderRequest> orders, CancellationToken ct = default)
         {
-            foreach (var order in orders)
+            var intOrders = orders.ToArray();
+            foreach (var order in intOrders)
                 order.BrokerId = LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange);
 
-            var parameters = new Parameters(orders.ToArray(), BloFinExchange._parameterSerializationSettings);
+            var parameters = new Parameters(intOrders, BloFinExchange._parameterSerializationSettings);
             var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/v1/trade/batch-orders", BloFinExchange.RateLimiter.BloFinRest, 1, true);
             var response = await _baseClient.SendAsync<BloFinOrderId[]>(request, parameters, ct).ConfigureAwait(false);
             if (!response.Success)
@@ -168,6 +188,51 @@ namespace BloFin.Net.Clients.FuturesApi
                 return HttpResult.Fail(result, new ServerError(result.Data.Code, _baseClient.GetErrorInfo(result.Data.Code, result.Data.Message)), result.Data);
 
             return HttpResult.Ok(result, result.Data);
+        }
+
+        #endregion
+
+        #region Edit Order
+
+        /// <inheritdoc />
+        public async Task<HttpResult<BloFinOrderId>> EditOrderAsync(
+            string symbol, 
+            string? orderId,
+            string? clientOrderId,
+            decimal? newPrice = null,
+            decimal? newQuantity = null,
+            decimal? newTakeProfitTriggerPrice = null,
+            decimal? newTakeProfitOrderPrice = null,
+            TriggerPriceType? newTakeProfitTriggerPriceType = null,
+            decimal? newStopLossTriggerPrice = null,
+            decimal? newStopLossOrderPrice = null,
+            TriggerPriceType? newStopLossTriggerPriceType = null,
+            string? requestId = null,
+            CancellationToken ct = default)
+        {
+            var parameters = new Parameters(BloFinExchange._parameterSerializationSettings);
+            parameters.Add("instId", symbol);
+            parameters.Add("newSize", newQuantity);
+            parameters.Add("orderId", orderId);
+            parameters.Add("clientOrderId", clientOrderId);
+            parameters.Add("newPrice", newPrice);
+            parameters.Add("clientOrderId", clientOrderId);
+            parameters.Add("newTpTriggerPrice", newTakeProfitTriggerPrice);
+            parameters.Add("newTpOrderPrice", newTakeProfitOrderPrice);
+            parameters.Add("newTpTriggerPriceType", newTakeProfitTriggerPriceType);
+            parameters.Add("newSlTriggerPrice", newStopLossTriggerPrice);
+            parameters.Add("newSlOrderPrice", newStopLossOrderPrice);
+            parameters.Add("newSlTriggerPriceType", newStopLossTriggerPriceType);
+            parameters.Add("brokerId", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange));
+            var request = _definitions.GetOrCreate(HttpMethod.Post, _baseClient.BaseAddress, "/api/v1/trade/amend-order", BloFinExchange.RateLimiter.BloFinRest, 1, true);
+            var result = await _baseClient.SendAsync<BloFinOrderId>(request, parameters, ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<BloFinOrderId>(result);
+
+            if (result.Data.Code != 0)
+                return HttpResult.Fail<BloFinOrderId>(result, new ServerError(result.Data.Code, _baseClient.GetErrorInfo(result.Data.Code, result.Data.Message)), result.Data);
+
+            return result;
         }
 
         #endregion

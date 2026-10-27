@@ -47,32 +47,32 @@ namespace BloFin.Net.Objects.Models
         /// ["<c>high24h</c>"] Highest price in last 24h
         /// </summary>
         [JsonPropertyName("high24h")]
-        public decimal? High24h { get; set; }
+        public decimal? HighPrice { get; set; }
         /// <summary>
         /// ["<c>open24h</c>"] Open price 24h ago
         /// </summary>
         [JsonPropertyName("open24h")]
-        public decimal? Open24h { get; set; }
+        public decimal? OpenPrice { get; set; }
         /// <summary>
         /// ["<c>low24h</c>"] Lowest price in last 24h
         /// </summary>
         [JsonPropertyName("low24h")]
-        public decimal? Low24h { get; set; }
+        public decimal? LowPrice { get; set; }
         /// <summary>
         /// ["<c>volCurrency24h</c>"] Volume in the last 24h in base asset
         /// </summary>
         [JsonPropertyName("volCurrency24h")]
-        public decimal? BaseVolume24h { get; set; }
+        public decimal? BaseVolume { get; set; }
         /// <summary>
         /// ["<c>vol24h</c>"] Volume in the last 24h in contracts
         /// </summary>
         [JsonPropertyName("vol24h")]
-        public decimal? ContractVolume24h { get; set; }
+        public decimal? ContractVolume { get; set; }
         /// <summary>
         /// ["<c>volCurrencyQuote24h</c>"] Volume in the last 24h in quote asset, available on websocket updates
         /// </summary>
         [JsonPropertyName("volCurrencyQuote24h")]
-        public decimal? QuoteVolume24h { get; set; }
+        public decimal? QuoteVolume { get; set; }
         /// <summary>
         /// ["<c>ts</c>"] Timestamp
         /// </summary>

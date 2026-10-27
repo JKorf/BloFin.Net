@@ -7,11 +7,11 @@ using System.Text.Json;
 
 namespace BloFin.Net.Clients.MessageHandlers
 {
-    internal class BloFinSocketFuturesMessageConverter : JsonSocketMessageHandler
+    internal class BloFinSocketMessageConverter : JsonSocketMessageHandler
     {
         public override JsonSerializerOptions Options { get; } = BloFinExchange._serializerContext;
 
-        public BloFinSocketFuturesMessageConverter()
+        public BloFinSocketMessageConverter()
         {
             AddTopicMapping<BloFinSocketResponse>(x => x.Parameters.TryGetValue("instId", out var symbol) ? symbol : null);
             AddTopicMapping<BloFinSocketUpdate>(x => x.Parameters.TryGetValue("instId", out var symbol) ? symbol : null);

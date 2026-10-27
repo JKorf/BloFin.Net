@@ -25,11 +25,6 @@ namespace BloFin.Net.Objects.Models
         [JsonPropertyName("quoteCurrency")]
         public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
-        /// ["<c>contractValue</c>"] Contract size
-        /// </summary>
-        [JsonPropertyName("contractValue")]
-        public decimal? ContractSize { get; set; }
-        /// <summary>
         /// ["<c>listTime</c>"] List time
         /// </summary>
         [JsonPropertyName("listTime")]
@@ -64,11 +59,6 @@ namespace BloFin.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("instType")]
         public SymbolType SymbolType { get; set; }
-        /// <summary>
-        /// ["<c>contractType</c>"] Contract type
-        /// </summary>
-        [JsonPropertyName("contractType")]
-        public ContractType? ContractType { get; set; }
         /// <summary>
         /// ["<c>maxLimitSize</c>"] Max limit order quantity in base asset
         /// </summary>

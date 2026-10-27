@@ -33,12 +33,12 @@ namespace BloFin.Net.Objects.Models
         /// ["<c>marginMode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("marginMode")]
-        public MarginMode MarginMode { get; set; }
+        public MarginMode? MarginMode { get; set; }
         /// <summary>
         /// ["<c>positionSide</c>"] Position side
         /// </summary>
         [JsonPropertyName("positionSide")]
-        public PositionSide PositionSide { get; set; }
+        public PositionSide? PositionSide { get; set; }
         /// <summary>
         /// ["<c>side</c>"] Order side
         /// </summary>
@@ -63,12 +63,12 @@ namespace BloFin.Net.Objects.Models
         /// ["<c>reduceOnly</c>"] Reduce only
         /// </summary>
         [JsonPropertyName("reduceOnly")]
-        public bool ReduceOnly { get; set; }
+        public bool? ReduceOnly { get; set; }
         /// <summary>
         /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
-        public decimal Leverage { get; set; }
+        public decimal? Leverage { get; set; }
         /// <summary>
         /// ["<c>state</c>"] Order status
         /// </summary>
@@ -79,12 +79,11 @@ namespace BloFin.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("filledSize")]
         public decimal QuantityFilled { get; set; }
-        [JsonInclude, JsonPropertyName("filledAmount")]
-        internal decimal QuantityFilled3
-        {
-            get => QuantityFilled;
-            set => QuantityFilled = value;
-        }
+        /// <summary>
+        /// ["<c>filledSize</c>"] Quantity filled
+        /// </summary>
+        [JsonPropertyName("filledAmount")]
+        public decimal? QuoteQuantityFilled { get; set; }
         /// <summary>
         /// ["<c>averagePrice</c>"] Average fill price
         /// </summary>
@@ -94,12 +93,12 @@ namespace BloFin.Net.Objects.Models
         /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
-        public decimal Fee { get; set; }
+        public decimal? Fee { get; set; }
         /// <summary>
         /// ["<c>pnl</c>"] Profit and loss
         /// </summary>
         [JsonPropertyName("pnl")]
-        public decimal Pnl { get; set; }
+        public decimal? Pnl { get; set; }
         /// <summary>
         /// ["<c>createTime</c>"] Create time
         /// </summary>
@@ -166,10 +165,25 @@ namespace BloFin.Net.Objects.Models
         [JsonPropertyName("algoId")]
         public string? AlgoId { get; set; }
         /// <summary>
+        /// ["<c>positionId</c>"] Position id
+        /// </summary>
+        [JsonPropertyName("positionId")]
+        public string? PositionId { get; set; }
+        /// <summary>
         /// ["<c>brokerId</c>"] Broker id
         /// </summary>
         [JsonPropertyName("brokerId")]
         public string? BrokerId { get; set; }
+        /// <summary>
+        /// ["<c>feeCurrency</c>"] Fee asset (Spot)
+        /// </summary>
+        [JsonPropertyName("feeCurrency")]
+        public string? FeeAsset { get; set; }
+        /// <summary>
+        /// ["<c>targetCurrency</c>"] Target asset (Spot)
+        /// </summary>
+        [JsonPropertyName("targetCurrency")]
+        public AssetType? TargetAsset { get; set; }
     }
 
 

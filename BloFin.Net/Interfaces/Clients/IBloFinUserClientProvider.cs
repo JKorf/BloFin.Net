@@ -1,4 +1,3 @@
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces;
 
 namespace BloFin.Net.Interfaces.Clients

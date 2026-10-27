@@ -95,6 +95,11 @@ namespace BloFin.Net.Objects.Models
         [JsonPropertyName("createTime")]
         public DateTime CreateTime { get; set; }
         /// <summary>
+        /// ["<c>positionId</c>"] Position id
+        /// </summary>
+        [JsonPropertyName("positionId")]
+        public string? PositionId { get; set; }
+        /// <summary>
         /// ["<c>brokerId</c>"] Broker id
         /// </summary>
         [JsonPropertyName("brokerId")]

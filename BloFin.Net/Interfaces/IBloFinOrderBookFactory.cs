@@ -10,12 +10,14 @@ namespace BloFin.Net.Interfaces
     /// </summary>
     public interface IBloFinOrderBookFactory : IExchangeService
     {
-        
         /// <summary>
-        /// Exchange order book factory methods
+        /// Spot order book factory methods
+        /// </summary>
+        IOrderBookFactory<BloFinOrderBookOptions> Spot { get; }
+        /// <summary>
+        /// Futures order book factory methods
         /// </summary>
         IOrderBookFactory<BloFinOrderBookOptions> Futures { get; }
-
 
         /// <summary>
         /// Create a SymbolOrderBook for the symbol
@@ -24,12 +26,15 @@ namespace BloFin.Net.Interfaces
         /// <param name="options">Book options</param>
         /// <returns></returns>
         ISymbolOrderBook Create(SharedSymbol symbol, Action<BloFinOrderBookOptions>? options = null);
-
-        
+                
         /// <summary>
         /// Create a new local order book instance
         /// </summary>
         ISymbolOrderBook CreateFutures(string symbol, Action<BloFinOrderBookOptions>? options = null);
 
+        /// <summary>
+        /// Create a new local order book instance
+        /// </summary>
+        ISymbolOrderBook CreateSpot(string symbol, Action<BloFinOrderBookOptions>? options = null);
     }
 }

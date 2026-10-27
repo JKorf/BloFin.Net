@@ -1,19 +1,14 @@
 using BloFin.Net.Enums;
-using BloFin.Net.Interfaces.Clients.FuturesApi;
 using BloFin.Net.Objects.Models;
 using CryptoExchange.Net;
-using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 
 namespace BloFin.Net.Clients.FuturesApi
 {
@@ -69,6 +64,56 @@ namespace BloFin.Net.Clients.FuturesApi
                 return HttpResult.Fail<SharedId>(result);
 
             return HttpResult.Ok(result, new SharedId(result.Data.OrderId.ToString()));
+        }
+
+        #endregion
+
+        #region Place Multiple Futures Orders
+
+        /// <inheritdoc />
+        public bool PlaceMultipleFuturesOrdersAllowsMultipleSymbols => true;
+        public int? MaxFuturesOrdersPerRequest => null;
+
+        async Task<IExchangeCallResult<CallResult<SharedId>[]>> IPlaceMultipleFuturesOrders.PlaceMultipleFuturesOrdersAsync(PlaceMultipleFuturesOrdersRequest request, CancellationToken ct)
+            => await PlaceMultipleFuturesOrdersAsync(request, ct).ConfigureAwait(false);
+
+        public PlaceMultipleFuturesOrdersOptions PlaceMultipleFuturesOrdersOptions { get; } = new PlaceMultipleFuturesOrdersOptions(_exchangeName);
+        public async Task<HttpResult<CallResult<SharedId>[]>> PlaceMultipleFuturesOrdersAsync(PlaceMultipleFuturesOrdersRequest request, CancellationToken ct)
+        {
+            var validationError = PlaceMultipleFuturesOrdersOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return HttpResult.Fail<CallResult<SharedId>[]>(Exchange, validationError);
+
+            var result = await _api.Trading.PlaceMultipleOrdersAsync(
+                request.Orders.Select(x => new BloFinOrderRequest
+                {
+                    Symbol = x.Symbol!.GetSymbol(FormatSymbol),
+                    OrderSide = x.Side == SharedOrderSide.Buy ? Enums.OrderSide.Buy : Enums.OrderSide.Sell,
+                    OrderType = GetOrderType(x.OrderType, x.TimeInForce),
+                    MarginMode = x.MarginMode == SharedMarginMode.Isolated ? MarginMode.Isolated : MarginMode.Cross,
+                    Quantity = x.Quantity?.QuantityInContracts ?? 0,
+                    Price = x.Price,
+                    PositionSide = x.PositionSide == null ? null : x.PositionSide == SharedPositionSide.Long ? PositionSide.Long : PositionSide.Short,
+                    ReduceOnly = x.ReduceOnly,
+                    ClientOrderId = x.ClientOrderId,
+                    TakeProfitTriggerPrice = x.TakeProfitPrice,
+                    StopLossTriggerPrice = x.StopLossPrice,
+                }),
+                ct: ct
+                ).ConfigureAwait(false);
+
+            var resultData = result.Data?.Select(x =>
+            {
+                if (!x.Success)
+                    return CallResult.Fail<SharedId>(x.Error);
+
+                return CallResult.Ok(new SharedId(x.Data.OrderId.ToString()));
+            }).ToArray() ?? [];
+
+            if (!result.Success)
+                return HttpResult.Fail<CallResult<SharedId>[]>(result, data: resultData);
+
+            return HttpResult.Ok<CallResult<SharedId>[]>(result, resultData);
         }
 
         #endregion
@@ -457,6 +502,66 @@ namespace BloFin.Net.Clients.FuturesApi
                 return HttpResult.Fail<SharedId>(result);
 
             return HttpResult.Ok(result, new SharedId(null!));
+        }
+
+        #endregion
+
+        #region Edit Futures Order
+
+        async Task<IExchangeCallResult<SharedId>> IEditFuturesOrder.EditFuturesOrderAsync(EditOrderRequest request, CancellationToken ct)
+            => await EditFuturesOrderAsync(request, ct).ConfigureAwait(false);
+
+        public EditFuturesOrderOptions EditFuturesOrderOptions { get; } = new EditFuturesOrderOptions(_exchangeName);
+        public async Task<HttpResult<SharedId>> EditFuturesOrderAsync(EditOrderRequest request, CancellationToken ct)
+        {
+            var validationError = EditFuturesOrderOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return HttpResult.Fail<SharedId>(Exchange, validationError);
+
+            var result = await _api.Trading.EditOrderAsync(
+                request.SymbolName(FormatSymbol),
+                request.OrderId,
+                null,
+                newQuantity: request.Quantity?.QuantityInContracts,
+                newPrice: request.Price,
+                ct: ct
+                ).ConfigureAwait(false);
+
+            if (!result.Success)
+                return HttpResult.Fail<SharedId>(result);
+
+            return HttpResult.Ok(result, new SharedId(result.Data.OrderId?.ToString()));
+
+        }
+
+        #endregion
+
+        #region Edit Futures Order By Client Order Id
+
+        async Task<IExchangeCallResult<SharedId>> IEditFuturesOrderByClientOrderId.EditFuturesOrderByClientOrderIdAsync(EditOrderRequest request, CancellationToken ct)
+            => await EditFuturesOrderByClientOrderIdAsync(request, ct).ConfigureAwait(false);
+
+        public EditFuturesOrderByClientOrderIdOptions EditFuturesOrderByClientOrderIdOptions { get; } = new EditFuturesOrderByClientOrderIdOptions(_exchangeName, true);
+        public async Task<HttpResult<SharedId>> EditFuturesOrderByClientOrderIdAsync(EditOrderRequest request, CancellationToken ct)
+        {
+            var validationError = EditFuturesOrderByClientOrderIdOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return HttpResult.Fail<SharedId>(Exchange, validationError);
+
+            var result = await _api.Trading.EditOrderAsync(
+                request.SymbolName(FormatSymbol),
+                null,
+                clientOrderId: request.OrderId,
+                newQuantity: request.Quantity?.QuantityInContracts,
+                newPrice: request.Price,
+                ct: ct
+                ).ConfigureAwait(false);
+
+            if (!result.Success)
+                return HttpResult.Fail<SharedId>(result);
+
+            return HttpResult.Ok(result, new SharedId(result.Data.OrderId?.ToString()));
+
         }
 
         #endregion

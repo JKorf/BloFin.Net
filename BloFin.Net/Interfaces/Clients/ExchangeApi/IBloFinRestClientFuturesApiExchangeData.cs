@@ -88,7 +88,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<HttpResult<BloFinMarkIndexPrice>> GetIndexMarkPriceAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BloFinMarkIndexPrice[]>> GetIndexMarkPriceAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get funding rate info
@@ -101,7 +101,7 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["<c>instId</c>"] The symbol, for example `ETH-USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<HttpResult<BloFinFundingRate>> GetFundingRateAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BloFinFundingRate[]>> GetFundingRateAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get funding rate history

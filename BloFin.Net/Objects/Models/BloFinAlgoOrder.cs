@@ -28,12 +28,12 @@ namespace BloFin.Net.Objects.Models
         /// ["<c>marginMode</c>"] Margin mode
         /// </summary>
         [JsonPropertyName("marginMode")]
-        public MarginMode MarginMode { get; set; }
+        public MarginMode? MarginMode { get; set; }
         /// <summary>
         /// ["<c>positionSide</c>"] Position side
         /// </summary>
         [JsonPropertyName("positionSide")]
-        public PositionSide PositionSide { get; set; }
+        public PositionSide? PositionSide { get; set; }
         /// <summary>
         /// ["<c>side</c>"] Side
         /// </summary>
@@ -48,7 +48,12 @@ namespace BloFin.Net.Objects.Models
         /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
-        public decimal Leverage { get; set; }
+        public decimal? Leverage { get; set; }
+        /// <summary>
+        /// ["<c>orderType</c>"] Order type
+        /// </summary>
+        [JsonPropertyName("orderType")]
+        public AlgoOrderType OrderType { get; set; }
         /// <summary>
         /// ["<c>state</c>"] Status
         /// </summary>
@@ -65,6 +70,11 @@ namespace BloFin.Net.Objects.Models
         [JsonPropertyName("triggerPrice")]
         public decimal? TriggerPrice { get; set; }
         /// <summary>
+        /// ["<c>orderPrice</c>"] Order price
+        /// </summary>
+        [JsonPropertyName("orderPrice")]
+        public decimal? OrderPrice { get; set; }
+        /// <summary>
         /// ["<c>triggerPriceType</c>"] Trigger price type
         /// </summary>
         [JsonPropertyName("triggerPriceType")]
@@ -79,6 +89,11 @@ namespace BloFin.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("createTime")]
         public DateTime CreateTime { get; set; }
+        /// <summary>
+        /// ["<c>targetCurrency</c>"] Target asset (Spot)
+        /// </summary>
+        [JsonPropertyName("targetCurrency")]
+        public AssetType? TargetAsset { get; set; }
         /// <summary>
         /// ["<c>attachAlgoOrders</c>"] Attach algo orders
         /// </summary>

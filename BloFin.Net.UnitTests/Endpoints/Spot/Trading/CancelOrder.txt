@@ -1,0 +1,5 @@
+POST
+/api/v1/spot/trade/cancel-order
+true
+BodyParams: {}
+{"code":"0","msg":"Order canceled","data":[{"orderId":"3000043416246","clientOrderId":"","msg":"","code":"0"}]}

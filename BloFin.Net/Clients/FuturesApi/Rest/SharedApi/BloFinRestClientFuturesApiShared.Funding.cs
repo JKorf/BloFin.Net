@@ -1,24 +1,49 @@
-using BloFin.Net.Enums;
-using BloFin.Net.Interfaces.Clients.FuturesApi;
-using BloFin.Net.Objects.Models;
 using CryptoExchange.Net;
-using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 
 namespace BloFin.Net.Clients.FuturesApi
 {
     internal partial class BloFinRestClientFuturesSharedApi
     {
+        #region Get Funding Info
+
+        async Task<IExchangeCallResult<SharedFundingInfo>> IGetFundingInfo.GetFundingInfoAsync(GetFundingInfoRequest request, CancellationToken ct)
+            => await GetFundingInfoAsync(request, ct).ConfigureAwait(false);
+
+        public GetFundingInfoOptions GetFundingInfoOptions { get; } = new GetFundingInfoOptions(_exchangeName, false, false, false, 0, false);
+
+        public async Task<HttpResult<SharedFundingInfo>> GetFundingInfoAsync(GetFundingInfoRequest request, CancellationToken ct)
+        {
+            var validationError = GetFundingInfoOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return HttpResult.Fail<SharedFundingInfo>(Exchange, validationError);
+
+            // Get data
+            var result = await _api.ExchangeData.GetFundingRateAsync(
+                request.Symbol!.GetSymbol(FormatSymbol),
+                ct: ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<SharedFundingInfo>(result);
+
+            var fundingInfo = result.Data.SingleOrDefault();
+            if (fundingInfo == null)
+                return HttpResult.Fail<SharedFundingInfo>(Exchange, new ServerError(ErrorType.UnknownSymbol, "No funding info returned"));
+
+            // Return
+            return HttpResult.Ok(result, new SharedFundingInfo(
+                fundingInfo.FundingRate,
+                fundingInfo.FundingTime,
+                fundingInfo.FundingInterval));
+        }
+
+        #endregion
+
         #region Get Funding Rate History
 
         async Task<IExchangeCallResult<SharedFundingRate[]>> IGetFundingRateHistory.GetFundingRateHistoryAsync(GetFundingRateHistoryRequest request, PageRequest? pageRequest, CancellationToken ct)

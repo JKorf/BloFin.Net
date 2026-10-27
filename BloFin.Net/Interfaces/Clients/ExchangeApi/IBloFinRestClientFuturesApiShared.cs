@@ -63,6 +63,14 @@ namespace BloFin.Net.Interfaces.Clients.FuturesApi
         IPlaceFuturesTriggerOrderRest,
         IGetFuturesTriggerOrderRest,
         ICancelFuturesTriggerOrderRest,
-        IGetPositionHistoryRest
+        IGetPositionHistoryRest,
+        IGetMarkPriceRest,
+        IGetAllMarkPricesRest,
+        IGetFundingInfoRest,
+        IGetLeverageTiersRest,
+        IPlaceMultipleFuturesOrdersRest,
+        IEditFuturesOrderRest,
+        IEditFuturesOrderByClientOrderIdRest,
+        IGetAllAssetsRest
     { }
 }

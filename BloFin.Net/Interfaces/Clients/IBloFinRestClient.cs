@@ -1,9 +1,7 @@
 using BloFin.Net.Interfaces.Clients.Apis;
 using BloFin.Net.Interfaces.Clients.FuturesApi;
 using BloFin.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces.Clients;
-using CryptoExchange.Net.Objects.Options;
 
 namespace BloFin.Net.Interfaces.Clients
 {
@@ -15,6 +13,7 @@ namespace BloFin.Net.Interfaces.Clients
         /// <summary>
         /// Spot API endpoints
         /// </summary>
+        /// <see cref="IBloFinRestClientSpotApi"/>
         IBloFinRestClientSpotApi SpotApi { get; }
         /// <summary>
         /// General account API endpoints

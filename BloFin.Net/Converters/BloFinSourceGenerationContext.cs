@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace BloFin.Net.Converters
 {
+    [JsonSerializable(typeof(BloFinResponse<BloFinSpotTrade[]>))]
     [JsonSerializable(typeof(BloFinResponse<BloFinSymbolV3[]>))]
     [JsonSerializable(typeof(BloFinResponse<BloFinPositionTier[]>))]
     [JsonSerializable(typeof(BloFinResponse<BloFinPositionHistory[]>))]
@@ -48,6 +49,7 @@ namespace BloFin.Net.Converters
     [JsonSerializable(typeof(BloFinResponse<BloFinUserTrade[]>))]
     [JsonSerializable(typeof(BloFinResponse<BloFinPriceLimit>))]
     [JsonSerializable(typeof(BloFinResponse<BloFinClosePositionResult>))]
+    [JsonSerializable(typeof(BloFinResponse<BloFinAsset[]>))]
     [JsonSerializable(typeof(BloFinResponse))]
 
     [JsonSerializable(typeof(BloFinSocketRequest))]
@@ -59,13 +61,14 @@ namespace BloFin.Net.Converters
     [JsonSerializable(typeof(BloFinSocketUpdate<BloFinTicker[]>))]
     [JsonSerializable(typeof(BloFinSocketUpdate<BloFinSpotTicker[]>))]
     [JsonSerializable(typeof(BloFinSocketUpdate<BloFinSpotKline[]>))]
-    [JsonSerializable(typeof(BloFinSocketUpdate<BloFinFundingRate[]>))]
+    [JsonSerializable(typeof(BloFinSocketUpdate<BloFinFundingUpdate[]>))]
     [JsonSerializable(typeof(BloFinSocketUpdate<BloFinPosition[]>))]
     [JsonSerializable(typeof(BloFinSocketUpdate<BloFinOrder[]>))]
     [JsonSerializable(typeof(BloFinSocketUpdate<BloFinAlgoOrderUpdate[]>))]
     [JsonSerializable(typeof(BloFinSocketUpdate<BloFinFuturesBalances>))]
     [JsonSerializable(typeof(BloFinSocketUpdate<BloFinFuturesInverseBalanceUpdate>))]
 
+    [JsonSerializable(typeof(BloFinSpotOrderRequest[]))]
     [JsonSerializable(typeof(BloFinOrderRequest[]))]
     [JsonSerializable(typeof(BloFinCancelRequest[]))]
     [JsonSerializable(typeof(BloFinTpSlOrderRequest[]))]

@@ -1,0 +1,5 @@
+GET
+/api/v1/spot/trade/orders-algo-pending
+true
+UriParams: {}
+{  "code": "0",  "msg": "success",  "data": [    {      "algoId": "2101",      "clientOrderId": "BBBBqqqq",      "instId": "ETH-USDT",      "marginMode": null,      "positionSide": null,      "side": "sell",      "orderType": "trigger",      "size": "1",      "leverage": null,      "state": "canceled",      "triggerPrice": "1661.100000000000000000",      "triggerPriceType": "last",      "brokerId": "",      "attachAlgoOrders": null    }  ]}

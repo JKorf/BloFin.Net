@@ -1,11 +1,9 @@
 using BloFin.Net.Clients;
 using BloFin.Net.Interfaces;
 using BloFin.Net.Interfaces.Clients;
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
 using CryptoExchange.Net.Trackers.Trades;
-using CryptoExchange.Net.Trackers.UserData;
 using CryptoExchange.Net.Trackers.UserData.Interfaces;
 using CryptoExchange.Net.Trackers.UserData.Objects;
 using Microsoft.Extensions.DependencyInjection;
@@ -100,6 +98,35 @@ namespace BloFin.Net
                 period,
                 TradeQuantityType.Contracts,
                 exchangeParameters
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig? config = null)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<IBloFinRestClient>() ?? new BloFinRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IBloFinSocketClient>() ?? new BloFinSocketClient();
+            return new BloFinUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BloFinUserSpotDataTracker>>() ?? new NullLogger<BloFinUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, BloFinCredentials credentials, SpotUserDataTrackerConfig? config = null, BloFinEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<IBloFinUserClientProvider>() ?? new BloFinUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new BloFinUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BloFinUserSpotDataTracker>>() ?? new NullLogger<BloFinUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
                 );
         }
 

@@ -1,5 +1,3 @@
-using BloFin.Net.Enums;
-using BloFin.Net.Interfaces.Clients.FuturesApi;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
@@ -13,11 +11,12 @@ namespace BloFin.Net.Clients.FuturesApi
 {
     internal partial class BloFinSocketClientFuturesSharedApi
     {
+        #region Subscribe To Kline Updates
+
         public SubscribeKlineOptions SubscribeKlineOptions { get; } = new SubscribeKlineOptions(_exchangeName, false)
         {
             SupportsMultipleSymbols = true
         };
-        #region Subscribe To Kline Updates
 
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(SubscribeKlineRequest request, Action<DataEvent<SharedKline>> handler, CancellationToken ct)
         {
