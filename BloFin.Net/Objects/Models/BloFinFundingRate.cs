@@ -1,3 +1,4 @@
+using BloFin.Net.Enums;
 using System;
 using System.Text.Json.Serialization;
 
@@ -43,7 +44,11 @@ namespace BloFin.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("fundingIntervalUnit")]
         public string FundingIntervalUnit { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>fundingKind</c>"] Funding kind
+        /// </summary>
+        [JsonPropertyName("fundingKind")]
+        public FundingKind FundingKind { get; set; }
     }
-
 
 }

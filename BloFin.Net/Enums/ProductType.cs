@@ -19,6 +19,11 @@ namespace BloFin.Net.Enums
         /// ["<c>COIN-FUTURES</c>"] Coin futures
         /// </summary>
         [Map("COIN-FUTURES")]
-        CoinFutures
+        CoinFutures,
+        /// <summary>
+        /// ["<c>USDC-FUTURES</c>"] USDC futures
+        /// </summary>
+        [Map("USDC-FUTURES")]
+        UsdcFutures
     }
 }

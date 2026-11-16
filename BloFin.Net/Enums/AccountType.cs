@@ -39,6 +39,11 @@ namespace BloFin.Net.Enums
         /// ["<c>inverse_contract</c>"] Inverse contract account
         /// </summary>
         [Map("inverse_contract")]
-        InverseContract
+        InverseContract,
+        /// <summary>
+        /// ["<c>usdc_contract</c>"] USDC contract account
+        /// </summary>
+        [Map("usdc_contract")]
+        UsdcContract
     }
 }
