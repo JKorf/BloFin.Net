@@ -131,14 +131,11 @@ Console.WriteLine(result.Data.LastPrice);
 The request and response models belong to `CryptoExchange.Net.SharedApis`, so the same operation can accept another exchange's `IGetTickerRest` implementation. When using dependency injection, inject `IBloFinSharedApiClient` to access all of the exchange's Shared API surfaces or inject a capability such as `IGetTickerRest` directly. Use `GetCapability` on the aggregate when the operation, transport, or trading mode is selected at runtime.
 
 ## AI documentation
-For AI coding assistants and quick onboarding:
-* [AGENTS.md](AGENTS.md) skill-style instructions for BloFin.Net usage
-* [`llms.txt`](llms.txt) provides concise AI context
-* [`llms-full.txt`](llms-full.txt) provides detailed patterns, pitfalls and endpoint routing
-* [`docs/ai-api-map.md`](docs/ai-api-map.md) maps common intents to client members
-* [`Examples/ai-friendly`](Examples/ai-friendly) contains compact examples that are compiled by the test suite
 
-See [cryptoexchange-skills-hub](https://github.com/JKorf/cryptoexchange-skills-hub) for installable skills.
+- [Library skill](.claude/skills/blofin-net/SKILL.md): Consumer guidance and API references.
+- [Repository instructions](AGENTS.md): Development workflow and documentation ownership.
+- [llms.txt](llms.txt): Local documentation index.
+- [Complete examples](Examples/ai-friendly/): Programs compiled by the documentation test.
 
 ## CryptoExchange.Net
 BloFin.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.

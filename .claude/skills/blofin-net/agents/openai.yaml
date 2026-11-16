@@ -1,0 +1,4 @@
+interface:
+  display_name: "BloFin.Net"
+  short_description: "Build C# BloFin spot and futures integrations."
+  default_prompt: "Use $blofin-net to implement a BloFin.Net spot or futures REST or websocket workflow."

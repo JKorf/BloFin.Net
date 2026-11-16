@@ -1,247 +1,51 @@
----
-description: "AI assistant guide for BloFin.Net"
-applyTo: "**/*"
----
+# Working on BloFin.Net
 
-# BloFin.Net AI Coding Guide
+For library development, use this file. For code that consumes the library, read the [BloFin.Net skill](.claude/skills/blofin-net/SKILL.md). [llms.txt](llms.txt) indexes the remaining documentation.
 
-BloFin.Net is a CryptoExchange.Net-based client for the BloFin REST and websocket APIs. Use this file as the source of truth when generating code for this repository.
+## Repository layout
 
-## Package And Client Shape
+- [Client interfaces](BloFin.Net/Interfaces/Clients/): public endpoint signatures and XML documentation.
+- [Clients](BloFin.Net/Clients/): REST, WebSocket, and Shared API implementations, grouped by API and transport.
+- [Models](BloFin.Net/Objects/Models/), [options](BloFin.Net/Objects/Options/), and [enums](BloFin.Net/Enums/): wire models and configuration.
+- [Unit tests](BloFin.Net.UnitTests/): request/response fixtures, subscription validation, and example compilation.
+- [AI-friendly examples](Examples/ai-friendly/): complete consumer programs.
 
-- NuGet package id: `BloFin.Net`
-- Root namespace: `BloFin.Net`
-- REST client: `BloFinRestClient`
-- Socket client: `BloFinSocketClient`
-- REST roots:
-  - `restClient.AccountApi`
-  - `restClient.FuturesApi`
-  - `restClient.SpotApi`
-- API-specific REST sub-clients:
-  - `restClient.FuturesApi.ExchangeData`
-  - `restClient.FuturesApi.Account`
-  - `restClient.FuturesApi.Trading`
-  - `restClient.SpotApi.ExchangeData`
-  - `restClient.SpotApi.Account`
-  - `restClient.SpotApi.Trading`
-- Socket roots:
-  - `socketClient.FuturesApi`
-  - `socketClient.SpotApi`
-- Shared clients:
-  - `restClient.AccountApi.SharedApi`
-  - `restClient.FuturesApi.SharedApi`
-  - `restClient.SpotApi.SharedApi`
-  - `socketClient.FuturesApi.SharedApi`
-  - `socketClient.SpotApi.SharedApi`
+## Build and validation
 
-Do not invent roots such as `SpotApiV3`, `UsdFuturesApi`, `FuturesApiV2`, `ExchangeApi`, `CoinFuturesApi`, or `PerpetualFuturesApi`. BloFin.Net uses `AccountApi` for general account endpoints, `FuturesApi` for futures, and `SpotApi` for spot.
+Run commands from the repository root. Use the SDK configured in the [build workflow](.github/workflows/dotnet.yml); targets and dependencies are defined in the [library project](BloFin.Net/BloFin.Net.csproj).
 
-## Credentials And Options
-
-BloFin credentials require API key, API secret and passphrase:
-
-```csharp
-var restClient = new BloFinRestClient(options =>
-{
-    options.ApiCredentials = new BloFinCredentials("API_KEY", "API_SECRET", "PASSPHRASE");
-});
+```sh
+dotnet restore BloFin.Net.sln
+dotnet build BloFin.Net.sln --no-restore
+dotnet test BloFin.Net.UnitTests/BloFin.Net.UnitTests.csproj --no-build --filter "FullyQualifiedName!~IntegrationTests"
 ```
 
-The README notes that BloFin API keys should be created as `Connect to Third-Party Application` with `JKorf` selected as the application name.
+Debug builds select a subset of frameworks. To check every supported target:
 
-Useful options:
-
-- `BloFinRestOptions.Environment` defaults to `BloFinEnvironment.Live`
-- `BloFinRestOptions.BrokerId`
-- `BloFinRestOptions.FuturesOptions`
-- `BloFinRestOptions.SpotOptions`
-- `BloFinSocketOptions.Environment` defaults to `BloFinEnvironment.Live`
-- `BloFinSocketOptions.SocketSubscriptionsCombineTarget` defaults to `10`
-- `BloFinSocketOptions.FuturesOptions`
-- `BloFinSocketOptions.SpotOptions`
-- Use `BloFinRestClient.SetDefaultOptions(...)` and `BloFinSocketClient.SetDefaultOptions(...)` for application-wide defaults
-- Use `services.AddBloFin(...)` for dependency injection
-
-## Symbol Rules
-
-BloFin futures and spot symbols use hyphen-separated instrument ids:
-
-- `BTC-USDT`
-- `ETH-USDT`
-
-Do not rewrite symbols into:
-
-- `BTCUSDT`
-- `BTC_USDT`
-- `BTC/USDT`
-- `tBTCUSD`
-
-Use the relevant `FuturesApi.ExchangeData.GetSymbolsAsync()` or `SpotApi.ExchangeData.GetSymbolsAsync()` method to discover supported instruments.
-
-## REST Endpoint Routing
-
-General account endpoints are under `restClient.AccountApi`:
-
-- `GetAccountBalancesAsync(AccountType accountType, string? asset = null)`
-- `TransferAsync(asset, fromAccount, toAccount, quantity, clientId)`
-- `GetAccountConfigAsync()`
-- `GetApiKeyInfoAsync()`
-- `GetTransferHistoryAsync(...)`
-- `GetWithdrawalHistoryAsync(...)`
-- `GetDepositHistoryAsync(...)`
-
-Spot endpoints are grouped under `restClient.SpotApi`:
-
-- Market data: `ExchangeData.GetSymbolsAsync()`, `GetTickersAsync(symbol)`, `GetOrderBookAsync(symbol, depth)`, `GetRecentTradesAsync(symbol, limit)`, `GetKlinesAsync(symbol, interval, ...)`
-- Account: `Account.GetBalancesAsync(accountType, asset)`, `TransferAsync(...)`, `GetTransferHistoryAsync(...)`
-- Trading: `Trading.PlaceOrderAsync(...)`, `PlaceMultipleOrdersAsync(orders)`, `CancelOrderAsync(...)`, `GetOpenOrdersAsync(...)`, `GetOrderAsync(...)`, `GetOrderHistoryAsync(...)`, `GetUserTradesAsync(...)`
-
-Futures exchange data is under `restClient.FuturesApi.ExchangeData`:
-
-- `GetSymbolsAsync(symbol)`
-- `GetSymbolsV3Async()`
-- `GetTickersAsync(symbol)`
-- `GetOrderBookAsync(symbol, depth)`
-- `GetRecentTradesAsync(symbol, limit)`
-- `GetIndexMarkPriceAsync(symbol)`
-- `GetFundingRateAsync(symbol)`
-- `GetFundingRateHistoryAsync(symbol, ...)`
-- `GetKlinesAsync(symbol, KlineInterval.OneMinute, ...)`
-- `GetIndexPriceKlinesAsync(symbol, KlineInterval.OneMinute, ...)`
-- `GetMarkPriceKlinesAsync(symbol, KlineInterval.OneMinute, ...)`
-- `GetPositionTiersAsync(symbol, marginMode)`
-
-Futures account endpoints are under `restClient.FuturesApi.Account`:
-
-- `GetBalancesAsync(productType)`
-- `GetMarginModeAsync()`
-- `SetMarginModeAsync(marginMode)`
-- `GetPositionModeAsync()`
-- `SetPositionModeAsync(positionMode, multiPositionMode)`
-- `GetLeverageAsync(symbol, marginMode)`
-- `SetLeverageAsync(symbol, leverage, marginMode, positionSide)`
-
-Futures trading endpoints are under `restClient.FuturesApi.Trading`:
-
-- `GetPositionsAsync(symbol)`
-- `PlaceOrderAsync(symbol, side, orderType, quantity, marginMode, price, positionSide, reduceOnly, clientOrderId, ...)`
-- `PlaceMultipleOrdersAsync(orders)`
-- `PlaceTpSlOrderAsync(...)`
-- `PlaceTriggerOrderAsync(...)`
-- `EditOrderAsync(...)`
-- `CancelOrderAsync(orderId, symbol, clientOrderId)`
-- `CancelOrdersAsync(orders)`
-- `CancelTpSlOrdersAsync(orders)`
-- `CancelTriggerOrderAsync(orderId, symbol, clientOrderId)`
-- `GetOpenOrdersAsync(...)`
-- `GetOpenTpSlOrdersAsync(...)`
-- `GetOpenTriggerOrdersAsync(...)`
-- `ClosePositionAsync(symbol, marginMode, positionSide, clientOrderId)`
-- `GetOrderAsync(symbol, orderId, clientOrderId)`
-- `GetTpSlOrderAsync(symbol, orderId, clientOrderId)`
-- `GetClosedOrdersAsync(...)`
-- `GetClosedTpSlOrdersAsync(...)`
-- `GetClosedTriggerOrdersAsync(...)`
-- `GetUserTradesAsync(...)`
-- `GetPriceLimitsAsync(symbol, side)`
-- `GetPositionHistoryAsync(...)`
-
-## Websocket Routing
-
-Use `socketClient.FuturesApi` for futures and `socketClient.SpotApi` for spot.
-
-Public subscriptions:
-
-- `SubscribeToTradeUpdatesAsync(symbol, ...)`
-- `SubscribeToKlineUpdatesAsync(symbol, KlineInterval.OneMinute, ...)`
-- `SubscribeToIndexPriceKlineUpdatesAsync(symbol, KlineInterval.OneMinute, ...)`
-- `SubscribeToMarkPriceKlineUpdatesAsync(symbol, KlineInterval.OneMinute, ...)`
-- `SubscribeToOrderBookUpdatesAsync(symbol, depth, ...)`
-- `SubscribeToTickerUpdatesAsync(symbol, ...)`
-- `SubscribeToFundingRateUpdatesAsync(symbol, ...)`
-
-Private subscriptions:
-
-- `SubscribeToPositionUpdatesAsync(...)`
-- `SubscribeToOrderUpdatesAsync(...)`
-- `SubscribeToTriggerOrderUpdatesAsync(...)`
-- `SubscribeToBalanceUpdatesAsync(...)`
-- `SubscribeToInverseBalanceUpdatesAsync(...)`
-
-Spot private subscriptions include order, algo-order and balance updates.
-
-Always check `subscription.Success` before using `subscription.Data`. Unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
-
-## Enums To Use
-
-- Account types: `AccountType`
-- Products: `ProductType`
-- Klines: `KlineInterval.OneMinute`, `ThreeMinutes`, `FiveMinutes`, `FifteenMinutes`, `OneHour`, `OneDay`
-- Orders: `OrderSide.Buy`, `OrderSide.Sell`
-- Order types: `OrderType.Market`, `Limit`, `PostOnly`, `FillOrKill`, `ImmediateOrCancel`, `GoodTillCancel`
-- Margin: `MarginMode.Cross`, `MarginMode.Isolated`
-- Position mode: `PositionMode.OneWayMode`, `PositionMode.HedgeMode`
-- Position side: `PositionSide.Long`, `Short`, `Net`
-- Trigger price: `TriggerPriceType`
-
-## Result Handling
-
-REST calls return `HttpResult<T>` and socket subscriptions return `WebSocketResult<UpdateSubscription>`.
-
-```csharp
-var result = await client.FuturesApi.ExchangeData.GetTickersAsync("ETH-USDT");
-if (!result.Success)
-{
-    Console.WriteLine(result.Error);
-    return;
-}
-
-Console.WriteLine(result.Data.FirstOrDefault()?.LastPrice);
+```sh
+dotnet build BloFin.Net/BloFin.Net.csproj -p:BuildAllFrameworks=true
 ```
 
-Never assume `Data` is populated when `Success` is false.
+Run focused tests for the change. For edits to consumer examples:
 
-## Shared Futures Symbol Metadata
+```sh
+dotnet test BloFin.Net.UnitTests/BloFin.Net.UnitTests.csproj --filter FullyQualifiedName~AiExampleCompileTests
+```
 
-The futures shared client publishes its symbols to the CryptoExchange.Net shared symbol catalog. Shared futures symbols include trading constraints and asset classifications such as crypto, equity and commodity where BloFin's V3 metadata identifies them. Prefer the shared catalog when multi-exchange code needs normalized symbol or asset-type metadata.
+That test compiles the examples; it does not execute their exchange operations or validate Markdown snippets. The normal test command above excludes integration fixtures. Native REST and socket integration fixtures have `Run = false`; Shared REST integration can be enabled with `INTEGRATION=1`. Inspect integration fixtures before running the unfiltered CI test command; they can contact the exchange. Do not enable authenticated exchange calls as part of routine validation.
 
-Shared futures quantities are contract-based. Book tickers, trades, user trades, positions and position history expose `SharedOrderQuantity` values through `QuantityInContracts`; shared order books identify their entries with `SharedQuantityType.Contracts`.
+## Implementation conventions
 
-## Local Order Book And Trackers
+- Use the matching client interface and a neighboring endpoint implementation as the starting point. Preserve endpoint metadata, serialization, signing, rate limits, and cancellation behavior.
+- Update public interfaces and XML documentation together with implementations. Add meaningful request/response or subscription coverage when behavior changes.
+- Keep Shared API adapters consistent with native endpoint behavior; verify capability support and trading modes against the implemented surface.
+- Preserve serialization compatibility and source-generated JSON metadata when changing models.
+- Keep changes compatible with every target in the library project; gate framework-specific APIs where required.
 
-BloFin.Net includes:
+## AI documentation ownership
 
-- `BloFinOrderBookFactory`
-- `BloFinSymbolOrderBook`
-- `BloFinSpotSymbolOrderBook`
-- `BloFinTrackerFactory`
-- `BloFinUserFuturesDataTracker`
-
-Use these when code needs maintained local order book state or user data tracking instead of manually combining snapshots and websocket deltas.
-
-`BloFinOrderBookFactory` exposes `Futures`, `Spot`, `CreateFutures(...)` and `CreateSpot(...)`. `BloFinTrackerFactory` can create both futures and spot user-data trackers; generic kline and trade trackers remain futures-only.
-
-## Common Pitfalls
-
-- Do not use `ExchangeApi`; BloFin REST uses `AccountApi`, `SpotApi` and `FuturesApi`.
-- Do not use `SpotApiV3`, `UsdFuturesApi`, `FuturesApiV2`, or other invented versioned API roots.
-- Do not omit the passphrase when creating `BloFinCredentials`.
-- Do not convert `ETH-USDT` to `ETHUSDT`, `ETH_USDT`, or `ETH/USDT`.
-- Use `KlineInterval`, not `BinPeriod`.
-- Futures order quantities are contract sizes; do not assume spot/base-asset semantics.
-
-## Source Files To Inspect Before Changing API Usage
-
-- `BloFin.Net/Interfaces/Clients/Apis/IBloFinRestClientAccountApi.cs`
-- `BloFin.Net/Interfaces/Clients/ExchangeApi/IBloFinRestClientFuturesApiExchangeData.cs`
-- `BloFin.Net/Interfaces/Clients/ExchangeApi/IBloFinRestClientFuturesApiAccount.cs`
-- `BloFin.Net/Interfaces/Clients/ExchangeApi/IBloFinRestClientFuturesApiTrading.cs`
-- `BloFin.Net/Interfaces/Clients/ExchangeApi/IBloFinSocketClientExchangeApi.cs`
-- `BloFin.Net/Interfaces/Clients/SpotApi/IBloFinRestClientSpotApiExchangeData.cs`
-- `BloFin.Net/Interfaces/Clients/SpotApi/IBloFinRestClientSpotApiAccount.cs`
-- `BloFin.Net/Interfaces/Clients/SpotApi/IBloFinRestClientSpotApiTrading.cs`
-- `BloFin.Net/Interfaces/Clients/SpotApi/IBloFinSocketClientSpotApi.cs`
-- `BloFin.Net/Objects/Options/BloFinRestOptions.cs`
-- `BloFin.Net/Objects/Options/BloFinSocketOptions.cs`
-- `BloFin.Net/BloFinCredentials.cs`
-- `Examples/ai-friendly`
+- [SKILL.md](.claude/skills/blofin-net/SKILL.md) owns consumer conventions and routes to detailed skill references.
+- [API surfaces](.claude/skills/blofin-net/references/api-surfaces.md) owns endpoint routing; [usage](.claude/skills/blofin-net/references/usage.md) owns snippets.
+- Link to those files instead of repeating API guides here or in tool-specific instructions.
+- Keep skill links relative. References outside the skill are checkout-only; packaged guidance must remain usable without repository sources.
+- The project packs [.claude/skills](.claude/skills/) into `skills/` in NuGet. After changing its layout, inspect package entries and verify referenced resources are included.

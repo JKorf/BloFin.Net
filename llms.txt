@@ -1,105 +1,18 @@
 # BloFin.Net
 
-BloFin.Net is a CryptoExchange.Net-based .NET client for BloFin REST and websocket APIs.
+> A .NET client library for BloFin spot and derivatives REST and WebSocket APIs.
 
-## Install
+## Library usage
 
-```bash
-dotnet add package BloFin.Net
-```
+- [BloFin.Net skill](.claude/skills/blofin-net/SKILL.md): Consumer conventions and task-specific guidance.
+- [API surfaces](.claude/skills/blofin-net/references/api-surfaces.md): Client roots, intent-to-method routing, and Shared APIs.
+- [Usage examples](.claude/skills/blofin-net/references/usage.md): Authentication, REST, WebSockets, and dependency injection.
+- [Operational considerations](.claude/skills/blofin-net/references/safety.md): Credentials, order handling, and retry decisions.
 
-## Client Shape
+## Repository and reference
 
-```csharp
-using BloFin.Net;
-using BloFin.Net.Clients;
-using BloFin.Net.Enums;
-
-var restClient = new BloFinRestClient(options =>
-{
-    options.ApiCredentials = new BloFinCredentials("API_KEY", "API_SECRET", "PASSPHRASE");
-});
-
-var socketClient = new BloFinSocketClient();
-```
-
-REST:
-
-- `restClient.AccountApi`
-- `restClient.SpotApi.ExchangeData`
-- `restClient.SpotApi.Account`
-- `restClient.SpotApi.Trading`
-- `restClient.FuturesApi.ExchangeData`
-- `restClient.FuturesApi.Account`
-- `restClient.FuturesApi.Trading`
-- `restClient.AccountApi.SharedApi`
-- `restClient.SpotApi.SharedApi`
-- `restClient.FuturesApi.SharedApi`
-
-Sockets:
-
-- `socketClient.SpotApi`
-- `socketClient.SpotApi.SharedApi`
-- `socketClient.FuturesApi`
-- `socketClient.FuturesApi.SharedApi`
-
-There is no `ExchangeApi`, `UsdFuturesApi`, `FuturesApiV2`, `SpotApiV3`, or credential overload without passphrase.
-
-REST calls return `HttpResult<T>` or `HttpResult`. WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers return `ExchangeCallResult<T>`. Always check `.Success` before reading `.Data`.
-
-## Common Calls
-
-```csharp
-var symbols = await restClient.FuturesApi.ExchangeData.GetSymbolsAsync();
-var symbolMetadata = await restClient.FuturesApi.ExchangeData.GetSymbolsV3Async();
-var ticker = await restClient.FuturesApi.ExchangeData.GetTickersAsync("ETH-USDT");
-var klines = await restClient.FuturesApi.ExchangeData.GetKlinesAsync("ETH-USDT", KlineInterval.OneMinute, limit: 100);
-var book = await restClient.FuturesApi.ExchangeData.GetOrderBookAsync("ETH-USDT", 20);
-var balances = await restClient.FuturesApi.Account.GetBalancesAsync();
-var openOrders = await restClient.FuturesApi.Trading.GetOpenOrdersAsync("ETH-USDT");
-var spotTicker = await restClient.SpotApi.ExchangeData.GetTickersAsync("ETH-USDT");
-```
-
-## Trading
-
-```csharp
-var order = await restClient.FuturesApi.Trading.PlaceOrderAsync(
-    symbol: "ETH-USDT",
-    side: OrderSide.Buy,
-    orderType: OrderType.Limit,
-    quantity: 1m,
-    marginMode: MarginMode.Cross,
-    price: 2000m,
-    positionSide: PositionSide.Long);
-```
-
-## Sockets
-
-```csharp
-var sub = await socketClient.FuturesApi.SubscribeToTickerUpdatesAsync("ETH-USDT", update =>
-{
-    Console.WriteLine(update.Data.LastPrice);
-});
-```
-
-## Shared Clients
-
-```csharp
-using CryptoExchange.Net.SharedApis;
-
-var futuresShared = restClient.FuturesApi.SharedApi;
-var spotShared = restClient.SpotApi.SharedApi;
-// Use the exchange-level `IBloFinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
-```
-
-Use the exchange-level `IBloFinSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
-
-The futures and spot shared clients expose normalized CryptoExchange.Net capabilities. The futures shared client also populates the symbol catalog with normalized trading constraints and asset classifications.
-
-## BloFin Details
-
-- Use BloFin-native futures and spot symbols such as `ETH-USDT`.
-- Use `KlineInterval`, not `BinPeriod`.
-- Credentials are `BloFinCredentials(key, secret, passphrase)`.
-- REST/socket options use `FuturesOptions` and `SpotOptions`; `ExchangeOptions` was removed.
-- `BloFinTrackerFactory` supports spot and futures user-data trackers; generic kline/trade trackers remain futures-only.
+- [README](README.md): Overview, installation, release notes, and documentation site link.
+- [Repository instructions](AGENTS.md): Development workflow and documentation ownership.
+- [Client interfaces](BloFin.Net/Interfaces/Clients/): Exact endpoint signatures and XML documentation.
+- [Library project](BloFin.Net/BloFin.Net.csproj): Package version, dependencies, and target frameworks.
+- [AI-friendly examples](Examples/ai-friendly/): Complete programs compiled by the documentation test.
