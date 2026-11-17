@@ -37,9 +37,6 @@ namespace BloFin.Net
         /// <inheritdoc />
         public bool CanCreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval)
         {
-            if (symbol.TradingMode == TradingMode.Spot)
-                return false;
-
             var client = (_serviceProvider?.GetRequiredService<IBloFinSocketClient>() ?? new BloFinSocketClient());
             return client.FuturesApi.SharedClient.SubscribeKlineOptions.IsSupported(interval);
         }
@@ -47,9 +44,6 @@ namespace BloFin.Net
         /// <inheritdoc />
         public bool CanCreateTradeTracker(SharedSymbol symbol)
         {
-            if (symbol.TradingMode == TradingMode.Spot)
-                return false;
-
             return true;
         }
 
@@ -59,12 +53,19 @@ namespace BloFin.Net
             var restClient = _serviceProvider?.GetRequiredService<IBloFinRestClient>() ?? new BloFinRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IBloFinSocketClient>() ?? new BloFinSocketClient();
 
+            IGetKlinesRest sharedRestClient;
+            ISubscribeKlinesSocket sharedSocketClient;
             if (symbol.TradingMode == TradingMode.Spot)
-                throw new InvalidOperationException("Spot not supported");
+            {
+                sharedRestClient = restClient.SpotApi.SharedApi;
+                sharedSocketClient = socketClient.SpotApi.SharedApi;
+            }
+            else
+            {
+                sharedRestClient = restClient.FuturesApi.SharedApi;
+                sharedSocketClient = socketClient.FuturesApi.SharedApi;
+            }
             
-            var sharedRestClient = restClient.FuturesApi.SharedClient;
-            var sharedSocketClient = socketClient.FuturesApi.SharedClient;
-
             return new KlineTracker(
                 _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
                 sharedRestClient,
@@ -82,11 +83,18 @@ namespace BloFin.Net
             var restClient = _serviceProvider?.GetRequiredService<IBloFinRestClient>() ?? new BloFinRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IBloFinSocketClient>() ?? new BloFinSocketClient();
 
-            if (symbol.TradingMode == TradingMode.Spot)            
-                throw new InvalidOperationException("Spot not supported");
-
-            var sharedRestClient = restClient.FuturesApi.SharedClient;
-            var sharedSocketClient = socketClient.FuturesApi.SharedClient;
+            IGetRecentTradesRest sharedRestClient;
+            ISubscribeTradesSocket sharedSocketClient;
+            if (symbol.TradingMode == TradingMode.Spot)
+            {
+                sharedRestClient = restClient.SpotApi.SharedApi;
+                sharedSocketClient = socketClient.SpotApi.SharedApi;
+            }
+            else
+            {
+                sharedRestClient = restClient.FuturesApi.SharedApi;
+                sharedSocketClient = socketClient.FuturesApi.SharedApi;
+            }
 
             return new TradeTracker(
                 _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
