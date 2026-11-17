@@ -226,6 +226,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 4.1.0 - 17 Nov 2026
+    * Updated CryptoExchange.Net to v13.3.0
+    * Added UsdcContract value to AccountType and ProductType enums
+    * Added FundingKind property to BloFinFundingRate model
+
 * Version 4.0.0 - 27 Oct 2026
     * Spot API
       * Added Spot API implementation
