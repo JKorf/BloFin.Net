@@ -1,0 +1,18 @@
+{
+  "baseBranch": "main",
+  "sdk": "11.0.100",
+  "packages": [
+    {
+      "key": "blofin",
+      "project": "BloFin.Net/BloFin.Net.csproj",
+      "testProjects": [
+        "BloFin.Net.UnitTests/BloFin.Net.UnitTests.csproj"
+      ],
+      "packageId": "BloFin.Net",
+      "readme": "README.md",
+      "tagPrefix": "BloFin.Net.",
+      "releaseIntegrationTests": false,
+      "publishToGitHubPackages": true
+    }
+  ]
+}
