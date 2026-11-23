@@ -13,7 +13,7 @@ namespace BloFin.Net.Clients.FuturesApi
         async Task<IExchangeCallResult<SharedAsset[]>> IGetAllAssets.GetAllAssetsAsync(GetAssetsRequest request, CancellationToken ct)
             => await ((IGetAllAssetsRest)this).GetAllAssetsAsync(request, ct).ConfigureAwait(false);
 
-        public GetAllAssetsOptions GetAllAssetsOptions { get; } = new GetAllAssetsOptions(_exchangeName, false);
+        public GetAllAssetsOptions GetAllAssetsOptions { get; } = new GetAllAssetsOptions(_exchangeName, true);
         public async Task<HttpResult<SharedAsset[]>> GetAllAssetsAsync(GetAssetsRequest request, CancellationToken ct)
         {
             var validationError = GetAllAssetsOptions.ValidateRequest(request, this);
